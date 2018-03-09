@@ -4,7 +4,7 @@
     <string name="awesome_wan_android">Awesome WanAndroid</string>
 
     //behavior
-    <string name="scale_down_show_behavior">pegasi.binghan.com.geeksandroid.widget.behavior.ScaleDownShowBehavior</string>
+    <string name="scale_down_show_behavior">json.chao.com.wanandroid.widget.behavior.ScaleDownShowBehavior</string>
 
     //通用
     <string name="http_error">网络异常</string>
