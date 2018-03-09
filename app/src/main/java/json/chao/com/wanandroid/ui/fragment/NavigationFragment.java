@@ -90,7 +90,7 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
 
     @Override
     public void showNavigationListFail() {
-        CommonUtils.showMessage(_mActivity, getString(R.string.failed_to_obatin_navigation_list));
+        CommonUtils.showMessage(_mActivity, getString(R.string.failed_to_obtain_navigation_list));
     }
 
     @Override

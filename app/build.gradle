@@ -44,7 +44,7 @@ android {
 greendao {
     schemaVersion 1
     targetGenDir 'src/main/java'
-    daoPackage 'pegasi.binghan.com.geeksandroid.core.dao'
+    daoPackage 'json.chao.com.wanandroid.core.dao'
 }
 
 dependencies {
