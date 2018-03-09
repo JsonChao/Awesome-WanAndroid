@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/search_coordinator_group"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_search_shape"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="false"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="@dimen/dp_6">
+
+        <include layout="@layout/search_toolbar" />
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/search_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:visibility="visible"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_24"
+                android:text="@string/history_search"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/sp_16" />
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/history_search_flow_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_20"
+                app:max_select="0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_24"
+                android:text="@string/hot_search"
+                android:textColor="@color/light_deep_red"
+                android:textSize="@dimen/sp_16" />
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/top_search_flow_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_20"
+                app:max_select="0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_24"
+                android:text="@string/useful_sites"
+                android:textColor="@color/tab_bac"
+                android:textSize="@dimen/sp_16" />
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/useful_sites_flow_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_20"
+                app:max_select="0" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/search_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <com.scwang.smartrefresh.header.BezierCircleHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/search_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/search_floating_action_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/dp_16"
+        android:src="@mipmap/icon_up_arrow"
+        app:layout_behavior="@string/scale_down_show_behavior" />
+</android.support.design.widget.CoordinatorLayout>

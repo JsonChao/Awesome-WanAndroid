@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <q.rorbin.verticaltablayout.VerticalTabLayout
+        android:id="@+id/navigation_tab_layout"
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="match_parent"
+        android:background="@color/transparent"
+        android:padding="@dimen/dp_10"
+        app:indicator_color="@color/indicator_color"
+        app:indicator_corners="@dimen/dp_20"
+        app:indicator_gravity="fill"
+        app:tab_margin="@dimen/dp_20"
+        app:tab_mode="scrollable" />
+
+    <me.kaelaela.verticalviewpager.VerticalViewPager
+        android:id="@+id/navigation_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@id/navigation_tab_layout"
+        android:visibility="gone" />
+</RelativeLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/item_share"
+        android:title="@string/share"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_action_share"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/item_system_browser"
+        android:title="@string/open_it_with_browser"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_action_browser"
+        app:showAsAction="never" />
+</menu>

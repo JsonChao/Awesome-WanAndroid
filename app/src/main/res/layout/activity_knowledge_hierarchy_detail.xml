@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="false"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="@dimen/dp_0">
+
+        <include layout="@layout/common_toolbar" />
+
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/knowledge_hierarchy_detail_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_48"
+            android:paddingStart="@dimen/dp_5"
+            android:paddingEnd="@dimen/dp_5"
+            android:background="@drawable/shape_tab_bg"
+            app:tl_indicator_corner_radius="@dimen/dp_5"
+            app:tl_indicator_margin_left="@dimen/dp_5"
+            app:tl_indicator_margin_right="@dimen/dp_5"
+            app:tl_indicator_style="BLOCK" />
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/knowledge_hierarchy_detail_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/knowledge_floating_action_btn"
+        style="@style/style_float_btn"
+        android:layout_margin="@dimen/dp_16"
+        android:src="@mipmap/icon_up_arrow"
+        app:layout_behavior="@string/scale_down_show_behavior" />
+
+    <ViewStub
+        android:id="@+id/detail_view_stub"
+        android:inflatedId="@+id/main_pager_view_stub"
+        android:layout="@layout/error_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</android.support.design.widget.CoordinatorLayout>

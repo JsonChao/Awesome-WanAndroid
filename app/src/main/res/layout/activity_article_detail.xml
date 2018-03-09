@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/article_detail_group"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/article_detail_toolbar"
+        style="@style/AppTheme.Toolbar"
+        android:background="@drawable/blue_gradient_bg"
+        app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
+        app:titleTextAppearance="@style/Toolbar.TitleText" />
+
+    <ezy.ui.layout.LoadingLayout
+        android:id="@+id/article_detail_loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/article_detail_refresh_Layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srlHeaderHeight="@dimen/dp_150"
+            app:srlHeaderMaxDragRate="1">
+
+            <TextView
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/grey_bac_refresh"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="@dimen/dp_5"
+                android:padding="@dimen/dp_20"
+                android:text="@string/github_qqbrowser_kernel"
+                android:textColor="@color/grey_text_refresh"
+                android:textSize="@dimen/sp_16"
+                app:layout_srlBackgroundColor="@color/grey_text_refresh"
+                app:layout_srlSpinnerStyle="FixedBehind" />
+
+            <WebView
+                android:id="@+id/article_detail_web_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingTop="@dimen/dp_54" />
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </ezy.ui.layout.LoadingLayout>
+</LinearLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#33aaff</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryOverlay">#cc0094ff</color>
+    <color name="not_network_bac">#33ffffff</color>
+    <color name="grey">#cccccc</color>
+    <color name="blue_dark_btn">#009eff</color>
+    <color name="blue_btn">#35B0FF</color>
+    <color name="card_bac">#f7f3f3</color>
+    <color name="colorBackground">#ece5e5</color>
+    <color name="grey_search">#FF999999</color>
+    <color name="light_light_yellow">#dcd3ba</color>
+    <color name="light_yellow">#e7c054</color>
+    <color name="light_red">#e26d2e</color>
+    <color name="light_deep_red">#f9382a</color>
+    <color name="deep_red">#dc3b1f</color>
+    <color name="while_most_color">#e4e4e4</color>
+    <color name="blackish_green">#6D8FB0</color>
+
+    <color name="light_transparent">#00ffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#ffffff</color>
+    <color name="title_black">#222222</color>
+    <color name="common_black_bac">#2b2929</color>
+    <color name="grey_divider">#E5E5E5</color>
+    <color name="blue">#35B0FF</color>
+    <color name="deep_blue">#0539be</color>
+    <color name="yellow">#f39c12</color>
+    <color name="grey_bar">#ECECEC</color>
+    <color name="light_green">#3fc75f</color>
+    <color name="light_blue">#bf33efcd</color>
+    <color name="grey_bac_refresh">#555</color>
+    <color name="grey_text_refresh">#aaa</color>
+    <color name="message_stroke_line">#DDDDDD</color>
+    <color name="tab_bac">#049486</color>
+    <color name="light_tab_bac">#45c1b5</color>
+    <color name="indicator_color">#115E56</color>
+
+</resources>

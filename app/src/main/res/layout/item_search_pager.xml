@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_search_pager_group"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dp_12"
+    android:layout_marginEnd="@dimen/dp_12"
+    android:layout_marginStart="@dimen/dp_12"
+    android:layout_marginTop="@dimen/dp_12"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/dp_3"
+    app:cardElevation="@dimen/dp_2">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_105"
+        android:paddingEnd="@dimen/dp_12"
+        android:paddingStart="@dimen/dp_12">
+
+        <ImageView
+            android:id="@+id/item_search_pager_like_iv"
+            android:layout_width="@dimen/dp_25"
+            android:layout_height="@dimen/dp_25"
+            android:layout_centerVertical="true"
+            android:contentDescription="@null"
+            android:src="@mipmap/icon_like_article_not_selected" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_toEndOf="@id/item_search_pager_like_iv"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/item_search_pager_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/dp_5"
+                android:drawableStart="@mipmap/icon_author"
+                android:gravity="center"
+                android:maxLines="3"
+                android:textColor="@color/title_black"
+                android:textSize="@dimen/sp_16" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/item_search_pager_author"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:id="@+id/item_search_pager_chapterName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:layout_weight="1"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:id="@+id/item_search_pager_niceDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:layout_weight="1"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/sp_12" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

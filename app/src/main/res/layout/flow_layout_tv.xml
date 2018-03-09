@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/commonItemTitle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp_5"
+    android:background="@drawable/item_selector"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center"
+    android:padding="@dimen/dp_10"
+    android:textColor="@android:color/primary_text_light"
+    tools:text="常用网址" />

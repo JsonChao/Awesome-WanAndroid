@@ -1,0 +1,43 @@
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/search_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_64"
+    android:background="@color/colorBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    app:layout_scrollFlags="scroll|enterAlways">
+
+    <ImageButton
+        android:id="@+id/search_back_ib"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_12"
+        android:background="@android:color/transparent"
+        android:contentDescription="@null"
+        android:src="@drawable/selector_back_arrow_bg" />
+
+    <TextView
+        android:id="@+id/search_tv"
+        android:layout_width="@dimen/dp_54"
+        android:layout_height="@dimen/dp_28"
+        android:layout_gravity="end"
+        android:layout_marginEnd="@dimen/dp_12"
+        android:background="@drawable/search_bg"
+        android:contentDescription="@null"
+        android:gravity="center"
+        android:text="@string/action_search"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_12" />
+
+    <EditText
+        android:id="@+id/search_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_12"
+        android:hint="@string/search_tint"
+        android:textColor="@color/grey_search"
+        android:textColorHint="@color/grey_search"
+        android:textCursorDrawable="@drawable/shape_cursor"
+        android:textSize="@dimen/sp_14" />
+</android.support.v7.widget.Toolbar>

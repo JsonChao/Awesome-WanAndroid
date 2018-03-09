@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/tab_main_pager"
+        android:enabled="true"
+        android:icon="@drawable/icon_home_pager_not_selected"
+        android:title="@string/home_pager"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/tab_knowledge_hierarchy"
+        android:enabled="true"
+        android:icon="@drawable/icon_knowledge_hierarchy_not_selected"
+        android:title="@string/knowledge_hierarchy"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/tab_navigation"
+        android:enabled="true"
+        android:icon="@drawable/icon_navigation_not_selected"
+        android:title="@string/navigation"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/tab_project"
+        android:enabled="true"
+        android:icon="@drawable/icon_project_not_selected"
+        android:title="@string/project"
+        app:showAsAction="ifRoom" />
+</menu>

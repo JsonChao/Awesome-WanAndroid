@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.AboutUsActivity">
+
+    <com.scwang.smartrefresh.header.flyrefresh.MountainSceneView
+        android:id="@+id/about_us_mountain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:msvPrimaryColor="@color/colorPrimary"
+        app:msvViewportHeight="@dimen/dp_340" />
+    <!--srlViewportHeightHeight 设置为-->
+    <!--AppBarLayout.Height + RefreshHeader.Height-->
+    <!--效果最佳-->
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/about_us_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_240"
+        android:background="@android:color/transparent"
+        android:clipChildren="false"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/about_us_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginBottom="@dimen/dp_120"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/about_us_toolbar"
+                style="@style/AppTheme.Toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="?attr/homeAsUpIndicator"
+                app:title="@string/about_us" />
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/about_us_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:srlEnableLoadMore="false"
+        app:srlEnableOverScrollBounce="false"
+        app:srlEnablePreviewInEditMode="true"
+        app:srlHeaderHeight="@dimen/dp_100"
+        app:srlHeaderMaxDragRate="1.5"
+        app:srlReboundDuration="200">
+
+        <com.scwang.smartrefresh.header.FlyRefreshHeader
+            android:id="@+id/about_us_fly_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <include
+            android:id="@+id/about_us_content"
+            layout="@layout/content_about" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/about_us_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_16"
+        app:elevation="@dimen/dp_0"
+        app:fabSize="normal"
+        app:layout_anchor="@id/about_us_content"
+        app:layout_anchorGravity="top" />
+
+    <com.scwang.smartrefresh.header.flyrefresh.FlyView
+        android:id="@+id/about_us_fly_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:elevation="@dimen/dp_3"
+        app:layout_anchor="@id/about_us_fab"
+        app:layout_anchorGravity="center" />
+</android.support.design.widget.CoordinatorLayout>

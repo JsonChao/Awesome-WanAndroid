@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="json.chao.com.wanandroid">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <application
+        android:name="json.chao.com.wanandroid.app.GeeksApp"
+        tools:replace="android:allowBackup"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="json.chao.com.wanandroid.ui.activity.SplashActivity"
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="json.chao.com.wanandroid.ui.activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask" />
+
+        <activity android:name="json.chao.com.wanandroid.ui.activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:exported="false" />
+
+        <activity android:name="json.chao.com.wanandroid.ui.activity.ArticleDetailActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:exported="false" />
+
+        <activity android:name="json.chao.com.wanandroid.ui.activity.KnowledgeHierarchyDetailActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:exported="false" />
+
+        <activity android:name="json.chao.com.wanandroid.ui.activity.CollectActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:exported="false" />
+
+        <activity android:name="json.chao.com.wanandroid.ui.activity.AboutUsActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:exported="false" />
+
+    </application>
+
+</manifest>

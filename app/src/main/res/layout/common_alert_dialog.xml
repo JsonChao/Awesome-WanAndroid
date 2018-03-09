@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_230"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/dialog_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minHeight="@dimen/dp_60"
+        android:textColor="@color/title_black"
+        android:textSize="@dimen/sp_16" />
+
+    <View
+        android:id="@+id/line"
+        style="@style/style_line"
+        android:layout_below="@id/dialog_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/line"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/dialog_btn"
+            style="@style/DialogButtonText"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_30"
+            android:layout_weight="1"
+            android:gravity="center" />
+
+        <View
+            android:id="@+id/dialog_btn_divider"
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="match_parent"
+            android:background="@color/grey_divider"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/dialog_negative_btn"
+            style="@style/DialogButtonText"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_30"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:visibility="gone" />
+    </LinearLayout>
+</RelativeLayout>

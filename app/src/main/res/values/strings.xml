@@ -1,0 +1,84 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">WanAndroid</string>
+    <string name="awesome_wan_android">Awesome WanAndroid</string>
+
+    //behavior
+    <string name="scale_down_show_behavior">pegasi.binghan.com.geeksandroid.widget.behavior.ScaleDownShowBehavior</string>
+
+    //common
+    <string name="http_error">network anomaly</string>
+    <string name="unKnown_error">unKnown error</string>
+    <string name="me">Me</string>
+    <string name="knowledge_hierarchy">Knowledge hierarchy</string>
+    <string name="home_pager">Home pager</string>
+    <string name="navigation">Navigation</string>
+    <string name="project">Project</string>
+    <string name="search_tint">Find more dry goods</string>
+    <string name="action_search">Search</string>
+    <string name="history_search">History Search</string>
+    <string name="hot_search">Top Search</string>
+    <string name="useful_sites">Useful Sites</string>
+    <string name="navigation_drawer_open">Open drawer</string>
+    <string name="navigation_drawer_close">Close drawer</string>
+    <string name="double_click_exit_tint">Press the back button again to exit the GeeksAndroid</string>
+    <string name="ok">OK</string>
+    <string name="no">NO</string>
+    <string name="reload">Reload</string>
+
+    //login
+    <string name="login_title">Login Password</string>
+    <string name="login_account_tint">Please enter user name</string>
+    <string name="login_password_tint">Please enter password</string>
+    <string name="login_confirm_password_tint">Please enter password confirmation</string>
+    <string name="login_in">Login</string>
+    <string name="register">Sign Up</string>
+    <string name="my_collect">Collect</string>
+    <string name="about_us">About Us</string>
+    <string name="auto_login_in">Auto Login</string>
+    <string name="logout">Logout</string>
+    <string name="login_tint">Please login~~</string>
+    <string name="login_success">Login Success</string>
+    <string name="account_password_null_tint">The user name or password cannot be empty</string>
+    <string name="login_fail">Login fail</string>
+    <string name="register_fail">Register fail</string>
+    <string name="password_not_same">Passwords don\'t match</string>
+
+    //main pager
+    <string name="item_article_author">author：<xliff:g id="author">%s</xliff:g></string>
+    <string name="item_article_classify">classify：<xliff:g id="classify">%s</xliff:g></string>
+    <string name="item_article_time">time：<xliff:g id="time">%s</xliff:g></string>
+    <string name="install">install</string>
+    <string name="logout_tint">Log out?</string>
+    <string name="failed_to_obtain_banner_data">Failed to obtain advertising data</string>
+    <string name="failed_to_obtain_article_list">Gets the article list data</string>
+
+    //Knowledge hierarchy
+    <string name="failed_to_obtain_knowledge_data">Failure to obtain knowledge system data</string>
+
+    //Navigation
+    <string name="navigation_tint">%1$s navigation resources continue to be updated</string>
+    <string name="failed_to_obatin_navigation_list">Failed to get the navigation data list</string>
+
+    //Project
+    <string name="failed_to_obtain_project_list">Failed to get the project data list</string>
+    <string name="failed_to_obtain_project_classify_data">Failed to get list of project classified data</string>
+
+    //article detail
+    <string name="share">Share</string>
+    <string name="collect">Collect</string>
+    <string name="cancel_collect">Cancel collect</string>
+    <string name="collect_success">Collect success</string>
+    <string name="collect_fail">Collect fail</string>
+    <string name="cancel_collect_success">Cancel collect success</string>
+    <string name="cancel_collect_fail">Cancel collect fail</string>
+    <string name="failed_to_obtain_collection_data">Failed to obtain collection data</string>
+    <string name="open_it_with_browser">Open it with the system browser</string>
+    <string name="share_type_url">%1$sShare【%2$s】special top：%3$s</string>
+
+    //搜索
+    <string name="failed_to_obtain_search_data_list">Failed to obtain search data list</string>
+    <string name="failed_to_obtain_top_data">Failed to get hot data</string>
+    <string name="failed_to_obtain_useful_sites_data">Failed to obtain useful website data</string>
+
+
+</resources>

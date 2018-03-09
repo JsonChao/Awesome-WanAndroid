@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dp_12"
+    android:layout_marginEnd="@dimen/dp_12"
+    android:layout_marginStart="@dimen/dp_12"
+    android:layout_marginTop="@dimen/dp_12"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/dp_3"
+    app:cardElevation="@dimen/dp_2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_180"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_12">
+
+        <ImageView
+            android:id="@+id/item_project_list_iv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:contentDescription="@null"
+            android:src="@mipmap/ic_launcher" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_weight="5">
+
+            <TextView
+                android:id="@+id/item_project_list_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_6"
+                android:drawablePadding="@dimen/dp_5"
+                android:drawableStart="@mipmap/icon_author"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textColor="@color/title_black"
+                android:textSize="@dimen/sp_16"
+                tools:text="【开源完整项目】diycode客户端" />
+
+            <TextView
+                android:id="@+id/item_project_list_content_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_project_list_title_tv"
+                android:layout_marginTop="@dimen/dp_16"
+                android:ellipsize="end"
+                android:maxLines="4"
+                tools:text="Diycode 社区客户端，可以更方便的在手机上查看社区信息。应用采用了数据多级缓存，并且实现了离线浏览(访问过一次的页面会被缓存下来，没有网络也可查看)，相比于网页版，在一定程度上可以" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@id/item_project_list_content_tv">
+
+                <TextView
+                    android:id="@+id/item_project_list_time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    tools:text="2018-01-29" />
+
+                <TextView
+                    android:id="@+id/item_project_list_author_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp_5"
+                    android:layout_toEndOf="@id/item_project_list_time_tv"
+                    android:gravity="center"
+                    tools:text="GcsSloop" />
+
+                <TextView
+                    android:id="@+id/item_project_list_install_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp_5"
+                    android:text="@string/install"
+                    android:textColor="@color/colorAccent"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

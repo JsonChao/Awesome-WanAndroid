@@ -1,0 +1,160 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'com.neenbedankt.android-apt'// 注释处理
+apply plugin: 'me.tatarka.retrolambda'
+
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        applicationId "json.chao.com.wanandroid"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true    // Enable RS support
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+
+    dexOptions {
+        jumboMode true
+        javaMaxHeapSize "4g"
+    }
+}
+
+greendao {
+    schemaVersion 1
+    targetGenDir 'src/main/java'
+    daoPackage 'pegasi.binghan.com.geeksandroid.core.dao'
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    // android support libraries
+    compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    compile "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
+    compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
+    compile "com.android.support:design:$rootProject.supportLibraryVersion"
+
+    //constraint
+    compile "com.android.support.constraint:constraint-layout:$rootProject.constraintVersion"
+
+    //lottie
+    compile "com.airbnb.android:lottie:$rootProject.lottieVersion"
+
+    //BaseRecyclerViewAdapterHelper
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
+
+    //loading layout
+    compile 'com.github.czy1121:loadinglayout:1.0.1'
+
+    //avi
+    compile 'com.wang.avi:library:2.1.3'
+
+    //SmartRefreshLayout
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1'
+
+    //banner
+    compile 'com.youth.banner:banner:1.4.10'
+
+    //tab layout
+    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+
+    //VerticalTabLayout
+    compile 'q.rorbin:VerticalTabLayout:1.2.5'
+
+    //VerticalViewpager
+    compile 'me.kaelaela:verticalviewpager:1.0.0@aar'
+
+    //flow layout
+    compile 'com.hyman:flowlayout-lib:1.1.2'
+
+    //fragmentation
+    compile "me.yokeyword:fragmentation:$rootProject.fragmentationVersion"
+    compile "me.yokeyword:fragmentation-swipeback:$rootProject.fragmentationVersion"
+
+    //Rx
+    compile "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
+    compile "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
+    compile "com.jakewharton.rxbinding2:rxbinding:$rootProject.rxbindingVersion"
+
+    //dagger
+    compile "com.google.dagger:dagger:$rootProject.daggerVersion"
+    apt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
+    compile "org.glassfish:javax.annotation:$rootProject.javaxVersion"
+
+    //butterknife
+    compile "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
+    apt "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
+
+    //NetWork
+    compile "com.google.code.gson:gson:$rootProject.gsonVersion"
+    compile "com.squareup.okhttp3:okhttp:$rootProject.okhttpVersion"
+    compile "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpVersion"
+    compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    compile "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+    compile "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
+
+    //Glide
+    compile "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
+
+    //GreenDao
+    compile "org.greenrobot:greendao:$rootProject.greendaoVersion"
+
+    //Bugly集成
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
+
+    //logger日志
+    compile "com.orhanobut:logger:$rootProject.loggerVersion"
+
+    //ByeBurger
+    compile "com.github.githubwing:ByeBurger:$rootProject.ByeBurgerVersion"
+
+    //LeakCanary
+    debugCompile "com.squareup.leakcanary:leakcanary-android:$rootProject.leakcanaryVersion"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakcanaryVersion"
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakcanaryVersion"
+
+    //Unit Test
+    testCompile "junit:junit:$rootProject.junitVersion"
+}
+
+//解决支持库版本不兼容问题
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '25.3.0'
+            }
+        }
+    }
+}
+repositories {
+    mavenCentral()
+}

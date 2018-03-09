@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/common_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_54"
+    android:background="@drawable/blue_gradient_bg"
+    app:layout_scrollFlags="scroll|enterAlways">
+
+    <ImageButton
+        android:id="@+id/common_toolbar_back_ib"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:contentDescription="@null"
+        android:src="@mipmap/icon_comn_back" />
+
+    <TextView
+        android:id="@+id/common_toolbar_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16"
+        tools:text="开发环境" />
+</android.support.v7.widget.Toolbar>

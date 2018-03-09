@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/other">
+        <item android:id="@+id/nav_item_my_collect"
+            android:icon="@mipmap/icon_like_article_selected"
+            android:title="@string/my_collect" />
+
+        <item android:id="@+id/nav_item_about_us"
+            android:icon="@mipmap/icon_about_us"
+            android:title="@string/about_us" />
+
+        <item android:id="@+id/nav_item_logout"
+            android:icon="@mipmap/icon_logout"
+            android:title="@string/logout" />
+    </group>
+</menu>

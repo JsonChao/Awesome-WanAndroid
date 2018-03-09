@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/login_group"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/icon_login_bg"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/login_toolbar"
+        style="@style/AppTheme.Toolbar"
+        app:navigationIcon="@drawable/ic_arrow_back_black_24dp" />
+
+    <ImageView
+        android:id="@+id/login_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_android"
+        android:contentDescription="@null"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_32"
+        android:layout_below="@+id/login_toolbar" />
+
+    <LinearLayout
+        android:id="@+id/login_account_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_12"
+        android:layout_marginStart="@dimen/dp_32"
+        android:layout_marginEnd="@dimen/dp_32"
+        android:layout_marginTop="@dimen/dp_32"
+        android:background="@drawable/shape_rectangle_bg"
+        android:layout_below="@id/login_iv"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="@dimen/dp_36"
+            android:layout_height="@dimen/dp_36"
+            android:src="@drawable/ic_account"
+            android:contentDescription="@null" />
+
+        <EditText
+            android:id="@+id/login_account_edit"
+            style="@style/style_circle_edit"
+            android:hint="@string/login_account_tint"
+            android:layout_marginStart="@dimen/dp_6"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/login_password_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_12"
+        android:layout_marginStart="@dimen/dp_32"
+        android:layout_marginEnd="@dimen/dp_32"
+        android:layout_marginTop="@dimen/dp_1"
+        android:background="@drawable/shape_rectangle_bg"
+        android:layout_below="@id/login_account_group"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="@dimen/dp_36"
+            android:layout_height="@dimen/dp_36"
+            android:src="@drawable/ic_password"
+            android:contentDescription="@null" />
+
+        <EditText
+            android:id="@+id/login_password_edit"
+            style="@style/style_circle_edit"
+            android:hint="@string/login_password_tint"
+            android:inputType="textPassword"
+            android:layout_marginStart="@dimen/dp_6" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/register_btn"
+        style="@style/style_circle_btn"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp_64"
+        android:layout_marginTop="@dimen/dp_24"
+        android:text="@string/register" />
+
+    <Button
+        android:id="@+id/login_btn"
+        style="@style/style_circle_btn"
+        android:layout_above="@+id/register_btn"
+        android:layout_marginTop="@dimen/dp_32"
+        android:text="@string/login_in" />
+</RelativeLayout>

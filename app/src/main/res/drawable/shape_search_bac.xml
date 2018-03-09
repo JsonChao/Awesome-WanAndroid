@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <size
+        android:width="@dimen/dp_48"
+        android:height="@dimen/dp_30" />
+
+    <gradient
+        android:endColor="@color/deep_red"
+        android:startColor="@color/light_red" />
+
+    <corners
+        android:bottomLeftRadius="@dimen/dp_12"
+        android:bottomRightRadius="@dimen/dp_12"
+        android:topLeftRadius="@dimen/dp_12"
+        android:topRightRadius="@dimen/dp_12" />
+</shape>
