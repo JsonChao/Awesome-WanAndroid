@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import json.chao.com.wanandroid.core.DataManager;
-import json.chao.com.wanandroid.base.RxPresenter;
+import json.chao.com.wanandroid.base.BasePresenter;
 import json.chao.com.wanandroid.contract.SplashContract;
 
 
@@ -17,7 +17,7 @@ import json.chao.com.wanandroid.contract.SplashContract;
  * @date 2017/11/29
  */
 
-public class SplashPresenter extends RxPresenter<SplashContract.View> implements SplashContract.Presenter {
+public class SplashPresenter extends BasePresenter<SplashContract.View> implements SplashContract.Presenter {
 
     private DataManager dataManager;
 

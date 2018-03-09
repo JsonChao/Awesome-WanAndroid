@@ -2,11 +2,11 @@ package json.chao.com.wanandroid.contract;
 
 import java.util.List;
 
+import json.chao.com.wanandroid.base.AbstractPresenter;
 import json.chao.com.wanandroid.core.bean.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.FeedArticleListResponse;
 import json.chao.com.wanandroid.core.bean.TopSearchDataResponse;
 import json.chao.com.wanandroid.core.bean.UsefulSitesResponse;
-import json.chao.com.wanandroid.base.BasePresenter;
 import json.chao.com.wanandroid.base.BaseView;
 import json.chao.com.wanandroid.core.dao.HistoryData;
 
@@ -82,7 +82,7 @@ public interface SearchContract {
 
     }
 
-    interface Presenter extends BasePresenter<SearchContract.View> {
+    interface Presenter extends AbstractPresenter<View> {
 
         /**
          * Add history data

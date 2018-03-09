@@ -9,7 +9,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import json.chao.com.wanandroid.app.GeeksApp;
 import json.chao.com.wanandroid.core.DataManager;
-import json.chao.com.wanandroid.base.RxPresenter;
+import json.chao.com.wanandroid.base.BasePresenter;
 import json.chao.com.wanandroid.contract.SearchContract;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.FeedArticleData;
@@ -27,7 +27,7 @@ import json.chao.com.wanandroid.widget.BaseObserver;
  * @date 2018/2/12
  */
 
-public class SearchPresenter extends RxPresenter<SearchContract.View> implements SearchContract.Presenter {
+public class SearchPresenter extends BasePresenter<SearchContract.View> implements SearchContract.Presenter {
 
     private DataManager mDataManager;
 

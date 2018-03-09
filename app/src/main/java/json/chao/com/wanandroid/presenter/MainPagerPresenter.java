@@ -3,7 +3,7 @@ package json.chao.com.wanandroid.presenter;
 import javax.inject.Inject;
 
 import json.chao.com.wanandroid.core.DataManager;
-import json.chao.com.wanandroid.base.RxPresenter;
+import json.chao.com.wanandroid.base.BasePresenter;
 import json.chao.com.wanandroid.contract.MainPagerContract;
 import json.chao.com.wanandroid.core.bean.BannerResponse;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
@@ -17,7 +17,7 @@ import json.chao.com.wanandroid.widget.BaseObserver;
  * @date 2017/12/7
  */
 
-public class MainPagerPresenter extends RxPresenter<MainPagerContract.View> implements MainPagerContract.Presenter {
+public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> implements MainPagerContract.Presenter {
 
     private DataManager mDataManager;
 

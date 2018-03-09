@@ -3,7 +3,7 @@ package json.chao.com.wanandroid.presenter;
 import javax.inject.Inject;
 
 import json.chao.com.wanandroid.core.DataManager;
-import json.chao.com.wanandroid.base.RxPresenter;
+import json.chao.com.wanandroid.base.BasePresenter;
 import json.chao.com.wanandroid.contract.NavigationContract;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.NavigationListResponse;
@@ -15,7 +15,7 @@ import json.chao.com.wanandroid.widget.BaseObserver;
  * @date 2018/2/11
  */
 
-public class NavigationPresenter extends RxPresenter<NavigationContract.View> implements NavigationContract.Presenter {
+public class NavigationPresenter extends BasePresenter<NavigationContract.View> implements NavigationContract.Presenter {
 
     private DataManager mDataManager;
 

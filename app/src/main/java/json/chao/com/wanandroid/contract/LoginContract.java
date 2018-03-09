@@ -1,7 +1,7 @@
 package json.chao.com.wanandroid.contract;
 
+import json.chao.com.wanandroid.base.AbstractPresenter;
 import json.chao.com.wanandroid.core.bean.LoginResponse;
-import json.chao.com.wanandroid.base.BasePresenter;
 import json.chao.com.wanandroid.base.BaseView;
 
 /**
@@ -39,7 +39,7 @@ public interface LoginContract {
 
     }
 
-    interface Presenter extends BasePresenter<LoginContract.View> {
+    interface Presenter extends AbstractPresenter<View> {
 
         /**
          * Get Login data

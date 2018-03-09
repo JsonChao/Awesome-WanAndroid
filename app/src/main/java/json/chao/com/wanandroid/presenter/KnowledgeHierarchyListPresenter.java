@@ -3,7 +3,7 @@ package json.chao.com.wanandroid.presenter;
 import javax.inject.Inject;
 
 import json.chao.com.wanandroid.core.DataManager;
-import json.chao.com.wanandroid.base.RxPresenter;
+import json.chao.com.wanandroid.base.BasePresenter;
 import json.chao.com.wanandroid.contract.KnowledgeHierarchyListContract;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.FeedArticleData;
@@ -16,7 +16,7 @@ import json.chao.com.wanandroid.widget.BaseObserver;
  * @date 2018/2/23
  */
 
-public class KnowledgeHierarchyListPresenter extends RxPresenter<KnowledgeHierarchyListContract.View>
+public class KnowledgeHierarchyListPresenter extends BasePresenter<KnowledgeHierarchyListContract.View>
         implements KnowledgeHierarchyListContract.Presenter {
 
     private DataManager mDataManager;

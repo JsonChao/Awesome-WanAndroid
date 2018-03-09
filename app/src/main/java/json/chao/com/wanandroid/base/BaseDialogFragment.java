@@ -18,7 +18,7 @@ import json.chao.com.wanandroid.utils.CommonUtils;
  * @date 2017/11/28
  */
 
-public abstract class BaseDialogFragment<T extends BasePresenter> extends AbstractSimpleDialogFragment implements BaseView {
+public abstract class BaseDialogFragment<T extends AbstractPresenter> extends AbstractSimpleDialogFragment implements BaseView {
 
     @Inject
     protected T mPresenter;

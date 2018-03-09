@@ -1,6 +1,6 @@
 package json.chao.com.wanandroid.contract;
 
-import json.chao.com.wanandroid.base.BasePresenter;
+import json.chao.com.wanandroid.base.AbstractPresenter;
 import json.chao.com.wanandroid.base.BaseView;
 
 /**
@@ -15,7 +15,7 @@ public interface KnowledgeHierarchyDetailContract  {
 
     }
 
-    interface Presenter extends BasePresenter<KnowledgeHierarchyDetailContract.View> {
+    interface Presenter extends AbstractPresenter<View> {
 
 
     }

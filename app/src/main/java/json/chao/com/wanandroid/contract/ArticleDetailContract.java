@@ -1,6 +1,6 @@
 package json.chao.com.wanandroid.contract;
 
-import json.chao.com.wanandroid.base.BasePresenter;
+import json.chao.com.wanandroid.base.AbstractPresenter;
 import json.chao.com.wanandroid.base.BaseView;
 import json.chao.com.wanandroid.core.bean.FeedArticleListResponse;
 
@@ -30,7 +30,7 @@ public interface ArticleDetailContract {
 
     }
 
-    interface Presenter extends BasePresenter<ArticleDetailContract.View> {
+    interface Presenter extends AbstractPresenter<View> {
 
         /**
          * Add collect article

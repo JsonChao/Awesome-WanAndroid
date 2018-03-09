@@ -18,7 +18,7 @@ import json.chao.com.wanandroid.utils.CommonUtils;
  * @date 2017/11/28
  */
 
-public abstract class BaseFragment<T extends BasePresenter> extends AbstractSimpleFragment implements BaseView {
+public abstract class BaseFragment<T extends AbstractPresenter> extends AbstractSimpleFragment implements BaseView {
 
     @Inject
     protected T mPresenter;

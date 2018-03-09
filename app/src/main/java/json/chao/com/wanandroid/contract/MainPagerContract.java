@@ -3,7 +3,7 @@ package json.chao.com.wanandroid.contract;
 import json.chao.com.wanandroid.core.bean.BannerResponse;
 import json.chao.com.wanandroid.core.bean.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.FeedArticleListResponse;
-import json.chao.com.wanandroid.base.BasePresenter;
+import json.chao.com.wanandroid.base.AbstractPresenter;
 import json.chao.com.wanandroid.base.BaseView;
 
 /**
@@ -59,7 +59,7 @@ public interface MainPagerContract {
 
     }
 
-    interface Presenter extends BasePresenter<MainPagerContract.View> {
+    interface Presenter extends AbstractPresenter<View> {
 
         /**
          * Get feed article list

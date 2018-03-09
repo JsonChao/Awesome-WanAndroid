@@ -1,6 +1,6 @@
 package json.chao.com.wanandroid.contract;
 
-import json.chao.com.wanandroid.base.BasePresenter;
+import json.chao.com.wanandroid.base.AbstractPresenter;
 import json.chao.com.wanandroid.base.BaseView;
 
 /**
@@ -17,7 +17,7 @@ public interface SplashContract {
         void jumpToMain();
     }
 
-    interface Presenter extends BasePresenter<SplashContract.View> {
+    interface Presenter extends AbstractPresenter<View> {
 
     }
 

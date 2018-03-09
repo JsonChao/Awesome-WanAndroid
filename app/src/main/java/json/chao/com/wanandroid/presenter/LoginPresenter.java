@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import javax.inject.Inject;
 
 import json.chao.com.wanandroid.core.DataManager;
-import json.chao.com.wanandroid.base.RxPresenter;
+import json.chao.com.wanandroid.base.BasePresenter;
 import json.chao.com.wanandroid.contract.LoginContract;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.LoginResponse;
@@ -17,7 +17,7 @@ import json.chao.com.wanandroid.widget.BaseObserver;
  * @date 2018/2/26
  */
 
-public class LoginPresenter extends RxPresenter<LoginContract.View> implements LoginContract.Presenter {
+public class LoginPresenter extends BasePresenter<LoginContract.View> implements LoginContract.Presenter {
 
     private DataManager mDataManager;
 

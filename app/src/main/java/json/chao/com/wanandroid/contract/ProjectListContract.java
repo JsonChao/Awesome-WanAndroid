@@ -1,9 +1,9 @@
 package json.chao.com.wanandroid.contract;
 
+import json.chao.com.wanandroid.base.AbstractPresenter;
 import json.chao.com.wanandroid.core.bean.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.FeedArticleListResponse;
 import json.chao.com.wanandroid.core.bean.ProjectListResponse;
-import json.chao.com.wanandroid.base.BasePresenter;
 import json.chao.com.wanandroid.base.BaseView;
 
 /**
@@ -47,7 +47,7 @@ public interface ProjectListContract {
 
     }
 
-    interface Presenter extends BasePresenter<ProjectListContract.View> {
+    interface Presenter extends AbstractPresenter<View> {
 
         /**
          * Get project list data

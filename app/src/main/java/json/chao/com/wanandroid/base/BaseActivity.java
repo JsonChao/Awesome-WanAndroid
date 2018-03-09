@@ -16,7 +16,7 @@ import json.chao.com.wanandroid.utils.CommonUtils;
  * @date 2017/11/28
  */
 
-public abstract class BaseActivity<T extends BasePresenter> extends AbstractSimpleActivity implements BaseView {
+public abstract class BaseActivity<T extends AbstractPresenter> extends AbstractSimpleActivity implements BaseView {
 
     @Inject
     protected T mPresenter;

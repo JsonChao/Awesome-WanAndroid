@@ -3,7 +3,7 @@ package json.chao.com.wanandroid.presenter;
 import javax.inject.Inject;
 
 import json.chao.com.wanandroid.core.DataManager;
-import json.chao.com.wanandroid.base.RxPresenter;
+import json.chao.com.wanandroid.base.BasePresenter;
 import json.chao.com.wanandroid.contract.ProjectContract;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.ProjectClassifyResponse;
@@ -15,7 +15,7 @@ import json.chao.com.wanandroid.widget.BaseObserver;
  * @date 2018/2/11
  */
 
-public class ProjectPresenter extends RxPresenter<ProjectContract.View> implements ProjectContract.Presenter {
+public class ProjectPresenter extends BasePresenter<ProjectContract.View> implements ProjectContract.Presenter {
 
     private DataManager mDataManager;
 

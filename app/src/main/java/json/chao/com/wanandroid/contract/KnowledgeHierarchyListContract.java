@@ -1,8 +1,8 @@
 package json.chao.com.wanandroid.contract;
 
+import json.chao.com.wanandroid.base.AbstractPresenter;
 import json.chao.com.wanandroid.core.bean.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.FeedArticleListResponse;
-import json.chao.com.wanandroid.base.BasePresenter;
 import json.chao.com.wanandroid.base.BaseView;
 
 /**
@@ -46,7 +46,7 @@ public interface KnowledgeHierarchyListContract {
 
     }
 
-    interface Presenter extends BasePresenter<KnowledgeHierarchyListContract.View> {
+    interface Presenter extends AbstractPresenter<View> {
 
         /**
          * 知识列表

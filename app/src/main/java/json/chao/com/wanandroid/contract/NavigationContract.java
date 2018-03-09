@@ -1,7 +1,7 @@
 package json.chao.com.wanandroid.contract;
 
 import json.chao.com.wanandroid.core.bean.NavigationListResponse;
-import json.chao.com.wanandroid.base.BasePresenter;
+import json.chao.com.wanandroid.base.AbstractPresenter;
 import json.chao.com.wanandroid.base.BaseView;
 
 /**
@@ -26,7 +26,7 @@ public interface NavigationContract {
         void showNavigationListFail();
     }
 
-    interface Presenter extends BasePresenter<NavigationContract.View> {
+    interface Presenter extends AbstractPresenter<View> {
 
         /**
          * Get navigation list data
