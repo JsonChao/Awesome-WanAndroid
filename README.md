@@ -1,7 +1,4 @@
-<div align="center">
-<font size="25">Awesome-WanAndroid</font>
-</div>
-
+#Awesome-WanAndroid
 
 <div align="center">
 <img src="https://img.shields.io/badge/Version-V1.0-brightgreen.svg">
