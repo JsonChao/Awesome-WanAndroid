@@ -1,19 +1,9 @@
-<center>
+<center><font size=25>Awesome-WanAndroid</font></center>
 
-# Awesome-WanAndroid
 
-</center>
-
-<center>
-
-![](https://img.shields.io/badge/Version-V1.0-brightgreen.svg)
-![](https://img.shields.io/badge/build-passing-brightgreen.svg)
-![](https://img.shields.io/badge/API-19+-blue.svg)
-[![](https://img.shields.io/badge/License-Apache2.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
-![](https://img.shields.io/badge/Gamil-chao.qu521@gmail.com-ff69b4.svg)
-
-</center>
-
+<div align="center">
+<img src="https://img.shields.io/badge/Version-V1.0-brightgreen.svg"><img src="https://img.shields.io/badge/build-passing-brightgreen.svg"><img src="https://img.shields.io/badge/API-19+-blue.svg"><img src="https://img.shields.io/badge/License-Apache2.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/badge/Gamil-chao.qu521@gmail.com-ff69b4.svg">
+</div>
 
 <div align="center">
 <img src="https://diycode.b0.upaiyun.com/user/avatar/2468.jpg">
