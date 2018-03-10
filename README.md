@@ -24,29 +24,29 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 ## 预览
 
-<figure class="half">
+<div align="center">
 <img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/251756e695e2bc0a966089c4f05075234e744c76/screenshots/GIF1.gif?raw=true"><img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/251756e695e2bc0a966089c4f05075234e744c76/screenshots/GIF2.gif?raw=true">
-</figure>
+</div>
 
-<figure class="half">
+<div align="center">
 <img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/251756e695e2bc0a966089c4f05075234e744c76/screenshots/GIF3.gif?raw=true"><img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/251756e695e2bc0a966089c4f05075234e744c76/screenshots/GIF4.gif?raw=true">
-</figure>
+</div>
 
-<figure class="half">
+<div align="center">
 <img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/251756e695e2bc0a966089c4f05075234e744c76/screenshots/GIF5.gif?raw=true"><img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/251756e695e2bc0a966089c4f05075234e744c76/screenshots/GIF6.gif?raw=true">
-</figure>
+</div>
 
-<figure class="half">
+<div align="center">
 <img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/7856e3f54ddb601e4533ea52f60f697942a97f14/screenshots/JPG1.jpg?raw=true"><img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/7856e3f54ddb601e4533ea52f60f697942a97f14/screenshots/JPG2.jpg?raw=true">
-</figure>
+</div>
 
-<figure class="half">
+<div align="center">
 <img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/7856e3f54ddb601e4533ea52f60f697942a97f14/screenshots/JPG3.jpg?raw=true"><img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/7856e3f54ddb601e4533ea52f60f697942a97f14/screenshots/JPG4.jpg?raw=true">
-</figure>
+</div>
 
-<figure class="half">
+<div align="center">
 <img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/7856e3f54ddb601e4533ea52f60f697942a97f14/screenshots/JPG5.jpg?raw=true">
-</figure>
+</div>
 
 
 
