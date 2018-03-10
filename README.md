@@ -1,4 +1,4 @@
-# Awesome-WanAndroid
+<h1 align="center">Awesome-WanAndroid</h1>
 
 <div align="center">
 <img src="https://img.shields.io/badge/Version-V1.0-brightgreen.svg">
