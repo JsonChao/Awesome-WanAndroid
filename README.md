@@ -1,4 +1,6 @@
-<div align="center"><font size=25>Awesome-WanAndroid</font></div>
+<div align="center">
+<font size="6">Awesome-WanAndroid</font>
+</div>
 
 
 <div align="center">
