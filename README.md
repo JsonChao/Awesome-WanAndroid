@@ -1,8 +1,12 @@
-<center><font size=25>Awesome-WanAndroid</font></center>
+<div align="center"><font size=25>Awesome-WanAndroid</font></div>
 
 
 <div align="center">
-<img src="https://img.shields.io/badge/Version-V1.0-brightgreen.svg"><img src="https://img.shields.io/badge/build-passing-brightgreen.svg"><img src="https://img.shields.io/badge/API-19+-blue.svg"><img src="https://img.shields.io/badge/License-Apache2.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/badge/Gamil-chao.qu521@gmail.com-ff69b4.svg">
+<img src="https://img.shields.io/badge/Version-V1.0-brightgreen.svg">
+<img src="https://img.shields.io/badge/build-passing-brightgreen.svg">
+<img src="https://img.shields.io/badge/API-19+-blue.svg">
+<img src="https://img.shields.io/badge/License-Apache2.0-blue.svg">
+<img src="https://img.shields.io/badge/Gamil-chao.qu521@gmail.com-ff69b4.svg">
 </div>
 
 <div align="center">
