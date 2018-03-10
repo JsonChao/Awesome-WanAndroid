@@ -3,8 +3,12 @@
 <div align="center">
 <img src="https://img.shields.io/badge/Version-V1.0-brightgreen.svg">
 <img src="https://img.shields.io/badge/build-passing-brightgreen.svg">
-<img src="https://img.shields.io/badge/API-19+-blue.svg">
-<img src="https://img.shields.io/badge/License-Apache2.0-blue.svg">
+<a href="https://developer.android.com/about/versions/android-4.0.html">
+    <img src="https://img.shields.io/badge/API-19+-blue.svg" alt="Min Sdk Version">
+</a>
+<a href="http://www.apache.org/licenses/LICENSE-2.0">
+    <img src="https://img.shields.io/badge/License-Apache2.0-blue.svg" alt="License" />
+</a>
 <img src="https://img.shields.io/badge/Gamil-chao.qu521@gmail.com-ff69b4.svg">
 </div>
 
