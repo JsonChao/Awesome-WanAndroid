@@ -153,6 +153,12 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 [Lottie-android](https://github.com/airbnb/lottie-android)
 
 ### 还有上面没列举的一些优秀的第三方开源库，感谢开源，愿我们一同成长
+
+### About Me
+
+- #### Email:[chao.qu521@gmail.com]()
+- #### Home:[https://jsonchao.github.io/](https://jsonchao.github.io/)
+- #### 掘金:[https://juejin.im/user/5a3ba9375188252bca050ade](https://juejin.im/user/5a3ba9375188252bca050ade)
     
 ### License
 
