@@ -1,5 +1,5 @@
 <div align="center">
-<font size="6">Awesome-WanAndroid</font>
+<font size="25">Awesome-WanAndroid</font>
 </div>
 
 
