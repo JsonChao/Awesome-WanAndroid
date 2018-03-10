@@ -1,10 +1,9 @@
 # Awesome-WanAndroid
 
-<center>
 
-![image](https://diycode.b0.upaiyun.com/user/avatar/2468.jpg)
-
-</center>
+<div align="center">
+<img src="https://diycode.b0.upaiyun.com/user/avatar/2468.jpg">
+</div>
 
 ### 致力于打造一款极致体验的WanAndroid客户端，知识和美是可以并存的哦QAQn(*≧▽≦*)n
 
