@@ -1,4 +1,18 @@
+<center>
+
 # Awesome-WanAndroid
+
+</center>
+
+<center>
+
+![](https://img.shields.io/badge/Version-V1.0-brightgreen.svg)
+![](https://img.shields.io/badge/build-passing-brightgreen.svg)
+![](https://img.shields.io/badge/API-19+-blue.svg)
+[![](https://img.shields.io/badge/License-Apache2.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+![](https://img.shields.io/badge/Gamil-chao.qu521@gmail.com-ff69b4.svg)
+
+</center>
 
 
 <div align="center">
