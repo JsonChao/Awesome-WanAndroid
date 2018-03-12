@@ -1,14 +1,10 @@
-<h1 align="center">Awesome-WanAndroid</h1>
+# Awesome-WanAndroid
 
 <div align="center">
 <img src="https://img.shields.io/badge/Version-V1.0-brightgreen.svg">
 <img src="https://img.shields.io/badge/build-passing-brightgreen.svg">
-<a href="https://developer.android.com/about/versions/android-4.0.html">
-    <img src="https://img.shields.io/badge/API-19+-blue.svg" alt="Min Sdk Version">
-</a>
-<a href="http://www.apache.org/licenses/LICENSE-2.0">
-    <img src="https://img.shields.io/badge/License-Apache2.0-blue.svg" alt="License" />
-</a>
+<img src="https://img.shields.io/badge/API-19+-blue.svg">
+<img src="https://img.shields.io/badge/License-Apache2.0-blue.svg">
 <img src="https://img.shields.io/badge/Gamil-chao.qu521@gmail.com-ff69b4.svg">
 </div>
 
@@ -18,13 +14,13 @@
 
 ### 致力于打造一款极致体验的WanAndroid客户端，知识和美是可以并存的哦QAQn(*≧▽≦*)n
 
-## Introduction
+## 项目
 
 Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagger2 + GreenDao + Glide
 
 这是一款会让您觉得很nice的技术学习APP，所用技术基本涵盖了当前Android开发中常用的主流技术框架，阅读内容主要面向想在Android开发领域成为专家的朋友们。
 
-#### Some honest proposals：
+#### 一些诚恳的提议：
 
 - Android Studio 上提示缺失Dagger生成的类，可以直接编译项目，会由Dagger2自动生成
 
@@ -32,7 +28,7 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 - 项目中的API均来自于[WanAndroid网站](http://www.wanandroid.com)，纯属共享学习之用，不得用于商业用途！！大家有任何疑问或者建议的可以联系[chao.qu521@gmail.com]()
 
-## Preview
+## 预览
 
 <div align="center">
 <img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/251756e695e2bc0a966089c4f05075234e744c76/screenshots/GIF1.gif?raw=true"><img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/251756e695e2bc0a966089c4f05075234e744c76/screenshots/GIF2.gif?raw=true">
@@ -62,7 +58,7 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 
 
-## Apk download（Android 5.0 or above it）
+## 下载APK（Android5.0或以上）
 
 <center>
 
@@ -70,7 +66,7 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 </center>
 
-## Skill points
+## 技术点
 
 - 项目代码尽力遵循了阿里巴巴Java开发规范和阿里巴巴Android开发规范，并有良好的注释。
 
@@ -95,36 +91,31 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 - 更多请Clone本项目进行查看。。。
 
 
-## Version
+## 版本
 
 ### V1.0.0
 
 1.提交Awesome WanAndroid第一版 
 
-## Thanks
+## 感谢
 
 ### API： 
 
-鸿洋大大提供的
-[WanAndroid API](http://www.wanandroid.com/blog/show/2)
+鸿洋大大提供的[WanAndroid API](http://www.wanandroid.com/blog/show/2)
 
 ### APP：
 
-[GeekNews](https://github.com/codeestX/GeekNews)
-提供了Dagger2配合MVP的架构思路
+[GeekNews](https://github.com/codeestX/GeekNews)提供了Dagger2配合MVP的架构思路
 
-[Toutiao](https://github.com/iMeiji/Toutiao)
-提供的MD特效实现思路
+[Toutiao](https://github.com/iMeiji/Toutiao)提供的MD特效实现思路
 
-[diycode](https://github.com/GcsSloop/diycode)
-提供的智能滑动悬浮按钮实现思路
+[diycode](https://github.com/GcsSloop/diycode)提供的智能滑动悬浮按钮实现思路
 
-[Eyepetizer-in-Kotlin](https://github.com/LRH1993/Eyepetizer-in-Kotlin)
-提供的搜索界面切换特效实现思路
+[Eyepetizer-in-Kotlin](https://github.com/LRH1993/Eyepetizer-in-Kotlin)提供的搜索界面切换特效实现思路
 
 此外，还参考了不少国内外牛人的项目，感谢开源！
 
-### UI design：
+### 界面设计：
 
 [花瓣](https://huaban.com/) 提供了很美的UI界面设计，感谢花瓣
 
@@ -132,7 +123,7 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 [iconfont](http://www.iconfont.cn/) 阿里巴巴对外开放的很棒的icon资源
 
-### Excellent third-party open source library：
+### 优秀的第三方开源库：
 
 #### Rx
 
@@ -170,10 +161,10 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 ### 还有上面没列举的一些优秀的第三方开源库，感谢开源，愿我们一同成长
 
-### About me
+### About Me
 
 - #### Email:[chao.qu521@gmail.com]()
-- #### Blog:[https://jsonchao.github.io/](https://jsonchao.github.io/)
+- #### Home:[https://jsonchao.github.io/](https://jsonchao.github.io/)
 - #### 掘金:[https://juejin.im/user/5a3ba9375188252bca050ade](https://juejin.im/user/5a3ba9375188252bca050ade)
     
 ### License
