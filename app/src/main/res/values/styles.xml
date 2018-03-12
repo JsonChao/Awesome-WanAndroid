@@ -22,6 +22,11 @@
         <item name="android:activityCloseEnterAnimation">@anim/push_right_in</item>
         <item name="android:activityCloseExitAnimation">@anim/push_right_out</item>
     </style>
+    
+    <style name="popup_window_animation">
+        <item name="android:windowEnterAnimation">@anim/popup_window_enter</item>
+        <item name="android:windowExitAnimation">@anim/popup_window_exit</item>
+    </style>
 
     <style name="AppTheme.Toolbar" parent="Widget.AppCompat.ActionBar">
         <item name="android:layout_width">match_parent</item>

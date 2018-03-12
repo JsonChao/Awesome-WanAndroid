@@ -76,7 +76,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/register_btn"
+        android:id="@+id/login_register_btn"
         style="@style/style_circle_btn"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/dp_64"
@@ -86,7 +86,7 @@
     <Button
         android:id="@+id/login_btn"
         style="@style/style_circle_btn"
-        android:layout_above="@+id/register_btn"
+        android:layout_above="@+id/login_register_btn"
         android:layout_marginTop="@dimen/dp_32"
         android:text="@string/login_in" />
 </RelativeLayout>

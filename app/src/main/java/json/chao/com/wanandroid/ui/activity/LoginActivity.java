@@ -4,6 +4,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -44,7 +45,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     EditText mPasswordEdit;
     @BindView(R.id.login_btn)
     Button mLoginBtn;
-    @BindView(R.id.register_btn)
+    @BindView(R.id.login_register_btn)
     Button mRegisterBtn;
 
     @Inject
@@ -63,7 +64,13 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     protected void initEventAndData() {
+        mRegisterBtn.setOnClickListener(this);
         mPopupWindow = new RegisterPopupWindow(this, this);
+        mPopupWindow.setAnimationStyle(R.style.popup_window_animation);
+        mPopupWindow.setOnDismissListener(() -> {
+            setBackgroundAlpha(1.0f);
+            mRegisterBtn.setOnClickListener(this);
+        });
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
     }
 
@@ -102,7 +109,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         CommonUtils.showMessage(this, getString(R.string.register_fail));
     }
 
-    @OnClick({R.id.login_btn, R.id.register_btn})
+    @OnClick({R.id.login_btn})
     void onViewClick(View view) {
         switch (view.getId()) {
             case R.id.login_btn:
@@ -114,9 +121,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 }
                 mPresenter.getLoginData(account, password);
                 break;
-            case R.id.register_btn:
-                mPopupWindow.showAtLocation(mLoginGroup, Gravity.CENTER, 0, 0);
-                break;
             default:
                 break;
         }
@@ -124,9 +128,25 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.login_register_btn:
+                //设置背景窗口Alpha
+                setBackgroundAlpha(0.5f);
+                mPopupWindow.showAtLocation(mLoginGroup, Gravity.CENTER, 0, 0);
+                mRegisterBtn.setOnClickListener(null);
+                break;
+            case R.id.register_btn:
+                register();
+            default:
+                break;
+        }
+    }
+
+    private void register() {
         if (mPopupWindow == null) {
             return;
         }
+
         String account = mPopupWindow.mUserNameEdit.getText().toString().trim();
         String password = mPopupWindow.mPasswordEdit.getText().toString().trim();
         String rePassword = mPopupWindow.mRePasswordEdit.getText().toString().trim();
@@ -142,6 +162,18 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         }
 
         mPresenter.getRegisterData(account, password, rePassword);
+    }
+
+    /**
+     * 设置屏幕透明度
+     *
+     * @param bgAlpha background alpha
+     */
+    public void setBackgroundAlpha(float bgAlpha) {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        // 0.0~1.0
+        lp.alpha = bgAlpha;
+        getWindow().setAttributes(lp);
     }
 
 }
