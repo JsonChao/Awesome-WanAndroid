@@ -6,15 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp_54"
     android:background="@drawable/blue_gradient_bg"
+    app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
     app:layout_scrollFlags="scroll|enterAlways">
-
-    <ImageButton
-        android:id="@+id/common_toolbar_back_ib"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:contentDescription="@null"
-        android:src="@mipmap/icon_comn_back" />
 
     <TextView
         android:id="@+id/common_toolbar_title_tv"

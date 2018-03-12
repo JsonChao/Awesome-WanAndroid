@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -38,8 +37,6 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
 
     @BindView(R.id.common_toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.common_toolbar_back_ib)
-    ImageButton mBackIb;
     @BindView(R.id.common_toolbar_title_tv)
     TextView mTitleTv;
     @BindView(R.id.collect_refresh_layout)
@@ -108,12 +105,9 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
         CommonUtils.showMessage(this, getString(R.string.failed_to_obtain_collection_data));
     }
 
-    @OnClick({R.id.common_toolbar_back_ib, R.id.collect_floating_action_btn})
+    @OnClick({R.id.collect_floating_action_btn})
     void onClick(View view) {
         switch (view.getId()) {
-            case R.id.common_toolbar_back_ib:
-                onBackPressedSupport();
-                break;
             case R.id.collect_floating_action_btn:
                 mRecyclerView.smoothScrollToPosition(0);
                 break;
@@ -128,6 +122,7 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
         assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(false);
         mTitleTv.setText(getString(R.string.my_collect));
+        mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
     }
 
     private void initView() {

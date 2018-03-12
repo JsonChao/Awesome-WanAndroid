@@ -17,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -63,8 +62,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     NoScrollViewPager mViewPager;
     @BindView(R.id.common_toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.common_toolbar_back_ib)
-    ImageButton mBackIb;
     @BindView(R.id.common_toolbar_title_tv)
     TextView mTitleTv;
     @BindView(R.id.main_floating_action_btn)
@@ -294,8 +291,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(false);
-        mBackIb.setVisibility(View.GONE);
         mTitleTv.setText(getString(R.string.home_pager));
+        mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
     }
 
     private void initData() {

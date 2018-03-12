@@ -16,7 +16,6 @@ import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.crashreport.CrashReport;
 
-import me.yokeyword.fragmentation.Fragmentation;
 import json.chao.com.wanandroid.BuildConfig;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.core.dao.DaoMaster;

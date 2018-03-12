@@ -8,7 +8,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewStub;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.flyco.tablayout.SlidingTabLayout;
@@ -41,8 +40,6 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
 
     @BindView(R.id.common_toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.common_toolbar_back_ib)
-    ImageButton mBackIb;
     @BindView(R.id.common_toolbar_title_tv)
     TextView mTitleTv;
     @BindView(R.id.knowledge_hierarchy_detail_tab_layout)
@@ -114,12 +111,9 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
         reloadTv.setOnClickListener(v -> RxBus.getDefault().post(new ReloadDetailEvent()));
     }
 
-    @OnClick({R.id.common_toolbar_back_ib, R.id.knowledge_floating_action_btn})
+    @OnClick({R.id.knowledge_floating_action_btn})
     void onClick(View view) {
         switch (view.getId()) {
-            case R.id.common_toolbar_back_ib:
-                onBackPressed();
-                break;
             case R.id.knowledge_floating_action_btn:
                 RxBus.getDefault().post(new KnowledgeJumpTopEvent());
                 break;
@@ -135,6 +129,7 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
         assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(false);
         mTitleTv.setText(mKnowledgeHierarchyData.getName().trim());
+        mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
     }
 
 
