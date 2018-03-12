@@ -41,37 +41,8 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 
     @Override
     protected void onDestroy() {
+        cancelAnimation();
         super.onDestroy();
-        if (mOneAnimation != null) {
-            mOneAnimation.cancelAnimation();
-        }
-        if (mTwoAnimation != null) {
-            mTwoAnimation.cancelAnimation();
-        }
-        if (mThreeAnimation != null) {
-            mThreeAnimation.cancelAnimation();
-        }
-        if (mFourAnimation != null) {
-            mFourAnimation.cancelAnimation();
-        }
-        if (mFiveAnimation != null) {
-            mFiveAnimation.cancelAnimation();
-        }
-        if (mSixAnimation != null) {
-            mSixAnimation.cancelAnimation();
-        }
-        if (mSevenAnimation != null) {
-            mSevenAnimation.cancelAnimation();
-        }
-        if (mEightAnimation != null) {
-            mEightAnimation.cancelAnimation();
-        }
-        if (mNineAnimation != null) {
-            mNineAnimation.cancelAnimation();
-        }
-        if (mTenAnimation != null) {
-            mTenAnimation.cancelAnimation();
-        }
     }
 
     @Override
@@ -118,6 +89,39 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
         startActivity(new Intent(this, MainActivity.class));
         finish();
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    private void cancelAnimation() {
+        if (mOneAnimation != null) {
+            mOneAnimation.cancelAnimation();
+        }
+        if (mTwoAnimation != null) {
+            mTwoAnimation.cancelAnimation();
+        }
+        if (mThreeAnimation != null) {
+            mThreeAnimation.cancelAnimation();
+        }
+        if (mFourAnimation != null) {
+            mFourAnimation.cancelAnimation();
+        }
+        if (mFiveAnimation != null) {
+            mFiveAnimation.cancelAnimation();
+        }
+        if (mSixAnimation != null) {
+            mSixAnimation.cancelAnimation();
+        }
+        if (mSevenAnimation != null) {
+            mSevenAnimation.cancelAnimation();
+        }
+        if (mEightAnimation != null) {
+            mEightAnimation.cancelAnimation();
+        }
+        if (mNineAnimation != null) {
+            mNineAnimation.cancelAnimation();
+        }
+        if (mTenAnimation != null) {
+            mTenAnimation.cancelAnimation();
+        }
     }
 
 }
