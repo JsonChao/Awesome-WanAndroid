@@ -4,13 +4,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 
+import com.squareup.leakcanary.RefWatcher;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import json.chao.com.wanandroid.app.GeeksApp;
 import me.yokeyword.fragmentation.SupportActivity;
 import json.chao.com.wanandroid.component.ActivityCollector;
 
 /**
- * 普通的Activity
+ * Common simple Activity
  *
  * @author quchao
  * @date 2017/11/28
@@ -26,6 +29,9 @@ public abstract class AbstractSimpleActivity extends SupportActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         unBinder = ButterKnife.bind(this);
+        //LeakCanary
+        RefWatcher refWatcher = GeeksApp.getRefWatcher(this);
+        refWatcher.watch(this);
         mActivity = this;
         onViewCreated();
         ActivityCollector.getInstance().addActivity(this);

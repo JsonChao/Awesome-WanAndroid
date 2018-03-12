@@ -91,13 +91,6 @@ public class GeeksApp extends Application {
         return mDaoSession;
     }
 
-    private void initStackViewConfig() {
-        Fragmentation.builder()
-                .stackViewMode(Fragmentation.BUBBLE)
-                .debug(BuildConfig.DEBUG)
-                .install();
-    }
-
     private void initLogger() {
         //DEBUG版本才打控制台log
         if (BuildConfig.DEBUG) {

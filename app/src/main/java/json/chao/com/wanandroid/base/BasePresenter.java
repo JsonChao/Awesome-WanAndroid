@@ -4,6 +4,9 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 /**
+ * Base Presenter
+ * 管理事件流订阅的生命周期
+ *
  * @author quchao
  * @date 2017/11/28
  */

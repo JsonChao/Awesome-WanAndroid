@@ -10,7 +10,7 @@ import json.chao.com.wanandroid.di.module.ActivityModule;
 import json.chao.com.wanandroid.utils.CommonUtils;
 
 /**
- * MVP模式的Activity
+ * MVP模式的Base Activity
  *
  * @author quchao
  * @date 2017/11/28

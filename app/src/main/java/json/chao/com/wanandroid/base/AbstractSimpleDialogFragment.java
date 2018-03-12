@@ -7,12 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.leakcanary.RefWatcher;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.reactivex.disposables.CompositeDisposable;
+import json.chao.com.wanandroid.app.GeeksApp;
 
 
 /**
+ * Common simple dialog fragment
+ *
  * @author quchao
  * @date 2017/11/28
  */
@@ -29,6 +34,9 @@ public abstract class AbstractSimpleDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mRootView = inflater.inflate(getLayout(), container, false);
         unBinder = ButterKnife.bind(this, mRootView);
+        //LeakCanary
+        RefWatcher refWatcher = GeeksApp.getRefWatcher(getActivity());
+        refWatcher.watch(this);
         mCompositeDisposable = new CompositeDisposable();
 
         return mRootView;

@@ -17,12 +17,12 @@ public class Constants {
     /**
      * Path
      */
-    public static final String PATH_DATA = GeeksApp.getInstance().getCacheDir().getAbsolutePath() + File.separator + "data";
+    private static final String PATH_DATA = GeeksApp.getInstance().getCacheDir().getAbsolutePath() + File.separator + "data";
 
     public static final String PATH_CACHE = PATH_DATA + "/NetCache";
 
     /**
-     * tag fragment classify
+     * Tag fragment classify
      */
     public static final int FIRST = 0;
 
@@ -38,7 +38,7 @@ public class Constants {
     public static final int TAB_ONE = 0;
 
     /**
-     * 界面传递参数标识
+     * Intent params
      */
     public static final String ARG_PARAM1 = "param1";
 
@@ -56,14 +56,12 @@ public class Constants {
     public static final int ORANGE_THEME = android.R.color.holo_orange_light;
 
     /**
-     * avoid double click time area
+     * Avoid double click time area
      */
     public static final long CLICK_TIME_AREA = 1000;
 
 
     public static final String ARTICLE_LINK = "article_link";
-
-    public static final int PROGRESS_FIFTY = 50;
 
     public static final String ARTICLE_TITLE = "article_title";
 

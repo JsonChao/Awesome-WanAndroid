@@ -14,6 +14,8 @@ import json.chao.com.wanandroid.di.module.FragmentModule;
 import json.chao.com.wanandroid.utils.CommonUtils;
 
 /**
+ * MVP模式的Base fragment
+ *
  * @author quchao
  * @date 2017/11/28
  */

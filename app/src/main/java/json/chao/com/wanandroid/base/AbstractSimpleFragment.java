@@ -6,14 +6,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.leakcanary.RefWatcher;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.reactivex.disposables.CompositeDisposable;
+import json.chao.com.wanandroid.app.GeeksApp;
 import me.yokeyword.fragmentation.SupportFragment;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.utils.CommonUtils;
 
 /**
+ * Common simple fragment
+ *
  * @author quchao
  * @date 2017/11/28
  */
@@ -30,6 +35,9 @@ public abstract class AbstractSimpleFragment extends SupportFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayout(), container, false);
         unBinder = ButterKnife.bind(this, view);
+        //LeakCanary
+        RefWatcher refWatcher = GeeksApp.getRefWatcher(_mActivity);
+        refWatcher.watch(this);
         mCompositeDisposable = new CompositeDisposable();
 
         return view;
