@@ -3,9 +3,6 @@
     <string name="app_name">WanAndroid</string>
     <string name="awesome_wan_android">Awesome WanAndroid</string>
 
-    //behavior
-    <string name="scale_down_show_behavior">json.chao.com.wanandroid.widget.behavior.ScaleDownShowBehavior</string>
-
     //通用
     <string name="http_error">网络异常</string>
     <string name="unKnown_error">未知错误</string>
@@ -24,7 +21,6 @@
     <string name="double_click_exit_tint">再按一次后退键退出GeeksAndroid</string>
     <string name="ok">是</string>
     <string name="no">否</string>
-    <string name="error_tips">不妙！加载失败了ヽ(≧Д≦)ノ\n 告诉大佬一些可能的原因：\n1.不可直视的网络环境\n 2.服务器大哥的不定期抽风\n 3.WanAndroid眼冒金星拒绝服务喔~</string>
     <string name="reload">重新加载</string>
 
 
@@ -38,19 +34,6 @@
     <string name="my_collect">我的收藏</string>
     <string name="about_us">关于我们</string>
     <string name="auto_login_in">自动登录</string>
-    <string name="about_content"><![CDATA[
-        <h2>网站内容</h2>
-        <p>\t\t本网站每天新增20~30篇优质文章，并加入到现有分类中，力求整理出一份优质而又详尽的知识体系，闲暇时间不妨上来学习下知识；除此以外，并为大家提供平时开发过程中常用的工具以及常用的网址导航。</p>
-        <p>\t\t当然这只是我们目前的功能，未来我们将提供更多更加便捷的功能…</p>
-        <p>\t\t如果您有任何好的建议：</p>
-            <br/>\t\t\t\t关于网站排版
-            <br/>\t\t\t\t关于新增常用网址以及工具
-            <br/>\t\t\t\t未来你希望增加的功能等
-        <p>\t\t可以在 <a href="https://github.com/hongyangAndroid/wanandroid" target="_blank">https://github.com/hongyangAndroid/xueandroid</a> 项目中以issue的形式提出，我将及时跟进。</p>
-        <p>\t\t如果您希望长期关注本站，可以加入我们的QQ群：<b>591683946</b></p>
-        <h2>源码位置</h2>
-        <p>\t\t本软件开源，如果你发现任何错误，不要犹豫，马上点击<a href="https://github.com/JsonChao/Awesome-WanAndroid" target="_blank">GitHub</a>，在上面发起<b>issue</b>或者提交<b>pull request</b>。</p>
-    ]]></string>
     <string name="logout">退出登录</string>
     <string name="login_tint">请先登录~~</string>
     <string name="login_success">登录成功n(*≧▽≦*)n</string>
@@ -59,11 +42,13 @@
     <string name="register_fail">注册失败ヽ(≧Д≦)ノ</string>
     <string name="password_not_same">密码不匹配</string>
 
+    //收藏
+    <string name="no_collect">大侠，赶快存点干货吧~</string>
+
     //主页
     <string name="item_article_author">作者：<xliff:g id="author">%s</xliff:g></string>
     <string name="item_article_classify">分类：<xliff:g id="classify">%s</xliff:g></string>
     <string name="item_article_time">时间：<xliff:g id="time">%s</xliff:g></string>
-    <string name="github_qqbrowser_kernel">网页由 www.wanandroid.com 提供\n开源不易，欢迎各路大神Star</string>
     <string name="install">安装</string>
     <string name="logout_tint">退出登录?</string>
     <string name="failed_to_obtain_banner_data">获取广告数据失败</string>
@@ -96,7 +81,6 @@
     <string name="failed_to_obtain_search_data_list">获取搜索数据列表失败</string>
     <string name="failed_to_obtain_top_data">获取热门数据失败</string>
     <string name="failed_to_obtain_useful_sites_data">获取常用网站数据失败</string>
-
 
 
 </resources>

@@ -92,6 +92,9 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
             mArticles.addAll(feedArticleListResponse.getData().getDatas());
             mAdapter.addData(feedArticleListResponse.getData().getDatas());
         }
+        if (mAdapter.getData().size() == 0) {
+            CommonUtils.showMessage(this, getString(R.string.no_collect));
+        }
     }
 
     @Override
