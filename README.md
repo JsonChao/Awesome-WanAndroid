@@ -62,7 +62,7 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 
 
-## Apk download（Android 5.0 or above it）
+## Apk download（Android 5.0 or above it）（Updated at 2018/3/12）
 
 <center>
 
