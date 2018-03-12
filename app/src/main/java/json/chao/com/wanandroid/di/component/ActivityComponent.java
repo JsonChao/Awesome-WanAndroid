@@ -5,13 +5,13 @@ import android.app.Activity;
 import dagger.Component;
 import json.chao.com.wanandroid.di.module.ActivityModule;
 import json.chao.com.wanandroid.di.scope.ActivityScope;
-import json.chao.com.wanandroid.ui.activity.AboutUsActivity;
-import json.chao.com.wanandroid.ui.activity.ArticleDetailActivity;
-import json.chao.com.wanandroid.ui.activity.CollectActivity;
-import json.chao.com.wanandroid.ui.activity.KnowledgeHierarchyDetailActivity;
-import json.chao.com.wanandroid.ui.activity.LoginActivity;
-import json.chao.com.wanandroid.ui.activity.MainActivity;
-import json.chao.com.wanandroid.ui.activity.SplashActivity;
+import json.chao.com.wanandroid.ui.main.activity.AboutUsActivity;
+import json.chao.com.wanandroid.ui.main.activity.ArticleDetailActivity;
+import json.chao.com.wanandroid.ui.main.activity.CollectActivity;
+import json.chao.com.wanandroid.ui.hierarchy.activity.KnowledgeHierarchyDetailActivity;
+import json.chao.com.wanandroid.ui.main.activity.LoginActivity;
+import json.chao.com.wanandroid.ui.main.activity.MainActivity;
+import json.chao.com.wanandroid.ui.main.activity.SplashActivity;
 
 
 /**

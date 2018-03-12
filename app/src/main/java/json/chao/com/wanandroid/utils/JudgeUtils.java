@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import json.chao.com.wanandroid.app.Constants;
-import json.chao.com.wanandroid.ui.activity.ArticleDetailActivity;
+import json.chao.com.wanandroid.ui.main.activity.ArticleDetailActivity;
 
 /**
  * @author quchao

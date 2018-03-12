@@ -6,14 +6,14 @@ import android.app.Activity;
 import dagger.Component;
 import json.chao.com.wanandroid.di.module.FragmentModule;
 import json.chao.com.wanandroid.di.scope.FragmentScope;
-import json.chao.com.wanandroid.ui.fragment.KnowledgeHierarchyFragment;
-import json.chao.com.wanandroid.ui.fragment.KnowledgeHierarchyListFragment;
-import json.chao.com.wanandroid.ui.fragment.MainPagerFragment;
-import json.chao.com.wanandroid.ui.fragment.NavigationFragment;
-import json.chao.com.wanandroid.ui.fragment.NavigationListFragment;
-import json.chao.com.wanandroid.ui.fragment.ProjectFragment;
-import json.chao.com.wanandroid.ui.fragment.ProjectListFragment;
-import json.chao.com.wanandroid.ui.fragment.SearchDialogFragment;
+import json.chao.com.wanandroid.ui.hierarchy.fragment.KnowledgeHierarchyFragment;
+import json.chao.com.wanandroid.ui.hierarchy.fragment.KnowledgeHierarchyListFragment;
+import json.chao.com.wanandroid.ui.mainpager.fragment.MainPagerFragment;
+import json.chao.com.wanandroid.ui.navigation.fragment.NavigationFragment;
+import json.chao.com.wanandroid.ui.navigation.fragment.NavigationListFragment;
+import json.chao.com.wanandroid.ui.project.fragment.ProjectFragment;
+import json.chao.com.wanandroid.ui.project.fragment.ProjectListFragment;
+import json.chao.com.wanandroid.ui.main.fragment.SearchDialogFragment;
 
 /**
  * @author quchao

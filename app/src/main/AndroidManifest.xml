@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="json.chao.com.wanandroid.ui.activity.SplashActivity"
+            android:name="json.chao.com.wanandroid.ui.main.activity.SplashActivity"
             android:screenOrientation="portrait">
 
             <intent-filter>
@@ -30,31 +30,31 @@
         </activity>
 
         <activity
-            android:name="json.chao.com.wanandroid.ui.activity.MainActivity"
+            android:name="json.chao.com.wanandroid.ui.main.activity.MainActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask" />
 
-        <activity android:name="json.chao.com.wanandroid.ui.activity.LoginActivity"
+        <activity android:name="json.chao.com.wanandroid.ui.main.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:exported="false" />
 
-        <activity android:name="json.chao.com.wanandroid.ui.activity.ArticleDetailActivity"
+        <activity android:name="json.chao.com.wanandroid.ui.main.activity.ArticleDetailActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:exported="false" />
 
-        <activity android:name="json.chao.com.wanandroid.ui.activity.KnowledgeHierarchyDetailActivity"
+        <activity android:name="json.chao.com.wanandroid.ui.hierarchy.activity.KnowledgeHierarchyDetailActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:exported="false" />
 
-        <activity android:name="json.chao.com.wanandroid.ui.activity.CollectActivity"
+        <activity android:name="json.chao.com.wanandroid.ui.main.activity.CollectActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:exported="false" />
 
-        <activity android:name="json.chao.com.wanandroid.ui.activity.AboutUsActivity"
+        <activity android:name="json.chao.com.wanandroid.ui.main.activity.AboutUsActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:exported="false" />
