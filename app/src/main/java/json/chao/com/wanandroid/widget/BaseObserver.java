@@ -7,7 +7,7 @@ import json.chao.com.wanandroid.core.http.exception.ServerException;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.GeeksApp;
 import json.chao.com.wanandroid.utils.LogHelper;
-import json.chao.com.wanandroid.base.BaseView;
+import json.chao.com.wanandroid.base.view.BaseView;
 import retrofit2.HttpException;
 
 /**

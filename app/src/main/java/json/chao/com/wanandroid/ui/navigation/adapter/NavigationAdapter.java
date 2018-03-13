@@ -8,8 +8,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import json.chao.com.wanandroid.base.BaseFragment;
-import json.chao.com.wanandroid.core.bean.NavigationListData;
+import json.chao.com.wanandroid.base.fragment.BaseFragment;
+import json.chao.com.wanandroid.core.bean.navigation.NavigationListData;
 import q.rorbin.verticaltablayout.adapter.TabAdapter;
 import q.rorbin.verticaltablayout.widget.ITabView;
 import q.rorbin.verticaltablayout.widget.TabView;

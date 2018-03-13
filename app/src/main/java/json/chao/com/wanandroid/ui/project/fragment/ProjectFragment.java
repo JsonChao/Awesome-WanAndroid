@@ -16,16 +16,16 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
-import json.chao.com.wanandroid.core.bean.ProjectClassifyData;
-import json.chao.com.wanandroid.core.bean.ProjectClassifyResponse;
+import json.chao.com.wanandroid.core.bean.project.ProjectClassifyData;
+import json.chao.com.wanandroid.core.bean.project.ProjectClassifyResponse;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
-import json.chao.com.wanandroid.base.BaseFragment;
-import json.chao.com.wanandroid.contract.ProjectContract;
+import json.chao.com.wanandroid.base.fragment.BaseFragment;
+import json.chao.com.wanandroid.contract.project.ProjectContract;
 import json.chao.com.wanandroid.core.event.DismissErrorView;
 import json.chao.com.wanandroid.core.event.JumpToTheTopEvent;
 import json.chao.com.wanandroid.core.event.ShowErrorView;
-import json.chao.com.wanandroid.presenter.ProjectPresenter;
+import json.chao.com.wanandroid.presenter.project.ProjectPresenter;
 import json.chao.com.wanandroid.utils.CommonUtils;
 
 /**

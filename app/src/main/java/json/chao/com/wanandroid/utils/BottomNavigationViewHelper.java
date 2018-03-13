@@ -9,7 +9,8 @@ import android.util.Log;
 import java.lang.reflect.Field;
 
 /**
- * Created by chao.qu on 2017/4/4.
+ * @author chao.qu
+ * @date 2017/4/4
  * http://stackoverflow.com/questions/40176244/how-to-disable-bottomnavigationview-shift-mode
  */
 

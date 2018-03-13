@@ -13,13 +13,13 @@ import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
-import json.chao.com.wanandroid.core.bean.FeedArticleData;
-import json.chao.com.wanandroid.core.bean.NavigationListData;
+import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
+import json.chao.com.wanandroid.core.bean.navigation.NavigationListData;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
-import json.chao.com.wanandroid.base.BaseFragment;
-import json.chao.com.wanandroid.contract.NavigationListContract;
-import json.chao.com.wanandroid.presenter.NavigationListPresenter;
+import json.chao.com.wanandroid.base.fragment.BaseFragment;
+import json.chao.com.wanandroid.contract.navigation.NavigationListContract;
+import json.chao.com.wanandroid.presenter.navigation.NavigationListPresenter;
 import json.chao.com.wanandroid.utils.CommonUtils;
 import json.chao.com.wanandroid.utils.JudgeUtils;
 

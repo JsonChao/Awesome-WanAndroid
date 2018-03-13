@@ -18,17 +18,17 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import json.chao.com.wanandroid.component.RxBus;
-import json.chao.com.wanandroid.core.bean.KnowledgeHierarchyData;
+import json.chao.com.wanandroid.core.bean.hierarchy.KnowledgeHierarchyData;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
-import json.chao.com.wanandroid.base.BaseActivity;
-import json.chao.com.wanandroid.base.BaseFragment;
-import json.chao.com.wanandroid.contract.KnowledgeHierarchyDetailContract;
+import json.chao.com.wanandroid.base.activity.BaseActivity;
+import json.chao.com.wanandroid.base.fragment.BaseFragment;
+import json.chao.com.wanandroid.contract.hierarchy.KnowledgeHierarchyDetailContract;
 import json.chao.com.wanandroid.core.event.DismissDetailErrorView;
 import json.chao.com.wanandroid.core.event.KnowledgeJumpTopEvent;
 import json.chao.com.wanandroid.core.event.ReloadDetailEvent;
 import json.chao.com.wanandroid.core.event.ShowDetailErrorView;
-import json.chao.com.wanandroid.presenter.KnowledgeHierarchyDetailPresenter;
+import json.chao.com.wanandroid.presenter.hierarchy.KnowledgeHierarchyDetailPresenter;
 import json.chao.com.wanandroid.ui.hierarchy.fragment.KnowledgeHierarchyListFragment;
 
 /**

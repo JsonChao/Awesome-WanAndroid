@@ -6,7 +6,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.List;
 
-import json.chao.com.wanandroid.core.bean.KnowledgeHierarchyData;
+import json.chao.com.wanandroid.core.bean.hierarchy.KnowledgeHierarchyData;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.ui.hierarchy.viewholder.KnowledgeHierarchyViewHolder;
 import json.chao.com.wanandroid.utils.CommonUtils;

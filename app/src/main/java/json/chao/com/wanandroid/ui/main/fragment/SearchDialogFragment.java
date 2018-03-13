@@ -41,21 +41,21 @@ import butterknife.OnClick;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.app.GeeksApp;
-import json.chao.com.wanandroid.base.BaseDialogFragment;
+import json.chao.com.wanandroid.base.fragment.BaseDialogFragment;
 import json.chao.com.wanandroid.component.RxBus;
-import json.chao.com.wanandroid.contract.SearchContract;
+import json.chao.com.wanandroid.contract.main.SearchContract;
 import json.chao.com.wanandroid.core.DataManager;
-import json.chao.com.wanandroid.core.bean.FeedArticleData;
-import json.chao.com.wanandroid.core.bean.FeedArticleListData;
-import json.chao.com.wanandroid.core.bean.FeedArticleListResponse;
-import json.chao.com.wanandroid.core.bean.TopSearchData;
-import json.chao.com.wanandroid.core.bean.TopSearchDataResponse;
-import json.chao.com.wanandroid.core.bean.UsefulSiteData;
-import json.chao.com.wanandroid.core.bean.UsefulSitesResponse;
+import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
+import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
+import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
+import json.chao.com.wanandroid.core.bean.main.search.TopSearchData;
+import json.chao.com.wanandroid.core.bean.main.search.TopSearchDataResponse;
+import json.chao.com.wanandroid.core.bean.main.search.UsefulSiteData;
+import json.chao.com.wanandroid.core.bean.main.search.UsefulSitesResponse;
 import json.chao.com.wanandroid.core.dao.HistoryData;
 import json.chao.com.wanandroid.core.event.CancelCollectSuccessEvent;
 import json.chao.com.wanandroid.core.event.CollectSuccessEvent;
-import json.chao.com.wanandroid.presenter.SearchPresenter;
+import json.chao.com.wanandroid.presenter.main.SearchPresenter;
 import json.chao.com.wanandroid.ui.main.activity.LoginActivity;
 import json.chao.com.wanandroid.ui.mainpager.adapter.KnowledgeHierarchyListAdapter;
 import json.chao.com.wanandroid.utils.CommonUtils;
@@ -126,6 +126,13 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.getTopSearchData();
+        mPresenter.getUsefulSites();
+    }
+
+    @Override
     protected void initInject() {
         getFragmentComponent().inject(this);
     }
@@ -172,8 +179,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
         mSearchRecyclerView.setAdapter(mAdapter);
         mSearchRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         setRefresh();
-        mPresenter.getTopSearchData();
-        mPresenter.getUsefulSites();
+
         RxView.clicks(mSearchTv)
                 .throttleFirst(Constants.CLICK_TIME_AREA, TimeUnit.MILLISECONDS)
                 .filter(o -> !TextUtils.isEmpty(mSearchEdit.getText().toString().trim()))

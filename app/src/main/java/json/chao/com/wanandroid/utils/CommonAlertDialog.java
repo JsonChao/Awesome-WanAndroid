@@ -10,7 +10,7 @@ import android.widget.TextView;
 import json.chao.com.wanandroid.R;
 
 /**
- * Common AlertDialog Package
+ * Common AlertDialog
  *
  * @author chao.qu
  * @date 2017/11/15

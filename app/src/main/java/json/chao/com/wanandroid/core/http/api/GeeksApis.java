@@ -2,15 +2,15 @@ package json.chao.com.wanandroid.core.http.api;
 
 
 import io.reactivex.Observable;
-import json.chao.com.wanandroid.core.bean.BannerResponse;
-import json.chao.com.wanandroid.core.bean.FeedArticleListResponse;
-import json.chao.com.wanandroid.core.bean.KnowledgeHierarchyResponse;
-import json.chao.com.wanandroid.core.bean.LoginResponse;
-import json.chao.com.wanandroid.core.bean.NavigationListResponse;
-import json.chao.com.wanandroid.core.bean.ProjectClassifyResponse;
-import json.chao.com.wanandroid.core.bean.ProjectListResponse;
-import json.chao.com.wanandroid.core.bean.TopSearchDataResponse;
-import json.chao.com.wanandroid.core.bean.UsefulSitesResponse;
+import json.chao.com.wanandroid.core.bean.main.banner.BannerResponse;
+import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
+import json.chao.com.wanandroid.core.bean.hierarchy.KnowledgeHierarchyResponse;
+import json.chao.com.wanandroid.core.bean.main.login.LoginResponse;
+import json.chao.com.wanandroid.core.bean.navigation.NavigationListResponse;
+import json.chao.com.wanandroid.core.bean.project.ProjectClassifyResponse;
+import json.chao.com.wanandroid.core.bean.project.ProjectListResponse;
+import json.chao.com.wanandroid.core.bean.main.search.TopSearchDataResponse;
+import json.chao.com.wanandroid.core.bean.main.search.UsefulSitesResponse;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;

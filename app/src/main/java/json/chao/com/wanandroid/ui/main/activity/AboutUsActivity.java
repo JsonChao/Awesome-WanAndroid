@@ -26,9 +26,9 @@ import com.scwang.smartrefresh.layout.util.DensityUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import json.chao.com.wanandroid.R;
-import json.chao.com.wanandroid.base.BaseActivity;
-import json.chao.com.wanandroid.contract.AboutUsContract;
-import json.chao.com.wanandroid.presenter.AboutUsPresenter;
+import json.chao.com.wanandroid.base.activity.BaseActivity;
+import json.chao.com.wanandroid.contract.main.AboutUsContract;
+import json.chao.com.wanandroid.presenter.main.AboutUsPresenter;
 import json.chao.com.wanandroid.widget.interpolator.ElasticOutInterpolator;
 
 /**

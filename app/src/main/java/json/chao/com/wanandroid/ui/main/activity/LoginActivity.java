@@ -16,13 +16,13 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
-import json.chao.com.wanandroid.core.bean.LoginData;
-import json.chao.com.wanandroid.core.bean.LoginResponse;
+import json.chao.com.wanandroid.core.bean.main.login.LoginData;
+import json.chao.com.wanandroid.core.bean.main.login.LoginResponse;
 import json.chao.com.wanandroid.R;
-import json.chao.com.wanandroid.base.BaseActivity;
-import json.chao.com.wanandroid.contract.LoginContract;
+import json.chao.com.wanandroid.base.activity.BaseActivity;
+import json.chao.com.wanandroid.contract.main.LoginContract;
 import json.chao.com.wanandroid.core.event.LoginEvent;
-import json.chao.com.wanandroid.presenter.LoginPresenter;
+import json.chao.com.wanandroid.presenter.main.LoginPresenter;
 import json.chao.com.wanandroid.utils.CommonUtils;
 import json.chao.com.wanandroid.widget.RegisterPopupWindow;
 

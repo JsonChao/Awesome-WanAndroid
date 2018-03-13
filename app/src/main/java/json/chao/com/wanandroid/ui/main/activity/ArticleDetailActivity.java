@@ -22,14 +22,14 @@ import butterknife.BindView;
 import ezy.ui.layout.LoadingLayout;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
-import json.chao.com.wanandroid.base.BaseActivity;
+import json.chao.com.wanandroid.base.activity.BaseActivity;
 import json.chao.com.wanandroid.component.RxBus;
-import json.chao.com.wanandroid.contract.ArticleDetailContract;
+import json.chao.com.wanandroid.contract.main.ArticleDetailContract;
 import json.chao.com.wanandroid.core.DataManager;
-import json.chao.com.wanandroid.core.bean.FeedArticleListResponse;
+import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
 import json.chao.com.wanandroid.core.event.CancelCollectSuccessEvent;
 import json.chao.com.wanandroid.core.event.CollectSuccessEvent;
-import json.chao.com.wanandroid.presenter.ArticleDetailPresenter;
+import json.chao.com.wanandroid.presenter.main.ArticleDetailPresenter;
 import json.chao.com.wanandroid.utils.CommonUtils;
 import json.chao.com.wanandroid.utils.StatusBarUtil;
 

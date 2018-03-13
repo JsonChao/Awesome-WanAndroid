@@ -8,9 +8,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.List;
 
-import json.chao.com.wanandroid.core.bean.FeedArticleData;
+import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.R;
-import json.chao.com.wanandroid.component.ImageLoader;
+import json.chao.com.wanandroid.utils.ImageLoader;
 import json.chao.com.wanandroid.ui.project.viewholder.ProjectListViewHolder;
 
 /**
