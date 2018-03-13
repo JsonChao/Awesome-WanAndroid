@@ -35,11 +35,11 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 ## Preview
 
 <div align="center">
-<img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/251756e695e2bc0a966089c4f05075234e744c76/screenshots/GIF1.gif?raw=true"><img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/251756e695e2bc0a966089c4f05075234e744c76/screenshots/GIF2.gif?raw=true">
+<img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/251756e695e2bc0a966089c4f05075234e744c76/screenshots/GIF1.gif?raw=true"><img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/master/screenshots/GIF2.gif?raw=true">
 </div>
 
 <div align="center">
-<img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/251756e695e2bc0a966089c4f05075234e744c76/screenshots/GIF3.gif?raw=true"><img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/251756e695e2bc0a966089c4f05075234e744c76/screenshots/GIF4.gif?raw=true">
+<img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/master/screenshots/GIF3.gif?raw=true"><img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/master/screenshots/GIF4.gif?raw=true">
 </div>
 
 <div align="center">
@@ -62,11 +62,11 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 
 
-## Apk download（Android 5.0 or above it）（Updated at 2018/3/12）
+## Apk download（Android 5.0 or above it）
 
 <center>
 
-![image](https://github.com/JsonChao/Awesome-WanAndroid/blob/master/screenshots/apk.png)
+![image](https://github.com/JsonChao/Awesome-WanAndroid/blob/master/screenshots/apk.png?raw=true)
 
 </center>
 
