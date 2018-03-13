@@ -1,6 +1,5 @@
 package json.chao.com.wanandroid.ui.main.activity;
 
-
 import android.content.Intent;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -83,6 +83,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private KnowledgeHierarchyFragment mKnowledgeHierarchyFragment;
     private NavigationFragment mNavigationFragment;
     private ProjectFragment mProjectFragment;
+    private SearchDialogFragment searchDialogFragment;
 
     @Override
     protected void onDestroy() {
@@ -238,7 +239,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_search) {
-            SearchDialogFragment searchDialogFragment = new SearchDialogFragment();
+            searchDialogFragment = new SearchDialogFragment();
             searchDialogFragment.show(getFragmentManager(), "SearchDialogFragment");
         }
         return super.onOptionsItemSelected(item);
@@ -367,6 +368,5 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 },
                 v -> CommonAlertDialog.newInstance().cancelDialog());
     }
-
 
 }

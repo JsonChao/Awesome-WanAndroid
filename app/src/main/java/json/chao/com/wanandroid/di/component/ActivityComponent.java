@@ -11,6 +11,7 @@ import json.chao.com.wanandroid.ui.main.activity.CollectActivity;
 import json.chao.com.wanandroid.ui.hierarchy.activity.KnowledgeHierarchyDetailActivity;
 import json.chao.com.wanandroid.ui.main.activity.LoginActivity;
 import json.chao.com.wanandroid.ui.main.activity.MainActivity;
+import json.chao.com.wanandroid.ui.main.activity.SearchListActivity;
 import json.chao.com.wanandroid.ui.main.activity.SplashActivity;
 
 
@@ -78,5 +79,12 @@ public interface ActivityComponent {
      * @param aboutUsActivity AboutUsActivity
      */
     void inject(AboutUsActivity aboutUsActivity);
+
+    /**
+     * 注入SearchListActivity所需的依赖
+     *
+     * @param searchListActivity SearchListActivity
+     */
+    void inject(SearchListActivity searchListActivity);
 
 }

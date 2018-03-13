@@ -28,12 +28,12 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
     protected T mPresenter;
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         initInject();
         if (mPresenter != null) {
             mPresenter.attachView(this);
         }
-        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override

@@ -27,13 +27,6 @@ public interface SearchContract {
         void showHistoryData(List<HistoryData> historyDataList);
 
         /**
-         * Show search list
-         *
-         * @param feedArticleListResponse FeedArticleListResponse
-         */
-        void showSearchList(FeedArticleListResponse feedArticleListResponse);
-
-        /**
          * Show top search data
          *
          * @param topSearchDataResponse TopSearchDataResponse
@@ -46,29 +39,6 @@ public interface SearchContract {
          * @param usefulSitesResponse UsefulSitesResponse
          */
         void showUsefulSites(UsefulSitesResponse usefulSitesResponse);
-
-        /**
-         * Show collect article data
-         *
-         * @param position Position
-         * @param feedArticleData FeedArticleData
-         * @param feedArticleListResponse FeedArticleListResponse
-         */
-        void showCollectArticleData(int position, FeedArticleData feedArticleData, FeedArticleListResponse feedArticleListResponse);
-
-        /**
-         * Show cancel collect article data
-         *
-         * @param position Position
-         * @param feedArticleData FeedArticleData
-         * @param feedArticleListResponse FeedArticleListResponse
-         */
-        void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, FeedArticleListResponse feedArticleListResponse);
-
-        /**
-         * Show search list fail
-         */
-        void showSearchListFail();
 
         /**
          * Show top search data fail
@@ -92,13 +62,6 @@ public interface SearchContract {
         void addHistoryData(String data);
 
         /**
-         * 搜索
-         * @param page page
-         * @param k POST search key
-         */
-        void getSearchList(int page, String k);
-
-        /**
          * 热搜
          */
         void getTopSearchData();
@@ -107,22 +70,6 @@ public interface SearchContract {
          * 常用网站
          */
         void getUsefulSites();
-
-        /**
-         * Add collect article
-         *
-         * @param position Position
-         * @param feedArticleData FeedArticleData
-         */
-        void addCollectArticle(int position, FeedArticleData feedArticleData);
-
-        /**
-         * Cancel collect article
-         *
-         * @param position Position
-         * @param feedArticleData FeedArticleData
-         */
-        void cancelCollectArticle(int position, FeedArticleData feedArticleData);
 
     }
 

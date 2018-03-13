@@ -12,8 +12,6 @@ import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.contract.main.SearchContract;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
-import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
-import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
 import json.chao.com.wanandroid.core.bean.main.search.TopSearchDataResponse;
 import json.chao.com.wanandroid.core.bean.main.search.UsefulSitesResponse;
 import json.chao.com.wanandroid.core.dao.DaoSession;
@@ -76,22 +74,6 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
     }
 
     @Override
-    public void getSearchList(int page, String k) {
-        addSubscribe(mDataManager.getSearchList(page, k)
-                        .compose(RxUtils.rxSchedulerHelper())
-                        .subscribeWith(new BaseObserver<FeedArticleListResponse>(mView) {
-                            @Override
-                            public void onNext(FeedArticleListResponse feedArticleListResponse) {
-                                if (feedArticleListResponse.getErrorCode() == BaseResponse.SUCCESS) {
-                                    mView.showSearchList(feedArticleListResponse);
-                                } else {
-                                    mView.showSearchListFail();
-                                }
-                            }
-                        }));
-    }
-
-    @Override
     public void getTopSearchData() {
         addSubscribe(mDataManager.getTopSearchData()
                         .compose(RxUtils.rxSchedulerHelper())
@@ -123,37 +105,4 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
                         }));
     }
 
-    @Override
-    public void addCollectArticle(int position, FeedArticleData feedArticleData) {
-        addSubscribe(mDataManager.addCollectArticle(feedArticleData.getId())
-                        .compose(RxUtils.rxSchedulerHelper())
-                        .subscribeWith(new BaseObserver<FeedArticleListResponse>(mView) {
-                            @Override
-                            public void onNext(FeedArticleListResponse feedArticleListResponse) {
-                                if (feedArticleListResponse.getErrorCode() == BaseResponse.SUCCESS) {
-                                    feedArticleData.setCollect(true);
-                                    mView.showCollectArticleData(position, feedArticleData, feedArticleListResponse);
-                                } else {
-                                    mView.showUsefulSitesDataFail();
-                                }
-                            }
-                        }));
-    }
-
-    @Override
-    public void cancelCollectArticle(int position, FeedArticleData feedArticleData) {
-        addSubscribe(mDataManager.cancelCollectArticle(feedArticleData.getId())
-                        .compose(RxUtils.rxSchedulerHelper())
-                        .subscribeWith(new BaseObserver<FeedArticleListResponse>(mView) {
-                            @Override
-                            public void onNext(FeedArticleListResponse feedArticleListResponse) {
-                                if (feedArticleListResponse.getErrorCode() == BaseResponse.SUCCESS) {
-                                    feedArticleData.setCollect(false);
-                                    mView.showCancelCollectArticleData(position, feedArticleData, feedArticleListResponse);
-                                } else {
-                                    mView.showCancelCollectFail();
-                                }
-                            }
-                        }));
-    }
 }

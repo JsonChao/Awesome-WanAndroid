@@ -103,5 +103,5 @@ public class Constants {
 
     public static final int FOUR = 4;
 
-
+    public static final String SEARCH_TEXT = "search_text";
 }

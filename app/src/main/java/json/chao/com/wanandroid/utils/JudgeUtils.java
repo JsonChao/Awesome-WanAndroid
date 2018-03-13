@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.ui.main.activity.ArticleDetailActivity;
+import json.chao.com.wanandroid.ui.main.activity.SearchListActivity;
 
 /**
  * @author quchao
@@ -25,4 +26,12 @@ public class JudgeUtils {
         intent.putExtra(Constants.IS_COMMON_SITE, isCommonSite);
         mActivity.startActivity(intent);
     }
+
+    public static void startSearchListActivity(Context mActivity, String searchText) {
+        Intent intent = new Intent(mActivity, SearchListActivity.class);
+        intent.putExtra(Constants.SEARCH_TEXT, searchText);
+        mActivity.startActivity(intent);
+    }
+
+
 }
