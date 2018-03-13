@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
+import java.lang.reflect.Method;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -170,6 +172,30 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * 让菜单同时显示图标和文字
+     *
+     * @param featureId Feature id
+     * @param menu Menu
+     * @return menu if opened
+     */
+    @Override
+    public boolean onMenuOpened(int featureId, Menu menu) {
+        if (menu != null) {
+            if (Constants.MENU_BUILDER.equalsIgnoreCase(menu.getClass().getSimpleName())) {
+                try {
+                    @SuppressLint("PrivateApi")
+                    Method method = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
+                    method.setAccessible(true);
+                    method.invoke(menu, true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return super.onMenuOpened(featureId, menu);
     }
 
     private void shareEvent() {

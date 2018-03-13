@@ -8,6 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowAnimationStyle">@style/windowAnimation</item>
         <item name="styleLoadingLayout">@style/LoadingLayoutStyle</item>
+        <!-- Set menu background and text color -->
+        <item name="android:itemBackground">@color/white</item>
+        <item name="android:textColor">@color/title_black</item>
     </style>
 
     <style name="LoadingLayoutStyle" parent="LoadingLayout.Style">
