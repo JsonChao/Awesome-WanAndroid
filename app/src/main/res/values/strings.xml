@@ -2,7 +2,7 @@
     <string name="app_name">WanAndroid</string>
     <string name="awesome_wan_android">Awesome WanAndroid</string>
 
-    //common
+    //Common
     <string name="http_error">network anomaly</string>
     <string name="unKnown_error">unKnown error</string>
     <string name="me">Me</string>
@@ -22,7 +22,7 @@
     <string name="no">NO</string>
     <string name="reload">Reload</string>
 
-    //login
+    //Login
     <string name="login_title">Login Password</string>
     <string name="login_account_tint">Please enter user name</string>
     <string name="login_password_tint">Please enter password</string>
@@ -39,11 +39,12 @@
     <string name="login_fail">Login fail</string>
     <string name="register_fail">Register fail</string>
     <string name="password_not_same">Passwords don\'t match</string>
+    <string name="auto_login_success">Auto login success</string>
 
-    //收藏
+    //Collect
     <string name="no_collect">Great man, save some dry goods</string>
 
-    //main pager
+    //Main pager
     <string name="item_article_author">author：<xliff:g id="author">%s</xliff:g></string>
     <string name="item_article_classify">classify：<xliff:g id="classify">%s</xliff:g></string>
     <string name="item_article_time">time：<xliff:g id="time">%s</xliff:g></string>
@@ -63,7 +64,7 @@
     <string name="failed_to_obtain_project_list">Failed to get the project data list</string>
     <string name="failed_to_obtain_project_classify_data">Failed to get list of project classified data</string>
 
-    //article detail
+    //Article detail
     <string name="share">Share</string>
     <string name="collect">Collect</string>
     <string name="cancel_collect">Cancel collect</string>
@@ -75,7 +76,7 @@
     <string name="open_it_with_browser">Open it with the system browser</string>
     <string name="share_type_url">%1$sShare【%2$s】special top：%3$s</string>
 
-    //搜索
+    //Search
     <string name="failed_to_obtain_search_data_list">Failed to obtain search data list</string>
     <string name="failed_to_obtain_top_data">Failed to get hot data</string>
     <string name="failed_to_obtain_useful_sites_data">Failed to obtain useful website data</string>

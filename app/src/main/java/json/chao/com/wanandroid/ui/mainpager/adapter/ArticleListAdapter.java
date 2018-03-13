@@ -19,12 +19,12 @@ import json.chao.com.wanandroid.ui.mainpager.viewholder.KnowledgeHierarchyListVi
  * @date 2018/2/24
  */
 
-public class KnowledgeHierarchyListAdapter extends BaseQuickAdapter<FeedArticleData, KnowledgeHierarchyListViewHolder> {
+public class ArticleListAdapter extends BaseQuickAdapter<FeedArticleData, KnowledgeHierarchyListViewHolder> {
 
     private boolean isCollectPage;
     private boolean isSearchPage;
 
-    public KnowledgeHierarchyListAdapter(int layoutResId, @Nullable List<FeedArticleData> data) {
+    public ArticleListAdapter(int layoutResId, @Nullable List<FeedArticleData> data) {
         super(layoutResId, data);
     }
 

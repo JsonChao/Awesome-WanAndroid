@@ -24,7 +24,7 @@ import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
 import json.chao.com.wanandroid.core.event.CancelCollectSuccessEvent;
 import json.chao.com.wanandroid.presenter.main.CollectPresenter;
-import json.chao.com.wanandroid.ui.mainpager.adapter.KnowledgeHierarchyListAdapter;
+import json.chao.com.wanandroid.ui.mainpager.adapter.ArticleListAdapter;
 import json.chao.com.wanandroid.utils.CommonUtils;
 import json.chao.com.wanandroid.utils.JudgeUtils;
 
@@ -49,7 +49,7 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
     private boolean isRefresh = true;
     private int mCurrentPage;
     private List<FeedArticleData> mArticles;
-    private KnowledgeHierarchyListAdapter mAdapter;
+    private ArticleListAdapter mAdapter;
     private int articlePosition;
     private int themeCount;
 
@@ -127,7 +127,7 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
 
     private void initView() {
         mArticles = new ArrayList<>();
-        mAdapter = new KnowledgeHierarchyListAdapter(R.layout.item_search_pager, mArticles);
+        mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mArticles);
         mAdapter.isCollectPage();
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
                     articlePosition = position;

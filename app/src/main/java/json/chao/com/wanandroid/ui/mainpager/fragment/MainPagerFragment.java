@@ -37,7 +37,7 @@ import json.chao.com.wanandroid.core.event.LogoutEvent;
 import json.chao.com.wanandroid.core.event.ShowErrorView;
 import json.chao.com.wanandroid.presenter.mainpager.MainPagerPresenter;
 import json.chao.com.wanandroid.ui.main.activity.LoginActivity;
-import json.chao.com.wanandroid.ui.mainpager.adapter.KnowledgeHierarchyListAdapter;
+import json.chao.com.wanandroid.ui.mainpager.adapter.ArticleListAdapter;
 import json.chao.com.wanandroid.utils.CommonUtils;
 import json.chao.com.wanandroid.utils.GlideImageLoader;
 import json.chao.com.wanandroid.utils.JudgeUtils;
@@ -55,7 +55,7 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
     RecyclerView mRecyclerView;
 
     private List<FeedArticleData> mFeedArticleDataList;
-    private KnowledgeHierarchyListAdapter mAdapter;
+    private ArticleListAdapter mAdapter;
     private int mCurrentPage;
     private boolean isRefresh = true;
 
@@ -104,11 +104,8 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
 
     @Override
     protected void initEventAndData() {
-        setRefresh();
-        mPresenter.getBannerData();
-        mPresenter.getFeedArticleList(mCurrentPage);
         mFeedArticleDataList = new ArrayList<>();
-        mAdapter = new KnowledgeHierarchyListAdapter(R.layout.item_search_pager, mFeedArticleDataList);
+        mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mFeedArticleDataList);
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
             //记录点击的文章位置，便于在文章内点击收藏返回到此界面时能展示正确的收藏状态
             articlePosition = position;
@@ -134,14 +131,15 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
         });
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
-
         //add head banner
         LinearLayout mHeaderGroup = ((LinearLayout) LayoutInflater.from(_mActivity).inflate(R.layout.head_banner, null));
         mBanner = ((Banner) mHeaderGroup.findViewById(R.id.head_banner));
         mHeaderGroup.removeView(mBanner);
         mAdapter.addHeaderView(mBanner);
-
         mRecyclerView.setAdapter(mAdapter);
+
+        setRefresh();
+        mPresenter.loadMainPagerData();
 
         //登录成功刷新数据
         RxBus.getDefault().toFlowable(LoginEvent.class)
@@ -167,6 +165,13 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
                     mAdapter.getData().get(articlePosition).setCollect(false);
                     mAdapter.setData(articlePosition, mAdapter.getData().get(articlePosition));
                 });
+    }
+
+    @Override
+    public void showAutoLoginSuccess() {
+        if (isAdded()) {
+            CommonUtils.showMessage(_mActivity, getString(R.string.auto_login_success));
+        }
     }
 
     @Override

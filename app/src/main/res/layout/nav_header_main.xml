@@ -24,5 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/login_in"
-        android:textSize="@dimen/sp_20" />
+        android:textSize="@dimen/sp_20"
+        android:textColor="@color/white" />
 </LinearLayout>

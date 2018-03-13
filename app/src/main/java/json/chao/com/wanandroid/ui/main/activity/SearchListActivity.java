@@ -32,7 +32,7 @@ import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
 import json.chao.com.wanandroid.core.event.CancelCollectSuccessEvent;
 import json.chao.com.wanandroid.core.event.CollectSuccessEvent;
 import json.chao.com.wanandroid.presenter.main.SearchListPresenter;
-import json.chao.com.wanandroid.ui.mainpager.adapter.KnowledgeHierarchyListAdapter;
+import json.chao.com.wanandroid.ui.mainpager.adapter.ArticleListAdapter;
 import json.chao.com.wanandroid.utils.CommonUtils;
 import json.chao.com.wanandroid.utils.JudgeUtils;
 
@@ -59,7 +59,7 @@ public class SearchListActivity extends BaseActivity<SearchListPresenter> implem
     private int articlePosition;
     private int mCurrentPage;
     private List<FeedArticleData> mArticleList;
-    private KnowledgeHierarchyListAdapter mAdapter;
+    private ArticleListAdapter mAdapter;
     private boolean isAddData;
     private int themeCount;
     private String searchText;
@@ -74,7 +74,7 @@ public class SearchListActivity extends BaseActivity<SearchListPresenter> implem
         initToolbar();
         mPresenter.getSearchList(mCurrentPage, searchText);
         mArticleList = new ArrayList<>();
-        mAdapter = new KnowledgeHierarchyListAdapter(R.layout.item_search_pager, mArticleList);
+        mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mArticleList);
         mAdapter.isSearchPage();
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
             articlePosition = position;

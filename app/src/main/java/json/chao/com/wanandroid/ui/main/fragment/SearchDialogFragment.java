@@ -138,7 +138,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
                 assert topSearchData != null;
                 String name = topSearchData.getName();
                 tv.setText(name);
-                tv.setTextColor(CommonUtils.intrandomColor());
+                tv.setTextColor(CommonUtils.randomColor());
                 mTopSearchFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
                     mSearchEdit.setText(mTopSearchDataList.get(position1).getName().trim());
                     mSearchEdit.setSelection(mSearchEdit.getText().length());
@@ -168,7 +168,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
                 assert usefulSiteData != null;
                 String name = usefulSiteData.getName();
                 tv.setText(name);
-                tv.setTextColor(CommonUtils.intrandomColor());
+                tv.setTextColor(CommonUtils.randomColor());
                 mUsefulSitesFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
                     JudgeUtils.startArticleDetailActivity(getActivity(),
                             mUsefulSiteDataList.get(position1).getId(),
@@ -199,7 +199,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
                 assert historyData != null;
                 String data = historyData.getData();
                 tv.setText(data);
-                tv.setTextColor(CommonUtils.intrandomColor());
+                tv.setTextColor(CommonUtils.randomColor());
                 mHistorySearchFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
                     mSearchEdit.setText(historyDataList.get(position1).getData().trim());
                     mSearchEdit.setSelection(mSearchEdit.getText().length());

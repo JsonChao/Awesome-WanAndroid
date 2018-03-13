@@ -44,6 +44,20 @@ public class Constants {
 
     public static final String ARG_PARAM2 = "param2";
 
+
+    /**
+     * Main Pager
+     */
+    public static final String SEARCH_TEXT = "search_text";
+
+    public static final String MENU_BUILDER = "MenuBuilder";
+
+    public static final String LOGIN_DATA = "login_data";
+
+    public static final String BANNER_DATA = "banner_data";
+
+    public static final String ARTICLE_DATA = "article_data";
+
     /**
      * Refresh theme color
      */
@@ -103,9 +117,8 @@ public class Constants {
 
     public static final int FOUR = 4;
 
-    public static final String SEARCH_TEXT = "search_text";
 
-    public static final String MENU_BUILDER = "MenuBuilder";
+
 
 
 }

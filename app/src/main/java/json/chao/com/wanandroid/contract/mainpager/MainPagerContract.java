@@ -16,6 +16,11 @@ public interface MainPagerContract {
     interface View extends BaseView {
 
         /**
+         * Show auto login success
+         */
+        void showAutoLoginSuccess();
+
+        /**
          * Show content
          *
          * @param feedArticleListResponse FeedArticleListResponse
@@ -60,6 +65,11 @@ public interface MainPagerContract {
     }
 
     interface Presenter extends AbstractPresenter<View> {
+
+        /**
+         * Load main pager data
+         */
+        void loadMainPagerData();
 
         /**
          * Get feed article list

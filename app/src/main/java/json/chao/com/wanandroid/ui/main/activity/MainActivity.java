@@ -6,13 +6,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,8 +56,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
-    @BindView(R.id.viewpager)
-    NoScrollViewPager mViewPager;
     @BindView(R.id.common_toolbar)
     Toolbar mToolbar;
     @BindView(R.id.common_toolbar_title_tv)
@@ -76,14 +72,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Inject
     DataManager mDataManager;
 
-    private ArrayList<BaseFragment> mFragmentList;
+    private ArrayList<BaseFragment> mFragments;
     private TextView mUsTv;
     private int currentPage;
     private MainPagerFragment mMainPagerFragment;
     private KnowledgeHierarchyFragment mKnowledgeHierarchyFragment;
     private NavigationFragment mNavigationFragment;
     private ProjectFragment mProjectFragment;
-    private SearchDialogFragment searchDialogFragment;
+    private int mLastFgIndex;
 
     @Override
     protected void onDestroy() {
@@ -107,32 +103,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         initToolbar();
         initData();
         initNavigationView();
-        mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
-            @Override public Fragment getItem(int position) {
-                return mFragmentList.get(position);
-            }
-
-            @Override public int getCount() {
-                return mFragmentList.size();
-            }
-        });
-
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                currentPage = position;
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
         currentPage = mDataManager.getCurrentPage();
 
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationBar);
@@ -140,26 +110,25 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             switch (item.getItemId()) {
                 case R.id.tab_main_pager:
                     mTitleTv.setText(getString(R.string.home_pager));
-                    mViewPager.setCurrentItem(Constants.FIRST);
+                    switchFragment(0);
                     break;
                 case R.id.tab_knowledge_hierarchy:
                     mTitleTv.setText(getString(R.string.knowledge_hierarchy));
-                    mViewPager.setCurrentItem(Constants.SECOND);
+                    switchFragment(1);
                     break;
                 case R.id.tab_navigation:
                     mTitleTv.setText(getString(R.string.navigation));
-                    mViewPager.setCurrentItem(Constants.THIRD);
+                    switchFragment(2);
                     break;
                 case R.id.tab_project:
                     mTitleTv.setText(getString(R.string.project));
-                    mViewPager.setCurrentItem(Constants.FOURTH);
+                    switchFragment(3);
                     break;
                 default:
                     break;
             }
             return true;
         });
-
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
@@ -239,7 +208,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_search) {
-            searchDialogFragment = new SearchDialogFragment();
+            SearchDialogFragment searchDialogFragment = new SearchDialogFragment();
             searchDialogFragment.show(getFragmentManager(), "SearchDialogFragment");
         }
         return super.onOptionsItemSelected(item);
@@ -297,15 +266,37 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     private void initData() {
-        mFragmentList = new ArrayList<>();
+        mFragments = new ArrayList<>();
         mMainPagerFragment = MainPagerFragment.getInstance(null, null);
         mKnowledgeHierarchyFragment = KnowledgeHierarchyFragment.getInstance(null, null);
         mNavigationFragment = NavigationFragment.getInstance(null, null);
         mProjectFragment = ProjectFragment.getInstance(null, null);
-        mFragmentList.add(mMainPagerFragment);
-        mFragmentList.add(mKnowledgeHierarchyFragment);
-        mFragmentList.add(mNavigationFragment);
-        mFragmentList.add(mProjectFragment);
+        mFragments.add(mMainPagerFragment);
+        mFragments.add(mKnowledgeHierarchyFragment);
+        mFragments.add(mNavigationFragment);
+        mFragments.add(mProjectFragment);
+        switchFragment(0);
+    }
+
+    /**
+     * 切换fragment
+     *
+     * @param position 要显示的fragment的下标
+     */
+    private void switchFragment(int position) {
+        if (position >= mFragments.size()) {
+            return;
+        }
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        Fragment targetFg = mFragments.get(position);
+        Fragment lastFg = mFragments.get(mLastFgIndex);
+        mLastFgIndex = position;
+        ft.hide(lastFg);
+        if (!targetFg.isAdded()) {
+            ft.add(R.id.fragment_group, targetFg);
+        }
+        ft.show(targetFg);
+        ft.commitAllowingStateLoss();
     }
 
     private void initNavigationView() {

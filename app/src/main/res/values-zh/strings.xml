@@ -23,7 +23,6 @@
     <string name="no">否</string>
     <string name="reload">重新加载</string>
 
-
     //登陆
     <string name="login_title">账号密码登陆</string>
     <string name="login_account_tint">请输入用户名</string>
@@ -41,6 +40,7 @@
     <string name="login_fail">登陆失败ヽ(≧Д≦)ノ</string>
     <string name="register_fail">注册失败ヽ(≧Д≦)ノ</string>
     <string name="password_not_same">密码不匹配</string>
+    <string name="auto_login_success">自动登陆成功</string>
 
     //收藏
     <string name="no_collect">大侠，赶快存点干货吧~</string>

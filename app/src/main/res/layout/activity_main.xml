@@ -23,8 +23,8 @@
             <include layout="@layout/common_toolbar" />
         </android.support.design.widget.AppBarLayout>
 
-        <json.chao.com.wanandroid.widget.NoScrollViewPager
-            android:id="@+id/viewpager"
+        <FrameLayout
+            android:id="@+id/fragment_group"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />

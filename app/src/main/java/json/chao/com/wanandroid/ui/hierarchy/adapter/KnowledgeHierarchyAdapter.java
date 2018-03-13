@@ -28,7 +28,7 @@ public class KnowledgeHierarchyAdapter extends BaseQuickAdapter<KnowledgeHierarc
             return;
         }
         helper.setText(R.id.item_knowledge_hierarchy_title, item.getName());
-        helper.setTextColor(R.id.item_knowledge_hierarchy_title, CommonUtils.intrandomColor());
+        helper.setTextColor(R.id.item_knowledge_hierarchy_title, CommonUtils.randomColor());
         if (item.getChildren() == null) {
             return;
         }

@@ -1,8 +1,6 @@
 package json.chao.com.wanandroid.utils;
 
 import android.app.Activity;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -92,22 +90,9 @@ public class CommonUtils {
     }
 
     /**
-     * 保存文字到剪贴板
-     * @param context context
-     * @param text text
-     */
-    public static void copyToClipBoard(Context context, String text) {
-        ClipData clipData = ClipData.newPlainText("url", text);
-        ClipboardManager manager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-        assert manager != null;
-        manager.setPrimaryClip(clipData);
-        Toast.makeText(context, "已复制到剪贴板", Toast.LENGTH_SHORT).show();
-    }
-
-    /**
      * 获取随机rgb颜色值
      */
-    public static int intrandomColor(){
+    public static int randomColor(){
         Random random = new Random();
         //0-190, 如果颜色值过大,就越接近白色,就看不清了,所以需要限定范围
         int red =random.nextInt(150);
@@ -118,6 +103,19 @@ public class CommonUtils {
         //使用rgb混合生成一种新的颜色,Color.rgb生成的是一个int数
         return Color.rgb(red,green, blue);
     }
+
+    /**
+     * 泛型转换工具方法 eg:object ==> map<String, String>
+     *
+     * @param object Object
+     * @param <T> 转换得到的泛型对象
+     * @return T
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T cast(Object object) {
+        return (T) object;
+    }
+
 
 
 }

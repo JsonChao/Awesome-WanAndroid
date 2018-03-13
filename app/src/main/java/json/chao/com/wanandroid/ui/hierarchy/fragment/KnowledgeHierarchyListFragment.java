@@ -31,7 +31,7 @@ import json.chao.com.wanandroid.core.event.ReloadDetailEvent;
 import json.chao.com.wanandroid.core.event.ShowDetailErrorView;
 import json.chao.com.wanandroid.presenter.hierarchy.KnowledgeHierarchyListPresenter;
 import json.chao.com.wanandroid.ui.main.activity.LoginActivity;
-import json.chao.com.wanandroid.ui.mainpager.adapter.KnowledgeHierarchyListAdapter;
+import json.chao.com.wanandroid.ui.mainpager.adapter.ArticleListAdapter;
 import json.chao.com.wanandroid.utils.CommonUtils;
 import json.chao.com.wanandroid.utils.JudgeUtils;
 
@@ -51,7 +51,7 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
     private KnowledgeHierarchyData mKnowledgeHierarchyData;
     private int mCurrentPage;
     private List<FeedArticleData> mArticles;
-    private KnowledgeHierarchyListAdapter mAdapter;
+    private ArticleListAdapter mAdapter;
     private boolean isRefresh = true;
 
     @Inject
@@ -81,7 +81,7 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
         //重置当前页数，防止页面切换后当前页数为较大而加载后面的数据或没有数据
         mCurrentPage = 0;
         mPresenter.getKnowledgeHierarchyDetailData(mCurrentPage, mKnowledgeHierarchyData.getId());
-        mAdapter = new KnowledgeHierarchyListAdapter(R.layout.item_search_pager, mArticles);
+        mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mArticles);
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
             articlePosition = position;
             JudgeUtils.startArticleDetailActivity(_mActivity,

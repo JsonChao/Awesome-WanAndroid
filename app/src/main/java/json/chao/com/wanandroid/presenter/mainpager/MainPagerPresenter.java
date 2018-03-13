@@ -1,7 +1,11 @@
 package json.chao.com.wanandroid.presenter.mainpager;
 
+import java.util.HashMap;
+
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
+import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.contract.mainpager.MainPagerContract;
@@ -9,6 +13,7 @@ import json.chao.com.wanandroid.core.bean.main.banner.BannerResponse;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
+import json.chao.com.wanandroid.core.bean.main.login.LoginResponse;
 import json.chao.com.wanandroid.utils.RxUtils;
 import json.chao.com.wanandroid.widget.BaseObserver;
 
@@ -24,6 +29,33 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
     @Inject
     MainPagerPresenter(DataManager dataManager) {
         this.mDataManager = dataManager;
+    }
+
+    @Override
+    public void loadMainPagerData() {
+        String account = mDataManager.getLoginAccount();
+        String password = mDataManager.getLoginPassword();
+        Observable<LoginResponse> mLoginObservable = mDataManager.getLoginData(account, password);
+        Observable<BannerResponse> mBannerObservable = mDataManager.getBannerData();
+        Observable<FeedArticleListResponse> mArticleObservable = mDataManager.getFeedArticleList(Constants.FIRST);
+        Observable.zip(mLoginObservable, mBannerObservable, mArticleObservable,
+                (loginResponse, bannerResponse, feedArticleListResponse) -> {
+                    HashMap<String, Object> map = new HashMap<>(3);
+                    map.put(Constants.LOGIN_DATA, loginResponse);
+                    map.put(Constants.BANNER_DATA, bannerResponse);
+                    map.put(Constants.ARTICLE_DATA, feedArticleListResponse);
+                    return map;
+                }).compose(RxUtils.rxSchedulerHelper())
+                .subscribe(map -> {
+                    LoginResponse loginResponse = (LoginResponse) map.get(Constants.LOGIN_DATA);
+                    if (loginResponse.getErrorCode() == BaseResponse.SUCCESS) {
+                        mView.showAutoLoginSuccess();
+                    } else {
+                        mView.showErrorMsg(loginResponse.getErrorMsg());
+                    }
+                    mView.showBannerData((BannerResponse) map.get(Constants.BANNER_DATA));
+                    mView.showArticleList((FeedArticleListResponse) map.get(Constants.ARTICLE_DATA));
+                });
     }
 
     @Override
@@ -92,6 +124,8 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
                             }
                         }));
     }
+
+
 
 
 }

@@ -56,7 +56,7 @@ public class NavigationListFragment extends BaseFragment<NavigationListPresenter
         mArticles = data.getArticles();
         String chapterName = mArticles.get(0).getChapterName();
         mNavigationHintTv.setText(getString(R.string.navigation_tint, chapterName));
-        mNavigationHintTv.setTextColor(CommonUtils.intrandomColor());
+        mNavigationHintTv.setTextColor(CommonUtils.randomColor());
         mNavigationHintTv.setVisibility(View.VISIBLE);
 
         mTagFlowLayout.setAdapter(new TagAdapter<FeedArticleData>(mArticles) {
@@ -68,7 +68,7 @@ public class NavigationListFragment extends BaseFragment<NavigationListPresenter
                 assert feedArticleData != null;
                 String name = feedArticleData.getTitle();
                 tv.setText(name);
-                tv.setTextColor(CommonUtils.intrandomColor());
+                tv.setTextColor(CommonUtils.randomColor());
                 mTagFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
                     JudgeUtils.startArticleDetailActivity(_mActivity,
                             mArticles.get(position1).getId(),
