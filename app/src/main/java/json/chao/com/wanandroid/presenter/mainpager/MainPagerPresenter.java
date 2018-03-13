@@ -37,9 +37,6 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
     public void loadMainPagerData() {
         String account = mDataManager.getLoginAccount();
         String password = mDataManager.getLoginPassword();
-        if (TextUtils.isEmpty(account) || TextUtils.isEmpty(password)) {
-            return;
-        }
         Observable<LoginResponse> mLoginObservable = mDataManager.getLoginData(account, password);
         Observable<BannerResponse> mBannerObservable = mDataManager.getBannerData();
         Observable<FeedArticleListResponse> mArticleObservable = mDataManager.getFeedArticleList(Constants.FIRST);
@@ -55,8 +52,6 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
                     LoginResponse loginResponse = (LoginResponse) map.get(Constants.LOGIN_DATA);
                     if (loginResponse.getErrorCode() == BaseResponse.SUCCESS) {
                         mView.showAutoLoginSuccess();
-                    } else {
-                        mView.showErrorMsg(loginResponse.getErrorMsg());
                     }
                     mView.showBannerData((BannerResponse) map.get(Constants.BANNER_DATA));
                     mView.showArticleList((FeedArticleListResponse) map.get(Constants.ARTICLE_DATA));
