@@ -155,13 +155,15 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
                 });
 
         RxBus.getDefault().toFlowable(CollectSuccessEvent.class)
+                .filter(collectSuccessEvent -> mAdapter != null && mAdapter.getData().size() > articlePosition)
                 .subscribe(collectSuccessEvent -> {
                     mAdapter.getData().get(articlePosition).setCollect(true);
                     mAdapter.setData(articlePosition, mAdapter.getData().get(articlePosition));
                 });
 
         RxBus.getDefault().toFlowable(CancelCollectSuccessEvent.class)
-                .subscribe(collectSuccessEvent -> {
+                .filter(cancelCollectSuccessEvent -> mAdapter != null && mAdapter.getData().size() > articlePosition)
+                .subscribe(cancelCollectSuccessEvent -> {
                     mAdapter.getData().get(articlePosition).setCollect(false);
                     mAdapter.setData(articlePosition, mAdapter.getData().get(articlePosition));
                 });
@@ -260,8 +262,10 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
     }
 
     public void reLoad() {
-        mRefreshLayout.autoRefresh();
-        mPresenter.getBannerData();
+        if (mRefreshLayout != null && mPresenter != null) {
+            mRefreshLayout.autoRefresh();
+            mPresenter.getBannerData();
+        }
     }
 
     public void jumpToTheTop() {
@@ -274,6 +278,7 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
         mRefreshLayout.setOnRefreshListener(refreshLayout -> {
             isRefresh = true;
             mCurrentPage = 0;
+            mPresenter.getBannerData();
             mPresenter.getFeedArticleList(mCurrentPage);
             refreshLayout.finishRefresh(2000);
             setRefreshThemeColor();

@@ -108,14 +108,14 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
 
         RxBus.getDefault().toFlowable(CollectSuccessEvent.class)
-                .filter(collectSuccessEvent -> mAdapter != null)
+                .filter(collectSuccessEvent -> mAdapter != null && mAdapter.getData().size() > articlePosition)
                 .subscribe(collectSuccessEvent -> {
                     mAdapter.getData().get(articlePosition).setCollect(true);
                     mAdapter.setData(articlePosition, mAdapter.getData().get(articlePosition));
                 });
 
         RxBus.getDefault().toFlowable(CancelCollectSuccessEvent.class)
-                .filter(collectSuccessEvent -> mAdapter != null)
+                .filter(collectSuccessEvent -> mAdapter != null && mAdapter.getData().size() > articlePosition)
                 .subscribe(collectSuccessEvent -> {
                     mAdapter.getData().get(articlePosition).setCollect(false);
                     mAdapter.setData(articlePosition, mAdapter.getData().get(articlePosition));

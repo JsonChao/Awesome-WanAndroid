@@ -101,7 +101,9 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
     }
 
     public void reLoad() {
-        mPresenter.getNavigationListData();
+        if (mPresenter != null) {
+            mPresenter.getNavigationListData();
+        }
     }
 
 }

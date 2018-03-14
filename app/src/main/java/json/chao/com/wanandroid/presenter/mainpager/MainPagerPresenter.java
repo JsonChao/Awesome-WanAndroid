@@ -1,7 +1,5 @@
 package json.chao.com.wanandroid.presenter.mainpager;
 
-import android.text.TextUtils;
-
 import java.util.HashMap;
 
 import javax.inject.Inject;
@@ -48,13 +46,16 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
                     map.put(Constants.ARTICLE_DATA, feedArticleListResponse);
                     return map;
                 }).compose(RxUtils.rxSchedulerHelper())
-                .subscribe(map -> {
-                    LoginResponse loginResponse = (LoginResponse) map.get(Constants.LOGIN_DATA);
-                    if (loginResponse.getErrorCode() == BaseResponse.SUCCESS) {
-                        mView.showAutoLoginSuccess();
+                .subscribeWith(new BaseObserver<HashMap<String, Object>>(mView) {
+                    @Override
+                    public void onNext(HashMap<String, Object> map) {
+                        LoginResponse loginResponse = (LoginResponse) map.get(Constants.LOGIN_DATA);
+                        if (loginResponse.getErrorCode() == BaseResponse.SUCCESS) {
+                            mView.showAutoLoginSuccess();
+                        }
+                        mView.showBannerData((BannerResponse) map.get(Constants.BANNER_DATA));
+                        mView.showArticleList((FeedArticleListResponse) map.get(Constants.ARTICLE_DATA));
                     }
-                    mView.showBannerData((BannerResponse) map.get(Constants.BANNER_DATA));
-                    mView.showArticleList((FeedArticleListResponse) map.get(Constants.ARTICLE_DATA));
                 });
     }
 

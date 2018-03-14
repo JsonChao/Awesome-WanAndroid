@@ -99,7 +99,9 @@ public class KnowledgeHierarchyFragment extends BaseFragment<KnowledgeHierarchyP
     }
 
     public void reLoad() {
-        mPresenter.getKnowledgeHierarchyData();
+        if (mPresenter != null) {
+            mPresenter.getKnowledgeHierarchyData();
+        }
     }
 
     public void jumpToTheTop() {

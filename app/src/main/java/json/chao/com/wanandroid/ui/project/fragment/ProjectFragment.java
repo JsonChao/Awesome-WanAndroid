@@ -144,7 +144,9 @@ public class ProjectFragment extends BaseFragment<ProjectPresenter> implements P
     }
 
     public void reLoad() {
-        mPresenter.getProjectClassifyData();
+        if (mPresenter != null) {
+            mPresenter.getProjectClassifyData();
+        }
     }
 
     public void jumpToTheTop() {

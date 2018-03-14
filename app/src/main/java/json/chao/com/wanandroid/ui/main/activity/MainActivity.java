@@ -44,7 +44,6 @@ import json.chao.com.wanandroid.ui.main.fragment.SearchDialogFragment;
 import json.chao.com.wanandroid.utils.BottomNavigationViewHelper;
 import json.chao.com.wanandroid.utils.CommonAlertDialog;
 import json.chao.com.wanandroid.utils.CommonUtils;
-import json.chao.com.wanandroid.widget.NoScrollViewPager;
 
 
 /**
@@ -332,6 +331,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
 
     private void setLoginView() {
+        if (mNavigationView == null) {
+            return;
+        }
         mUsTv = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.nav_header_login_tv);
         mUsTv.setText(mDataManager.getLoginAccount());
         mUsTv.setOnClickListener(null);
@@ -341,6 +343,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private void setLogoutView() {
         mUsTv.setText(R.string.login_in);
         mUsTv.setOnClickListener(v -> startActivity(new Intent(this, LoginActivity.class)));
+        if (mNavigationView == null) {
+            return;
+        }
         mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(false);
     }
 
