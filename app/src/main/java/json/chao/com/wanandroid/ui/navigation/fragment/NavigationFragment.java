@@ -113,9 +113,6 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
         mManager = new LinearLayoutManager(_mActivity);
         mRecyclerView.setLayoutManager(mManager);
         leftRightLinkage();
-
-
-
     }
 
     @Override

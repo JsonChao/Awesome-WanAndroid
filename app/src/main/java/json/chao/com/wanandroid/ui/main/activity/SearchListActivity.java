@@ -35,6 +35,7 @@ import json.chao.com.wanandroid.presenter.main.SearchListPresenter;
 import json.chao.com.wanandroid.ui.mainpager.adapter.ArticleListAdapter;
 import json.chao.com.wanandroid.utils.CommonUtils;
 import json.chao.com.wanandroid.utils.JudgeUtils;
+import json.chao.com.wanandroid.utils.StatusBarUtil;
 
 /**
  * @author quchao
@@ -180,6 +181,8 @@ public class SearchListActivity extends BaseActivity<SearchListPresenter> implem
             mTitleTv.setText(searchText);
             mTitleTv.setTextColor(ContextCompat.getColor(this, R.color.title_black));
         }
+        StatusBarUtil.immersive(this, ContextCompat.getColor(this, R.color.transparent), 0.3f);
+        StatusBarUtil.setPaddingSmart(this, mToolbar);
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
     }
 

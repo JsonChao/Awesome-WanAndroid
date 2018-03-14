@@ -27,6 +27,7 @@ import json.chao.com.wanandroid.presenter.main.CollectPresenter;
 import json.chao.com.wanandroid.ui.mainpager.adapter.ArticleListAdapter;
 import json.chao.com.wanandroid.utils.CommonUtils;
 import json.chao.com.wanandroid.utils.JudgeUtils;
+import json.chao.com.wanandroid.utils.StatusBarUtil;
 
 /**
  * @author quchao
@@ -122,6 +123,8 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
         assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(false);
         mTitleTv.setText(getString(R.string.my_collect));
+        StatusBarUtil.immersive(this);
+        StatusBarUtil.setPaddingSmart(this, mToolbar);
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
     }
 

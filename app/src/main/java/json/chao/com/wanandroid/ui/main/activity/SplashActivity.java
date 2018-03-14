@@ -10,6 +10,7 @@ import json.chao.com.wanandroid.app.GeeksApp;
 import json.chao.com.wanandroid.base.activity.BaseActivity;
 import json.chao.com.wanandroid.contract.main.SplashContract;
 import json.chao.com.wanandroid.presenter.main.SplashPresenter;
+import json.chao.com.wanandroid.utils.StatusBarUtil;
 
 /**
  * @author quchao
@@ -61,6 +62,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
             jumpToMain();
             return;
         }
+        StatusBarUtil.immersive(this);
         GeeksApp.isFirstRun = true;
         mOneAnimation.setAnimation("W.json");
         mOneAnimation.playAnimation();

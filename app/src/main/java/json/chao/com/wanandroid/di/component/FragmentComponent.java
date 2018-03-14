@@ -10,7 +10,6 @@ import json.chao.com.wanandroid.ui.hierarchy.fragment.KnowledgeHierarchyFragment
 import json.chao.com.wanandroid.ui.hierarchy.fragment.KnowledgeHierarchyListFragment;
 import json.chao.com.wanandroid.ui.mainpager.fragment.MainPagerFragment;
 import json.chao.com.wanandroid.ui.navigation.fragment.NavigationFragment;
-import json.chao.com.wanandroid.ui.navigation.fragment.NavigationListFragment;
 import json.chao.com.wanandroid.ui.project.fragment.ProjectFragment;
 import json.chao.com.wanandroid.ui.project.fragment.ProjectListFragment;
 import json.chao.com.wanandroid.ui.main.fragment.SearchDialogFragment;
@@ -65,14 +64,6 @@ public interface FragmentComponent {
      * @param navigationFragment NavigationFragment
      */
     void inject(NavigationFragment navigationFragment);
-
-    /**
-     * 注入NavigationListFragment所需的依赖
-     *
-     * @param navigationListFragment NavigationListFragment
-     */
-    void inject(NavigationListFragment navigationListFragment);
-
 
     /**
      * 注入ProjectListFragment所需的依赖

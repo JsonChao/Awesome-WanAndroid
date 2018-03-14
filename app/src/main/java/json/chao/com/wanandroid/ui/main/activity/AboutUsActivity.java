@@ -29,6 +29,7 @@ import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.base.activity.BaseActivity;
 import json.chao.com.wanandroid.contract.main.AboutUsContract;
 import json.chao.com.wanandroid.presenter.main.AboutUsPresenter;
+import json.chao.com.wanandroid.utils.StatusBarUtil;
 import json.chao.com.wanandroid.widget.interpolator.ElasticOutInterpolator;
 
 /**
@@ -41,7 +42,7 @@ public class AboutUsActivity extends BaseActivity<AboutUsPresenter> implements A
     @BindView(R.id.about_us_mountain)
     MountainSceneView mAboutUsMountain;
     @BindView(R.id.about_us_toolbar)
-    Toolbar mAboutUsToolbar;
+    Toolbar mToolbar;
     @BindView(R.id.about_us_toolbar_layout)
     CollapsingToolbarLayout mAboutUsToolbarLayout;
     @BindView(R.id.about_us_app_bar)
@@ -82,8 +83,10 @@ public class AboutUsActivity extends BaseActivity<AboutUsPresenter> implements A
 
     @Override
     protected void initEventAndData() {
-        setSupportActionBar(mAboutUsToolbar);
-        mAboutUsToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
+        setSupportActionBar(mToolbar);
+        StatusBarUtil.immersive(this);
+        StatusBarUtil.setPaddingSmart(this, mToolbar);
+        mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
 
         //设置内容
         mAboutContent.setText(Html.fromHtml(getString(R.string.about_content)));
@@ -109,20 +112,20 @@ public class AboutUsActivity extends BaseActivity<AboutUsPresenter> implements A
         mAboutUsRefreshLayout.setOnMultiPurposeListener(new SimpleMultiPurposeListener() {
             @Override
             public void onHeaderPulling(RefreshHeader header, float percent, int offset, int headerHeight, int extendHeight) {
-                if (mAboutUsAppBar == null || mAboutUsToolbar == null) {
+                if (mAboutUsAppBar == null || mToolbar == null) {
                     return;
                 }
                 mAboutUsAppBar.setTranslationY(offset);
-                mAboutUsToolbar.setTranslationY(-offset);
+                mToolbar.setTranslationY(-offset);
             }
 
             @Override
             public void onHeaderReleasing(RefreshHeader header, float percent, int offset, int footerHeight, int extendHeight) {
-                if (mAboutUsAppBar == null || mAboutUsToolbar == null) {
+                if (mAboutUsAppBar == null || mToolbar == null) {
                     return;
                 }
                 mAboutUsAppBar.setTranslationY(offset);
-                mAboutUsToolbar.setTranslationY(-offset);
+                mToolbar.setTranslationY(-offset);
             }
         });
 

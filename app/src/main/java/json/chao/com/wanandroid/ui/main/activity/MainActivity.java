@@ -7,6 +7,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -44,6 +45,7 @@ import json.chao.com.wanandroid.ui.main.fragment.SearchDialogFragment;
 import json.chao.com.wanandroid.utils.BottomNavigationViewHelper;
 import json.chao.com.wanandroid.utils.CommonAlertDialog;
 import json.chao.com.wanandroid.utils.CommonUtils;
+import json.chao.com.wanandroid.utils.StatusBarUtil;
 
 
 /**
@@ -261,6 +263,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(false);
         mTitleTv.setText(getString(R.string.home_pager));
+        StatusBarUtil.immersive(this, ContextCompat.getColor(this, R.color.transparent), 0.3f);
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
     }
 
@@ -328,7 +331,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     return true;
                 });
     }
-
 
     private void setLoginView() {
         if (mNavigationView == null) {

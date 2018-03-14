@@ -18,10 +18,12 @@
     <color name="deep_red">#dc3b1f</color>
     <color name="while_most_color">#e4e4e4</color>
     <color name="blackish_green">#6D8FB0</color>
+    <color name="text_bg">#8F9AA8</color>
 
     <color name="light_transparent">#00ffffff</color>
     <color name="transparent">#00000000</color>
     <color name="white">#ffffff</color>
+    <color name="light_white">#f4f0f0</color>
     <color name="title_black">#222222</color>
     <color name="common_black_bac">#2b2929</color>
     <color name="grey_divider">#E5E5E5</color>

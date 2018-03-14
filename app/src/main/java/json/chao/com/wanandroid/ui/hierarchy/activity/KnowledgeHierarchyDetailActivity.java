@@ -30,6 +30,7 @@ import json.chao.com.wanandroid.core.event.ReloadDetailEvent;
 import json.chao.com.wanandroid.core.event.ShowDetailErrorView;
 import json.chao.com.wanandroid.presenter.hierarchy.KnowledgeHierarchyDetailPresenter;
 import json.chao.com.wanandroid.ui.hierarchy.fragment.KnowledgeHierarchyListFragment;
+import json.chao.com.wanandroid.utils.StatusBarUtil;
 
 /**
  * @author quchao
@@ -129,6 +130,8 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
         assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(false);
         mTitleTv.setText(mKnowledgeHierarchyData.getName().trim());
+        StatusBarUtil.immersive(this);
+        StatusBarUtil.setPaddingSmart(this, mToolbar);
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
     }
 

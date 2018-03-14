@@ -24,6 +24,7 @@ import json.chao.com.wanandroid.contract.main.LoginContract;
 import json.chao.com.wanandroid.core.event.LoginEvent;
 import json.chao.com.wanandroid.presenter.main.LoginPresenter;
 import json.chao.com.wanandroid.utils.CommonUtils;
+import json.chao.com.wanandroid.utils.StatusBarUtil;
 import json.chao.com.wanandroid.widget.RegisterPopupWindow;
 
 /**
@@ -71,6 +72,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             setBackgroundAlpha(1.0f);
             mRegisterBtn.setOnClickListener(this);
         });
+        StatusBarUtil.immersive(this);
+        StatusBarUtil.setPaddingSmart(this, mToolbar);
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
     }
 

@@ -99,9 +99,6 @@ dependencies {
     //VerticalTabLayout
     compile 'q.rorbin:VerticalTabLayout:1.2.5'
 
-    //VerticalViewpager
-    compile 'me.kaelaela:verticalviewpager:1.0.0@aar'
-
     //flow layout
     compile 'com.hyman:flowlayout-lib:1.1.2'
 

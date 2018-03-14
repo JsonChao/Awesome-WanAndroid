@@ -3,6 +3,7 @@ package json.chao.com.wanandroid.ui.main.fragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -45,6 +46,7 @@ import json.chao.com.wanandroid.presenter.main.SearchPresenter;
 import json.chao.com.wanandroid.utils.CommonUtils;
 import json.chao.com.wanandroid.utils.JudgeUtils;
 import json.chao.com.wanandroid.utils.KeyBoardUtils;
+import json.chao.com.wanandroid.utils.StatusBarUtil;
 import json.chao.com.wanandroid.widget.CircularRevealAnim;
 
 /**
@@ -105,6 +107,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     
     @Override
     protected void initEventAndData() {
+        StatusBarUtil.immersive(getActivity().getWindow(), ContextCompat.getColor(getActivity(), R.color.transparent), 0.3f);
         initCircleAnimation();
         mTopSearchDataList = new ArrayList<>();
         mUsefulSiteDataList = new ArrayList<>();
