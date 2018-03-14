@@ -16,8 +16,8 @@
         app:tab_margin="@dimen/dp_20"
         app:tab_mode="scrollable" />
 
-    <me.kaelaela.verticalviewpager.VerticalViewPager
-        android:id="@+id/navigation_viewpager"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/navigation_RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_toEndOf="@id/navigation_tab_layout"

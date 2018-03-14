@@ -1,70 +1,69 @@
 package json.chao.com.wanandroid.ui.navigation.adapter;
 
-import android.graphics.Color;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 
-import java.util.ArrayList;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.zhy.view.flowlayout.FlowLayout;
+import com.zhy.view.flowlayout.TagAdapter;
+import com.zhy.view.flowlayout.TagFlowLayout;
+
 import java.util.List;
 
-import json.chao.com.wanandroid.base.fragment.BaseFragment;
+import json.chao.com.wanandroid.R;
+import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.navigation.NavigationListData;
-import q.rorbin.verticaltablayout.adapter.TabAdapter;
-import q.rorbin.verticaltablayout.widget.ITabView;
-import q.rorbin.verticaltablayout.widget.TabView;
+import json.chao.com.wanandroid.ui.navigation.viewholder.NavigationViewHolder;
+import json.chao.com.wanandroid.utils.CommonUtils;
+import json.chao.com.wanandroid.utils.JudgeUtils;
+
 
 /**
  * @author quchao
  * @date 2018/3/2
  */
 
-public class NavigationAdapter extends FragmentPagerAdapter implements TabAdapter {
+public class NavigationAdapter extends BaseQuickAdapter<NavigationListData, NavigationViewHolder> {
 
-    private List<NavigationListData> mData;
-    private ArrayList<BaseFragment> mFragments;
 
-    public NavigationAdapter(FragmentManager fm, List<NavigationListData> data, ArrayList<BaseFragment> fragments) {
-        super(fm);
-        mData = data;
-        mFragments = fragments;
+    public NavigationAdapter(int layoutResId, @Nullable List<NavigationListData> data) {
+        super(layoutResId, data);
     }
 
     @Override
-    public Fragment getItem(int position) {
-        return mFragments.get(position);
-    }
-
-    @Override
-    public int getCount() {
-        return mData == null? 0 : mData.size();
-    }
-
-    @Override
-    public ITabView.TabBadge getBadge(int i) {
-        return null;
-    }
-
-    @Override
-    public ITabView.TabIcon getIcon(int i) {
-        return null;
-    }
-
-    @Override
-    public ITabView.TabTitle getTitle(int i) {
-        return new TabView.TabTitle.Builder()
-                .setContent(mData.get(i).getName())
-                .setTextColor(Color.WHITE, 0xBBFFFFFF)
-                .build();
-    }
-
-    @Override
-    public int getBackground(int i) {
-        return 0;
-    }
-
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return mData.get(position).getName();
+    protected void convert(NavigationViewHolder helper, NavigationListData item) {
+        if (!TextUtils.isEmpty(item.getName())) {
+            helper.setText(R.id.item_navigation_tv, item.getName());
+        }
+        TagFlowLayout mTagFlowLayout = helper.getView(R.id.item_navigation_flow_layout);
+        List<FeedArticleData> mArticles = item.getArticles();
+        mTagFlowLayout.setAdapter(new TagAdapter<FeedArticleData>(mArticles) {
+            @Override
+            public View getView(FlowLayout parent, int position, FeedArticleData feedArticleData) {
+                TextView tv = (TextView) LayoutInflater.from(parent.getContext()).inflate(R.layout.flow_layout_tv,
+                        mTagFlowLayout, false);
+                if (feedArticleData == null) {
+                    return null;
+                }
+                String name = feedArticleData.getTitle();
+                tv.setText(name);
+                tv.setTextColor(CommonUtils.randomColor());
+                mTagFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
+                    JudgeUtils.startArticleDetailActivity(parent.getContext(),
+                            mArticles.get(position1).getId(),
+                            mArticles.get(position1).getTitle(),
+                            mArticles.get(position1).getLink(),
+                            mArticles.get(position1).isCollect(),
+                            false,
+                            false);
+                    return true;
+                });
+                return tv;
+            }
+        });
     }
 }
