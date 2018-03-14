@@ -3,8 +3,8 @@
 <div align="center">
 <img src="https://img.shields.io/badge/Version-V1.0-brightgreen.svg">
 <img src="https://img.shields.io/badge/build-passing-brightgreen.svg">
-<a href="https://developer.android.com/about/versions/android-4.0.html">
-    <img src="https://img.shields.io/badge/API-19+-blue.svg" alt="Min Sdk Version">
+<a href="https://developer.android.com/about/versions/android-5.0.html">
+    <img src="https://img.shields.io/badge/API-21+-blue.svg" alt="Min Sdk Version">
 </a>
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
     <img src="https://img.shields.io/badge/License-Apache2.0-blue.svg" alt="License" />
@@ -16,7 +16,7 @@
 <img src="https://diycode.b0.upaiyun.com/user/avatar/2468.jpg">
 </div>
 
-### 致力于打造一款极致体验的WanAndroid客户端，知识和美是可以并存的哦QAQn(*≧▽≦*)n
+### 致力于打造一款极致体验的WanAndroid客户端，知识和美是可以并存的哦QAQn(*≧▽≦*)n   (持续打磨中，敬请关注)
 
 ## Introduction
 
@@ -62,7 +62,7 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 
 
-## Apk download（Android 5.0 or above it）
+## Apk download（Android 5.0 or above it）（更新于2018/3/14 11：00）
 
 <center>
 
