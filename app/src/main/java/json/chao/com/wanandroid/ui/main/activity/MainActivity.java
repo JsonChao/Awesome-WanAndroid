@@ -112,18 +112,22 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 case R.id.tab_main_pager:
                     mTitleTv.setText(getString(R.string.home_pager));
                     switchFragment(0);
+                    currentPage = Constants.FIRST;
                     break;
                 case R.id.tab_knowledge_hierarchy:
                     mTitleTv.setText(getString(R.string.knowledge_hierarchy));
                     switchFragment(1);
+                    currentPage = Constants.SECOND;
                     break;
                 case R.id.tab_navigation:
                     mTitleTv.setText(getString(R.string.navigation));
                     switchFragment(2);
+                    currentPage = Constants.THIRD;
                     break;
                 case R.id.tab_project:
                     mTitleTv.setText(getString(R.string.project));
                     switchFragment(3);
+                    currentPage = Constants.FOURTH;
                     break;
                 default:
                     break;
@@ -245,6 +249,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             case Constants.SECOND:
                 if (mKnowledgeHierarchyFragment != null) {
                     mKnowledgeHierarchyFragment.jumpToTheTop();
+                }
+                break;
+            case Constants.THIRD:
+                if (mNavigationFragment != null) {
+                    mNavigationFragment.jumpToTheTop();
                 }
                 break;
             case Constants.FOURTH:
