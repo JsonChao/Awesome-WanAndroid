@@ -5,7 +5,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -61,6 +63,8 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
 
     @BindView(R.id.search_back_ib)
     ImageButton mBackIb;
+    @BindView(R.id.search_tint_tv)
+    TextView mTintTv;
     @BindView(R.id.search_edit)
     EditText mSearchEdit;
     @BindView(R.id.search_tv)
@@ -111,6 +115,26 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
         initCircleAnimation();
         mTopSearchDataList = new ArrayList<>();
         mUsefulSiteDataList = new ArrayList<>();
+        mSearchEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(mSearchEdit.getText().toString())) {
+                    mTintTv.setText(R.string.search_tint);
+                } else {
+                    mTintTv.setText("");
+                }
+            }
+        });
         RxView.clicks(mSearchTv)
                 .throttleFirst(Constants.CLICK_TIME_AREA, TimeUnit.MILLISECONDS)
                 .filter(o -> !TextUtils.isEmpty(mSearchEdit.getText().toString().trim()))

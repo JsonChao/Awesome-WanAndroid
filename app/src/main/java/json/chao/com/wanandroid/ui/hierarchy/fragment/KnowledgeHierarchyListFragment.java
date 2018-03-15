@@ -188,7 +188,6 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
                 mPresenter.getKnowledgeHierarchyDetailData(0, mKnowledgeHierarchyData.getId());
             }
             refreshLayout.finishRefresh(2000);
-            setRefreshThemeColor();
         });
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
             mCurrentPage++;
@@ -199,18 +198,4 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
             refreshLayout.finishLoadMore(2000);
         });
     }
-
-    private void setRefreshThemeColor() {
-        themeCount++;
-        if (themeCount % Constants.FOUR == Constants.ONE) {
-            mRefreshLayout.setPrimaryColorsId(Constants.BLUE_THEME, R.color.white);
-        } else if (themeCount % Constants.FOUR == Constants.TWO) {
-            mRefreshLayout.setPrimaryColorsId(Constants.GREEN_THEME, R.color.white);
-        } else if (themeCount % Constants.FOUR == Constants.THREE) {
-            mRefreshLayout.setPrimaryColorsId(Constants.RED_THEME, R.color.white);
-        } else if (themeCount % Constants.FOUR == Constants.ZERO) {
-            mRefreshLayout.setPrimaryColorsId(Constants.ORANGE_THEME, R.color.white);
-        }
-    }
-
 }

@@ -35,8 +35,8 @@ public abstract class AbstractSimpleDialogFragment extends DialogFragment {
         mRootView = inflater.inflate(getLayout(), container, false);
         unBinder = ButterKnife.bind(this, mRootView);
         //LeakCanary
-        RefWatcher refWatcher = GeeksApp.getRefWatcher(getActivity());
-        refWatcher.watch(this);
+//        RefWatcher refWatcher = GeeksApp.getRefWatcher(getActivity());
+//        refWatcher.watch(this);
         mCompositeDisposable = new CompositeDisposable();
         initEventAndData();
 

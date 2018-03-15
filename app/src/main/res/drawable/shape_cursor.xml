@@ -4,6 +4,5 @@
     <size android:width="@dimen/dp_2" />
 
     <gradient
-        android:endColor="@color/deep_red"
         android:startColor="@color/blue" />
 </shape>

@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import javax.inject.Inject;
@@ -38,8 +37,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     RelativeLayout mLoginGroup;
     @BindView(R.id.login_toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.login_iv)
-    ImageView mThemeIv;
     @BindView(R.id.login_account_edit)
     EditText mAccountEdit;
     @BindView(R.id.login_password_edit)

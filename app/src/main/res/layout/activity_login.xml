@@ -4,7 +4,7 @@
     android:id="@+id/login_group"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/icon_login_bg"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
@@ -12,12 +12,13 @@
         style="@style/AppTheme.Toolbar"
         app:navigationIcon="@drawable/ic_arrow_back_black_24dp" />
 
-    <ImageView
-        android:id="@+id/login_iv"
+    <TextView
+        android:id="@+id/login_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_android"
-        android:contentDescription="@null"
+        android:text="@string/login_in"
+        android:textColor="@color/title_black"
+        android:textSize="@dimen/sp_36"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp_32"
         android:layout_below="@+id/login_toolbar" />
@@ -28,16 +29,15 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="@dimen/dp_12"
-        android:layout_marginStart="@dimen/dp_32"
-        android:layout_marginEnd="@dimen/dp_32"
-        android:layout_marginTop="@dimen/dp_32"
-        android:background="@drawable/shape_rectangle_bg"
-        android:layout_below="@id/login_iv"
+        android:layout_marginStart="@dimen/dp_48"
+        android:layout_marginEnd="@dimen/dp_48"
+        android:layout_marginTop="@dimen/dp_64"
+        android:layout_below="@id/login_tv"
         android:gravity="center">
 
         <ImageView
-            android:layout_width="@dimen/dp_36"
-            android:layout_height="@dimen/dp_36"
+            android:layout_width="@dimen/dp_32"
+            android:layout_height="@dimen/dp_32"
             android:src="@drawable/ic_account"
             android:contentDescription="@null" />
 
@@ -48,22 +48,30 @@
             android:layout_marginStart="@dimen/dp_6"/>
     </LinearLayout>
 
+    <View
+        android:id="@+id/login_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/grey_divider"
+        android:layout_below="@id/login_account_group"
+        android:layout_marginStart="@dimen/dp_64"
+        android:layout_marginEnd="@dimen/dp_64" />
+
     <LinearLayout
         android:id="@+id/login_password_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="@dimen/dp_12"
-        android:layout_marginStart="@dimen/dp_32"
-        android:layout_marginEnd="@dimen/dp_32"
+        android:layout_marginStart="@dimen/dp_48"
+        android:layout_marginEnd="@dimen/dp_48"
         android:layout_marginTop="@dimen/dp_1"
-        android:background="@drawable/shape_rectangle_bg"
-        android:layout_below="@id/login_account_group"
+        android:layout_below="@id/login_divider"
         android:gravity="center">
 
         <ImageView
-            android:layout_width="@dimen/dp_36"
-            android:layout_height="@dimen/dp_36"
+            android:layout_width="@dimen/dp_32"
+            android:layout_height="@dimen/dp_32"
             android:src="@drawable/ic_password"
             android:contentDescription="@null" />
 
@@ -75,18 +83,40 @@
             android:layout_marginStart="@dimen/dp_6" />
     </LinearLayout>
 
+    <View
+        android:id="@+id/register_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/grey_divider"
+        android:layout_below="@id/login_password_group"
+        android:layout_marginStart="@dimen/dp_64"
+        android:layout_marginEnd="@dimen/dp_64" />
+
     <Button
         android:id="@+id/login_register_btn"
         style="@style/style_circle_btn"
+        android:background="@drawable/bg_conner_bottom_blue"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/dp_64"
-        android:layout_marginTop="@dimen/dp_24"
+        android:layout_marginTop="@dimen/dp_12"
         android:text="@string/register" />
+
+    <TextView
+        android:id="@+id/login_or_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/or"
+        android:textColor="@color/common_black_bac"
+        android:textSize="@dimen/sp_16"
+        android:layout_above="@id/login_register_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_12" />
 
     <Button
         android:id="@+id/login_btn"
         style="@style/style_circle_btn"
-        android:layout_above="@+id/login_register_btn"
+        android:background="@drawable/bg_conner_bottom_red"
+        android:layout_above="@+id/login_or_tv"
         android:layout_marginTop="@dimen/dp_32"
         android:text="@string/login_in" />
 </RelativeLayout>

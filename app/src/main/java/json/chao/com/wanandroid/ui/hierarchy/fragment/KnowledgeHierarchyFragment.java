@@ -111,10 +111,10 @@ public class KnowledgeHierarchyFragment extends BaseFragment<KnowledgeHierarchyP
     }
 
     private void setRefresh() {
+        mRefreshLayout.setPrimaryColorsId(Constants.BLUE_THEME, R.color.white);
         mRefreshLayout.setOnRefreshListener(refreshLayout -> {
             mPresenter.getKnowledgeHierarchyData();
             refreshLayout.finishRefresh(2000);
-            setRefreshThemeColor();
         });
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
             mPresenter.getKnowledgeHierarchyData();
@@ -122,16 +122,4 @@ public class KnowledgeHierarchyFragment extends BaseFragment<KnowledgeHierarchyP
         });
     }
 
-    private void setRefreshThemeColor() {
-        themeCount++;
-        if (themeCount % Constants.FOUR == Constants.ONE) {
-            mRefreshLayout.setPrimaryColorsId(Constants.BLUE_THEME, R.color.white);
-        } else if (themeCount % Constants.FOUR == Constants.TWO) {
-            mRefreshLayout.setPrimaryColorsId(Constants.GREEN_THEME, R.color.white);
-        } else if (themeCount % Constants.FOUR == Constants.THREE) {
-            mRefreshLayout.setPrimaryColorsId(Constants.RED_THEME, R.color.white);
-        } else if (themeCount % Constants.FOUR == Constants.ZERO) {
-            mRefreshLayout.setPrimaryColorsId(Constants.ORANGE_THEME, R.color.white);
-        }
-    }
 }

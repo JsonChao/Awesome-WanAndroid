@@ -142,7 +142,6 @@ public class ProjectListFragment extends BaseFragment<ProjectListPresenter> impl
             isRefresh = true;
             mPresenter.getProjectListData(mCurrentPage, cid);
             refreshLayout.finishRefresh(2000);
-            setRefreshThemeColor();
         });
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
             mCurrentPage++;
@@ -150,19 +149,6 @@ public class ProjectListFragment extends BaseFragment<ProjectListPresenter> impl
             mPresenter.getProjectListData(mCurrentPage, cid);
             refreshLayout.finishLoadMore(2000);
         });
-    }
-
-    private void setRefreshThemeColor() {
-        themeCount++;
-        if (themeCount % Constants.FOUR == Constants.ONE) {
-            mRefreshLayout.setPrimaryColorsId(Constants.BLUE_THEME, R.color.white);
-        } else if (themeCount % Constants.FOUR == Constants.TWO) {
-            mRefreshLayout.setPrimaryColorsId(Constants.GREEN_THEME, R.color.white);
-        } else if (themeCount % Constants.FOUR == Constants.THREE) {
-            mRefreshLayout.setPrimaryColorsId(Constants.RED_THEME, R.color.white);
-        } else if (themeCount % Constants.FOUR == Constants.ZERO) {
-            mRefreshLayout.setPrimaryColorsId(Constants.ORANGE_THEME, R.color.white);
-        }
     }
 
 }

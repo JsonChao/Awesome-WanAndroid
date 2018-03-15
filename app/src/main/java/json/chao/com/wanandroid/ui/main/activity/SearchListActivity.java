@@ -170,8 +170,6 @@ public class SearchListActivity extends BaseActivity<SearchListPresenter> implem
     }
 
     private void initToolbar() {
-        mToolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-        mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_grey_24dp));
         Bundle bundle = getIntent().getExtras();
         if (bundle == null) {
             return;
@@ -183,6 +181,8 @@ public class SearchListActivity extends BaseActivity<SearchListPresenter> implem
         }
         StatusBarUtil.immersive(this, ContextCompat.getColor(this, R.color.transparent), 0.3f);
         StatusBarUtil.setPaddingSmart(this, mToolbar);
+        mToolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+        mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_grey_24dp));
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
     }
 
@@ -192,7 +192,6 @@ public class SearchListActivity extends BaseActivity<SearchListPresenter> implem
             isAddData = false;
             mPresenter.getSearchList(mCurrentPage, searchText);
             refreshLayout.finishRefresh(2000);
-            setRefreshThemeColor();
         });
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
             mCurrentPage++;
@@ -200,19 +199,6 @@ public class SearchListActivity extends BaseActivity<SearchListPresenter> implem
             mPresenter.getSearchList(mCurrentPage, searchText);
             refreshLayout.finishLoadMore(2000);
         });
-    }
-
-    private void setRefreshThemeColor() {
-        themeCount++;
-        if (themeCount % Constants.FOUR == Constants.ONE) {
-            mRefreshLayout.setPrimaryColorsId(Constants.BLUE_THEME, R.color.white);
-        } else if (themeCount % Constants.FOUR == Constants.TWO) {
-            mRefreshLayout.setPrimaryColorsId(Constants.GREEN_THEME, R.color.white);
-        } else if (themeCount % Constants.FOUR == Constants.THREE) {
-            mRefreshLayout.setPrimaryColorsId(Constants.RED_THEME, R.color.white);
-        } else if (themeCount % Constants.FOUR == Constants.ZERO) {
-            mRefreshLayout.setPrimaryColorsId(Constants.ORANGE_THEME, R.color.white);
-        }
     }
 
 }

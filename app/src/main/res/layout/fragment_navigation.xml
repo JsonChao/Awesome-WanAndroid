@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
 
     <q.rorbin.verticaltablayout.VerticalTabLayout
         android:id="@+id/navigation_tab_layout"
         android:layout_width="@dimen/dp_100"
         android:layout_height="match_parent"
-        android:background="@color/transparent"
-        android:padding="@dimen/dp_10"
-        app:indicator_color="@color/indicator_color"
-        app:indicator_corners="@dimen/dp_20"
+        android:background="@color/grey_bg"
+        app:tab_height="@dimen/dp_50"
+        app:indicator_color="@color/white"
         app:indicator_gravity="fill"
-        app:tab_margin="@dimen/dp_20"
+        app:tab_margin="@dimen/dp_15"
         app:tab_mode="scrollable" />
+
+    <View
+        android:layout_width="@dimen/dp_05"
+        android:layout_height="match_parent"
+        android:background="@color/grey_divider" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/navigation_RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_toEndOf="@id/navigation_tab_layout"
         android:visibility="gone" />
-</RelativeLayout>
+</LinearLayout>

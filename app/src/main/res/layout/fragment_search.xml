@@ -15,6 +15,11 @@
         app:elevation="@dimen/dp_6">
 
         <include layout="@layout/search_toolbar" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/grey_divider" />
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView

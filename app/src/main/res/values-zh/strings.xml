@@ -81,6 +81,7 @@
     <string name="failed_to_obtain_search_data_list">获取搜索数据列表失败</string>
     <string name="failed_to_obtain_top_data">获取热门数据失败</string>
     <string name="failed_to_obtain_useful_sites_data">获取常用网站数据失败</string>
+    <string name="or">或</string>
 
 
 </resources>

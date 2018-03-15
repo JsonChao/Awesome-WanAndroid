@@ -1,6 +1,5 @@
 package json.chao.com.wanandroid.ui.navigation.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -77,7 +76,6 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
         }
         RxBus.getDefault().post(new DismissErrorView());
         List<NavigationListData> navigationListData = navigationListResponse.getData();
-        mTabLayout.setBackgroundColor(ContextCompat.getColor(_mActivity, R.color.tab_bac));
         mTabLayout.setTabAdapter(new TabAdapter() {
             @Override
             public int getCount() {
@@ -98,13 +96,13 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
             public ITabView.TabTitle getTitle(int i) {
                 return new TabView.TabTitle.Builder()
                         .setContent(navigationListData.get(i).getName())
-                        .setTextColor(Color.WHITE, 0xBBFFFFFF)
+                        .setTextColor(0xFF36BC9B, 0xFF757575)
                         .build();
             }
 
             @Override
             public int getBackground(int i) {
-                return 0;
+                return -1;
             }
         });
         mRecyclerView.setVisibility(View.VISIBLE);

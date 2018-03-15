@@ -9,14 +9,25 @@
         android:id="@+id/project_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_48"
-        android:background="@drawable/shape_tab_bg"
+        android:background="@color/white"
         android:paddingLeft="@dimen/dp_5"
         android:paddingRight="@dimen/dp_5"
+        app:tl_indicator_color="@color/light_red"
+        app:tl_textSelectColor="@color/white"
+        app:tl_textUnselectColor="@color/grey"
+        app:tl_divider_color="@color/light_red"
+        app:tl_divider_width="@dimen/dp_1"
+        app:tl_divider_padding="@dimen/dp_10"
         app:tl_indicator_corner_radius="@dimen/dp_5"
         app:tl_indicator_margin_left="@dimen/dp_5"
         app:tl_indicator_margin_right="@dimen/dp_5"
         app:tl_indicator_style="BLOCK"
         android:visibility="gone" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/grey_divider" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/project_viewpager"

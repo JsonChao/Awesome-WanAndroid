@@ -11,19 +11,16 @@
         android:theme="@style/AppTheme.AppBarOverlay"
         app:elevation="@dimen/dp_0">
 
-        <include layout="@layout/common_toolbar" />
+        <include layout="@layout/common_toolbar_no_scroll" />
 
         <com.flyco.tablayout.SlidingTabLayout
             android:id="@+id/knowledge_hierarchy_detail_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_48"
-            android:paddingStart="@dimen/dp_5"
-            android:paddingEnd="@dimen/dp_5"
-            android:background="@drawable/shape_tab_bg"
-            app:tl_indicator_corner_radius="@dimen/dp_5"
-            app:tl_indicator_margin_left="@dimen/dp_5"
-            app:tl_indicator_margin_right="@dimen/dp_5"
-            app:tl_indicator_style="BLOCK" />
+            android:background="@color/blue"
+            app:tl_textAllCaps="false"
+            app:tl_textBold="BOTH"
+            app:tl_textsize="@dimen/sp_14" />
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager

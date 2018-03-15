@@ -6,6 +6,7 @@
     <color name="colorPrimaryOverlay">#cc0094ff</color>
     <color name="not_network_bac">#33ffffff</color>
     <color name="grey">#cccccc</color>
+    <color name="grey_bg">#EDEDED</color>
     <color name="blue_dark_btn">#009eff</color>
     <color name="blue_btn">#35B0FF</color>
     <color name="card_bac">#f7f3f3</color>
@@ -24,10 +25,11 @@
     <color name="transparent">#00000000</color>
     <color name="white">#ffffff</color>
     <color name="light_white">#f4f0f0</color>
+    <color name="black">#333333</color>
     <color name="title_black">#222222</color>
     <color name="common_black_bac">#2b2929</color>
     <color name="grey_divider">#E5E5E5</color>
-    <color name="blue">#35B0FF</color>
+    <color name="blue">#3F9FE0</color>
     <color name="deep_blue">#0539be</color>
     <color name="yellow">#f39c12</color>
     <color name="grey_bar">#ECECEC</color>
@@ -39,5 +41,7 @@
     <color name="tab_bac">#049486</color>
     <color name="light_tab_bac">#45c1b5</color>
     <color name="indicator_color">#115E56</color>
+    <color name="navigation_selected">#FF36BC9B</color>
+    <color name="navigation_normal">#FF757575</color>
 
 </resources>

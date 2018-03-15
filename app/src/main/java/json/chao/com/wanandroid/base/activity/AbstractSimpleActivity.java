@@ -30,8 +30,8 @@ public abstract class AbstractSimpleActivity extends SupportActivity {
         setContentView(getLayoutId());
         unBinder = ButterKnife.bind(this);
         //LeakCanary
-        RefWatcher refWatcher = GeeksApp.getRefWatcher(this);
-        refWatcher.watch(this);
+//        RefWatcher refWatcher = GeeksApp.getRefWatcher(this);
+//        refWatcher.watch(this);
         mActivity = this;
         onViewCreated();
         ActivityCollector.getInstance().addActivity(this);
