@@ -47,23 +47,23 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 </div>
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG1.png" width=60%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG2.png" width=60%>
+<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG1.png" width=40%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG2.png" width=40%>
 </div>
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG3.png" width=60%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG4.png" width=60%>
+<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG3.png" width=40%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG4.png" width=40%>
 </div>
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG5.png" width=60%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG6.png" width=60%>
+<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG5.png" width=40%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG6.png" width=40%>
 </div>
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG7.png" width=60%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG8.png" width=60%>
+<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG7.png" width=40%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG8.png" width=40%>
 </div>
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG9.png" width=60%>
+<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG9.png" width=40%>
 </div>
 
 
