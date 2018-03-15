@@ -16,7 +16,7 @@
 <img src="https://diycode.b0.upaiyun.com/user/avatar/2468.jpg">
 </div>
 
-### 致力于打造一款极致体验的WanAndroid客户端，知识和美是可以并存的哦QAQn(*≧▽≦*)n   (持续打磨中，敬请关注)
+### 致力于打造一款极致体验的WanAndroid客户端，知识和美是可以并存的哦QAQn(*≧▽≦*)n   (持续打磨中~，敬请关注)
 
 ## Introduction
 
@@ -35,34 +35,42 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 ## Preview
 
 <div align="center">
-<img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/251756e695e2bc0a966089c4f05075234e744c76/screenshots/GIF1.gif?raw=true"><img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/master/screenshots/GIF2.gif?raw=true">
+<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/GIF1.gif"><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/GIF2.gif">
 </div>
 
 <div align="center">
-<img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/master/screenshots/GIF3.gif?raw=true"><img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/master/screenshots/GIF4.gif?raw=true">
+<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/GIF3.gif"><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/GIF4.gif">
 </div>
 
 <div align="center">
-<img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/251756e695e2bc0a966089c4f05075234e744c76/screenshots/GIF5.gif?raw=true"><img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/251756e695e2bc0a966089c4f05075234e744c76/screenshots/GIF6.gif?raw=true">
+<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/GIF5.gif"><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/GIF6.gif">
 </div>
 
 <div align="center">
-<img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/7856e3f54ddb601e4533ea52f60f697942a97f14/screenshots/JPG1.jpg?raw=true"><img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/7856e3f54ddb601e4533ea52f60f697942a97f14/screenshots/JPG2.jpg?raw=true">
+<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG1.png" width=60%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG2.png" width=60%>
 </div>
 
 <div align="center">
-<img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/7856e3f54ddb601e4533ea52f60f697942a97f14/screenshots/JPG3.jpg?raw=true"><img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/7856e3f54ddb601e4533ea52f60f697942a97f14/screenshots/JPG4.jpg?raw=true">
+<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG3.png" width=60%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG4.png" width=60%>
 </div>
 
 <div align="center">
-<img src="https://github.com/JsonChao/Awesome-WanAndroid/blob/7856e3f54ddb601e4533ea52f60f697942a97f14/screenshots/JPG5.jpg?raw=true">
+<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG5.png" width=60%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG6.png" width=60%>
+</div>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG7.png" width=60%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG8.png" width=60%>
+</div>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG9.png" width=60%>
 </div>
 
 
 
 
 
-## Apk download（Android 5.0 or above it）（更新于2018/3/14 11：00）
+## Apk download（Android 5.0 or above it）（V1.01）
 
 <center>
 
