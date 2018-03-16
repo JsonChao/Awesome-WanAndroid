@@ -75,7 +75,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     private ArrayList<BaseFragment> mFragments;
     private TextView mUsTv;
-    private int currentPage;
     private MainPagerFragment mMainPagerFragment;
     private KnowledgeHierarchyFragment mKnowledgeHierarchyFragment;
     private NavigationFragment mNavigationFragment;
@@ -86,7 +85,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     protected void onDestroy() {
         super.onDestroy();
         CommonAlertDialog.newInstance().cancelDialog();
-        mDataManager.setCurrentPage(currentPage);
     }
 
     @Override
@@ -104,7 +102,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         initToolbar();
         initData();
         initNavigationView();
-        currentPage = mDataManager.getCurrentPage();
 
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationBar);
         bottomNavigationBar.setOnNavigationItemSelectedListener(item -> {
@@ -112,22 +109,23 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 case R.id.tab_main_pager:
                     mTitleTv.setText(getString(R.string.home_pager));
                     switchFragment(0);
-                    currentPage = Constants.FIRST;
+                    mDataManager.setCurrentPage(Constants.FIRST);
                     break;
                 case R.id.tab_knowledge_hierarchy:
                     mTitleTv.setText(getString(R.string.knowledge_hierarchy));
                     switchFragment(1);
-                    currentPage = Constants.SECOND;
+                    mDataManager.setCurrentPage(Constants.SECOND);
                     break;
                 case R.id.tab_navigation:
                     mTitleTv.setText(getString(R.string.navigation));
                     switchFragment(2);
-                    currentPage = Constants.THIRD;
+                    mDataManager.setCurrentPage(Constants.THIRD);
                     break;
                 case R.id.tab_project:
                     mTitleTv.setText(getString(R.string.project));
                     switchFragment(3);
-                    currentPage = Constants.FOURTH;
+                    mProjectFragment.reLoad();
+                    mDataManager.setCurrentPage(Constants.FOURTH);
                     break;
                 default:
                     break;
@@ -185,22 +183,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mErrorView.setVisibility(View.VISIBLE);
         TextView reloadTv = (TextView) findViewById(R.id.error_reload_tv);
         reloadTv.setOnClickListener(v -> {
-            switch (currentPage) {
-                case Constants.FIRST:
-                    mMainPagerFragment.reLoad();
-                    break;
-                case Constants.SECOND:
-                    mKnowledgeHierarchyFragment.reLoad();
-                    break;
-                case Constants.THIRD:
-                    mNavigationFragment.reLoad();
-                    break;
-                case Constants.FOURTH:
-                    mProjectFragment.reLoad();
-                    break;
-                default:
-                    break;
-            }
+            mMainPagerFragment.reLoad();
+            mKnowledgeHierarchyFragment.reLoad();
+            mNavigationFragment.reLoad();
+            mProjectFragment.reLoad();
         });
     }
 
@@ -240,7 +226,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     private void jumpToTheTop() {
-        switch (currentPage) {
+        switch (mDataManager.getCurrentPage()) {
             case Constants.FIRST:
                 if (mMainPagerFragment != null) {
                     mMainPagerFragment.jumpToTheTop();

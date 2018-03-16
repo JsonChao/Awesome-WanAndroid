@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_group"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
@@ -17,13 +18,15 @@
         app:tab_mode="scrollable" />
 
     <View
+        android:id="@+id/navigation_divider"
         android:layout_width="@dimen/dp_05"
         android:layout_height="match_parent"
-        android:background="@color/grey_divider" />
+        android:background="@color/grey_divider"
+        android:visibility="invisible" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/navigation_RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone" />
+        android:visibility="invisible" />
 </LinearLayout>

@@ -86,8 +86,13 @@ public class ProjectFragment extends BaseFragment<ProjectPresenter> implements P
             return;
         }
         RxBus.getDefault().post(new DismissErrorView());
-        mTabLayout.setVisibility(View.VISIBLE);
-        mViewPager.setVisibility(View.VISIBLE);
+        if (mDataManager.getCurrentPage() == Constants.FOURTH) {
+            mTabLayout.setVisibility(View.VISIBLE);
+            mViewPager.setVisibility(View.VISIBLE);
+        } else {
+            mTabLayout.setVisibility(View.GONE);
+            mViewPager.setVisibility(View.GONE);
+        }
         mData = projectClassifyResponse.getData();
         for (ProjectClassifyData data : mData) {
             ProjectListFragment projectListFragment = ProjectListFragment.getInstance(data.getId(), null);

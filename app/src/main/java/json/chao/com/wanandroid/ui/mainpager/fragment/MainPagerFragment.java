@@ -66,7 +66,6 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
     private List<String> mBannerTitleList;
     private List<String> mBannerUrlList;
     private Banner mBanner;
-    private int themeCount;
 
     @Override
     public void onResume() {
@@ -276,7 +275,7 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
     }
 
     public void reLoad() {
-        if (mRefreshLayout != null && mPresenter != null) {
+        if (mRefreshLayout != null && mPresenter != null && CommonUtils.isNetworkConnected()) {
             mRefreshLayout.autoRefresh();
         }
     }

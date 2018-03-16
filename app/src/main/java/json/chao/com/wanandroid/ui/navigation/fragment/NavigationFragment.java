@@ -8,8 +8,11 @@ import android.view.View;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import json.chao.com.wanandroid.component.RxBus;
+import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.navigation.NavigationListData;
 import json.chao.com.wanandroid.core.bean.navigation.NavigationListResponse;
 import json.chao.com.wanandroid.R;
@@ -36,9 +39,13 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
 
     @BindView(R.id.navigation_tab_layout)
     VerticalTabLayout mTabLayout;
+    @BindView(R.id.navigation_divider)
+    View mDivider;
     @BindView(R.id.navigation_RecyclerView)
     RecyclerView mRecyclerView;
 
+    @Inject
+    DataManager mDataManager;
     private LinearLayoutManager mManager;
     private boolean needScroll;
     private int index;
@@ -105,7 +112,13 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
                 return -1;
             }
         });
-        mRecyclerView.setVisibility(View.VISIBLE);
+        if (mDataManager.getCurrentPage() == Constants.THIRD) {
+            mRecyclerView.setVisibility(View.VISIBLE);
+            mDivider.setVisibility(View.VISIBLE);
+        } else {
+            mRecyclerView.setVisibility(View.INVISIBLE);
+            mDivider.setVisibility(View.INVISIBLE);
+        }
         NavigationAdapter adapter = new NavigationAdapter(R.layout.item_navigation, navigationListData);
         mRecyclerView.setAdapter(adapter);
         mManager = new LinearLayoutManager(_mActivity);
@@ -121,7 +134,8 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
     @Override
     public void showError() {
         mTabLayout.setBackgroundColor(ContextCompat.getColor(_mActivity, R.color.transparent));
-        mRecyclerView.setVisibility(View.GONE);
+        mRecyclerView.setVisibility(View.INVISIBLE);
+        mDivider.setVisibility(View.INVISIBLE);
         RxBus.getDefault().post(new ShowErrorView());
     }
 

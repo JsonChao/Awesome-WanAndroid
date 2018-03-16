@@ -10,8 +10,11 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import json.chao.com.wanandroid.component.RxBus;
+import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.hierarchy.KnowledgeHierarchyData;
 import json.chao.com.wanandroid.core.bean.hierarchy.KnowledgeHierarchyResponse;
 import json.chao.com.wanandroid.R;
@@ -38,9 +41,10 @@ public class KnowledgeHierarchyFragment extends BaseFragment<KnowledgeHierarchyP
     @BindView(R.id.knowledge_hierarchy_recycler_view)
     RecyclerView mRecyclerView;
 
+    @Inject
+    DataManager mDataManager;
     private List<KnowledgeHierarchyData> mKnowledgeHierarchyDataList;
     private KnowledgeHierarchyAdapter mAdapter;
-    private int themeCount;
 
     public static KnowledgeHierarchyFragment getInstance(String param1, String param2) {
         KnowledgeHierarchyFragment fragment = new KnowledgeHierarchyFragment();
@@ -82,7 +86,11 @@ public class KnowledgeHierarchyFragment extends BaseFragment<KnowledgeHierarchyP
             return;
         }
         RxBus.getDefault().post(new DismissErrorView());
-        mRefreshLayout.setVisibility(View.VISIBLE);
+        if (mDataManager.getCurrentPage() == Constants.SECOND) {
+            mRefreshLayout.setVisibility(View.VISIBLE);
+        } else {
+            mRefreshLayout.setVisibility(View.GONE);
+        }
         mKnowledgeHierarchyDataList = knowledgeHierarchyResponse.getData();
         mAdapter.replaceData(mKnowledgeHierarchyDataList);
     }
