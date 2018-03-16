@@ -89,7 +89,7 @@ public class KnowledgeHierarchyFragment extends BaseFragment<KnowledgeHierarchyP
         if (mDataManager.getCurrentPage() == Constants.SECOND) {
             mRefreshLayout.setVisibility(View.VISIBLE);
         } else {
-            mRefreshLayout.setVisibility(View.GONE);
+            mRefreshLayout.setVisibility(View.INVISIBLE);
         }
         mKnowledgeHierarchyDataList = knowledgeHierarchyResponse.getData();
         mAdapter.replaceData(mKnowledgeHierarchyDataList);
@@ -102,12 +102,12 @@ public class KnowledgeHierarchyFragment extends BaseFragment<KnowledgeHierarchyP
 
     @Override
     public void showError() {
-        mRefreshLayout.setVisibility(View.GONE);
+        mRefreshLayout.setVisibility(View.INVISIBLE);
         RxBus.getDefault().post(new ShowErrorView());
     }
 
     public void reLoad() {
-        if (mPresenter != null) {
+        if (mPresenter != null && mRefreshLayout.getVisibility() == View.INVISIBLE) {
             mPresenter.getKnowledgeHierarchyData();
         }
     }

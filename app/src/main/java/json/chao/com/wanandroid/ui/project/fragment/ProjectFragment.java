@@ -90,8 +90,8 @@ public class ProjectFragment extends BaseFragment<ProjectPresenter> implements P
             mTabLayout.setVisibility(View.VISIBLE);
             mViewPager.setVisibility(View.VISIBLE);
         } else {
-            mTabLayout.setVisibility(View.GONE);
-            mViewPager.setVisibility(View.GONE);
+            mTabLayout.setVisibility(View.INVISIBLE);
+            mViewPager.setVisibility(View.INVISIBLE);
         }
         mData = projectClassifyResponse.getData();
         for (ProjectClassifyData data : mData) {
@@ -143,13 +143,13 @@ public class ProjectFragment extends BaseFragment<ProjectPresenter> implements P
 
     @Override
     public void showError() {
-        mTabLayout.setVisibility(View.GONE);
-        mViewPager.setVisibility(View.GONE);
+        mTabLayout.setVisibility(View.INVISIBLE);
+        mViewPager.setVisibility(View.INVISIBLE);
         RxBus.getDefault().post(new ShowErrorView());
     }
 
     public void reLoad() {
-        if (mPresenter != null) {
+        if (mPresenter != null && mTabLayout.getVisibility() == View.INVISIBLE) {
             mPresenter.getProjectClassifyData();
         }
     }

@@ -197,7 +197,11 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
             return;
         }
         RxBus.getDefault().post(new DismissErrorView());
-        mRefreshLayout.setVisibility(View.VISIBLE);
+        if (mDataManager.getCurrentPage() == Constants.FIRST) {
+            mRefreshLayout.setVisibility(View.VISIBLE);
+        } else {
+            mRefreshLayout.setVisibility(View.INVISIBLE);
+        }
         if (isRefresh) {
             mFeedArticleDataList = feedArticleListResponse.getData().getDatas();
             mAdapter.replaceData(feedArticleListResponse.getData().getDatas());
@@ -270,12 +274,14 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
 
     @Override
     public void showError() {
-        mRefreshLayout.setVisibility(View.GONE);
+        mRefreshLayout.setVisibility(View.INVISIBLE);
         RxBus.getDefault().post(new ShowErrorView());
     }
 
     public void reLoad() {
-        if (mRefreshLayout != null && mPresenter != null && CommonUtils.isNetworkConnected()) {
+        if (mRefreshLayout != null && mPresenter != null
+                && mRefreshLayout.getVisibility() == View.INVISIBLE
+                && CommonUtils.isNetworkConnected()) {
             mRefreshLayout.autoRefresh();
         }
     }

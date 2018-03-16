@@ -4,7 +4,8 @@
     android:id="@+id/navigation_group"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:visibility="invisible">
 
     <q.rorbin.verticaltablayout.VerticalTabLayout
         android:id="@+id/navigation_tab_layout"
@@ -27,6 +28,5 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/navigation_RecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="invisible" />
+        android:layout_height="match_parent" />
 </LinearLayout>

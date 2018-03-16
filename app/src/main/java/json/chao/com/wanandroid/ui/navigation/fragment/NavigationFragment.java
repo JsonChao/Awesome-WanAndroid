@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import java.util.List;
 
@@ -39,6 +40,8 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
 
     @BindView(R.id.navigation_tab_layout)
     VerticalTabLayout mTabLayout;
+    @BindView(R.id.navigation_group)
+    LinearLayout mNavigationGroup;
     @BindView(R.id.navigation_divider)
     View mDivider;
     @BindView(R.id.navigation_RecyclerView)
@@ -113,10 +116,10 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
             }
         });
         if (mDataManager.getCurrentPage() == Constants.THIRD) {
-            mRecyclerView.setVisibility(View.VISIBLE);
+            mNavigationGroup.setVisibility(View.VISIBLE);
             mDivider.setVisibility(View.VISIBLE);
         } else {
-            mRecyclerView.setVisibility(View.INVISIBLE);
+            mNavigationGroup.setVisibility(View.INVISIBLE);
             mDivider.setVisibility(View.INVISIBLE);
         }
         NavigationAdapter adapter = new NavigationAdapter(R.layout.item_navigation, navigationListData);
@@ -134,7 +137,7 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
     @Override
     public void showError() {
         mTabLayout.setBackgroundColor(ContextCompat.getColor(_mActivity, R.color.transparent));
-        mRecyclerView.setVisibility(View.INVISIBLE);
+        mNavigationGroup.setVisibility(View.INVISIBLE);
         mDivider.setVisibility(View.INVISIBLE);
         RxBus.getDefault().post(new ShowErrorView());
     }
@@ -240,7 +243,7 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
     }
 
     public void reLoad() {
-        if (mPresenter != null) {
+        if (mPresenter != null && mNavigationGroup.getVisibility() == View.INVISIBLE) {
             mPresenter.getNavigationListData();
         }
     }

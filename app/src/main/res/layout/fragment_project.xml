@@ -22,7 +22,7 @@
         app:tl_indicator_margin_left="@dimen/dp_5"
         app:tl_indicator_margin_right="@dimen/dp_5"
         app:tl_indicator_style="BLOCK"
-        android:visibility="gone" />
+        android:visibility="invisible" />
 
     <View
         android:layout_width="match_parent"
@@ -33,5 +33,5 @@
         android:id="@+id/project_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone" />
+        android:visibility="invisible" />
 </LinearLayout>
