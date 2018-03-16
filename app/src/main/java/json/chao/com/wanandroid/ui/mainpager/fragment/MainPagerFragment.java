@@ -139,7 +139,12 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
         mRecyclerView.setAdapter(mAdapter);
 
         setRefresh();
-        mPresenter.loadMainPagerData();
+        if (mDataManager.getLoginStatus()) {
+            mPresenter.loadMainPagerData();
+        } else {
+            mPresenter.getBannerData();
+            mPresenter.getFeedArticleList(mCurrentPage);
+        }
 
         //登录成功刷新数据
         RxBus.getDefault().toFlowable(LoginEvent.class)
@@ -174,6 +179,12 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
         if (isAdded()) {
             CommonUtils.showMessage(_mActivity, getString(R.string.auto_login_success));
         }
+    }
+
+    @Override
+    public void showAutoLoginFail() {
+        RxBus.getDefault().post(new LogoutEvent());
+        mPresenter.getBannerData();
     }
 
     @Override
@@ -264,7 +275,6 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
     public void reLoad() {
         if (mRefreshLayout != null && mPresenter != null) {
             mRefreshLayout.autoRefresh();
-            mPresenter.getBannerData();
         }
     }
 

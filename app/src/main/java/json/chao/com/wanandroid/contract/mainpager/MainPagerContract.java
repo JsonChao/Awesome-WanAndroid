@@ -21,6 +21,11 @@ public interface MainPagerContract {
         void showAutoLoginSuccess();
 
         /**
+         * Show auto login fail
+         */
+        void showAutoLoginFail();
+
+        /**
          * Show content
          *
          * @param feedArticleListResponse FeedArticleListResponse

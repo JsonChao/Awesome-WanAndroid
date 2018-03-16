@@ -56,6 +56,12 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
                         mView.showBannerData((BannerResponse) map.get(Constants.BANNER_DATA));
                         mView.showArticleList((FeedArticleListResponse) map.get(Constants.ARTICLE_DATA));
                     }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        mView.showAutoLoginFail();
+                    }
                 });
     }
 
