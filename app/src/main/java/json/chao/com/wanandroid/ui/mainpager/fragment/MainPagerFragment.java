@@ -35,6 +35,7 @@ import json.chao.com.wanandroid.core.event.DismissErrorView;
 import json.chao.com.wanandroid.core.event.LoginEvent;
 import json.chao.com.wanandroid.core.event.LogoutEvent;
 import json.chao.com.wanandroid.core.event.ShowErrorView;
+import json.chao.com.wanandroid.core.http.cookies.CookiesManager;
 import json.chao.com.wanandroid.presenter.mainpager.MainPagerPresenter;
 import json.chao.com.wanandroid.ui.main.activity.LoginActivity;
 import json.chao.com.wanandroid.ui.mainpager.adapter.ArticleListAdapter;
@@ -183,6 +184,8 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
 
     @Override
     public void showAutoLoginFail() {
+        mDataManager.setLoginStatus(false);
+        CookiesManager.clearAllCookies();
         RxBus.getDefault().post(new LogoutEvent());
         mPresenter.getBannerData();
     }

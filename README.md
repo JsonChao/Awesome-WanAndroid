@@ -74,7 +74,7 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 <center>
 
-![image](https://github.com/JsonChao/Awesome-WanAndroid/blob/master/screenshots/apk.png?raw=true)
+![image](https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/apk.png)
 
 </center>
 
