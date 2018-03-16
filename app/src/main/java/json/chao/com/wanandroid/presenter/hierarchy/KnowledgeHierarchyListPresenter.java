@@ -2,12 +2,15 @@ package json.chao.com.wanandroid.presenter.hierarchy;
 
 import javax.inject.Inject;
 
+import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.contract.hierarchy.KnowledgeHierarchyListContract;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
+import json.chao.com.wanandroid.core.event.CollectEvent;
+import json.chao.com.wanandroid.core.event.KnowledgeJumpTopEvent;
 import json.chao.com.wanandroid.utils.RxUtils;
 import json.chao.com.wanandroid.widget.BaseObserver;
 
@@ -24,6 +27,25 @@ public class KnowledgeHierarchyListPresenter extends BasePresenter<KnowledgeHier
     @Inject
     KnowledgeHierarchyListPresenter(DataManager dataManager) {
         this.mDataManager = dataManager;
+    }
+
+    @Override
+    public void attachView(KnowledgeHierarchyListContract.View view) {
+        super.attachView(view);
+        registerEvent();
+    }
+
+    private void registerEvent() {
+        addSubscribe(RxBus.getDefault().toFlowable(CollectEvent.class)
+                .filter(collectEvent -> !collectEvent.isCancelCollectSuccess())
+                .subscribe(collectEvent -> mView.showCollectSuccess()));
+
+        addSubscribe(RxBus.getDefault().toFlowable(CollectEvent.class)
+                .filter(CollectEvent::isCancelCollectSuccess)
+                .subscribe(collectEvent -> mView.showCancelCollectSuccess()));
+
+        addSubscribe( RxBus.getDefault().toFlowable(KnowledgeJumpTopEvent.class)
+                .subscribe(knowledgeJumpTopEvent -> mView.showJumpTheTop()));
     }
 
     @Override

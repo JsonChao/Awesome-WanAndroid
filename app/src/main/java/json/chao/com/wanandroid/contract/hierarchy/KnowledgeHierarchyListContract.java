@@ -44,6 +44,11 @@ public interface KnowledgeHierarchyListContract {
          */
         void showKnowledgeHierarchyDetailDataFail();
 
+        /**
+         * Show jump the top
+         */
+        void showJumpTheTop();
+
     }
 
     interface Presenter extends AbstractPresenter<View> {

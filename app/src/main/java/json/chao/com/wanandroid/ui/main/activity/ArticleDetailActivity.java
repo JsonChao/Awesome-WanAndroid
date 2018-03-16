@@ -29,8 +29,7 @@ import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.contract.main.ArticleDetailContract;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
-import json.chao.com.wanandroid.core.event.CancelCollectSuccessEvent;
-import json.chao.com.wanandroid.core.event.CollectSuccessEvent;
+import json.chao.com.wanandroid.core.event.CollectEvent;
 import json.chao.com.wanandroid.presenter.main.ArticleDetailPresenter;
 import json.chao.com.wanandroid.utils.CommonUtils;
 import json.chao.com.wanandroid.utils.StatusBarUtil;
@@ -231,9 +230,9 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
         StatusBarUtil.setPaddingSmart(this, mToolbar);
         mToolbar.setNavigationOnClickListener(v -> {
             if (isCollect) {
-                RxBus.getDefault().post(new CollectSuccessEvent());
+                RxBus.getDefault().post(new CollectEvent(false));
             } else {
-                RxBus.getDefault().post(new CancelCollectSuccessEvent());
+                RxBus.getDefault().post(new CollectEvent(true));
             }
             onBackPressedSupport();
         });

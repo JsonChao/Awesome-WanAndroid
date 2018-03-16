@@ -44,7 +44,6 @@ public class ProjectListFragment extends BaseFragment<ProjectListPresenter> impl
     private boolean isRefresh = true;
     private int mCurrentPage;
     private int cid;
-    private int themeCount;
 
     @Override
     protected void initInject() {
@@ -87,10 +86,6 @@ public class ProjectListFragment extends BaseFragment<ProjectListPresenter> impl
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
         mPresenter.getProjectListData(mCurrentPage, cid);
-
-        RxBus.getDefault().toFlowable(JumpToTheTopEvent.class)
-                .filter(jumpToTheTopEvent -> mRecyclerView != null)
-                .subscribe(jumpToTheTopEvent -> mRecyclerView.smoothScrollToPosition(0));
     }
 
     public static ProjectListFragment getInstance(int param1, String param2) {
@@ -133,6 +128,13 @@ public class ProjectListFragment extends BaseFragment<ProjectListPresenter> impl
     @Override
     public void showProjectListFail() {
         CommonUtils.showMessage(_mActivity, getString(R.string.failed_to_obtain_project_list));
+    }
+
+    @Override
+    public void showJumpToTheTop() {
+        if (mRecyclerView != null) {
+            mRecyclerView.smoothScrollToPosition(0);
+        }
     }
 
     private void setRefresh() {

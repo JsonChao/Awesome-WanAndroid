@@ -34,9 +34,6 @@ public abstract class AbstractSimpleDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mRootView = inflater.inflate(getLayout(), container, false);
         unBinder = ButterKnife.bind(this, mRootView);
-        //LeakCanary
-//        RefWatcher refWatcher = GeeksApp.getRefWatcher(getActivity());
-//        refWatcher.watch(this);
         mCompositeDisposable = new CompositeDisposable();
         initEventAndData();
 
@@ -50,6 +47,14 @@ public abstract class AbstractSimpleDialogFragment extends DialogFragment {
             mCompositeDisposable.clear();
         }
         unBinder.unbind();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //LeakCanary
+        RefWatcher refWatcher = GeeksApp.getRefWatcher(getActivity());
+        refWatcher.watch(this);
     }
 
     /**

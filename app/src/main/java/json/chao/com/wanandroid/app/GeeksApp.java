@@ -3,6 +3,7 @@ package json.chao.com.wanandroid.app;
 import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.BuildConfig;
 import android.support.v4.content.ContextCompat;
 
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -16,7 +17,6 @@ import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.crashreport.CrashReport;
 
-import json.chao.com.wanandroid.BuildConfig;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.core.dao.DaoMaster;
 import json.chao.com.wanandroid.core.dao.DaoSession;

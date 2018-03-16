@@ -12,7 +12,10 @@ public interface MainContract {
 
     interface View extends BaseView {
 
-
+        /**
+         * Show dismiss error view
+         */
+        void showDismissErrorView();
     }
 
     interface Presenter extends AbstractPresenter<View> {

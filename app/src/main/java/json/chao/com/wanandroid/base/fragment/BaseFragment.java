@@ -78,6 +78,26 @@ public abstract class BaseFragment<T extends AbstractPresenter> extends Abstract
         CommonUtils.showMessage(_mActivity, getString(R.string.cancel_collect_fail));
     }
 
+    @Override
+    public void showCollectSuccess() {
+
+    }
+
+    @Override
+    public void showCancelCollectSuccess() {
+
+    }
+
+    @Override
+    public void showLoginView() {
+
+    }
+
+    @Override
+    public void showLogoutView() {
+
+    }
+
     /**
      * 注入当前Fragment所需的依赖
      */

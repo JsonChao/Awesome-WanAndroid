@@ -28,6 +28,16 @@ public interface BaseView {
     void showLoading();
 
     /**
+     * Show login view
+     */
+    void showLoginView();
+
+    /**
+     * Show logout view
+     */
+    void showLogoutView();
+
+    /**
      * Show collect fail
      */
     void showCollectFail();
@@ -36,5 +46,15 @@ public interface BaseView {
      * Show cancel collect fail
      */
     void showCancelCollectFail();
+
+    /**
+     * Show collect success
+     */
+    void showCollectSuccess();
+
+    /**
+     * Show cancel collect success
+     */
+    void showCancelCollectSuccess();
 
 }

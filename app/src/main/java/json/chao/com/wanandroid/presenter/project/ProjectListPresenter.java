@@ -2,6 +2,7 @@ package json.chao.com.wanandroid.presenter.project;
 
 import javax.inject.Inject;
 
+import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.contract.project.ProjectListContract;
@@ -9,6 +10,7 @@ import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
 import json.chao.com.wanandroid.core.bean.project.ProjectListResponse;
+import json.chao.com.wanandroid.core.event.JumpToTheTopEvent;
 import json.chao.com.wanandroid.utils.RxUtils;
 import json.chao.com.wanandroid.widget.BaseObserver;
 
@@ -29,6 +31,12 @@ public class ProjectListPresenter extends BasePresenter<ProjectListContract.View
     @Override
     public void attachView(ProjectListContract.View view) {
         super.attachView(view);
+        registerEvent();
+    }
+
+    private void registerEvent() {
+        addSubscribe(RxBus.getDefault().toFlowable(JumpToTheTopEvent.class)
+                .subscribe(jumpToTheTopEvent -> mView.showJumpToTheTop()));
     }
 
 

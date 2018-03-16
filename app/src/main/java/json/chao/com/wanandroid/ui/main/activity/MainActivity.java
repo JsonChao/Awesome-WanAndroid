@@ -31,9 +31,7 @@ import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.contract.main.MainContract;
 import json.chao.com.wanandroid.core.DataManager;
-import json.chao.com.wanandroid.core.event.DismissErrorView;
 import json.chao.com.wanandroid.core.event.LoginEvent;
-import json.chao.com.wanandroid.core.event.LogoutEvent;
 import json.chao.com.wanandroid.core.event.ShowErrorView;
 import json.chao.com.wanandroid.core.http.cookies.CookiesManager;
 import json.chao.com.wanandroid.presenter.main.MainPresenter;
@@ -166,19 +164,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         toggle.syncState();
         mDrawerLayout.addDrawerListener(toggle);
 
-        RxBus.getDefault().toFlowable(LoginEvent.class)
-                .subscribe(loginEvent -> setLoginView());
-
-        RxBus.getDefault().toFlowable(LogoutEvent.class)
-                .subscribe(logoutEvent -> setLogoutView());
-
         RxBus.getDefault().toFlowable(ShowErrorView.class)
                 .filter(showErrorView -> mErrorView != null)
                 .subscribe(showErrorView -> showError());
-
-        RxBus.getDefault().toFlowable(DismissErrorView.class)
-                .filter(dismissErrorView -> mErrorView != null)
-                .subscribe(dismissErrorView -> mErrorView.setVisibility(View.GONE));
     }
 
     @Override
@@ -302,9 +290,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private void initNavigationView() {
         mUsTv = ((TextView) mNavigationView.getHeaderView(0).findViewById(R.id.nav_header_login_tv));
         if (mDataManager.getLoginStatus()) {
-            setLoginView();
+            showLoginView();
         } else {
-            setLogoutView();
+            showLogoutView();
         }
 
         mNavigationView.getMenu().findItem(R.id.nav_item_my_collect)
@@ -330,25 +318,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 });
     }
 
-    private void setLoginView() {
-        if (mNavigationView == null) {
-            return;
-        }
-        mUsTv = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.nav_header_login_tv);
-        mUsTv.setText(mDataManager.getLoginAccount());
-        mUsTv.setOnClickListener(null);
-        mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(true);
-    }
-
-    private void setLogoutView() {
-        mUsTv.setText(R.string.login_in);
-        mUsTv.setOnClickListener(v -> startActivity(new Intent(this, LoginActivity.class)));
-        if (mNavigationView == null) {
-            return;
-        }
-        mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(false);
-    }
-
     private void logout() {
         CommonAlertDialog.newInstance().showDialog(
                 this, getString(R.string.logout_tint),
@@ -359,10 +328,37 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(false);
                     mDataManager.setLoginStatus(false);
                     CookiesManager.clearAllCookies();
-                    RxBus.getDefault().post(new LogoutEvent());
+                    RxBus.getDefault().post(new LoginEvent(false));
                     startActivity(new Intent(this, LoginActivity.class));
                 },
                 v -> CommonAlertDialog.newInstance().cancelDialog());
     }
 
+    @Override
+    public void showDismissErrorView() {
+        if (mErrorView != null) {
+            mErrorView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void showLoginView() {
+        if (mNavigationView == null) {
+            return;
+        }
+        mUsTv = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.nav_header_login_tv);
+        mUsTv.setText(mDataManager.getLoginAccount());
+        mUsTv.setOnClickListener(null);
+        mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(true);
+    }
+
+    @Override
+    public void showLogoutView() {
+        mUsTv.setText(R.string.login_in);
+        mUsTv.setOnClickListener(v -> startActivity(new Intent(this, LoginActivity.class)));
+        if (mNavigationView == null) {
+            return;
+        }
+        mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(false);
+    }
 }

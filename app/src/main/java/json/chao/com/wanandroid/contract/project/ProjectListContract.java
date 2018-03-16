@@ -45,6 +45,11 @@ public interface ProjectListContract {
          */
         void showProjectListFail();
 
+        /**
+         * Show jump to the top
+         */
+        void showJumpToTheTop();
+
     }
 
     interface Presenter extends AbstractPresenter<View> {

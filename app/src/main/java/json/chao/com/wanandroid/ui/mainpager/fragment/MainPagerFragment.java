@@ -29,11 +29,8 @@ import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.contract.mainpager.MainPagerContract;
-import json.chao.com.wanandroid.core.event.CancelCollectSuccessEvent;
-import json.chao.com.wanandroid.core.event.CollectSuccessEvent;
 import json.chao.com.wanandroid.core.event.DismissErrorView;
 import json.chao.com.wanandroid.core.event.LoginEvent;
-import json.chao.com.wanandroid.core.event.LogoutEvent;
 import json.chao.com.wanandroid.core.event.ShowErrorView;
 import json.chao.com.wanandroid.core.http.cookies.CookiesManager;
 import json.chao.com.wanandroid.presenter.mainpager.MainPagerPresenter;
@@ -146,31 +143,11 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
             mPresenter.getFeedArticleList(mCurrentPage);
         }
 
-        //登录成功刷新数据
         RxBus.getDefault().toFlowable(LoginEvent.class)
+                .filter(loginEvent -> !loginEvent.isLogin())
                 .subscribe(loginEvent -> {
                     mCurrentPage = 0;
                     mPresenter.getFeedArticleList(mCurrentPage);
-                });
-
-        RxBus.getDefault().toFlowable(LogoutEvent.class)
-                .subscribe(loginEvent -> {
-                    mCurrentPage = 0;
-                    mPresenter.getFeedArticleList(mCurrentPage);
-                });
-
-        RxBus.getDefault().toFlowable(CollectSuccessEvent.class)
-                .filter(collectSuccessEvent -> mAdapter != null && mAdapter.getData().size() > articlePosition)
-                .subscribe(collectSuccessEvent -> {
-                    mAdapter.getData().get(articlePosition).setCollect(true);
-                    mAdapter.setData(articlePosition, mAdapter.getData().get(articlePosition));
-                });
-
-        RxBus.getDefault().toFlowable(CancelCollectSuccessEvent.class)
-                .filter(cancelCollectSuccessEvent -> mAdapter != null && mAdapter.getData().size() > articlePosition)
-                .subscribe(cancelCollectSuccessEvent -> {
-                    mAdapter.getData().get(articlePosition).setCollect(false);
-                    mAdapter.setData(articlePosition, mAdapter.getData().get(articlePosition));
                 });
     }
 
@@ -185,7 +162,7 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
     public void showAutoLoginFail() {
         mDataManager.setLoginStatus(false);
         CookiesManager.clearAllCookies();
-        RxBus.getDefault().post(new LogoutEvent());
+        RxBus.getDefault().post(new LoginEvent(false));
         mPresenter.getBannerData();
     }
 
@@ -263,6 +240,12 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
     }
 
     @Override
+    public void showLoginView() {
+        mCurrentPage = 0;
+        mPresenter.getFeedArticleList(mCurrentPage);
+    }
+
+    @Override
     public void showArticleListFail() {
         CommonUtils.showMessage(_mActivity, getString(R.string.failed_to_obtain_article_list));
     }
@@ -270,6 +253,22 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
     @Override
     public void showBannerDataFail() {
         CommonUtils.showMessage(_mActivity, getString(R.string.failed_to_obtain_banner_data));
+    }
+
+    @Override
+    public void showCollectSuccess() {
+        if (mAdapter != null && mAdapter.getData().size() > articlePosition) {
+            mAdapter.getData().get(articlePosition).setCollect(true);
+            mAdapter.setData(articlePosition, mAdapter.getData().get(articlePosition));
+        }
+    }
+
+    @Override
+    public void showCancelCollectSuccess() {
+        if (mAdapter != null && mAdapter.getData().size() > articlePosition) {
+            mAdapter.getData().get(articlePosition).setCollect(false);
+            mAdapter.setData(articlePosition, mAdapter.getData().get(articlePosition));
+        }
     }
 
     @Override

@@ -35,9 +35,6 @@ public abstract class AbstractSimpleFragment extends SupportFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayout(), container, false);
         unBinder = ButterKnife.bind(this, view);
-        //LeakCanary
-//        RefWatcher refWatcher = GeeksApp.getRefWatcher(_mActivity);
-//        refWatcher.watch(this);
         mCompositeDisposable = new CompositeDisposable();
 
         return view;
@@ -50,6 +47,14 @@ public abstract class AbstractSimpleFragment extends SupportFragment {
             mCompositeDisposable.clear();
         }
         unBinder.unbind();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //LeakCanary
+        RefWatcher refWatcher = GeeksApp.getRefWatcher(_mActivity);
+        refWatcher.watch(this);
     }
 
     @Override

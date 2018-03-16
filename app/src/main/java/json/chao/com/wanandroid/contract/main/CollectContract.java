@@ -34,6 +34,7 @@ public interface CollectContract {
          * Show collect list fail
          */
         void showCollectListFail();
+
     }
 
     interface Presenter extends AbstractPresenter<View> {

@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import json.chao.com.wanandroid.app.Constants;
+import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.contract.mainpager.MainPagerContract;
@@ -14,6 +15,8 @@ import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
 import json.chao.com.wanandroid.core.bean.main.login.LoginResponse;
+import json.chao.com.wanandroid.core.event.CollectEvent;
+import json.chao.com.wanandroid.core.event.LoginEvent;
 import json.chao.com.wanandroid.utils.RxUtils;
 import json.chao.com.wanandroid.widget.BaseObserver;
 
@@ -29,6 +32,27 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
     @Inject
     MainPagerPresenter(DataManager dataManager) {
         this.mDataManager = dataManager;
+    }
+
+    @Override
+    public void attachView(MainPagerContract.View view) {
+        super.attachView(view);
+        registerEvent();
+    }
+
+    private void registerEvent() {
+        addSubscribe(RxBus.getDefault().toFlowable(CollectEvent.class)
+                .filter(collectEvent -> !collectEvent.isCancelCollectSuccess())
+                .subscribe(collectEvent -> mView.showCollectSuccess()));
+
+        addSubscribe(RxBus.getDefault().toFlowable(CollectEvent.class)
+                .filter(CollectEvent::isCancelCollectSuccess)
+                .subscribe(collectEvent -> mView.showCancelCollectSuccess()));
+
+        addSubscribe(
+                RxBus.getDefault().toFlowable(LoginEvent.class)
+                        .filter(LoginEvent::isLogin)
+                        .subscribe(loginEvent -> mView.showLoginView()));
     }
 
     @Override

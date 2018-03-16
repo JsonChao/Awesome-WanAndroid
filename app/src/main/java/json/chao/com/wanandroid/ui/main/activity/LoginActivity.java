@@ -84,7 +84,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         mDataManager.setLoginAccount(loginData.getUsername());
         mDataManager.setLoginPassword(loginData.getPassword());
         mDataManager.setLoginStatus(true);
-        RxBus.getDefault().post(new LoginEvent());
+        RxBus.getDefault().post(new LoginEvent(true));
         CommonUtils.showMessage(this, getString(R.string.login_success));
         onBackPressedSupport();
     }

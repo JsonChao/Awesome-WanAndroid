@@ -3,11 +3,13 @@ package json.chao.com.wanandroid.presenter.main;
 import javax.inject.Inject;
 
 import json.chao.com.wanandroid.base.presenter.BasePresenter;
+import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.contract.main.CollectContract;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
+import json.chao.com.wanandroid.core.event.CollectEvent;
 import json.chao.com.wanandroid.utils.RxUtils;
 import json.chao.com.wanandroid.widget.BaseObserver;
 
@@ -23,6 +25,18 @@ public class CollectPresenter extends BasePresenter<CollectContract.View> implem
     @Inject
     CollectPresenter(DataManager dataManager) {
         mDataManager = dataManager;
+    }
+
+    @Override
+    public void attachView(CollectContract.View view) {
+        super.attachView(view);
+        registerEvent();
+    }
+
+    private void registerEvent() {
+        addSubscribe(RxBus.getDefault().toFlowable(CollectEvent.class)
+                .filter(CollectEvent::isCancelCollectSuccess)
+                .subscribe(collectEvent -> mView.showCancelCollectSuccess()));
     }
 
     @Override

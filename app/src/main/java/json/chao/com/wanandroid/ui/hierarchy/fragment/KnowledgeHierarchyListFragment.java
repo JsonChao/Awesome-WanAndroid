@@ -23,10 +23,7 @@ import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.contract.hierarchy.KnowledgeHierarchyListContract;
-import json.chao.com.wanandroid.core.event.CancelCollectSuccessEvent;
-import json.chao.com.wanandroid.core.event.CollectSuccessEvent;
 import json.chao.com.wanandroid.core.event.DismissDetailErrorView;
-import json.chao.com.wanandroid.core.event.KnowledgeJumpTopEvent;
 import json.chao.com.wanandroid.core.event.ReloadDetailEvent;
 import json.chao.com.wanandroid.core.event.ShowDetailErrorView;
 import json.chao.com.wanandroid.presenter.hierarchy.KnowledgeHierarchyListPresenter;
@@ -57,7 +54,6 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
     @Inject
     DataManager mDataManager;
     private int articlePosition;
-    private int themeCount;
 
     @Override
     protected void initInject() {
@@ -107,24 +103,6 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
 
-        RxBus.getDefault().toFlowable(CollectSuccessEvent.class)
-                .filter(collectSuccessEvent -> mAdapter != null && mAdapter.getData().size() > articlePosition)
-                .subscribe(collectSuccessEvent -> {
-                    mAdapter.getData().get(articlePosition).setCollect(true);
-                    mAdapter.setData(articlePosition, mAdapter.getData().get(articlePosition));
-                });
-
-        RxBus.getDefault().toFlowable(CancelCollectSuccessEvent.class)
-                .filter(collectSuccessEvent -> mAdapter != null && mAdapter.getData().size() > articlePosition)
-                .subscribe(collectSuccessEvent -> {
-                    mAdapter.getData().get(articlePosition).setCollect(false);
-                    mAdapter.setData(articlePosition, mAdapter.getData().get(articlePosition));
-                });
-
-        RxBus.getDefault().toFlowable(KnowledgeJumpTopEvent.class)
-                .filter(knowledgeJumpTopEvent -> mRecyclerView != null)
-                .subscribe(knowledgeJumpTopEvent -> mRecyclerView.smoothScrollToPosition(0));
-
         RxBus.getDefault().toFlowable(ReloadDetailEvent.class)
                 .filter(reloadEvent -> mRefreshLayout != null)
                 .subscribe(reloadEvent -> mRefreshLayout.autoRefresh());
@@ -169,6 +147,29 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
     @Override
     public void showKnowledgeHierarchyDetailDataFail() {
         CommonUtils.showMessage(_mActivity, getString(R.string.failed_to_obtain_knowledge_data));
+    }
+
+    @Override
+    public void showJumpTheTop() {
+        if (mRecyclerView != null) {
+            mRecyclerView.smoothScrollToPosition(0);
+        }
+    }
+
+    @Override
+    public void showCollectSuccess() {
+        if (mAdapter != null && mAdapter.getData().size() > articlePosition) {
+            mAdapter.getData().get(articlePosition).setCollect(true);
+            mAdapter.setData(articlePosition, mAdapter.getData().get(articlePosition));
+        }
+    }
+
+    @Override
+    public void showCancelCollectSuccess() {
+        if (mAdapter != null && mAdapter.getData().size() > articlePosition) {
+            mAdapter.getData().get(articlePosition).setCollect(false);
+            mAdapter.setData(articlePosition, mAdapter.getData().get(articlePosition));
+        }
     }
 
     public static KnowledgeHierarchyListFragment getInstance(Serializable param1, String param2) {

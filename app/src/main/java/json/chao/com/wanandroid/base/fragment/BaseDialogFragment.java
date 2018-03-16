@@ -1,8 +1,6 @@
 package json.chao.com.wanandroid.base.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.View;
 
 import javax.inject.Inject;
 
@@ -80,6 +78,26 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
         if (getActivity() != null) {
             CommonUtils.showMessage(getActivity(), getString(R.string.cancel_collect_fail));
         }
+    }
+
+    @Override
+    public void showCollectSuccess() {
+
+    }
+
+    @Override
+    public void showCancelCollectSuccess() {
+
+    }
+
+    @Override
+    public void showLoginView() {
+
+    }
+
+    @Override
+    public void showLogoutView() {
+
     }
 
     /**

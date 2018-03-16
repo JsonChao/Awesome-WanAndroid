@@ -72,6 +72,27 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
         CommonUtils.showMessage(this, getString(R.string.cancel_collect_fail));
     }
 
+    @Override
+    public void showCollectSuccess() {
+
+    }
+
+    @Override
+    public void showCancelCollectSuccess() {
+
+    }
+
+    @Override
+    public void showLoginView() {
+
+    }
+
+    @Override
+    public void showLogoutView() {
+
+    }
+
+
     /**
      * 注入当前Activity所需的依赖
      */

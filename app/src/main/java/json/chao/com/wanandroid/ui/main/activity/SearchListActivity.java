@@ -29,8 +29,7 @@ import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
-import json.chao.com.wanandroid.core.event.CancelCollectSuccessEvent;
-import json.chao.com.wanandroid.core.event.CollectSuccessEvent;
+import json.chao.com.wanandroid.core.event.CollectEvent;
 import json.chao.com.wanandroid.presenter.main.SearchListPresenter;
 import json.chao.com.wanandroid.ui.mainpager.adapter.ArticleListAdapter;
 import json.chao.com.wanandroid.utils.CommonUtils;
@@ -62,7 +61,6 @@ public class SearchListActivity extends BaseActivity<SearchListPresenter> implem
     private List<FeedArticleData> mArticleList;
     private ArticleListAdapter mAdapter;
     private boolean isAddData;
-    private int themeCount;
     private String searchText;
 
     @Override
@@ -103,20 +101,6 @@ public class SearchListActivity extends BaseActivity<SearchListPresenter> implem
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         setRefresh();
-
-        RxBus.getDefault().toFlowable(CollectSuccessEvent.class)
-                .filter(collectSuccessEvent -> mAdapter.getData().size() > articlePosition)
-                .subscribe(collectSuccessEvent -> {
-                    mAdapter.getData().get(articlePosition).setCollect(true);
-                    mAdapter.setData(articlePosition, mAdapter.getData().get(articlePosition));
-                });
-
-        RxBus.getDefault().toFlowable(CancelCollectSuccessEvent.class)
-                .filter(cancelCollectSuccessEvent -> mAdapter.getData().size() > articlePosition)
-                .subscribe(collectSuccessEvent -> {
-                    mAdapter.getData().get(articlePosition).setCollect(false);
-                    mAdapter.setData(articlePosition, mAdapter.getData().get(articlePosition));
-                });
     }
 
     @Override
@@ -156,6 +140,22 @@ public class SearchListActivity extends BaseActivity<SearchListPresenter> implem
     @Override
     public void showSearchListFail() {
         CommonUtils.showMessage(this, getString(R.string.failed_to_obtain_search_data_list));
+    }
+
+    @Override
+    public void showCollectSuccess() {
+        if (mAdapter.getData().size() > articlePosition) {
+            mAdapter.getData().get(articlePosition).setCollect(true);
+            mAdapter.setData(articlePosition, mAdapter.getData().get(articlePosition));
+        }
+    }
+
+    @Override
+    public void showCancelCollectSuccess() {
+        if (mAdapter.getData().size() > articlePosition) {
+            mAdapter.getData().get(articlePosition).setCollect(false);
+            mAdapter.setData(articlePosition, mAdapter.getData().get(articlePosition));
+        }
     }
 
     @OnClick({R.id.search_list_floating_action_btn})

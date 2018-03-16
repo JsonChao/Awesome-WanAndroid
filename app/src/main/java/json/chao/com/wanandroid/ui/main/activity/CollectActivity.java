@@ -16,13 +16,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import json.chao.com.wanandroid.R;
-import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.activity.BaseActivity;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.contract.main.CollectContract;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
-import json.chao.com.wanandroid.core.event.CancelCollectSuccessEvent;
+import json.chao.com.wanandroid.core.event.CollectEvent;
 import json.chao.com.wanandroid.presenter.main.CollectPresenter;
 import json.chao.com.wanandroid.ui.mainpager.adapter.ArticleListAdapter;
 import json.chao.com.wanandroid.utils.CommonUtils;
@@ -52,7 +51,6 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
     private List<FeedArticleData> mArticles;
     private ArticleListAdapter mAdapter;
     private int articlePosition;
-    private int themeCount;
 
     @Override
     protected void initInject() {
@@ -69,10 +67,6 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
         initToolbar();
         initView();
         setRefresh();
-
-        RxBus.getDefault().toFlowable(CancelCollectSuccessEvent.class)
-                .filter(cancelCollectSuccessEvent -> mAdapter.getData().size() > articlePosition)
-                .subscribe(cancelCollectSuccessEvent -> mAdapter.remove(articlePosition));
     }
 
     @Override
@@ -104,6 +98,13 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
     @Override
     public void showCollectListFail() {
         CommonUtils.showMessage(this, getString(R.string.failed_to_obtain_collection_data));
+    }
+
+    @Override
+    public void showCancelCollectSuccess() {
+        if (mAdapter.getData().size() > articlePosition) {
+            mAdapter.remove(articlePosition);
+        }
     }
 
     @OnClick({R.id.collect_floating_action_btn})

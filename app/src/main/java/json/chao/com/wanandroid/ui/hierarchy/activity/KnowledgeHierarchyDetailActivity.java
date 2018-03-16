@@ -100,10 +100,6 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
         RxBus.getDefault().toFlowable(ShowDetailErrorView.class)
                 .filter(showDetailErrorView -> mErrorView != null)
                 .subscribe(showDetailErrorView -> showError());
-
-        RxBus.getDefault().toFlowable(DismissDetailErrorView.class)
-                .filter(dismissDetailErrorView -> mErrorView != null)
-                .subscribe(dismissDetailErrorView -> mErrorView.setVisibility(View.GONE));
     }
 
     @Override
@@ -134,6 +130,14 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
         StatusBarUtil.immersive(this, ContextCompat.getColor(this, R.color.transparent), 0.3f);
         StatusBarUtil.setPaddingSmart(this, mToolbar);
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
+    }
+
+
+    @Override
+    public void showDismissDetailErrorView() {
+        if (mErrorView != null) {
+            mErrorView.setVisibility(View.GONE);
+        }
     }
 
 
