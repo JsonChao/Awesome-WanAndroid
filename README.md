@@ -1,7 +1,7 @@
 <h1 align="center">Awesome-WanAndroid</h1>
 
 <div align="center">
-<img src="https://img.shields.io/badge/Version-V1.0-brightgreen.svg">
+<img src="https://img.shields.io/badge/Version-V1.0.1-brightgreen.svg">
 <img src="https://img.shields.io/badge/build-passing-brightgreen.svg">
 <a href="https://developer.android.com/about/versions/android-5.0.html">
     <img src="https://img.shields.io/badge/API-21+-blue.svg" alt="Min Sdk Version">
