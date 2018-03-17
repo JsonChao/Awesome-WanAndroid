@@ -100,7 +100,7 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 - 项目中多处使用了炫目的动画及特效。
 
-- 更多请Clone本项目进行查看。。。
+- 还有更多等待您的探索。
 
 
 ## Version
