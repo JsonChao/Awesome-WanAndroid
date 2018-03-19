@@ -96,10 +96,6 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
             }
         });
         mTabLayout.setViewPager(mNoScrollViewPager);
-
-        RxBus.getDefault().toFlowable(ShowDetailErrorView.class)
-                .filter(showDetailErrorView -> mErrorView != null)
-                .subscribe(showDetailErrorView -> showError());
     }
 
     @Override
@@ -137,6 +133,13 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
     public void showDismissDetailErrorView() {
         if (mErrorView != null) {
             mErrorView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void showDetailErrorView() {
+        if (mErrorView != null) {
+            showError();
         }
     }
 

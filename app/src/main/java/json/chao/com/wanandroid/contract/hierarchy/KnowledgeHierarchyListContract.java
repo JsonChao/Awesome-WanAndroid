@@ -49,6 +49,11 @@ public interface KnowledgeHierarchyListContract {
          */
         void showJumpTheTop();
 
+        /**
+         * Show reload detail event
+         */
+        void showReloadDetailEvent();
+
     }
 
     interface Presenter extends AbstractPresenter<View> {

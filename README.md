@@ -1,7 +1,7 @@
 <h1 align="center">Awesome-WanAndroid</h1>
 
 <div align="center">
-<img src="https://img.shields.io/badge/Version-V1.0.1-brightgreen.svg">
+<img src="https://img.shields.io/badge/Version-V1.0-brightgreen.svg">
 <img src="https://img.shields.io/badge/build-passing-brightgreen.svg">
 <a href="https://developer.android.com/about/versions/android-5.0.html">
     <img src="https://img.shields.io/badge/API-21+-blue.svg" alt="Min Sdk Version">
@@ -100,20 +100,20 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 - 项目中多处使用了炫目的动画及特效。
 
-- 还有更多等待您的探索。
+- 更多请Clone本项目进行查看。。。
 
 
 ## Version
 
 ### v1.0.1
 
-1.合理化项目架构
+1.合理化分包架构
 
 2.优化搜索模块
 
 3.增加自动登录
 
-4.增加TabLayout智能联动RecyclerView
+4.TabLayout智能联动RecyclerView
 
 5.增加沉浸式状态栏
 

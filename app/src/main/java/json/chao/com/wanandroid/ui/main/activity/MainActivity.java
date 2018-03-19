@@ -32,7 +32,6 @@ import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.contract.main.MainContract;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.event.LoginEvent;
-import json.chao.com.wanandroid.core.event.ShowErrorView;
 import json.chao.com.wanandroid.core.http.cookies.CookiesManager;
 import json.chao.com.wanandroid.presenter.main.MainPresenter;
 import json.chao.com.wanandroid.ui.hierarchy.fragment.KnowledgeHierarchyFragment;
@@ -163,10 +162,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         };
         toggle.syncState();
         mDrawerLayout.addDrawerListener(toggle);
-
-        RxBus.getDefault().toFlowable(ShowErrorView.class)
-                .filter(showErrorView -> mErrorView != null)
-                .subscribe(showErrorView -> showError());
     }
 
     @Override
@@ -338,6 +333,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public void showDismissErrorView() {
         if (mErrorView != null) {
             mErrorView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void showErrorView() {
+        if (mErrorView != null) {
+            showError();
         }
     }
 

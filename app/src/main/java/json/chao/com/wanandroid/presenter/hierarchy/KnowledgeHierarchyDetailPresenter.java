@@ -7,6 +7,7 @@ import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.contract.hierarchy.KnowledgeHierarchyDetailContract;
 import json.chao.com.wanandroid.core.event.DismissDetailErrorView;
+import json.chao.com.wanandroid.core.event.ShowDetailErrorView;
 
 /**
  * @author quchao
@@ -32,6 +33,9 @@ public class KnowledgeHierarchyDetailPresenter extends BasePresenter<KnowledgeHi
     private void registerEvent() {
         addSubscribe(RxBus.getDefault().toFlowable(DismissDetailErrorView.class)
                 .subscribe(dismissDetailErrorView -> mView.showDismissDetailErrorView()));
+
+        addSubscribe(RxBus.getDefault().toFlowable(ShowDetailErrorView.class)
+                .subscribe(showDetailErrorView -> mView.showDetailErrorView()));
     }
 
 

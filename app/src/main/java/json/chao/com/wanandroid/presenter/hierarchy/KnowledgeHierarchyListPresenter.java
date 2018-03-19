@@ -11,6 +11,7 @@ import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
 import json.chao.com.wanandroid.core.event.CollectEvent;
 import json.chao.com.wanandroid.core.event.KnowledgeJumpTopEvent;
+import json.chao.com.wanandroid.core.event.ReloadDetailEvent;
 import json.chao.com.wanandroid.utils.RxUtils;
 import json.chao.com.wanandroid.widget.BaseObserver;
 
@@ -44,8 +45,11 @@ public class KnowledgeHierarchyListPresenter extends BasePresenter<KnowledgeHier
                 .filter(CollectEvent::isCancelCollectSuccess)
                 .subscribe(collectEvent -> mView.showCancelCollectSuccess()));
 
-        addSubscribe( RxBus.getDefault().toFlowable(KnowledgeJumpTopEvent.class)
+        addSubscribe(RxBus.getDefault().toFlowable(KnowledgeJumpTopEvent.class)
                 .subscribe(knowledgeJumpTopEvent -> mView.showJumpTheTop()));
+
+        addSubscribe(RxBus.getDefault().toFlowable(ReloadDetailEvent.class)
+                .subscribe(reloadEvent -> mView.showReloadDetailEvent()));
     }
 
     @Override

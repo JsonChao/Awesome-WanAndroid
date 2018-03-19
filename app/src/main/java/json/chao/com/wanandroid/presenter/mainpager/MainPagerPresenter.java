@@ -49,10 +49,13 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
                 .filter(CollectEvent::isCancelCollectSuccess)
                 .subscribe(collectEvent -> mView.showCancelCollectSuccess()));
 
-        addSubscribe(
-                RxBus.getDefault().toFlowable(LoginEvent.class)
+        addSubscribe(RxBus.getDefault().toFlowable(LoginEvent.class)
                         .filter(LoginEvent::isLogin)
                         .subscribe(loginEvent -> mView.showLoginView()));
+
+        addSubscribe(RxBus.getDefault().toFlowable(LoginEvent.class)
+                .filter(loginEvent -> !loginEvent.isLogin())
+                .subscribe(loginEvent -> mView.showLogoutView()));
     }
 
     @Override

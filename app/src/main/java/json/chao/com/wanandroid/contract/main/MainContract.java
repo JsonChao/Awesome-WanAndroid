@@ -16,6 +16,11 @@ public interface MainContract {
          * Show dismiss error view
          */
         void showDismissErrorView();
+
+        /**
+         * Show error view
+         */
+        void showErrorView();
     }
 
     interface Presenter extends AbstractPresenter<View> {

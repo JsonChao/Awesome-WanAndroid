@@ -24,7 +24,6 @@ import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.contract.hierarchy.KnowledgeHierarchyListContract;
 import json.chao.com.wanandroid.core.event.DismissDetailErrorView;
-import json.chao.com.wanandroid.core.event.ReloadDetailEvent;
 import json.chao.com.wanandroid.core.event.ShowDetailErrorView;
 import json.chao.com.wanandroid.presenter.hierarchy.KnowledgeHierarchyListPresenter;
 import json.chao.com.wanandroid.ui.main.activity.LoginActivity;
@@ -102,10 +101,6 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
         });
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
-
-        RxBus.getDefault().toFlowable(ReloadDetailEvent.class)
-                .filter(reloadEvent -> mRefreshLayout != null)
-                .subscribe(reloadEvent -> mRefreshLayout.autoRefresh());
     }
 
     @Override
@@ -153,6 +148,13 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
     public void showJumpTheTop() {
         if (mRecyclerView != null) {
             mRecyclerView.smoothScrollToPosition(0);
+        }
+    }
+
+    @Override
+    public void showReloadDetailEvent() {
+        if (mRefreshLayout != null) {
+            mRefreshLayout.autoRefresh();
         }
     }
 

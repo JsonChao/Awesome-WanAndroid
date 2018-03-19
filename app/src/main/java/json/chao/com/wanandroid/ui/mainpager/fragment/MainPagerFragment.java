@@ -142,13 +142,6 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
             mPresenter.getBannerData();
             mPresenter.getFeedArticleList(mCurrentPage);
         }
-
-        RxBus.getDefault().toFlowable(LoginEvent.class)
-                .filter(loginEvent -> !loginEvent.isLogin())
-                .subscribe(loginEvent -> {
-                    mCurrentPage = 0;
-                    mPresenter.getFeedArticleList(mCurrentPage);
-                });
     }
 
     @Override
@@ -241,6 +234,12 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
 
     @Override
     public void showLoginView() {
+        mCurrentPage = 0;
+        mPresenter.getFeedArticleList(mCurrentPage);
+    }
+
+    @Override
+    public void showLogoutView() {
         mCurrentPage = 0;
         mPresenter.getFeedArticleList(mCurrentPage);
     }
