@@ -9,10 +9,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
+import com.jakewharton.rxbinding2.view.RxView;
+
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.OnClick;
+import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.main.login.LoginData;
@@ -72,6 +76,24 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         StatusBarUtil.immersive(this);
         StatusBarUtil.setPaddingSmart(this, mToolbar);
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
+
+        RxView.clicks(mLoginBtn)
+                .throttleFirst(Constants.CLICK_TIME_AREA, TimeUnit.MILLISECONDS)
+                .filter(o -> mPresenter != null)
+                .subscribe(o -> {
+                    String account = mAccountEdit.getText().toString().trim();
+                    String password = mPasswordEdit.getText().toString().trim();
+                    if (TextUtils.isEmpty(account) || TextUtils.isEmpty(password)) {
+                        CommonUtils.showMessage(this, getString(R.string.account_password_null_tint));
+                        return;
+                    }
+                    mPresenter.getLoginData(account, password);
+                });
+
+        RxView.clicks(mRegisterBtn)
+                .throttleFirst(Constants.CLICK_TIME_AREA, TimeUnit.MILLISECONDS)
+                .filter(o -> mPopupWindow != null && mPresenter != null)
+                .subscribe(o -> register());
     }
 
     @Override
@@ -109,23 +131,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         CommonUtils.showMessage(this, getString(R.string.register_fail));
     }
 
-    @OnClick({R.id.login_btn})
-    void onViewClick(View view) {
-        switch (view.getId()) {
-            case R.id.login_btn:
-                String account = mAccountEdit.getText().toString().trim();
-                String password = mPasswordEdit.getText().toString().trim();
-                if (TextUtils.isEmpty(account) || TextUtils.isEmpty(password)) {
-                    CommonUtils.showMessage(this, getString(R.string.account_password_null_tint));
-                    return;
-                }
-                mPresenter.getLoginData(account, password);
-                break;
-            default:
-                break;
-        }
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -135,18 +140,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 mPopupWindow.showAtLocation(mLoginGroup, Gravity.CENTER, 0, 0);
                 mRegisterBtn.setOnClickListener(null);
                 break;
-            case R.id.register_btn:
-                register();
             default:
                 break;
         }
     }
 
     private void register() {
-        if (mPopupWindow == null) {
-            return;
-        }
-
         String account = mPopupWindow.mUserNameEdit.getText().toString().trim();
         String password = mPopupWindow.mPasswordEdit.getText().toString().trim();
         String rePassword = mPopupWindow.mRePasswordEdit.getText().toString().trim();

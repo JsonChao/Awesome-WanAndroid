@@ -117,7 +117,6 @@ public class Constants {
 
     public static final int FOUR = 4;
 
-
     public static final int PROGRESS_OK = 100;
 
 }
