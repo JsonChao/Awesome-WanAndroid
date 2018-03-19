@@ -107,13 +107,13 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 ### v1.0.1
 
-1.合理化分包架构
+1.合理化项目分包架构
 
 2.优化搜索模块
 
 3.增加自动登录
 
-4.TabLayout智能联动RecyclerView
+4.增加TabLayout智能联动RecyclerView
 
 5.增加沉浸式状态栏
 
