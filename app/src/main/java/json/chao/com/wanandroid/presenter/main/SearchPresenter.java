@@ -12,8 +12,8 @@ import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.contract.main.SearchContract;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
-import json.chao.com.wanandroid.core.bean.main.search.TopSearchDataResponse;
-import json.chao.com.wanandroid.core.bean.main.search.UsefulSitesResponse;
+import json.chao.com.wanandroid.core.bean.main.search.TopSearchData;
+import json.chao.com.wanandroid.core.bean.main.search.UsefulSiteData;
 import json.chao.com.wanandroid.core.dao.DaoSession;
 import json.chao.com.wanandroid.core.dao.HistoryData;
 import json.chao.com.wanandroid.core.dao.HistoryDataDao;
@@ -77,9 +77,9 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
     public void getTopSearchData() {
         addSubscribe(mDataManager.getTopSearchData()
                         .compose(RxUtils.rxSchedulerHelper())
-                        .subscribeWith(new BaseObserver<TopSearchDataResponse>(mView) {
+                        .subscribeWith(new BaseObserver<BaseResponse<List<TopSearchData>>>(mView) {
                             @Override
-                            public void onNext(TopSearchDataResponse topSearchDataResponse) {
+                            public void onNext(BaseResponse<List<TopSearchData>> topSearchDataResponse) {
                                 if (topSearchDataResponse.getErrorCode() == BaseResponse.SUCCESS) {
                                     mView.showTopSearchData(topSearchDataResponse);
                                 } else {
@@ -93,9 +93,9 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
     public void getUsefulSites() {
         addSubscribe(mDataManager.getUsefulSites()
                         .compose(RxUtils.rxSchedulerHelper())
-                        .subscribeWith(new BaseObserver<UsefulSitesResponse>(mView) {
+                        .subscribeWith(new BaseObserver<BaseResponse<List<UsefulSiteData>>>(mView) {
                             @Override
-                            public void onNext(UsefulSitesResponse usefulSitesResponse) {
+                            public void onNext(BaseResponse<List<UsefulSiteData>> usefulSitesResponse) {
                                 if (usefulSitesResponse.getErrorCode() == BaseResponse.SUCCESS) {
                                     mView.showUsefulSites(usefulSitesResponse);
                                 } else {

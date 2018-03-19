@@ -8,7 +8,7 @@ import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.contract.hierarchy.KnowledgeHierarchyListContract;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
-import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
+import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.core.event.CollectEvent;
 import json.chao.com.wanandroid.core.event.KnowledgeJumpTopEvent;
 import json.chao.com.wanandroid.core.event.ReloadDetailEvent;
@@ -56,9 +56,9 @@ public class KnowledgeHierarchyListPresenter extends BasePresenter<KnowledgeHier
     public void getKnowledgeHierarchyDetailData(int page, int cid) {
         addSubscribe(mDataManager.getKnowledgeHierarchyDetailData(page, cid)
                         .compose(RxUtils.rxSchedulerHelper())
-                        .subscribeWith(new BaseObserver<FeedArticleListResponse>(mView) {
+                        .subscribeWith(new BaseObserver<BaseResponse<FeedArticleListData>>(mView) {
                             @Override
-                            public void onNext(FeedArticleListResponse feedArticleListResponse) {
+                            public void onNext(BaseResponse<FeedArticleListData> feedArticleListResponse) {
                                 if (feedArticleListResponse.getErrorCode() == BaseResponse.SUCCESS) {
                                     mView.showKnowledgeHierarchyDetailData(feedArticleListResponse);
                                 } else {
@@ -72,9 +72,9 @@ public class KnowledgeHierarchyListPresenter extends BasePresenter<KnowledgeHier
     public void addCollectArticle(int position, FeedArticleData feedArticleData) {
         addSubscribe(mDataManager.addCollectArticle(feedArticleData.getId())
                         .compose(RxUtils.rxSchedulerHelper())
-                        .subscribeWith(new BaseObserver<FeedArticleListResponse>(mView) {
+                        .subscribeWith(new BaseObserver<BaseResponse<FeedArticleListData>>(mView) {
                             @Override
-                            public void onNext(FeedArticleListResponse feedArticleListResponse) {
+                            public void onNext(BaseResponse<FeedArticleListData> feedArticleListResponse) {
                                 if (feedArticleListResponse.getErrorCode() == BaseResponse.SUCCESS) {
                                     feedArticleData.setCollect(true);
                                     mView.showCollectArticleData(position, feedArticleData, feedArticleListResponse);
@@ -89,9 +89,9 @@ public class KnowledgeHierarchyListPresenter extends BasePresenter<KnowledgeHier
     public void cancelCollectArticle(int position, FeedArticleData feedArticleData) {
         addSubscribe(mDataManager.cancelCollectArticle(feedArticleData.getId())
                         .compose(RxUtils.rxSchedulerHelper())
-                        .subscribeWith(new BaseObserver<FeedArticleListResponse>(mView) {
+                        .subscribeWith(new BaseObserver<BaseResponse<FeedArticleListData>>(mView) {
                             @Override
-                            public void onNext(FeedArticleListResponse feedArticleListResponse) {
+                            public void onNext(BaseResponse<FeedArticleListData> feedArticleListResponse) {
                                 if (feedArticleListResponse.getErrorCode() == BaseResponse.SUCCESS) {
                                     feedArticleData.setCollect(false);
                                     mView.showCancelCollectArticleData(position, feedArticleData, feedArticleListResponse);

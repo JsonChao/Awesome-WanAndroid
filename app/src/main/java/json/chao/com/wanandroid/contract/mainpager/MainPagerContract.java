@@ -1,10 +1,13 @@
 package json.chao.com.wanandroid.contract.mainpager;
 
-import json.chao.com.wanandroid.core.bean.main.banner.BannerResponse;
+import java.util.List;
+
+import json.chao.com.wanandroid.core.bean.BaseResponse;
+import json.chao.com.wanandroid.core.bean.main.banner.BannerData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
-import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
 import json.chao.com.wanandroid.base.view.BaseView;
+import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 
 /**
  * @author quchao
@@ -28,34 +31,34 @@ public interface MainPagerContract {
         /**
          * Show content
          *
-         * @param feedArticleListResponse FeedArticleListResponse
+         * @param feedArticleListResponse BaseResponse<FeedArticleListData>
          */
-        void showArticleList(FeedArticleListResponse feedArticleListResponse);
+        void showArticleList(BaseResponse<FeedArticleListData> feedArticleListResponse);
 
         /**
          * Show collect article data
          *
          * @param position Position
          * @param feedArticleData FeedArticleData
-         * @param feedArticleListResponse FeedArticleListResponse
+         * @param feedArticleListResponse BaseResponse<FeedArticleListData>
          */
-        void showCollectArticleData(int position, FeedArticleData feedArticleData, FeedArticleListResponse feedArticleListResponse);
+        void showCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse);
 
         /**
          * Show cancel collect article data
          *
          * @param position Position
          * @param feedArticleData FeedArticleData
-         * @param feedArticleListResponse FeedArticleListResponse
+         * @param feedArticleListResponse BaseResponse<FeedArticleListData>
          */
-        void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, FeedArticleListResponse feedArticleListResponse);
+        void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse);
 
         /**
          * Show banner data
          *
-         * @param bannerResponse BannerResponse
+         * @param bannerResponse BaseResponse<List<BannerData>>
          */
-        void showBannerData(BannerResponse bannerResponse);
+        void showBannerData(BaseResponse<List<BannerData>> bannerResponse);
 
         /**
          * Show article list fail

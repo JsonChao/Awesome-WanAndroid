@@ -1,6 +1,7 @@
 package json.chao.com.wanandroid.presenter.mainpager;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -10,13 +11,14 @@ import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.contract.mainpager.MainPagerContract;
-import json.chao.com.wanandroid.core.bean.main.banner.BannerResponse;
+import json.chao.com.wanandroid.core.bean.main.banner.BannerData;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
-import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
-import json.chao.com.wanandroid.core.bean.main.login.LoginResponse;
+import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
+import json.chao.com.wanandroid.core.bean.main.login.LoginData;
 import json.chao.com.wanandroid.core.event.CollectEvent;
 import json.chao.com.wanandroid.core.event.LoginEvent;
+import json.chao.com.wanandroid.utils.CommonUtils;
 import json.chao.com.wanandroid.utils.RxUtils;
 import json.chao.com.wanandroid.widget.BaseObserver;
 
@@ -62,9 +64,9 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
     public void loadMainPagerData() {
         String account = mDataManager.getLoginAccount();
         String password = mDataManager.getLoginPassword();
-        Observable<LoginResponse> mLoginObservable = mDataManager.getLoginData(account, password);
-        Observable<BannerResponse> mBannerObservable = mDataManager.getBannerData();
-        Observable<FeedArticleListResponse> mArticleObservable = mDataManager.getFeedArticleList(Constants.FIRST);
+        Observable<BaseResponse<LoginData>> mLoginObservable = mDataManager.getLoginData(account, password);
+        Observable<BaseResponse<List<BannerData>>> mBannerObservable = mDataManager.getBannerData();
+        Observable<BaseResponse<FeedArticleListData>> mArticleObservable = mDataManager.getFeedArticleList(Constants.FIRST);
         Observable.zip(mLoginObservable, mBannerObservable, mArticleObservable,
                 (loginResponse, bannerResponse, feedArticleListResponse) -> {
                     HashMap<String, Object> map = new HashMap<>(3);
@@ -76,12 +78,12 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
                 .subscribeWith(new BaseObserver<HashMap<String, Object>>(mView) {
                     @Override
                     public void onNext(HashMap<String, Object> map) {
-                        LoginResponse loginResponse = (LoginResponse) map.get(Constants.LOGIN_DATA);
+                        BaseResponse<LoginData> loginResponse = CommonUtils.cast(map.get(Constants.LOGIN_DATA));
                         if (loginResponse.getErrorCode() == BaseResponse.SUCCESS) {
                             mView.showAutoLoginSuccess();
                         }
-                        mView.showBannerData((BannerResponse) map.get(Constants.BANNER_DATA));
-                        mView.showArticleList((FeedArticleListResponse) map.get(Constants.ARTICLE_DATA));
+                        mView.showBannerData(CommonUtils.cast(map.get(Constants.BANNER_DATA)));
+                        mView.showArticleList(CommonUtils.cast(map.get(Constants.ARTICLE_DATA)));
                     }
 
                     @Override
@@ -97,9 +99,9 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
         addSubscribe(mDataManager.getFeedArticleList(page)
                 .compose(RxUtils.rxSchedulerHelper())
                 .filter(feedArticleListResponse -> mView != null)
-                .subscribeWith(new BaseObserver<FeedArticleListResponse>(mView) {
+                .subscribeWith(new BaseObserver<BaseResponse<FeedArticleListData>>(mView) {
                     @Override
-                    public void onNext(FeedArticleListResponse feedArticleListResponse) {
+                    public void onNext(BaseResponse<FeedArticleListData> feedArticleListResponse) {
                         if (feedArticleListResponse.getErrorCode() == BaseResponse.SUCCESS) {
                             mView.showArticleList(feedArticleListResponse);
                         } else {
@@ -113,9 +115,9 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
     public void addCollectArticle(int position, FeedArticleData feedArticleData) {
         addSubscribe(mDataManager.addCollectArticle(feedArticleData.getId())
                         .compose(RxUtils.rxSchedulerHelper())
-                        .subscribeWith(new BaseObserver<FeedArticleListResponse>(mView) {
+                        .subscribeWith(new BaseObserver<BaseResponse<FeedArticleListData>>(mView) {
                             @Override
-                            public void onNext(FeedArticleListResponse feedArticleListResponse) {
+                            public void onNext(BaseResponse<FeedArticleListData> feedArticleListResponse) {
                                 if (feedArticleListResponse.getErrorCode() == BaseResponse.SUCCESS) {
                                     feedArticleData.setCollect(true);
                                     mView.showCollectArticleData(position, feedArticleData, feedArticleListResponse);
@@ -130,9 +132,9 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
     public void cancelCollectArticle(int position, FeedArticleData feedArticleData) {
         addSubscribe(mDataManager.cancelCollectArticle(feedArticleData.getId())
                         .compose(RxUtils.rxSchedulerHelper())
-                        .subscribeWith(new BaseObserver<FeedArticleListResponse>(mView) {
+                        .subscribeWith(new BaseObserver<BaseResponse<FeedArticleListData>>(mView) {
                             @Override
-                            public void onNext(FeedArticleListResponse feedArticleListResponse) {
+                            public void onNext(BaseResponse<FeedArticleListData> feedArticleListResponse) {
                                 if (feedArticleListResponse.getErrorCode() == BaseResponse.SUCCESS) {
                                     feedArticleData.setCollect(false);
                                     mView.showCancelCollectArticleData(position, feedArticleData, feedArticleListResponse);
@@ -147,9 +149,9 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
     public void getBannerData() {
         addSubscribe(mDataManager.getBannerData()
                         .compose(RxUtils.rxSchedulerHelper())
-                        .subscribeWith(new BaseObserver<BannerResponse>(mView) {
+                        .subscribeWith(new BaseObserver<BaseResponse<List<BannerData>>>(mView) {
                             @Override
-                            public void onNext(BannerResponse bannerResponse) {
+                            public void onNext(BaseResponse<List<BannerData>> bannerResponse) {
                                 if (bannerResponse.getErrorCode() == BaseResponse.SUCCESS) {
                                     mView.showBannerData(bannerResponse);
                                 } else {

@@ -1,7 +1,10 @@
 package json.chao.com.wanandroid.contract.project;
 
+import java.util.List;
+
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
-import json.chao.com.wanandroid.core.bean.project.ProjectClassifyResponse;
+import json.chao.com.wanandroid.core.bean.BaseResponse;
+import json.chao.com.wanandroid.core.bean.project.ProjectClassifyData;
 import json.chao.com.wanandroid.base.view.BaseView;
 
 /**
@@ -16,9 +19,9 @@ public interface ProjectContract {
         /**
          * Show project classify data
          *
-         * @param projectClassifyResponse ProjectClassifyResponse
+         * @param projectClassifyResponse List<ProjectClassifyData>
          */
-        void showProjectClassifyData(ProjectClassifyResponse projectClassifyResponse);
+        void showProjectClassifyData(BaseResponse<List<ProjectClassifyData>> projectClassifyResponse);
 
         /**
          * Show project calssify data fail

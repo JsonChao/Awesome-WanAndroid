@@ -8,7 +8,8 @@ import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.contract.project.ProjectListContract;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
-import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
+import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
+import json.chao.com.wanandroid.core.bean.project.ProjectListData;
 import json.chao.com.wanandroid.core.bean.project.ProjectListResponse;
 import json.chao.com.wanandroid.core.event.JumpToTheTopEvent;
 import json.chao.com.wanandroid.utils.RxUtils;
@@ -44,9 +45,9 @@ public class ProjectListPresenter extends BasePresenter<ProjectListContract.View
     public void getProjectListData(int page, int cid) {
         addSubscribe(mDataManager.getProjectListData(page, cid)
                         .compose(RxUtils.rxSchedulerHelper())
-                        .subscribeWith(new BaseObserver<ProjectListResponse>(mView) {
+                        .subscribeWith(new BaseObserver<BaseResponse<ProjectListData>>(mView) {
                             @Override
-                            public void onNext(ProjectListResponse projectListResponse) {
+                            public void onNext(BaseResponse<ProjectListData> projectListResponse) {
                                 if (projectListResponse.getErrorCode() == BaseResponse.SUCCESS) {
                                     mView.showProjectListData(projectListResponse);
                                 } else {
@@ -61,9 +62,9 @@ public class ProjectListPresenter extends BasePresenter<ProjectListContract.View
         addSubscribe(mDataManager.addCollectOutsideArticle(feedArticleData.getTitle(),
                 feedArticleData.getAuthor(), feedArticleData.getLink())
                         .compose(RxUtils.rxSchedulerHelper())
-                        .subscribeWith(new BaseObserver<FeedArticleListResponse>(mView) {
+                        .subscribeWith(new BaseObserver<BaseResponse<FeedArticleListData>>(mView) {
                             @Override
-                            public void onNext(FeedArticleListResponse feedArticleListResponse) {
+                            public void onNext(BaseResponse<FeedArticleListData> feedArticleListResponse) {
                                 if (feedArticleListResponse.getErrorCode() == BaseResponse.SUCCESS) {
                                     feedArticleData.setCollect(true);
                                     mView.showCollectOutsideArticle(position, feedArticleData, feedArticleListResponse);
@@ -78,9 +79,9 @@ public class ProjectListPresenter extends BasePresenter<ProjectListContract.View
     public void cancelCollectArticle(int position, FeedArticleData feedArticleData) {
         addSubscribe(mDataManager.cancelCollectArticle(feedArticleData.getId())
                         .compose(RxUtils.rxSchedulerHelper())
-                        .subscribeWith(new BaseObserver<FeedArticleListResponse>(mView) {
+                        .subscribeWith(new BaseObserver<BaseResponse<FeedArticleListData>>(mView) {
                             @Override
-                            public void onNext(FeedArticleListResponse feedArticleListResponse) {
+                            public void onNext(BaseResponse<FeedArticleListData> feedArticleListResponse) {
                                 if (feedArticleListResponse.getErrorCode() == BaseResponse.SUCCESS) {
                                     feedArticleData.setCollect(false);
                                     mView.showCancelCollectArticleData(position, feedArticleData, feedArticleListResponse);

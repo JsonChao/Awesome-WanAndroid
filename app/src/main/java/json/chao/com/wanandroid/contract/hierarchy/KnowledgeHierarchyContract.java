@@ -1,7 +1,10 @@
 package json.chao.com.wanandroid.contract.hierarchy;
 
+import java.util.List;
+
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
-import json.chao.com.wanandroid.core.bean.hierarchy.KnowledgeHierarchyResponse;
+import json.chao.com.wanandroid.core.bean.BaseResponse;
+import json.chao.com.wanandroid.core.bean.hierarchy.KnowledgeHierarchyData;
 import json.chao.com.wanandroid.base.view.BaseView;
 
 /**
@@ -16,9 +19,9 @@ public interface KnowledgeHierarchyContract {
         /**
          * Show Knowledge Hierarchy Data
          *
-         * @param knowledgeHierarchyResponse KnowledgeHierarchyResponse
+         * @param knowledgeHierarchyResponse BaseResponse<List<KnowledgeHierarchyData>>
          */
-        void showKnowledgeHierarchyData(KnowledgeHierarchyResponse knowledgeHierarchyResponse);
+        void showKnowledgeHierarchyData(BaseResponse<List<KnowledgeHierarchyData>> knowledgeHierarchyResponse);
 
         /**
          * Show knowledge hierarchy detail data fail

@@ -15,8 +15,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
+import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.hierarchy.KnowledgeHierarchyData;
-import json.chao.com.wanandroid.core.bean.hierarchy.KnowledgeHierarchyResponse;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.fragment.BaseFragment;
@@ -80,7 +80,7 @@ public class KnowledgeHierarchyFragment extends BaseFragment<KnowledgeHierarchyP
     }
 
     @Override
-    public void showKnowledgeHierarchyData(KnowledgeHierarchyResponse knowledgeHierarchyResponse) {
+    public void showKnowledgeHierarchyData(BaseResponse<List<KnowledgeHierarchyData>> knowledgeHierarchyResponse) {
         if (knowledgeHierarchyResponse == null || knowledgeHierarchyResponse.getData() == null) {
             showKnowledgeHierarchyDetailDataFail();
             return;

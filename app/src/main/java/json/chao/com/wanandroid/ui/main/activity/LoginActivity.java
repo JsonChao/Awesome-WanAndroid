@@ -19,8 +19,8 @@ import butterknife.BindView;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
+import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.login.LoginData;
-import json.chao.com.wanandroid.core.bean.main.login.LoginResponse;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.base.activity.BaseActivity;
 import json.chao.com.wanandroid.contract.main.LoginContract;
@@ -70,7 +70,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         mPopupWindow = new RegisterPopupWindow(this, this);
         mPopupWindow.setAnimationStyle(R.style.popup_window_animation);
         mPopupWindow.setOnDismissListener(() -> {
-            setBackgroundAlpha(1.0f);
+            setBackgroundAlpha();
             mRegisterBtn.setOnClickListener(this);
         });
         StatusBarUtil.immersive(this);
@@ -89,15 +89,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                     }
                     mPresenter.getLoginData(account, password);
                 });
-
-        RxView.clicks(mRegisterBtn)
-                .throttleFirst(Constants.CLICK_TIME_AREA, TimeUnit.MILLISECONDS)
-                .filter(o -> mPopupWindow != null && mPresenter != null)
-                .subscribe(o -> register());
     }
 
     @Override
-    public void showLoginData(LoginResponse loginResponse) {
+    public void showLoginData(BaseResponse<LoginData> loginResponse) {
         if (loginResponse == null || loginResponse.getData() == null) {
             showLoginFail();
             return;
@@ -112,7 +107,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     @Override
-    public void showRegisterData(LoginResponse loginResponse) {
+    public void showRegisterData(BaseResponse<LoginData> loginResponse) {
         if (loginResponse == null || loginResponse.getData() == null) {
             showRegisterFail();
             return;
@@ -135,17 +130,20 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login_register_btn:
-                //设置背景窗口Alpha
-                setBackgroundAlpha(0.5f);
                 mPopupWindow.showAtLocation(mLoginGroup, Gravity.CENTER, 0, 0);
                 mRegisterBtn.setOnClickListener(null);
                 break;
+            case R.id.register_btn:
+                register();
             default:
                 break;
         }
     }
 
     private void register() {
+        if (mPopupWindow == null || mPresenter == null) {
+            return;
+        }
         String account = mPopupWindow.mUserNameEdit.getText().toString().trim();
         String password = mPopupWindow.mPasswordEdit.getText().toString().trim();
         String rePassword = mPopupWindow.mRePasswordEdit.getText().toString().trim();
@@ -165,13 +163,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     /**
      * 设置屏幕透明度
-     *
-     * @param bgAlpha background alpha
      */
-    public void setBackgroundAlpha(float bgAlpha) {
+    public void setBackgroundAlpha() {
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         // 0.0~1.0
-        lp.alpha = bgAlpha;
+        lp.alpha = 1.0f;
         getWindow().setAttributes(lp);
     }
 

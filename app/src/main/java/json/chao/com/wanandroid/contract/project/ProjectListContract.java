@@ -1,8 +1,10 @@
 package json.chao.com.wanandroid.contract.project;
 
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
+import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
-import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
+import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
+import json.chao.com.wanandroid.core.bean.project.ProjectListData;
 import json.chao.com.wanandroid.core.bean.project.ProjectListResponse;
 import json.chao.com.wanandroid.base.view.BaseView;
 
@@ -18,27 +20,27 @@ public interface ProjectListContract {
         /**
          * Show project list data
          *
-         * @param projectListResponse ProjectListResponse
+         * @param projectListResponse BaseResponse<ProjectListData>
          */
-        void showProjectListData(ProjectListResponse projectListResponse);
+        void showProjectListData(BaseResponse<ProjectListData> projectListResponse);
 
         /**
          * Show article list
          *
          * @param position Position
          * @param feedArticleData FeedArticleData
-         * @param feedArticleListResponse FeedArticleListResponse
+         * @param feedArticleListResponse BaseResponse<FeedArticleListData>
          */
-        void showCollectOutsideArticle(int position, FeedArticleData feedArticleData, FeedArticleListResponse feedArticleListResponse);
+        void showCollectOutsideArticle(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse);
 
         /**
          * Show cancel collect article data
          *
          * @param position Position
          * @param feedArticleData FeedArticleData
-         * @param feedArticleListResponse FeedArticleListResponse
+         * @param feedArticleListResponse BaseResponse<FeedArticleListData>
          */
-        void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, FeedArticleListResponse feedArticleListResponse);
+        void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse);
 
         /**
          * Show project list fail

@@ -4,7 +4,8 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
 import json.chao.com.wanandroid.base.view.BaseView;
-import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
+import json.chao.com.wanandroid.core.bean.BaseResponse;
+import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 
 /**
  * @author quchao
@@ -18,16 +19,16 @@ public interface ArticleDetailContract {
         /**
          * Show collect article data
          *
-         * @param feedArticleListResponse FeedArticleListResponse
+         * @param feedArticleListResponse BaseResponse<FeedArticleListData>
          */
-        void showCollectArticleData(FeedArticleListResponse feedArticleListResponse);
+        void showCollectArticleData(BaseResponse<FeedArticleListData> feedArticleListResponse);
 
         /**
          * Show cancel collect article data
          *
-         * @param feedArticleListResponse FeedArticleListResponse
+         * @param feedArticleListResponse BaseResponse<FeedArticleListData>
          */
-        void showCancelCollectArticleData(FeedArticleListResponse feedArticleListResponse);
+        void showCancelCollectArticleData(BaseResponse<FeedArticleListData> feedArticleListResponse);
 
         /**
          * Share event

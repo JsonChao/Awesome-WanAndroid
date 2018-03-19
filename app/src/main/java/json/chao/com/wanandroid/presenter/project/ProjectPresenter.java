@@ -1,12 +1,14 @@
 package json.chao.com.wanandroid.presenter.project;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.contract.project.ProjectContract;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
-import json.chao.com.wanandroid.core.bean.project.ProjectClassifyResponse;
+import json.chao.com.wanandroid.core.bean.project.ProjectClassifyData;
 import json.chao.com.wanandroid.utils.RxUtils;
 import json.chao.com.wanandroid.widget.BaseObserver;
 
@@ -33,9 +35,9 @@ public class ProjectPresenter extends BasePresenter<ProjectContract.View> implem
     public void getProjectClassifyData() {
         addSubscribe(mDataManager.getProjectClassifyData()
                         .compose(RxUtils.rxSchedulerHelper())
-                        .subscribeWith(new BaseObserver<ProjectClassifyResponse>(mView) {
+                        .subscribeWith(new BaseObserver<BaseResponse<List<ProjectClassifyData>>>(mView) {
                             @Override
-                            public void onNext(ProjectClassifyResponse projectClassifyResponse) {
+                            public void onNext(BaseResponse<List<ProjectClassifyData>> projectClassifyResponse) {
                                 if (projectClassifyResponse.getErrorCode() == BaseResponse.SUCCESS) {
                                     mView.showProjectClassifyData(projectClassifyResponse);
                                 } else {

@@ -16,8 +16,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
+import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.project.ProjectClassifyData;
-import json.chao.com.wanandroid.core.bean.project.ProjectClassifyResponse;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.fragment.BaseFragment;
@@ -80,7 +80,7 @@ public class ProjectFragment extends BaseFragment<ProjectPresenter> implements P
     }
 
     @Override
-    public void showProjectClassifyData(ProjectClassifyResponse projectClassifyResponse) {
+    public void showProjectClassifyData(BaseResponse<List<ProjectClassifyData>> projectClassifyResponse) {
         if (projectClassifyResponse == null || projectClassifyResponse.getData() == null) {
             showProjectClassifyDataFail();
             return;

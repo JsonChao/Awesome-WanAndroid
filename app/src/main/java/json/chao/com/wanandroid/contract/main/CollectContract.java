@@ -2,8 +2,9 @@ package json.chao.com.wanandroid.contract.main;
 
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
 import json.chao.com.wanandroid.base.view.BaseView;
+import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
-import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
+import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 
 /**
  * @author quchao
@@ -17,18 +18,18 @@ public interface CollectContract {
         /**
          * Show collect list
          *
-         * @param feedArticleListResponse FeedArticleListResponse
+         * @param feedArticleListResponse BaseResponse<FeedArticleListData>
          */
-        void showCollectList(FeedArticleListResponse feedArticleListResponse);
+        void showCollectList(BaseResponse<FeedArticleListData> feedArticleListResponse);
 
         /**
          * Show cancel collect article data
          *
          * @param position Position
          * @param feedArticleData FeedArticleData
-         * @param feedArticleListResponse FeedArticleListResponse
+         * @param feedArticleListResponse BaseResponse<FeedArticleListData>
          */
-        void showCancelCollectPageArticleData(int position, FeedArticleData feedArticleData, FeedArticleListResponse feedArticleListResponse);
+        void showCancelCollectPageArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse);
 
         /**
          * Show collect list fail

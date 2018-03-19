@@ -17,11 +17,10 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.base.activity.BaseActivity;
-import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.contract.main.CollectContract;
+import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
-import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
-import json.chao.com.wanandroid.core.event.CollectEvent;
+import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.presenter.main.CollectPresenter;
 import json.chao.com.wanandroid.ui.mainpager.adapter.ArticleListAdapter;
 import json.chao.com.wanandroid.utils.CommonUtils;
@@ -70,7 +69,7 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
     }
 
     @Override
-    public void showCollectList(FeedArticleListResponse feedArticleListResponse) {
+    public void showCollectList(BaseResponse<FeedArticleListData> feedArticleListResponse) {
         if (feedArticleListResponse == null
                 || feedArticleListResponse.getData() == null
                 || feedArticleListResponse.getData().getDatas() == null) {
@@ -90,7 +89,7 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
     }
 
     @Override
-    public void showCancelCollectPageArticleData(int position, FeedArticleData feedArticleData, FeedArticleListResponse feedArticleListResponse) {
+    public void showCancelCollectPageArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
         mAdapter.remove(position);
         CommonUtils.showMessage(this, getString(R.string.cancel_collect_success));
     }

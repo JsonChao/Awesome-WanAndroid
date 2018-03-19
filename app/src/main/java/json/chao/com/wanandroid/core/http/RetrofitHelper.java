@@ -1,17 +1,20 @@
 package json.chao.com.wanandroid.core.http;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import json.chao.com.wanandroid.core.bean.main.banner.BannerResponse;
-import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
-import json.chao.com.wanandroid.core.bean.hierarchy.KnowledgeHierarchyResponse;
-import json.chao.com.wanandroid.core.bean.main.login.LoginResponse;
-import json.chao.com.wanandroid.core.bean.navigation.NavigationListResponse;
-import json.chao.com.wanandroid.core.bean.project.ProjectClassifyResponse;
-import json.chao.com.wanandroid.core.bean.project.ProjectListResponse;
-import json.chao.com.wanandroid.core.bean.main.search.TopSearchDataResponse;
-import json.chao.com.wanandroid.core.bean.main.search.UsefulSitesResponse;
+import json.chao.com.wanandroid.core.bean.BaseResponse;
+import json.chao.com.wanandroid.core.bean.hierarchy.KnowledgeHierarchyData;
+import json.chao.com.wanandroid.core.bean.main.banner.BannerData;
+import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
+import json.chao.com.wanandroid.core.bean.main.login.LoginData;
+import json.chao.com.wanandroid.core.bean.main.search.TopSearchData;
+import json.chao.com.wanandroid.core.bean.main.search.UsefulSiteData;
+import json.chao.com.wanandroid.core.bean.navigation.NavigationListData;
+import json.chao.com.wanandroid.core.bean.project.ProjectClassifyData;
+import json.chao.com.wanandroid.core.bean.project.ProjectListData;
 import json.chao.com.wanandroid.core.http.api.GeeksApis;
 
 
@@ -30,87 +33,87 @@ public class RetrofitHelper implements HttpHelper {
     }
 
     @Override
-    public Observable<FeedArticleListResponse> getFeedArticleList(int pageNum) {
+    public Observable<BaseResponse<FeedArticleListData>> getFeedArticleList(int pageNum) {
         return mGeeksApis.getFeedArticleList(pageNum);
     }
 
     @Override
-    public Observable<FeedArticleListResponse> getSearchList(int pageNum, String k) {
+    public Observable<BaseResponse<FeedArticleListData>> getSearchList(int pageNum, String k) {
         return mGeeksApis.getSearchList(pageNum, k);
     }
 
     @Override
-    public Observable<TopSearchDataResponse> getTopSearchData() {
+    public Observable<BaseResponse<List<TopSearchData>>> getTopSearchData() {
         return mGeeksApis.getTopSearchData();
     }
 
     @Override
-    public Observable<UsefulSitesResponse> getUsefulSites() {
+    public Observable<BaseResponse<List<UsefulSiteData>>> getUsefulSites() {
         return mGeeksApis.getUsefulSites();
     }
 
     @Override
-    public Observable<KnowledgeHierarchyResponse> getKnowledgeHierarchyData() {
+    public Observable<BaseResponse<List<KnowledgeHierarchyData>>> getKnowledgeHierarchyData() {
         return mGeeksApis.getKnowledgeHierarchyData();
     }
 
     @Override
-    public Observable<FeedArticleListResponse> getKnowledgeHierarchyDetailData(int page, int cid) {
+    public Observable<BaseResponse<FeedArticleListData>> getKnowledgeHierarchyDetailData(int page, int cid) {
         return mGeeksApis.getKnowledgeHierarchyDetailData(page, cid);
     }
 
     @Override
-    public Observable<NavigationListResponse> getNavigationListData() {
+    public Observable<BaseResponse<List<NavigationListData>>> getNavigationListData() {
         return mGeeksApis.getNavigationListData();
     }
 
     @Override
-    public Observable<ProjectClassifyResponse> getProjectClassifyData() {
+    public Observable<BaseResponse<List<ProjectClassifyData>>> getProjectClassifyData() {
         return mGeeksApis.getProjectClassifyData();
     }
 
     @Override
-    public Observable<ProjectListResponse> getProjectListData(int page, int cid) {
+    public Observable<BaseResponse<ProjectListData>> getProjectListData(int page, int cid) {
         return mGeeksApis.getProjectListData(page, cid);
     }
 
     @Override
-    public Observable<LoginResponse> getLoginData(String username, String password) {
+    public Observable<BaseResponse<LoginData>> getLoginData(String username, String password) {
         return mGeeksApis.getLoginData(username, password);
     }
 
     @Override
-    public Observable<LoginResponse> getRegisterData(String username, String password, String repassword) {
+    public Observable<BaseResponse<LoginData>> getRegisterData(String username, String password, String repassword) {
         return mGeeksApis.getRegisterData(username, password, repassword);
     }
 
     @Override
-    public Observable<FeedArticleListResponse> addCollectArticle(int id) {
+    public Observable<BaseResponse<FeedArticleListData>> addCollectArticle(int id) {
         return mGeeksApis.addCollectArticle(id);
     }
 
     @Override
-    public Observable<FeedArticleListResponse> addCollectOutsideArticle(String title, String author, String link) {
+    public Observable<BaseResponse<FeedArticleListData>> addCollectOutsideArticle(String title, String author, String link) {
         return mGeeksApis.addCollectOutsideArticle(title, author, link);
     }
 
     @Override
-    public Observable<FeedArticleListResponse> getCollectList(int page) {
+    public Observable<BaseResponse<FeedArticleListData>> getCollectList(int page) {
         return mGeeksApis.getCollectList(page);
     }
 
     @Override
-    public Observable<FeedArticleListResponse> cancelCollectPageArticle(int id) {
+    public Observable<BaseResponse<FeedArticleListData>> cancelCollectPageArticle(int id) {
         return mGeeksApis.cancelCollectPageArticle(id, -1);
     }
 
     @Override
-    public Observable<FeedArticleListResponse> cancelCollectArticle(int id) {
+    public Observable<BaseResponse<FeedArticleListData>> cancelCollectArticle(int id) {
         return mGeeksApis.cancelCollectArticle(id, -1);
     }
 
     @Override
-    public Observable<BannerResponse> getBannerData() {
+    public Observable<BaseResponse<List<BannerData>>> getBannerData() {
         return mGeeksApis.getBannerData();
     }
 

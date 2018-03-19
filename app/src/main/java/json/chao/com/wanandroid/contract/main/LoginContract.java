@@ -1,7 +1,8 @@
 package json.chao.com.wanandroid.contract.main;
 
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
-import json.chao.com.wanandroid.core.bean.main.login.LoginResponse;
+import json.chao.com.wanandroid.core.bean.BaseResponse;
+import json.chao.com.wanandroid.core.bean.main.login.LoginData;
 import json.chao.com.wanandroid.base.view.BaseView;
 
 /**
@@ -16,16 +17,16 @@ public interface LoginContract {
         /**
          * Show login data
          *
-         * @param loginResponse LoginResponse
+         * @param loginResponse BaseResponse<LoginData>
          */
-        void showLoginData(LoginResponse loginResponse);
+        void showLoginData(BaseResponse<LoginData> loginResponse);
 
         /**
          * Show register data
          *
-         * @param loginResponse LoginResponse
+         * @param loginResponse BaseResponse<LoginData>
          */
-        void showRegisterData(LoginResponse loginResponse);
+        void showRegisterData(BaseResponse<LoginData> loginResponse);
 
         /**
          * Show login fail

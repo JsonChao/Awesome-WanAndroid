@@ -21,14 +21,14 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
+import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.banner.BannerData;
-import json.chao.com.wanandroid.core.bean.main.banner.BannerResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
-import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.contract.mainpager.MainPagerContract;
+import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.core.event.DismissErrorView;
 import json.chao.com.wanandroid.core.event.LoginEvent;
 import json.chao.com.wanandroid.core.event.ShowErrorView;
@@ -160,7 +160,7 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
     }
 
     @Override
-    public void showArticleList(FeedArticleListResponse feedArticleListResponse) {
+    public void showArticleList(BaseResponse<FeedArticleListData> feedArticleListResponse) {
         if (feedArticleListResponse == null || feedArticleListResponse.getData() == null
                 || feedArticleListResponse.getData().getDatas() == null) {
             showArticleListFail();
@@ -182,19 +182,19 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
     }
 
     @Override
-    public void showCollectArticleData(int position, FeedArticleData feedArticleData, FeedArticleListResponse feedArticleListResponse) {
+    public void showCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
         mAdapter.setData(position, feedArticleData);
         CommonUtils.showMessage(_mActivity, getString(R.string.collect_success));
     }
 
     @Override
-    public void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, FeedArticleListResponse feedArticleListResponse) {
+    public void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
         mAdapter.setData(position, feedArticleData);
         CommonUtils.showMessage(_mActivity, getString(R.string.cancel_collect_success));
     }
 
     @Override
-    public void showBannerData(BannerResponse bannerResponse) {
+    public void showBannerData(BaseResponse<List<BannerData>> bannerResponse) {
         if (bannerResponse == null || bannerResponse.getData() == null) {
             showBannerDataFail();
             return;

@@ -5,7 +5,7 @@ package json.chao.com.wanandroid.core.bean;
  * @date 2018/2/12
  */
 
-public class BaseResponse {
+public class BaseResponse<T> {
 
     public static final int SUCCESS = 0;
     public static final int FAIL = 1;
@@ -16,6 +16,8 @@ public class BaseResponse {
     private int errorCode;
 
     private String errorMsg;
+
+    private T data;
 
     public int getErrorCode() {
         return errorCode;
@@ -32,4 +34,13 @@ public class BaseResponse {
     public void setErrorMsg(String errorMsg) {
         this.errorMsg = errorMsg;
     }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
 }

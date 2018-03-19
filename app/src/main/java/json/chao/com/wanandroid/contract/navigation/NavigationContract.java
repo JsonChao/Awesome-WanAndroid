@@ -1,5 +1,9 @@
 package json.chao.com.wanandroid.contract.navigation;
 
+import java.util.List;
+
+import json.chao.com.wanandroid.core.bean.BaseResponse;
+import json.chao.com.wanandroid.core.bean.navigation.NavigationListData;
 import json.chao.com.wanandroid.core.bean.navigation.NavigationListResponse;
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
 import json.chao.com.wanandroid.base.view.BaseView;
@@ -16,9 +20,9 @@ public interface NavigationContract {
         /**
          * Show navigation list data
          *
-         * @param navigationListResponse NavigationListResponse
+         * @param navigationListResponse BaseResponse<List<NavigationListData>>
          */
-        void showNavigationListData(NavigationListResponse navigationListResponse);
+        void showNavigationListData(BaseResponse<List<NavigationListData>> navigationListResponse);
 
         /**
          * Show navigation list fail

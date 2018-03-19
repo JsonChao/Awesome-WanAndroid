@@ -8,7 +8,7 @@ import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.contract.main.LoginContract;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
-import json.chao.com.wanandroid.core.bean.main.login.LoginResponse;
+import json.chao.com.wanandroid.core.bean.main.login.LoginData;
 import json.chao.com.wanandroid.utils.RxUtils;
 import json.chao.com.wanandroid.widget.BaseObserver;
 
@@ -30,9 +30,9 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
     public void getLoginData(String username, String password) {
         addSubscribe(mDataManager.getLoginData(username, password)
                         .compose(RxUtils.rxSchedulerHelper())
-                        .subscribeWith(new BaseObserver<LoginResponse>(mView) {
+                        .subscribeWith(new BaseObserver<BaseResponse<LoginData>>(mView) {
                             @Override
-                            public void onNext(LoginResponse loginResponse) {
+                            public void onNext(BaseResponse<LoginData> loginResponse) {
                                 if (loginResponse.getErrorCode() == BaseResponse.SUCCESS) {
                                     mView.showLoginData(loginResponse);
                                 } else {
@@ -50,9 +50,9 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
                         .filter(loginResponse -> !TextUtils.isEmpty(username)
                                 && !TextUtils.isEmpty(password)
                                 && !TextUtils.isEmpty(rePassword))
-                        .subscribeWith(new BaseObserver<LoginResponse>(mView) {
+                        .subscribeWith(new BaseObserver<BaseResponse<LoginData>>(mView) {
                             @Override
-                            public void onNext(LoginResponse loginResponse) {
+                            public void onNext(BaseResponse<LoginData> loginResponse) {
                                 if (loginResponse.getErrorCode() == BaseResponse.SUCCESS) {
                                     mView.showRegisterData(loginResponse);
                                 } else {

@@ -23,13 +23,11 @@ import butterknife.OnClick;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.activity.BaseActivity;
-import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.contract.main.SearchListContract;
 import json.chao.com.wanandroid.core.DataManager;
+import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
-import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
-import json.chao.com.wanandroid.core.event.CollectEvent;
 import json.chao.com.wanandroid.presenter.main.SearchListPresenter;
 import json.chao.com.wanandroid.ui.mainpager.adapter.ArticleListAdapter;
 import json.chao.com.wanandroid.utils.CommonUtils;
@@ -109,7 +107,7 @@ public class SearchListActivity extends BaseActivity<SearchListPresenter> implem
     }
 
     @Override
-    public void showSearchList(FeedArticleListResponse feedArticleListResponse) {
+    public void showSearchList(BaseResponse<FeedArticleListData> feedArticleListResponse) {
         if (feedArticleListResponse == null
                 || feedArticleListResponse.getData() == null
                 || feedArticleListResponse.getData().getDatas() == null) {
@@ -126,13 +124,13 @@ public class SearchListActivity extends BaseActivity<SearchListPresenter> implem
     }
 
     @Override
-    public void showCollectArticleData(int position, FeedArticleData feedArticleData, FeedArticleListResponse feedArticleListResponse) {
+    public void showCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
         mAdapter.setData(position, feedArticleData);
         CommonUtils.showMessage(this, getString(R.string.collect_success));
     }
 
     @Override
-    public void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, FeedArticleListResponse feedArticleListResponse) {
+    public void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
         mAdapter.setData(position, feedArticleData);
         CommonUtils.showMessage(this, getString(R.string.cancel_collect_success));
     }

@@ -3,9 +3,9 @@ package json.chao.com.wanandroid.contract.main;
 
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
 import json.chao.com.wanandroid.base.view.BaseView;
+import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
-import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
-
+import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 
 /**
  * @author quchao
@@ -19,27 +19,27 @@ public interface SearchListContract {
         /**
          * Show search list
          *
-         * @param feedArticleListResponse FeedArticleListResponse
+         * @param feedArticleListResponse BaseResponse<FeedArticleListData>
          */
-        void showSearchList(FeedArticleListResponse feedArticleListResponse);
+        void showSearchList(BaseResponse<FeedArticleListData> feedArticleListResponse);
 
         /**
          * Show collect article data
          *
          * @param position Position
          * @param feedArticleData FeedArticleData
-         * @param feedArticleListResponse FeedArticleListResponse
+         * @param feedArticleListResponse BaseResponse<FeedArticleListData>
          */
-        void showCollectArticleData(int position, FeedArticleData feedArticleData, FeedArticleListResponse feedArticleListResponse);
+        void showCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse);
 
         /**
          * Show cancel collect article data
          *
          * @param position Position
          * @param feedArticleData FeedArticleData
-         * @param feedArticleListResponse FeedArticleListResponse
+         * @param feedArticleListResponse BaseResponse<FeedArticleListData>
          */
-        void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, FeedArticleListResponse feedArticleListResponse);
+        void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse);
 
         /**
          * Show search list fail

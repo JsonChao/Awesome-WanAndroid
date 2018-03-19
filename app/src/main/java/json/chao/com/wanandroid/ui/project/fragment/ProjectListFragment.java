@@ -13,15 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import json.chao.com.wanandroid.component.RxBus;
+import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
-import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
+import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
+import json.chao.com.wanandroid.core.bean.project.ProjectListData;
 import json.chao.com.wanandroid.core.bean.project.ProjectListResponse;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.contract.project.ProjectListContract;
-import json.chao.com.wanandroid.core.event.JumpToTheTopEvent;
 import json.chao.com.wanandroid.presenter.project.ProjectListPresenter;
 import json.chao.com.wanandroid.ui.project.adapter.ProjectListAdapter;
 import json.chao.com.wanandroid.utils.CommonUtils;
@@ -98,7 +98,7 @@ public class ProjectListFragment extends BaseFragment<ProjectListPresenter> impl
     }
 
     @Override
-    public void showProjectListData(ProjectListResponse projectListResponse) {
+    public void showProjectListData(BaseResponse<ProjectListData> projectListResponse) {
         if (projectListResponse == null || projectListResponse.getData() == null ||
                 projectListResponse.getData().getDatas() == null) {
             showProjectListFail();
@@ -114,13 +114,13 @@ public class ProjectListFragment extends BaseFragment<ProjectListPresenter> impl
     }
 
     @Override
-    public void showCollectOutsideArticle(int position, FeedArticleData feedArticleData, FeedArticleListResponse feedArticleListResponse) {
+    public void showCollectOutsideArticle(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
         mAdapter.setData(position, feedArticleData);
         CommonUtils.showMessage(_mActivity, getString(R.string.collect_success));
     }
 
     @Override
-    public void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, FeedArticleListResponse feedArticleListResponse) {
+    public void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
         mAdapter.setData(position, feedArticleData);
         CommonUtils.showMessage(_mActivity, getString(R.string.cancel_collect_success));
     }

@@ -39,10 +39,9 @@ import json.chao.com.wanandroid.app.GeeksApp;
 import json.chao.com.wanandroid.base.fragment.BaseDialogFragment;
 import json.chao.com.wanandroid.contract.main.SearchContract;
 import json.chao.com.wanandroid.core.DataManager;
+import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.search.TopSearchData;
-import json.chao.com.wanandroid.core.bean.main.search.TopSearchDataResponse;
 import json.chao.com.wanandroid.core.bean.main.search.UsefulSiteData;
-import json.chao.com.wanandroid.core.bean.main.search.UsefulSitesResponse;
 import json.chao.com.wanandroid.core.dao.HistoryData;
 import json.chao.com.wanandroid.presenter.main.SearchPresenter;
 import json.chao.com.wanandroid.utils.CommonUtils;
@@ -150,7 +149,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     }
 
     @Override
-    public void showTopSearchData(TopSearchDataResponse topSearchDataResponse) {
+    public void showTopSearchData(BaseResponse<List<TopSearchData>> topSearchDataResponse) {
         if (topSearchDataResponse == null) {
             showTopSearchDataFail();
             return;
@@ -180,7 +179,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     }
 
     @Override
-    public void showUsefulSites(UsefulSitesResponse usefulSitesResponse) {
+    public void showUsefulSites(BaseResponse<List<UsefulSiteData>> usefulSitesResponse) {
         if (usefulSitesResponse == null) {
             showUsefulSitesDataFail();
             return;

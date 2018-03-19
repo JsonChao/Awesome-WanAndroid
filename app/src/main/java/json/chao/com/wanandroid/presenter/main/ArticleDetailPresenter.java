@@ -6,12 +6,11 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import javax.inject.Inject;
 
-import io.reactivex.functions.Consumer;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.contract.main.ArticleDetailContract;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
-import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
+import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.utils.RxUtils;
 import json.chao.com.wanandroid.widget.BaseObserver;
 
@@ -34,9 +33,9 @@ public class ArticleDetailPresenter extends BasePresenter<ArticleDetailContract.
     public void addCollectArticle(int articleId) {
         addSubscribe(mDataManager.addCollectArticle(articleId)
                         .compose(RxUtils.rxSchedulerHelper())
-                        .subscribeWith(new BaseObserver<FeedArticleListResponse>(mView) {
+                        .subscribeWith(new BaseObserver<BaseResponse<FeedArticleListData>>(mView) {
                             @Override
-                            public void onNext(FeedArticleListResponse feedArticleListResponse) {
+                            public void onNext(BaseResponse<FeedArticleListData> feedArticleListResponse) {
                                 if (feedArticleListResponse.getErrorCode() == BaseResponse.SUCCESS) {
                                     mView.showCollectArticleData(feedArticleListResponse);
                                 } else {
@@ -50,9 +49,9 @@ public class ArticleDetailPresenter extends BasePresenter<ArticleDetailContract.
     public void cancelCollectArticle(int articleId) {
         addSubscribe(mDataManager.cancelCollectArticle(articleId)
                         .compose(RxUtils.rxSchedulerHelper())
-                        .subscribeWith(new BaseObserver<FeedArticleListResponse>(mView) {
+                        .subscribeWith(new BaseObserver<BaseResponse<FeedArticleListData>>(mView) {
                             @Override
-                            public void onNext(FeedArticleListResponse feedArticleListResponse) {
+                            public void onNext(BaseResponse<FeedArticleListData> feedArticleListResponse) {
                                 if (feedArticleListResponse.getErrorCode() == BaseResponse.SUCCESS) {
                                     mView.showCancelCollectArticleData(feedArticleListResponse);
                                 } else {
@@ -66,9 +65,9 @@ public class ArticleDetailPresenter extends BasePresenter<ArticleDetailContract.
     public void cancelCollectPageArticle(int articleId) {
         addSubscribe(mDataManager.cancelCollectPageArticle(articleId)
                 .compose(RxUtils.rxSchedulerHelper())
-                .subscribeWith(new BaseObserver<FeedArticleListResponse>(mView) {
+                .subscribeWith(new BaseObserver<BaseResponse<FeedArticleListData>>(mView) {
                     @Override
-                    public void onNext(FeedArticleListResponse feedArticleListResponse) {
+                    public void onNext(BaseResponse<FeedArticleListData> feedArticleListResponse) {
                         if (feedArticleListResponse.getErrorCode() == BaseResponse.SUCCESS) {
                             mView.showCancelCollectArticleData(feedArticleListResponse);
                         } else {

@@ -8,7 +8,7 @@ import json.chao.com.wanandroid.contract.main.SearchListContract;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
-import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
+import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.core.event.CollectEvent;
 import json.chao.com.wanandroid.utils.RxUtils;
 import json.chao.com.wanandroid.widget.BaseObserver;
@@ -48,9 +48,9 @@ public class SearchListPresenter extends BasePresenter<SearchListContract.View> 
     public void getSearchList(int page, String k) {
         addSubscribe(mDataManager.getSearchList(page, k)
                 .compose(RxUtils.rxSchedulerHelper())
-                .subscribeWith(new BaseObserver<FeedArticleListResponse>(mView) {
+                .subscribeWith(new BaseObserver<BaseResponse<FeedArticleListData>>(mView) {
                     @Override
-                    public void onNext(FeedArticleListResponse feedArticleListResponse) {
+                    public void onNext(BaseResponse<FeedArticleListData> feedArticleListResponse) {
                         if (feedArticleListResponse.getErrorCode() == BaseResponse.SUCCESS) {
                             mView.showSearchList(feedArticleListResponse);
                         } else {
@@ -64,9 +64,9 @@ public class SearchListPresenter extends BasePresenter<SearchListContract.View> 
     public void addCollectArticle(int position, FeedArticleData feedArticleData) {
         addSubscribe(mDataManager.addCollectArticle(feedArticleData.getId())
                 .compose(RxUtils.rxSchedulerHelper())
-                .subscribeWith(new BaseObserver<FeedArticleListResponse>(mView) {
+                .subscribeWith(new BaseObserver<BaseResponse<FeedArticleListData>>(mView) {
                     @Override
-                    public void onNext(FeedArticleListResponse feedArticleListResponse) {
+                    public void onNext(BaseResponse<FeedArticleListData> feedArticleListResponse) {
                         if (feedArticleListResponse.getErrorCode() == BaseResponse.SUCCESS) {
                             feedArticleData.setCollect(true);
                             mView.showCollectArticleData(position, feedArticleData, feedArticleListResponse);
@@ -81,9 +81,9 @@ public class SearchListPresenter extends BasePresenter<SearchListContract.View> 
     public void cancelCollectArticle(int position, FeedArticleData feedArticleData) {
         addSubscribe(mDataManager.cancelCollectArticle(feedArticleData.getId())
                 .compose(RxUtils.rxSchedulerHelper())
-                .subscribeWith(new BaseObserver<FeedArticleListResponse>(mView) {
+                .subscribeWith(new BaseObserver<BaseResponse<FeedArticleListData>>(mView) {
                     @Override
-                    public void onNext(FeedArticleListResponse feedArticleListResponse) {
+                    public void onNext(BaseResponse<FeedArticleListData> feedArticleListResponse) {
                         if (feedArticleListResponse.getErrorCode() == BaseResponse.SUCCESS) {
                             feedArticleData.setCollect(false);
                             mView.showCancelCollectArticleData(position, feedArticleData, feedArticleListResponse);

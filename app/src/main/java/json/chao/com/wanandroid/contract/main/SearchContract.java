@@ -3,10 +3,9 @@ package json.chao.com.wanandroid.contract.main;
 import java.util.List;
 
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
-import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
-import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
-import json.chao.com.wanandroid.core.bean.main.search.TopSearchDataResponse;
-import json.chao.com.wanandroid.core.bean.main.search.UsefulSitesResponse;
+import json.chao.com.wanandroid.core.bean.BaseResponse;
+import json.chao.com.wanandroid.core.bean.main.search.TopSearchData;
+import json.chao.com.wanandroid.core.bean.main.search.UsefulSiteData;
 import json.chao.com.wanandroid.base.view.BaseView;
 import json.chao.com.wanandroid.core.dao.HistoryData;
 
@@ -29,16 +28,16 @@ public interface SearchContract {
         /**
          * Show top search data
          *
-         * @param topSearchDataResponse TopSearchDataResponse
+         * @param topSearchDataResponse BaseResponse<List<TopSearchData>>
          */
-        void showTopSearchData(TopSearchDataResponse topSearchDataResponse);
+        void showTopSearchData(BaseResponse<List<TopSearchData>> topSearchDataResponse);
 
         /**
          * Show useful sites
          *
-         * @param usefulSitesResponse UsefulSitesResponse
+         * @param usefulSitesResponse BaseResponse<List<UsefulSiteData>>
          */
-        void showUsefulSites(UsefulSitesResponse usefulSitesResponse);
+        void showUsefulSites(BaseResponse<List<UsefulSiteData>> usefulSitesResponse);
 
         /**
          * Show top search data fail

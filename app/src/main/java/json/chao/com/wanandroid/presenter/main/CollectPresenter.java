@@ -8,7 +8,7 @@ import json.chao.com.wanandroid.contract.main.CollectContract;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
-import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
+import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.core.event.CollectEvent;
 import json.chao.com.wanandroid.utils.RxUtils;
 import json.chao.com.wanandroid.widget.BaseObserver;
@@ -43,9 +43,9 @@ public class CollectPresenter extends BasePresenter<CollectContract.View> implem
     public void getCollectList(int page) {
         addSubscribe(mDataManager.getCollectList(page)
                     .compose(RxUtils.rxSchedulerHelper())
-                    .subscribeWith(new BaseObserver<FeedArticleListResponse>(mView) {
+                    .subscribeWith(new BaseObserver<BaseResponse<FeedArticleListData>>(mView) {
                         @Override
-                        public void onNext(FeedArticleListResponse feedArticleListResponse) {
+                        public void onNext(BaseResponse<FeedArticleListData> feedArticleListResponse) {
                             if (feedArticleListResponse.getErrorCode() == BaseResponse.SUCCESS) {
                                 mView.showCollectList(feedArticleListResponse);
                             } else {
@@ -59,9 +59,9 @@ public class CollectPresenter extends BasePresenter<CollectContract.View> implem
     public void cancelCollectPageArticle(int position, FeedArticleData feedArticleData) {
         addSubscribe(mDataManager.cancelCollectPageArticle(feedArticleData.getId())
                         .compose(RxUtils.rxSchedulerHelper())
-                        .subscribeWith(new BaseObserver<FeedArticleListResponse>(mView) {
+                        .subscribeWith(new BaseObserver<BaseResponse<FeedArticleListData>>(mView) {
                             @Override
-                            public void onNext(FeedArticleListResponse feedArticleListResponse) {
+                            public void onNext(BaseResponse<FeedArticleListData> feedArticleListResponse) {
                                 if (feedArticleListResponse.getErrorCode() == BaseResponse.SUCCESS) {
                                     feedArticleData.setCollect(false);
                                     mView.showCancelCollectPageArticleData(position, feedArticleData, feedArticleListResponse);

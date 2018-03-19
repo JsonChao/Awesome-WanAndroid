@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
+import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.navigation.NavigationListData;
 import json.chao.com.wanandroid.core.bean.navigation.NavigationListResponse;
 import json.chao.com.wanandroid.R;
@@ -79,7 +80,7 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
     }
 
     @Override
-    public void showNavigationListData(NavigationListResponse navigationListResponse) {
+    public void showNavigationListData(BaseResponse<List<NavigationListData>> navigationListResponse) {
         if (navigationListResponse == null || navigationListResponse.getData() == null) {
             showNavigationListFail();
             return;
