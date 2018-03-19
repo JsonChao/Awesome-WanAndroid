@@ -80,9 +80,6 @@ dependencies {
     //BaseRecyclerViewAdapterHelper
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
 
-    //loading layout
-    compile 'com.github.czy1121:loadinglayout:1.0.1'
-
     //AVLoadingIndicatorView
     compile 'com.wang.avi:library:2.1.3'
 

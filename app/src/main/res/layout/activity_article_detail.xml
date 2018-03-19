@@ -13,8 +13,7 @@
         app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
         app:titleTextAppearance="@style/Toolbar.TitleText" />
 
-    <ezy.ui.layout.LoadingLayout
-        android:id="@+id/article_detail_loading_layout"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -23,7 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:srlHeaderHeight="@dimen/dp_150"
-            app:srlHeaderMaxDragRate="1">
+            app:srlHeaderMaxDragRate="1"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/header"
@@ -46,5 +46,16 @@
                 android:clipToPadding="false"
                 android:paddingTop="@dimen/dp_54" />
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-    </ezy.ui.layout.LoadingLayout>
+
+        <com.wang.avi.AVLoadingIndicatorView
+            style="@style/AVLoadingIndicatorView.Large"
+            android:id="@+id/article_detail_avi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_centerInParent="true"
+            android:visibility="visible"
+            app:indicatorName="BallTrianglePathIndicator"
+            app:indicatorColor="@color/colorPrimary" />
+    </RelativeLayout>
 </LinearLayout>

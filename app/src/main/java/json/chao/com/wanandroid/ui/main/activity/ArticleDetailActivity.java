@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -15,13 +17,13 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.lang.reflect.Method;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import ezy.ui.layout.LoadingLayout;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.activity.BaseActivity;
@@ -45,8 +47,8 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
     LinearLayout mWebViewGroup;
     @BindView(R.id.article_detail_toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.article_detail_loading_layout)
-    LoadingLayout mLoadingLayout;
+    @BindView(R.id.article_detail_avi)
+    AVLoadingIndicatorView mAVLoadingIndicatorView;
     @BindView(R.id.article_detail_refresh_Layout)
     SmartRefreshLayout mRefreshLayout;
     @BindView(R.id.article_detail_web_view)
@@ -106,25 +108,37 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
     protected void initEventAndData() {
         initToolBar();
 
-        mWebView.loadUrl(articleLink);
         WebSettings settings = mWebView.getSettings();
         settings.setJavaScriptEnabled(true);
-        settings.setUseWideViewPort(true);
         settings.setLoadWithOverviewMode(true);
-        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        settings.setSupportZoom(true);
+        if (CommonUtils.isNetworkConnected()) {
+            settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        } else {
+            settings.setCacheMode(WebSettings.LOAD_CACHE_ONLY);
+        }
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                view.loadUrl(articleLink);
+                view.loadUrl(request.getUrl().toString());
                 return true;
             }
-
+        });
+        mWebView.setWebChromeClient(new WebChromeClient(){
             @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                mLoadingLayout.showContent();
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+                if (mAVLoadingIndicatorView == null) {
+                    return;
+                }
+                if (newProgress == Constants.PROGRESS_OK) {
+                    mRefreshLayout.setVisibility(View.VISIBLE);
+                    mAVLoadingIndicatorView.setVisibility(View.GONE);
+                }
             }
         });
+        mWebView.loadUrl(articleLink);
     }
 
     @Override

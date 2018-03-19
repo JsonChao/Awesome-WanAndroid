@@ -28,7 +28,6 @@ public abstract class AbstractSimpleDialogFragment extends DialogFragment {
     public View mRootView;
     private CompositeDisposable mCompositeDisposable;
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

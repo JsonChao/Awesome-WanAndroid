@@ -6,16 +6,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@android:color/transparent</item>
         <item name="android:windowAnimationStyle">@style/windowAnimation</item>
-        <item name="styleLoadingLayout">@style/LoadingLayoutStyle</item>
         <!-- Set menu background and text color -->
         <item name="android:itemBackground">@color/white</item>
         <item name="android:textColor">@color/title_black</item>
-    </style>
-
-    <style name="LoadingLayoutStyle" parent="LoadingLayout.Style">
-        <item name="llEmptyImage">@drawable/ic_empty</item>
-        <item name="llErrorImage">@drawable/ic_error</item>
-        <item name="llLoadingResId">@layout/common_loading</item>
     </style>
 
     <style name="windowAnimation">
