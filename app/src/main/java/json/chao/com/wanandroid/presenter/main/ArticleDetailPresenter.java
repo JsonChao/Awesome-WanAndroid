@@ -1,7 +1,12 @@
 package json.chao.com.wanandroid.presenter.main;
 
+import android.Manifest;
+
+import com.tbruyelle.rxpermissions2.RxPermissions;
+
 import javax.inject.Inject;
 
+import io.reactivex.functions.Consumer;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.contract.main.ArticleDetailContract;
@@ -71,6 +76,19 @@ public class ArticleDetailPresenter extends BasePresenter<ArticleDetailContract.
                         }
                     }
                 }));
+    }
+
+    @Override
+    public void shareEventPermissionVerify(RxPermissions rxPermissions) {
+        rxPermissions
+                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(granted -> {
+                    if (granted) {
+                        mView.shareEvent();
+                    } else {
+                        mView.shareError();
+                    }
+                });
     }
 
 }

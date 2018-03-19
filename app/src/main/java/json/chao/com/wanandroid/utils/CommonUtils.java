@@ -3,8 +3,13 @@ package json.chao.com.wanandroid.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.media.tv.TvView;
 import android.net.ConnectivityManager;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -12,6 +17,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
 
+import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.GeeksApp;
 
 /**
@@ -37,7 +43,10 @@ public class CommonUtils {
      */
     public static void showMessage(Activity activity, String msg) {
         LogHelper.e("showMessage ：" + msg);
-        Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
+        Snackbar snackbar = Snackbar.make(activity.getWindow().getDecorView(), msg, Snackbar.LENGTH_SHORT);
+        View view = snackbar.getView();
+        ((TextView) view.findViewById(R.id.snackbar_text)).setTextColor(ContextCompat.getColor(activity, R.color.white));
+        snackbar.show();
     }
 
     /**

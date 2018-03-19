@@ -1,5 +1,7 @@
 package json.chao.com.wanandroid.contract.main;
 
+import com.tbruyelle.rxpermissions2.RxPermissions;
+
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
 import json.chao.com.wanandroid.base.view.BaseView;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListResponse;
@@ -27,6 +29,15 @@ public interface ArticleDetailContract {
          */
         void showCancelCollectArticleData(FeedArticleListResponse feedArticleListResponse);
 
+        /**
+         * Share event
+         */
+        void shareEvent();
+
+        /**
+         * Share error
+         */
+        void shareError();
 
     }
 
@@ -52,6 +63,13 @@ public interface ArticleDetailContract {
          * @param id article id
          */
         void cancelCollectPageArticle(int id);
+
+        /**
+         * verify share permission
+         *
+         * @param rxPermissions RxPermissions
+         */
+        void shareEventPermissionVerify(RxPermissions rxPermissions);
 
     }
 }

@@ -55,6 +55,7 @@ ext {
     rxjavaVersion = '2.1.5'
     rxandroidVersion = '2.0.1'
     rxbindingVersion = '2.1.0'
+    rxpermissionsVersion = '0.9.5@aar'
     daggerVersion = '2.0.2'
     javaxVersion = '10.0-b28'
     butterknifeVersion = '8.8.1'

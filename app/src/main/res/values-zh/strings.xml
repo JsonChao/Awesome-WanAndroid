@@ -76,6 +76,7 @@
     <string name="failed_to_obtain_collection_data">获取收藏数据失败</string>
     <string name="open_it_with_browser">用系统浏览器打开</string>
     <string name="share_type_url">%1$s分享【%2$s】专题：%3$s</string>
+    <string name="write_permission_not_allowed">获取写入权限失败</string>
 
     //搜索
     <string name="failed_to_obtain_search_data_list">获取搜索数据列表失败</string>

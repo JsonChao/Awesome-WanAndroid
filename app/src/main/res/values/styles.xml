@@ -9,6 +9,10 @@
         <!-- Set menu background and text color -->
         <item name="android:itemBackground">@color/white</item>
         <item name="android:textColor">@color/title_black</item>
+
+        //沉浸状态栏
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
     <style name="windowAnimation">

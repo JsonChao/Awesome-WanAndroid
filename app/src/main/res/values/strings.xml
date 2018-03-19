@@ -75,6 +75,8 @@
     <string name="failed_to_obtain_collection_data">Failed to obtain collection data</string>
     <string name="open_it_with_browser">Open it with the system browser</string>
     <string name="share_type_url">%1$sShare【%2$s】special top：%3$s</string>
+    <string name="write_permission_not_allowed">Gets write permission failed</string>
+
 
     //Search
     <string name="failed_to_obtain_search_data_list">Failed to obtain search data list</string>

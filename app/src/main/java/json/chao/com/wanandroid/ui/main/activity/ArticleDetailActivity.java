@@ -17,6 +17,7 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.lang.reflect.Method;
@@ -173,6 +174,7 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_share:
+                mPresenter.shareEventPermissionVerify(new RxPermissions(this));
                 shareEvent();
                 break;
             case R.id.item_collect:
@@ -211,11 +213,17 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
         return super.onMenuOpened(featureId, menu);
     }
 
-    private void shareEvent() {
+    @Override
+    public void shareEvent() {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_type_url, getString(R.string.app_name), title, articleLink));
         intent.setType("text/plain");
         startActivity(intent);
+    }
+
+    @Override
+    public void shareError() {
+        CommonUtils.showMessage(this, getString(R.string.write_permission_not_allowed));
     }
 
     private void collectEvent() {

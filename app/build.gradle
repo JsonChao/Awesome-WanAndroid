@@ -98,6 +98,7 @@ dependencies {
     compile "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
     compile "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
     compile "com.jakewharton.rxbinding2:rxbinding:$rootProject.rxbindingVersion"
+    compile "com.tbruyelle.rxpermissions2:rxpermissions:$rootProject.rxpermissionsVersion"
 
     //di
     compile "com.google.dagger:dagger:$rootProject.daggerVersion"
