@@ -14,7 +14,8 @@ import json.chao.com.wanandroid.core.bean.main.search.UsefulSiteData;
 import json.chao.com.wanandroid.core.bean.navigation.NavigationListData;
 import json.chao.com.wanandroid.core.bean.project.ProjectClassifyData;
 import json.chao.com.wanandroid.core.bean.project.ProjectListData;
-import json.chao.com.wanandroid.core.db.DBHelper;
+import json.chao.com.wanandroid.core.dao.HistoryData;
+import json.chao.com.wanandroid.core.db.DbHelper;
 import json.chao.com.wanandroid.core.http.HttpHelper;
 import json.chao.com.wanandroid.core.prefs.PreferenceHelper;
 
@@ -23,15 +24,15 @@ import json.chao.com.wanandroid.core.prefs.PreferenceHelper;
  * @date 2017/11/27
  */
 
-public class DataManager implements HttpHelper, DBHelper, PreferenceHelper {
+public class DataManager implements HttpHelper, DbHelper, PreferenceHelper {
 
     private HttpHelper mHttpHelper;
-    private DBHelper mDBHelper;
+    private DbHelper mDbHelper;
     private PreferenceHelper mPreferenceHelper;
 
-    public DataManager(HttpHelper httpHelper, DBHelper dbHelper, PreferenceHelper preferencesHelper) {
+    public DataManager(HttpHelper httpHelper, DbHelper dbHelper, PreferenceHelper preferencesHelper) {
         mHttpHelper = httpHelper;
-        mDBHelper = dbHelper;
+        mDbHelper = dbHelper;
         mPreferenceHelper = preferencesHelper;
     }
 
@@ -171,4 +172,8 @@ public class DataManager implements HttpHelper, DBHelper, PreferenceHelper {
     }
 
 
+    @Override
+    public List<HistoryData> addHistoryData(String data) {
+        return mDbHelper.addHistoryData(data);
+    }
 }

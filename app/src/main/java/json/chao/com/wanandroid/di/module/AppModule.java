@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import json.chao.com.wanandroid.core.DataManager;
-import json.chao.com.wanandroid.core.db.DBHelper;
+import json.chao.com.wanandroid.core.db.DbHelper;
 import json.chao.com.wanandroid.core.db.GreenDaoHelper;
 import json.chao.com.wanandroid.core.http.HttpHelper;
 import json.chao.com.wanandroid.core.http.RetrofitHelper;
@@ -42,7 +42,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    DBHelper provideDBHelper(GreenDaoHelper realmHelper) {
+    DbHelper provideDBHelper(GreenDaoHelper realmHelper) {
         return realmHelper;
     }
 
@@ -54,7 +54,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    DataManager provideDataManager(HttpHelper httpHelper, DBHelper dbhelper, PreferenceHelper preferencesHelper) {
+    DataManager provideDataManager(HttpHelper httpHelper, DbHelper dbhelper, PreferenceHelper preferencesHelper) {
         return new DataManager(httpHelper, dbhelper, preferencesHelper);
     }
 

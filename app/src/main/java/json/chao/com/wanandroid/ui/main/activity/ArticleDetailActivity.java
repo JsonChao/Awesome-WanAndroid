@@ -113,8 +113,11 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
         WebSettings settings = mWebView.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setLoadWithOverviewMode(true);
+        settings.setUseWideViewPort(true);
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setSupportZoom(true);
+        settings.setBuiltInZoomControls(true);
+        settings.setDisplayZoomControls(false);
         if (CommonUtils.isNetworkConnected()) {
             settings.setCacheMode(WebSettings.LOAD_DEFAULT);
         } else {

@@ -1,22 +1,18 @@
 package json.chao.com.wanandroid.presenter.main;
 
-import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
-import json.chao.com.wanandroid.app.GeeksApp;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.contract.main.SearchContract;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.search.TopSearchData;
 import json.chao.com.wanandroid.core.bean.main.search.UsefulSiteData;
-import json.chao.com.wanandroid.core.dao.DaoSession;
 import json.chao.com.wanandroid.core.dao.HistoryData;
-import json.chao.com.wanandroid.core.dao.HistoryDataDao;
 import json.chao.com.wanandroid.utils.RxUtils;
 import json.chao.com.wanandroid.widget.BaseObserver;
 
@@ -41,34 +37,8 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
 
     @Override
     public void addHistoryData(String data) {
-        DaoSession daoSession = GeeksApp.getInstance().getDaoSession();
-        HistoryDataDao historyDataDao = daoSession.getHistoryDataDao();
         addSubscribe(Observable.create((ObservableOnSubscribe<List<HistoryData>>) e -> {
-            List<HistoryData> historyDataList = historyDataDao.loadAll();
-            HistoryData historyData = new HistoryData();
-            historyData.setDate(System.currentTimeMillis());
-            historyData.setData(data);
-            //重复搜索时进行历史记录前移
-            Iterator<HistoryData> iterator = historyDataList.iterator();
-            //不要在foreach循环中进行元素的remove、add操作，使用Iterator模式
-            while (iterator.hasNext()) {
-                HistoryData historyData1 = iterator.next();
-                if (historyData1.getData().equals(data)) {
-                    historyDataList.remove(historyData1);
-                    historyDataList.add(historyData);
-                    historyDataDao.deleteAll();
-                    historyDataDao.insertInTx(historyDataList);
-                    return;
-                }
-            }
-            if (historyDataList.size() < 10) {
-                historyDataDao.insert(historyData);
-            } else {
-                historyDataList.remove(0);
-                historyDataList.add(historyData);
-                historyDataDao.deleteAll();
-                historyDataDao.insertInTx(historyDataList);
-            }
+            List<HistoryData> historyDataList = mDataManager.addHistoryData(data);
             e.onNext(historyDataList);
         }).compose(RxUtils.rxSchedulerHelper()).subscribe(historyDataList -> {}));
     }

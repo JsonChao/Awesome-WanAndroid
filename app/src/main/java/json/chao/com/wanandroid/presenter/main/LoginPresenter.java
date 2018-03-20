@@ -40,7 +40,6 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
                                 }
                             }
                         }));
-
     }
 
     @Override

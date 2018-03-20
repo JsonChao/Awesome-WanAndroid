@@ -4,11 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 
-import com.squareup.leakcanary.RefWatcher;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import json.chao.com.wanandroid.app.GeeksApp;
 import me.yokeyword.fragmentation.SupportActivity;
 import json.chao.com.wanandroid.component.ActivityCollector;
 
