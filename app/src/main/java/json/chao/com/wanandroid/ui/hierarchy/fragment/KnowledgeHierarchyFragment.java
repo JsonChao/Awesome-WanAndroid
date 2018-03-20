@@ -122,11 +122,11 @@ public class KnowledgeHierarchyFragment extends BaseFragment<KnowledgeHierarchyP
         mRefreshLayout.setPrimaryColorsId(Constants.BLUE_THEME, R.color.white);
         mRefreshLayout.setOnRefreshListener(refreshLayout -> {
             mPresenter.getKnowledgeHierarchyData();
-            refreshLayout.finishRefresh(2000);
+            refreshLayout.finishRefresh(1000);
         });
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
             mPresenter.getKnowledgeHierarchyData();
-            refreshLayout.finishLoadMore(2000);
+            refreshLayout.finishLoadMore(1000);
         });
     }
 

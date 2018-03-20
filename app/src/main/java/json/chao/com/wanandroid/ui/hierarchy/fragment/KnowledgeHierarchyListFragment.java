@@ -191,7 +191,7 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
                 isRefresh = true;
                 mPresenter.getKnowledgeHierarchyDetailData(0, mKnowledgeHierarchyData.getId());
             }
-            refreshLayout.finishRefresh(2000);
+            refreshLayout.finishRefresh(1000);
         });
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
             mCurrentPage++;
@@ -199,7 +199,7 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
                 isRefresh = false;
                 mPresenter.getKnowledgeHierarchyDetailData(mCurrentPage, mKnowledgeHierarchyData.getId());
             }
-            refreshLayout.finishLoadMore(2000);
+            refreshLayout.finishLoadMore(1000);
         });
     }
 }

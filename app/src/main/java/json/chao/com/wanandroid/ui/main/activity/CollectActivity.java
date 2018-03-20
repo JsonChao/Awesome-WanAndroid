@@ -157,13 +157,13 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
             mCurrentPage = 0;
             isRefresh = true;
             mPresenter.getCollectList(mCurrentPage);
-            refreshLayout.finishRefresh(2000);
+            refreshLayout.finishRefresh(1000);
         });
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
             mCurrentPage++;
             isRefresh = false;
             mPresenter.getCollectList(mCurrentPage);
-            refreshLayout.finishLoadMore(2000);
+            refreshLayout.finishLoadMore(1000);
         });
     }
 

@@ -296,13 +296,13 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
             mCurrentPage = 0;
             mPresenter.getBannerData();
             mPresenter.getFeedArticleList(mCurrentPage);
-            refreshLayout.finishRefresh(2000);
+            refreshLayout.finishRefresh(1000);
         });
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
             isRefresh = false;
             mCurrentPage++;
             mPresenter.getFeedArticleList(mCurrentPage);
-            refreshLayout.finishLoadMore(2000);
+            refreshLayout.finishLoadMore(1000);
         });
     }
 

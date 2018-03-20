@@ -143,13 +143,13 @@ public class ProjectListFragment extends BaseFragment<ProjectListPresenter> impl
             mCurrentPage = 1;
             isRefresh = true;
             mPresenter.getProjectListData(mCurrentPage, cid);
-            refreshLayout.finishRefresh(2000);
+            refreshLayout.finishRefresh(1000);
         });
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
             mCurrentPage++;
             isRefresh = false;
             mPresenter.getProjectListData(mCurrentPage, cid);
-            refreshLayout.finishLoadMore(2000);
+            refreshLayout.finishLoadMore(1000);
         });
     }
 

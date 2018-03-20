@@ -189,13 +189,13 @@ public class SearchListActivity extends BaseActivity<SearchListPresenter> implem
             mCurrentPage = 0;
             isAddData = false;
             mPresenter.getSearchList(mCurrentPage, searchText);
-            refreshLayout.finishRefresh(2000);
+            refreshLayout.finishRefresh(1000);
         });
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
             mCurrentPage++;
             isAddData = true;
             mPresenter.getSearchList(mCurrentPage, searchText);
-            refreshLayout.finishLoadMore(2000);
+            refreshLayout.finishLoadMore(1000);
         });
     }
 

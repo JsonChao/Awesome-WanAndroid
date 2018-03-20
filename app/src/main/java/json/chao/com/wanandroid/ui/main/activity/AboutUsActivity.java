@@ -105,7 +105,7 @@ public class AboutUsActivity extends BaseActivity<AboutUsPresenter> implements A
         mAboutUsRefreshLayout.setReboundDuration(800);
         mAboutUsRefreshLayout.setOnRefreshListener(refreshLayout -> {
             updateTheme();
-            refreshLayout.finishRefresh(2000);
+            refreshLayout.finishRefresh(1000);
         });
 
         //设置让Toolbar和AppBarLayout的滚动同步
