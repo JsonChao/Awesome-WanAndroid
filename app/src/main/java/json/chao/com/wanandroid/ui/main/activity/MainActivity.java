@@ -101,6 +101,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         initNavigationView();
 
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationBar);
+        mDataManager.setCurrentPage(Constants.FIRST);
         bottomNavigationBar.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.tab_main_pager:
