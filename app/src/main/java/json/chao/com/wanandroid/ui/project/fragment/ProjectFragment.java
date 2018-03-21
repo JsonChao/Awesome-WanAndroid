@@ -37,6 +37,8 @@ public class ProjectFragment extends BaseFragment<ProjectPresenter> implements P
 
     @BindView(R.id.project_tab_layout)
     SlidingTabLayout mTabLayout;
+    @BindView(R.id.project_divider)
+    View mDivider;
     @BindView(R.id.project_viewpager)
     ViewPager mViewPager;
 
@@ -88,9 +90,11 @@ public class ProjectFragment extends BaseFragment<ProjectPresenter> implements P
         RxBus.getDefault().post(new DismissErrorView());
         if (mDataManager.getCurrentPage() == Constants.FOURTH) {
             mTabLayout.setVisibility(View.VISIBLE);
+            mDivider.setVisibility(View.VISIBLE);
             mViewPager.setVisibility(View.VISIBLE);
         } else {
             mTabLayout.setVisibility(View.INVISIBLE);
+            mDivider.setVisibility(View.INVISIBLE);
             mViewPager.setVisibility(View.INVISIBLE);
         }
         mData = projectClassifyResponse.getData();
@@ -144,6 +148,7 @@ public class ProjectFragment extends BaseFragment<ProjectPresenter> implements P
     @Override
     public void showError() {
         mTabLayout.setVisibility(View.INVISIBLE);
+        mDivider.setVisibility(View.INVISIBLE);
         mViewPager.setVisibility(View.INVISIBLE);
         RxBus.getDefault().post(new ShowErrorView());
     }

@@ -160,14 +160,14 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
     }
 
     @Override
-    public void showArticleList(BaseResponse<FeedArticleListData> feedArticleListResponse) {
+    public void showArticleList(BaseResponse<FeedArticleListData> feedArticleListResponse, boolean isReLogin) {
         if (feedArticleListResponse == null || feedArticleListResponse.getData() == null
                 || feedArticleListResponse.getData().getDatas() == null) {
             showArticleListFail();
             return;
         }
         RxBus.getDefault().post(new DismissErrorView());
-        if (mDataManager.getCurrentPage() == Constants.FIRST) {
+        if (isReLogin || mDataManager.getCurrentPage() == Constants.FIRST) {
             mRefreshLayout.setVisibility(View.VISIBLE);
         } else {
             mRefreshLayout.setVisibility(View.INVISIBLE);

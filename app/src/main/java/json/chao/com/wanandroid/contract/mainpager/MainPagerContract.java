@@ -32,8 +32,9 @@ public interface MainPagerContract {
          * Show content
          *
          * @param feedArticleListResponse BaseResponse<FeedArticleListData>
+         * @param isReLogin If reLogin
          */
-        void showArticleList(BaseResponse<FeedArticleListData> feedArticleListResponse);
+        void showArticleList(BaseResponse<FeedArticleListData> feedArticleListResponse, boolean isReLogin);
 
         /**
          * Show collect article data

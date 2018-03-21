@@ -83,7 +83,7 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
                             mView.showAutoLoginSuccess();
                         }
                         mView.showBannerData(CommonUtils.cast(map.get(Constants.BANNER_DATA)));
-                        mView.showArticleList(CommonUtils.cast(map.get(Constants.ARTICLE_DATA)));
+                        mView.showArticleList(CommonUtils.cast(map.get(Constants.ARTICLE_DATA)), true);
                     }
 
                     @Override
@@ -103,7 +103,7 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
                     @Override
                     public void onNext(BaseResponse<FeedArticleListData> feedArticleListResponse) {
                         if (feedArticleListResponse.getErrorCode() == BaseResponse.SUCCESS) {
-                            mView.showArticleList(feedArticleListResponse);
+                            mView.showArticleList(feedArticleListResponse, false);
                         } else {
                             mView.showArticleListFail();
                         }

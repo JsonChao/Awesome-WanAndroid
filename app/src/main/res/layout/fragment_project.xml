@@ -25,9 +25,11 @@
         android:visibility="invisible" />
 
     <View
+        android:id="@+id/project_divider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        android:background="@color/grey_divider" />
+        android:background="@color/grey_divider"
+        android:visibility="invisible" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/project_viewpager"
