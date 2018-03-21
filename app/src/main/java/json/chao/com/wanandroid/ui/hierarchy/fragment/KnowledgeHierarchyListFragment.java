@@ -131,18 +131,18 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
     @Override
     public void showCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
         mAdapter.setData(position, feedArticleData);
-        CommonUtils.showMessage(_mActivity, getString(R.string.collect_success));
+        CommonUtils.showSnackMessage(_mActivity, getString(R.string.collect_success));
     }
 
     @Override
     public void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
         mAdapter.setData(position, feedArticleData);
-        CommonUtils.showMessage(_mActivity, getString(R.string.cancel_collect_success));
+        CommonUtils.showSnackMessage(_mActivity, getString(R.string.cancel_collect_success));
     }
 
     @Override
     public void showKnowledgeHierarchyDetailDataFail() {
-        CommonUtils.showMessage(_mActivity, getString(R.string.failed_to_obtain_knowledge_data));
+        CommonUtils.showSnackMessage(_mActivity, getString(R.string.failed_to_obtain_knowledge_data));
     }
 
     @Override

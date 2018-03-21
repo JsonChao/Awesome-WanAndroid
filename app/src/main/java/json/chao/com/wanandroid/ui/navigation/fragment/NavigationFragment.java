@@ -16,7 +16,6 @@ import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.navigation.NavigationListData;
-import json.chao.com.wanandroid.core.bean.navigation.NavigationListResponse;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.fragment.BaseFragment;
@@ -132,7 +131,7 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
 
     @Override
     public void showNavigationListFail() {
-        CommonUtils.showMessage(_mActivity, getString(R.string.failed_to_obtain_navigation_list));
+        CommonUtils.showSnackMessage(_mActivity, getString(R.string.failed_to_obtain_navigation_list));
     }
 
     @Override

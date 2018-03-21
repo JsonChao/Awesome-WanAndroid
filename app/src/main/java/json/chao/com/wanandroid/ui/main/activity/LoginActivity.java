@@ -84,7 +84,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                     String account = mAccountEdit.getText().toString().trim();
                     String password = mPasswordEdit.getText().toString().trim();
                     if (TextUtils.isEmpty(account) || TextUtils.isEmpty(password)) {
-                        CommonUtils.showMessage(this, getString(R.string.account_password_null_tint));
+                        CommonUtils.showSnackMessage(this, getString(R.string.account_password_null_tint));
                         return;
                     }
                     mPresenter.getLoginData(account, password);
@@ -102,7 +102,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         mDataManager.setLoginPassword(loginData.getPassword());
         mDataManager.setLoginStatus(true);
         RxBus.getDefault().post(new LoginEvent(true));
-        CommonUtils.showMessage(this, getString(R.string.login_success));
+        CommonUtils.showSnackMessage(this, getString(R.string.login_success));
         onBackPressedSupport();
     }
 
@@ -118,12 +118,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void showLoginFail() {
-        CommonUtils.showMessage(this, getString(R.string.login_fail));
+        CommonUtils.showSnackMessage(this, getString(R.string.login_fail));
     }
 
     @Override
     public void showRegisterFail() {
-        CommonUtils.showMessage(this, getString(R.string.register_fail));
+        CommonUtils.showSnackMessage(this, getString(R.string.register_fail));
     }
 
     @Override
@@ -149,12 +149,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         String rePassword = mPopupWindow.mRePasswordEdit.getText().toString().trim();
 
         if (TextUtils.isEmpty(account) || TextUtils.isEmpty(password) || TextUtils.isEmpty(rePassword)) {
-            CommonUtils.showMessage(this, getString(R.string.account_password_null_tint));
+            CommonUtils.showSnackMessage(this, getString(R.string.account_password_null_tint));
             return;
         }
 
         if (!password.equals(rePassword)) {
-            CommonUtils.showMessage(this, getString(R.string.password_not_same));
+            CommonUtils.showSnackMessage(this, getString(R.string.password_not_same));
             return;
         }
 

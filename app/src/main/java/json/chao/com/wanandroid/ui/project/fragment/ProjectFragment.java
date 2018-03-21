@@ -142,7 +142,7 @@ public class ProjectFragment extends BaseFragment<ProjectPresenter> implements P
 
     @Override
     public void showProjectClassifyDataFail() {
-        CommonUtils.showMessage(_mActivity, getString(R.string.failed_to_obtain_project_classify_data));
+        CommonUtils.showSnackMessage(_mActivity, getString(R.string.failed_to_obtain_project_classify_data));
     }
 
     @Override

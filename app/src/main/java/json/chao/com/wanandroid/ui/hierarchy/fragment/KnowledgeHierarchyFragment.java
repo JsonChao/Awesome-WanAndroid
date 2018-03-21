@@ -97,7 +97,7 @@ public class KnowledgeHierarchyFragment extends BaseFragment<KnowledgeHierarchyP
 
     @Override
     public void showKnowledgeHierarchyDetailDataFail() {
-        CommonUtils.showMessage(_mActivity, getString(R.string.failed_to_obtain_knowledge_data));
+        CommonUtils.showSnackMessage(_mActivity, getString(R.string.failed_to_obtain_knowledge_data));
     }
 
     @Override

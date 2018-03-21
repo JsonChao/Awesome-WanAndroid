@@ -52,7 +52,7 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
     @Override
     public void showErrorMsg(String errorMsg) {
         if (getActivity() != null) {
-            CommonUtils.showMessage(getActivity(), errorMsg);
+            CommonUtils.showSnackMessage(getActivity(), errorMsg);
         }
     }
 
@@ -69,14 +69,14 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
     @Override
     public void showCollectFail() {
         if (getActivity() != null) {
-            CommonUtils.showMessage(getActivity(), getString(R.string.collect_fail));
+            CommonUtils.showSnackMessage(getActivity(), getString(R.string.collect_fail));
         }
     }
 
     @Override
     public void showCancelCollectFail() {
         if (getActivity() != null) {
-            CommonUtils.showMessage(getActivity(), getString(R.string.cancel_collect_fail));
+            CommonUtils.showSnackMessage(getActivity(), getString(R.string.cancel_collect_fail));
         }
     }
 

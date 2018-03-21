@@ -49,7 +49,7 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
 
     @Override
     public void showErrorMsg(String errorMsg) {
-        CommonUtils.showMessage(this, errorMsg);
+        CommonUtils.showSnackMessage(this, errorMsg);
     }
 
     @Override
@@ -64,12 +64,12 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
 
     @Override
     public void showCollectFail() {
-        CommonUtils.showMessage(this, getString(R.string.collect_fail));
+        CommonUtils.showSnackMessage(this, getString(R.string.collect_fail));
     }
 
     @Override
     public void showCancelCollectFail() {
-        CommonUtils.showMessage(this, getString(R.string.cancel_collect_fail));
+        CommonUtils.showSnackMessage(this, getString(R.string.cancel_collect_fail));
     }
 
     @Override

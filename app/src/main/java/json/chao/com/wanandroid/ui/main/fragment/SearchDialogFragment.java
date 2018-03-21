@@ -241,12 +241,12 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
 
     @Override
     public void showTopSearchDataFail() {
-        CommonUtils.showMessage(getActivity(), getString(R.string.failed_to_obtain_top_data));
+        CommonUtils.showSnackMessage(getActivity(), getString(R.string.failed_to_obtain_top_data));
     }
 
     @Override
     public void showUsefulSitesDataFail() {
-        CommonUtils.showMessage(getActivity(), getString(R.string.failed_to_obtain_useful_sites_data));
+        CommonUtils.showSnackMessage(getActivity(), getString(R.string.failed_to_obtain_useful_sites_data));
     }
 
     @Override

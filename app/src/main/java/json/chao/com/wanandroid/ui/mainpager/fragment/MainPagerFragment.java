@@ -147,7 +147,7 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
     @Override
     public void showAutoLoginSuccess() {
         if (isAdded()) {
-            CommonUtils.showMessage(_mActivity, getString(R.string.auto_login_success));
+            CommonUtils.showSnackMessage(_mActivity, getString(R.string.auto_login_success));
         }
     }
 
@@ -184,13 +184,13 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
     @Override
     public void showCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
         mAdapter.setData(position, feedArticleData);
-        CommonUtils.showMessage(_mActivity, getString(R.string.collect_success));
+        CommonUtils.showSnackMessage(_mActivity, getString(R.string.collect_success));
     }
 
     @Override
     public void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
         mAdapter.setData(position, feedArticleData);
-        CommonUtils.showMessage(_mActivity, getString(R.string.cancel_collect_success));
+        CommonUtils.showSnackMessage(_mActivity, getString(R.string.cancel_collect_success));
     }
 
     @Override
@@ -246,12 +246,12 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
 
     @Override
     public void showArticleListFail() {
-        CommonUtils.showMessage(_mActivity, getString(R.string.failed_to_obtain_article_list));
+        CommonUtils.showSnackMessage(_mActivity, getString(R.string.failed_to_obtain_article_list));
     }
 
     @Override
     public void showBannerDataFail() {
-        CommonUtils.showMessage(_mActivity, getString(R.string.failed_to_obtain_banner_data));
+        CommonUtils.showSnackMessage(_mActivity, getString(R.string.failed_to_obtain_banner_data));
     }
 
     @Override

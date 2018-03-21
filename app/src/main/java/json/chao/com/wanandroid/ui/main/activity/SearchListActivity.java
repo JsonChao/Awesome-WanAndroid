@@ -126,18 +126,18 @@ public class SearchListActivity extends BaseActivity<SearchListPresenter> implem
     @Override
     public void showCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
         mAdapter.setData(position, feedArticleData);
-        CommonUtils.showMessage(this, getString(R.string.collect_success));
+        CommonUtils.showSnackMessage(this, getString(R.string.collect_success));
     }
 
     @Override
     public void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
         mAdapter.setData(position, feedArticleData);
-        CommonUtils.showMessage(this, getString(R.string.cancel_collect_success));
+        CommonUtils.showSnackMessage(this, getString(R.string.cancel_collect_success));
     }
 
     @Override
     public void showSearchListFail() {
-        CommonUtils.showMessage(this, getString(R.string.failed_to_obtain_search_data_list));
+        CommonUtils.showSnackMessage(this, getString(R.string.failed_to_obtain_search_data_list));
     }
 
     @Override

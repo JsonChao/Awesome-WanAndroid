@@ -226,7 +226,7 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
 
     @Override
     public void shareError() {
-        CommonUtils.showMessage(this, getString(R.string.write_permission_not_allowed));
+        CommonUtils.showSnackMessage(this, getString(R.string.write_permission_not_allowed));
     }
 
     private void collectEvent() {
@@ -273,7 +273,7 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
     public void showCollectArticleData(BaseResponse<FeedArticleListData> feedArticleListResponse) {
         isCollect = true;
         mCollectItem.setTitle(R.string.cancel_collect);
-        CommonUtils.showMessage(this, getString(R.string.collect_success));
+        CommonUtils.showSnackMessage(this, getString(R.string.collect_success));
     }
 
     @Override
@@ -282,7 +282,7 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
         if (!isCollectPage) {
             mCollectItem.setTitle(R.string.collect);
         }
-        CommonUtils.showMessage(this, getString(R.string.cancel_collect_success));
+        CommonUtils.showSnackMessage(this, getString(R.string.cancel_collect_success));
     }
 
 }

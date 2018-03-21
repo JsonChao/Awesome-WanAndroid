@@ -54,7 +54,7 @@ public abstract class BaseFragment<T extends AbstractPresenter> extends Abstract
     @Override
     public void showErrorMsg(String errorMsg) {
         if (isAdded()) {
-            CommonUtils.showMessage(_mActivity, errorMsg);
+            CommonUtils.showSnackMessage(_mActivity, errorMsg);
         }
     }
 
@@ -70,12 +70,12 @@ public abstract class BaseFragment<T extends AbstractPresenter> extends Abstract
 
     @Override
     public void showCollectFail() {
-        CommonUtils.showMessage(_mActivity, getString(R.string.collect_fail));
+        CommonUtils.showSnackMessage(_mActivity, getString(R.string.collect_fail));
     }
 
     @Override
     public void showCancelCollectFail() {
-        CommonUtils.showMessage(_mActivity, getString(R.string.cancel_collect_fail));
+        CommonUtils.showSnackMessage(_mActivity, getString(R.string.cancel_collect_fail));
     }
 
     @Override

@@ -17,7 +17,6 @@ import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.core.bean.project.ProjectListData;
-import json.chao.com.wanandroid.core.bean.project.ProjectListResponse;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.fragment.BaseFragment;
@@ -116,18 +115,18 @@ public class ProjectListFragment extends BaseFragment<ProjectListPresenter> impl
     @Override
     public void showCollectOutsideArticle(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
         mAdapter.setData(position, feedArticleData);
-        CommonUtils.showMessage(_mActivity, getString(R.string.collect_success));
+        CommonUtils.showSnackMessage(_mActivity, getString(R.string.collect_success));
     }
 
     @Override
     public void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
         mAdapter.setData(position, feedArticleData);
-        CommonUtils.showMessage(_mActivity, getString(R.string.cancel_collect_success));
+        CommonUtils.showSnackMessage(_mActivity, getString(R.string.cancel_collect_success));
     }
 
     @Override
     public void showProjectListFail() {
-        CommonUtils.showMessage(_mActivity, getString(R.string.failed_to_obtain_project_list));
+        CommonUtils.showSnackMessage(_mActivity, getString(R.string.failed_to_obtain_project_list));
     }
 
     @Override

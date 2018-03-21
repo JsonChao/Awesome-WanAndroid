@@ -84,19 +84,19 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
             mAdapter.addData(feedArticleListResponse.getData().getDatas());
         }
         if (mAdapter.getData().size() == 0) {
-            CommonUtils.showMessage(this, getString(R.string.no_collect));
+            CommonUtils.showSnackMessage(this, getString(R.string.no_collect));
         }
     }
 
     @Override
     public void showCancelCollectPageArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
         mAdapter.remove(position);
-        CommonUtils.showMessage(this, getString(R.string.cancel_collect_success));
+        CommonUtils.showSnackMessage(this, getString(R.string.cancel_collect_success));
     }
 
     @Override
     public void showCollectListFail() {
-        CommonUtils.showMessage(this, getString(R.string.failed_to_obtain_collection_data));
+        CommonUtils.showSnackMessage(this, getString(R.string.failed_to_obtain_collection_data));
     }
 
     @Override

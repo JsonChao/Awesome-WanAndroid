@@ -78,7 +78,7 @@ public abstract class AbstractSimpleFragment extends SupportFragment {
             long currentTime = System.currentTimeMillis();
             long time = 2000;
             if ((currentTime - clickTime) > time) {
-                CommonUtils.showMessage(_mActivity, getString(R.string.double_click_exit_tint));
+                CommonUtils.showSnackMessage(_mActivity, getString(R.string.double_click_exit_tint));
                 clickTime = System.currentTimeMillis();
             } else {
                 _mActivity.finish();
