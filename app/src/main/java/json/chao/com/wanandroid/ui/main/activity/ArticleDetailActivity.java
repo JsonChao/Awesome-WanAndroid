@@ -95,7 +95,7 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
                 .setAgentWebParent(mWebContent, new LinearLayout.LayoutParams(-1, -1))
                 .useDefaultIndicator()
                 .defaultProgressBarColor() // 使用默认进度条颜色
-                .setMainFrameErrorView(R.layout.error_view, -1)
+                .setMainFrameErrorView(R.layout.webview_error_view, -1)
                 .createAgentWeb()
                 .ready()
                 .go(articleLink);
