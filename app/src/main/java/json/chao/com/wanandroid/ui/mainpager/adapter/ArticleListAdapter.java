@@ -49,13 +49,18 @@ public class ArticleListAdapter extends BaseQuickAdapter<FeedArticleData, Knowle
             helper.setImageResource(R.id.item_search_pager_like_iv, R.drawable.icon_like_article_not_selected);
         }
         if (!TextUtils.isEmpty(article.getAuthor())) {
-            helper.setText(R.id.item_search_pager_author, mContext.getString(R.string.item_article_author, article.getAuthor()));
+            helper.setText(R.id.item_search_pager_author, article.getAuthor());
         }
         if (!TextUtils.isEmpty(article.getChapterName())) {
-            helper.setText(R.id.item_search_pager_chapterName, mContext.getString(R.string.item_article_classify, article.getChapterName()));
+            String classifyName = article.getSuperChapterName() + " / " + article.getChapterName();
+            if (isCollectPage) {
+                helper.setText(R.id.item_search_pager_chapterName, article.getChapterName());
+            } else {
+                helper.setText(R.id.item_search_pager_chapterName, classifyName);
+            }
         }
         if (!TextUtils.isEmpty(article.getNiceDate())) {
-            helper.setText(R.id.item_search_pager_niceDate, mContext.getString(R.string.item_article_time, article.getNiceDate()));
+            helper.setText(R.id.item_search_pager_niceDate, article.getNiceDate());
         }
         if (isSearchPage) {
             CardView cardView = helper.getView(R.id.item_search_pager_group);

@@ -13,49 +13,9 @@
         app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
         app:titleTextAppearance="@style/Toolbar.TitleText" />
 
-    <RelativeLayout
+    <FrameLayout
+        android:id="@+id/article_detail_web_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:id="@+id/article_detail_refresh_Layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:srlHeaderHeight="@dimen/dp_150"
-            app:srlHeaderMaxDragRate="1"
-            android:visibility="gone">
-
-            <TextView
-                android:id="@+id/header"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/grey_bac_refresh"
-                android:gravity="center_horizontal"
-                android:lineSpacingExtra="@dimen/dp_5"
-                android:padding="@dimen/dp_20"
-                android:text="@string/web_tint"
-                android:textColor="@color/grey_text_refresh"
-                android:textSize="@dimen/sp_16"
-                app:layout_srlBackgroundColor="@color/grey_text_refresh"
-                app:layout_srlSpinnerStyle="FixedBehind" />
-
-            <WebView
-                android:id="@+id/article_detail_web_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:paddingTop="@dimen/dp_54" />
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
-        <com.wang.avi.AVLoadingIndicatorView
-            style="@style/AVLoadingIndicatorView.Large"
-            android:id="@+id/article_detail_avi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_centerInParent="true"
-            android:visibility="visible"
-            app:indicatorName="BallTrianglePathIndicator"
-            app:indicatorColor="@color/colorPrimary" />
-    </RelativeLayout>
+        android:layout_height="match_parent"
+        android:clipToPadding="false" />
 </LinearLayout>

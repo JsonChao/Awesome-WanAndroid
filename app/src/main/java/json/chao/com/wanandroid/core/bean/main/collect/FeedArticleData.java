@@ -22,6 +22,8 @@ public class FeedArticleData implements Serializable {
     private String niceDate;
     private String origin;
     private String projectLink;
+    private int superChapterId;
+    private String superChapterName;
     private long publishTime;
     private String title;
     private int visible;
@@ -129,6 +131,22 @@ public class FeedArticleData implements Serializable {
 
     public void setProjectLink(String projectLink) {
         this.projectLink = projectLink;
+    }
+
+    public int getSuperChapterId() {
+        return superChapterId;
+    }
+
+    public void setSuperChapterId(int superChapterId) {
+        this.superChapterId = superChapterId;
+    }
+
+    public String getSuperChapterName() {
+        return superChapterName;
+    }
+
+    public void setSuperChapterName(String superChapterName) {
+        this.superChapterName = superChapterName;
     }
 
     public long getPublishTime() {

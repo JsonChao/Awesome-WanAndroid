@@ -6,19 +6,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.just.agentweb.AgentWeb;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import java.lang.reflect.Method;
 
@@ -45,16 +40,10 @@ import json.chao.com.wanandroid.utils.StatusBarUtil;
 
 public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> implements ArticleDetailContract.View {
 
-    @BindView(R.id.article_detail_group)
-    LinearLayout mWebViewGroup;
     @BindView(R.id.article_detail_toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.article_detail_avi)
-    AVLoadingIndicatorView mAVLoadingIndicatorView;
-    @BindView(R.id.article_detail_refresh_Layout)
-    SmartRefreshLayout mRefreshLayout;
     @BindView(R.id.article_detail_web_view)
-    WebView mWebView;
+    FrameLayout mWebContent;
 
     private Bundle bundle;
     private MenuItem mCollectItem;
@@ -67,31 +56,23 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
     private boolean isCollect;
     private boolean isCommonSite;
     private boolean isCollectPage;
+    private AgentWeb mAgentWeb;
 
     @Override
-    public void onResume() {
-        super.onResume();
-        mWebView.onResume();
-    }
-
-    @Override
-    public void onPause() {
+    protected void onPause() {
+        mAgentWeb.getWebLifeCycle().onPause();
         super.onPause();
-        mWebView.onPause();
+
     }
 
     @Override
-    protected void onDestroy() {
-        if (mWebView != null) {
-            mWebView.setWebChromeClient(null);
-            mWebView.setWebViewClient(null);
-            mWebView.clearHistory();
-            mWebView.clearCache(true);
-            mWebView.removeAllViews();
-            mWebView.destroy();
-            mRefreshLayout.removeView(mWebView);
-            mWebView = null;
-        }
+    protected void onResume() {
+        mAgentWeb.getWebLifeCycle().onResume();
+        super.onResume();
+    }
+    @Override
+    public void onDestroy() {
+        mAgentWeb.getWebLifeCycle().onDestroy();
         super.onDestroy();
     }
 
@@ -110,49 +91,19 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
     protected void initEventAndData() {
         initToolBar();
 
-        WebSettings settings = mWebView.getSettings();
-        settings.setJavaScriptEnabled(true);
-        settings.setLoadWithOverviewMode(true);
-        settings.setUseWideViewPort(true);
-        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        settings.setSupportZoom(true);
-        settings.setBuiltInZoomControls(true);
-        settings.setDisplayZoomControls(false);
-        if (CommonUtils.isNetworkConnected()) {
-            settings.setCacheMode(WebSettings.LOAD_DEFAULT);
-        } else {
-            settings.setCacheMode(WebSettings.LOAD_CACHE_ONLY);
-        }
-        mWebView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                view.loadUrl(request.getUrl().toString());
-                return true;
-            }
-        });
-        mWebView.setWebChromeClient(new WebChromeClient(){
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                super.onProgressChanged(view, newProgress);
-                if (mAVLoadingIndicatorView == null) {
-                    return;
-                }
-                if (newProgress == Constants.PROGRESS_OK) {
-                    mRefreshLayout.setVisibility(View.VISIBLE);
-                    mAVLoadingIndicatorView.setVisibility(View.GONE);
-                }
-            }
-        });
-        mWebView.loadUrl(articleLink);
+        mAgentWeb = AgentWeb.with(this)
+                .setAgentWebParent(mWebContent, new LinearLayout.LayoutParams(-1, -1))
+                .useDefaultIndicator()
+                .defaultProgressBarColor() // 使用默认进度条颜色
+                .setMainFrameErrorView(R.layout.error_view, -1)
+                .createAgentWeb()
+                .ready()
+                .go(articleLink);
     }
 
     @Override
-    public void onBackPressedSupport() {
-        if (mWebView.canGoBack()) {
-            mWebView.goBack();
-        } else {
-            super.onBackPressedSupport();
-        }
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return mAgentWeb.handleKeyEvent(keyCode, event) || super.onKeyDown(keyCode, event);
     }
 
     @Override

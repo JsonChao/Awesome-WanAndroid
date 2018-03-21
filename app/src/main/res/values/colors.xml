@@ -6,6 +6,7 @@
     <color name="colorPrimaryOverlay">#cc0094ff</color>
     <color name="not_network_bac">#33ffffff</color>
     <color name="grey">#cccccc</color>
+    <color name="deep_grey">#e6e6e6</color>
     <color name="grey_bg">#EDEDED</color>
     <color name="blue_dark_btn">#009eff</color>
     <color name="blue_btn">#35B0FF</color>

@@ -73,13 +73,13 @@ dependencies {
     compile "com.android.support.constraint:constraint-layout:$rootProject.constraintVersion"
 
     //ui
-    compile "com.wang.avi:library:$rootProject.aviVersion"
     compile "com.scwang.smartrefresh:SmartRefreshLayout:$rootProject.smartrefreshVersion"
     compile "com.scwang.smartrefresh:SmartRefreshHeader:$rootProject.smartrefreshVersion"
     compile "com.youth.banner:banner:$rootProject.bannerVersion"
     compile "com.flyco.tablayout:FlycoTabLayout_Lib:$rootProject.tablayoutVersion"
     compile "q.rorbin:VerticalTabLayout:$rootProject.verticalTabLayoutVersion"
     compile "com.hyman:flowlayout-lib:$rootProject.flowlayoutVersion"
+    compile 'com.just.agentweb:agentweb:3.1.0'
 
     //net
     compile "com.google.code.gson:gson:$rootProject.gsonVersion"
