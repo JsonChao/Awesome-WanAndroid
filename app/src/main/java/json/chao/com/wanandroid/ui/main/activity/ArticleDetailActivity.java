@@ -179,7 +179,6 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
         switch (item.getItemId()) {
             case R.id.item_share:
                 mPresenter.shareEventPermissionVerify(new RxPermissions(this));
-                shareEvent();
                 break;
             case R.id.item_collect:
                 collectEvent();
