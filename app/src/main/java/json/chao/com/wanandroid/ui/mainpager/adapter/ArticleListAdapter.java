@@ -44,9 +44,9 @@ public class ArticleListAdapter extends BaseQuickAdapter<FeedArticleData, Knowle
             helper.setText(R.id.item_search_pager_title, Html.fromHtml(article.getTitle()));
         }
         if (article.isCollect() || isCollectPage) {
-            helper.setImageResource(R.id.item_search_pager_like_iv, R.mipmap.icon_like_article_selected);
+            helper.setImageResource(R.id.item_search_pager_like_iv, R.drawable.icon_like_article_selected);
         } else {
-            helper.setImageResource(R.id.item_search_pager_like_iv, R.mipmap.icon_like_article_not_selected);
+            helper.setImageResource(R.id.item_search_pager_like_iv, R.drawable.icon_like_article_not_selected);
         }
         if (!TextUtils.isEmpty(article.getAuthor())) {
             helper.setText(R.id.item_search_pager_author, mContext.getString(R.string.item_article_author, article.getAuthor()));

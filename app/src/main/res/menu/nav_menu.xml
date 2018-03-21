@@ -3,7 +3,7 @@
 
     <group android:id="@+id/other">
         <item android:id="@+id/nav_item_my_collect"
-            android:icon="@mipmap/icon_like_article_selected"
+            android:icon="@drawable/icon_like_article_selected"
             android:title="@string/my_collect" />
 
         <item android:id="@+id/nav_item_about_us"

@@ -30,6 +30,8 @@ import json.chao.com.wanandroid.widget.BaseObserver;
 public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> implements MainPagerContract.Presenter {
 
     private DataManager mDataManager;
+    private boolean isRefresh = true;
+    private int mCurrentPage;
 
     @Inject
     MainPagerPresenter(DataManager dataManager) {
@@ -67,7 +69,7 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
         Observable<BaseResponse<LoginData>> mLoginObservable = mDataManager.getLoginData(account, password);
         Observable<BaseResponse<List<BannerData>>> mBannerObservable = mDataManager.getBannerData();
         Observable<BaseResponse<FeedArticleListData>> mArticleObservable = mDataManager.getFeedArticleList(Constants.FIRST);
-        Observable.zip(mLoginObservable, mBannerObservable, mArticleObservable,
+        addSubscribe(Observable.zip(mLoginObservable, mBannerObservable, mArticleObservable,
                 (loginResponse, bannerResponse, feedArticleListResponse) -> {
                     HashMap<String, Object> map = new HashMap<>(3);
                     map.put(Constants.LOGIN_DATA, loginResponse);
@@ -83,7 +85,7 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
                             mView.showAutoLoginSuccess();
                         }
                         mView.showBannerData(CommonUtils.cast(map.get(Constants.BANNER_DATA)));
-                        mView.showArticleList(CommonUtils.cast(map.get(Constants.ARTICLE_DATA)));
+                        mView.showArticleList(CommonUtils.cast(map.get(Constants.ARTICLE_DATA)), isRefresh);
                     }
 
                     @Override
@@ -91,19 +93,34 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
                         super.onError(e);
                         mView.showAutoLoginFail();
                     }
-                });
+                }));
     }
 
     @Override
-    public void getFeedArticleList(int page) {
-        addSubscribe(mDataManager.getFeedArticleList(page)
+    public void autoRefresh() {
+        isRefresh = true;
+        mCurrentPage = 0;
+        getBannerData();
+        getFeedArticleList();
+    }
+
+    @Override
+    public void loadMore() {
+        isRefresh = false;
+        mCurrentPage++;
+        getFeedArticleList();
+    }
+
+    @Override
+    public void getFeedArticleList() {
+        addSubscribe(mDataManager.getFeedArticleList(mCurrentPage)
                 .compose(RxUtils.rxSchedulerHelper())
                 .filter(feedArticleListResponse -> mView != null)
                 .subscribeWith(new BaseObserver<BaseResponse<FeedArticleListData>>(mView) {
                     @Override
                     public void onNext(BaseResponse<FeedArticleListData> feedArticleListResponse) {
                         if (feedArticleListResponse.getErrorCode() == BaseResponse.SUCCESS) {
-                            mView.showArticleList(feedArticleListResponse);
+                            mView.showArticleList(feedArticleListResponse, isRefresh);
                         } else {
                             mView.showArticleListFail();
                         }
@@ -160,8 +177,6 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
                             }
                         }));
     }
-
-
 
 
 }

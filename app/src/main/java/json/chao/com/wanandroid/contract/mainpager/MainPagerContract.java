@@ -32,8 +32,9 @@ public interface MainPagerContract {
          * Show content
          *
          * @param feedArticleListResponse BaseResponse<FeedArticleListData>
+         * @param isRefresh If refresh
          */
-        void showArticleList(BaseResponse<FeedArticleListData> feedArticleListResponse);
+        void showArticleList(BaseResponse<FeedArticleListData> feedArticleListResponse, boolean isRefresh);
 
         /**
          * Show collect article data
@@ -81,10 +82,8 @@ public interface MainPagerContract {
 
         /**
          * Get feed article list
-         *
-         *  @param page Page
          */
-        void getFeedArticleList(int page);
+        void getFeedArticleList();
 
         /**
          * Add collect article
@@ -106,6 +105,16 @@ public interface MainPagerContract {
          * Get banner data
          */
         void getBannerData();
+
+        /**
+         * Auto refresh
+         */
+        void autoRefresh();
+
+        /**
+         * Load more
+         */
+        void loadMore();
 
     }
 

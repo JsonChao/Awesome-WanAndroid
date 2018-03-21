@@ -54,8 +54,6 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
 
     private List<FeedArticleData> mFeedArticleDataList;
     private ArticleListAdapter mAdapter;
-    private int mCurrentPage;
-    private boolean isRefresh = true;
 
     @Inject
     DataManager mDataManager;
@@ -139,8 +137,7 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
         if (mDataManager.getLoginStatus()) {
             mPresenter.loadMainPagerData();
         } else {
-            mPresenter.getBannerData();
-            mPresenter.getFeedArticleList(mCurrentPage);
+            mPresenter.autoRefresh();
         }
     }
 
@@ -160,7 +157,7 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
     }
 
     @Override
-    public void showArticleList(BaseResponse<FeedArticleListData> feedArticleListResponse) {
+    public void showArticleList(BaseResponse<FeedArticleListData> feedArticleListResponse, boolean isRefresh) {
         if (feedArticleListResponse == null || feedArticleListResponse.getData() == null
                 || feedArticleListResponse.getData().getDatas() == null) {
             showArticleListFail();
@@ -234,14 +231,12 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
 
     @Override
     public void showLoginView() {
-        mCurrentPage = 0;
-        mPresenter.getFeedArticleList(mCurrentPage);
+        mPresenter.getFeedArticleList();
     }
 
     @Override
     public void showLogoutView() {
-        mCurrentPage = 0;
-        mPresenter.getFeedArticleList(mCurrentPage);
+        mPresenter.getFeedArticleList();
     }
 
     @Override
@@ -292,16 +287,11 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
 
     private void setRefresh() {
         mRefreshLayout.setOnRefreshListener(refreshLayout -> {
-            isRefresh = true;
-            mCurrentPage = 0;
-            mPresenter.getBannerData();
-            mPresenter.getFeedArticleList(mCurrentPage);
+            mPresenter.autoRefresh();
             refreshLayout.finishRefresh(1000);
         });
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
-            isRefresh = false;
-            mCurrentPage++;
-            mPresenter.getFeedArticleList(mCurrentPage);
+            mPresenter.loadMore();
             refreshLayout.finishLoadMore(1000);
         });
     }
