@@ -277,6 +277,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mLastFgIndex = position;
         ft.hide(lastFg);
         if (!targetFg.isAdded()) {
+            ft.remove(targetFg);
             ft.add(R.id.fragment_group, targetFg);
         }
         ft.show(targetFg);
