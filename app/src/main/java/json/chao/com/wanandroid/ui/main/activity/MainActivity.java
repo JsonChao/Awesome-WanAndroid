@@ -212,6 +212,41 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         }
     }
 
+    @Override
+    public void showDismissErrorView() {
+        if (mErrorView != null) {
+            mErrorView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void showErrorView() {
+        if (mErrorView != null) {
+            showError();
+        }
+    }
+
+    @Override
+    public void showLoginView() {
+        if (mNavigationView == null) {
+            return;
+        }
+        mUsTv = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.nav_header_login_tv);
+        mUsTv.setText(mDataManager.getLoginAccount());
+        mUsTv.setOnClickListener(null);
+        mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(true);
+    }
+
+    @Override
+    public void showLogoutView() {
+        mUsTv.setText(R.string.login_in);
+        mUsTv.setOnClickListener(v -> startActivity(new Intent(this, LoginActivity.class)));
+        if (mNavigationView == null) {
+            return;
+        }
+        mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(false);
+    }
+
     private void jumpToTheTop() {
         switch (mDataManager.getCurrentPage()) {
             case Constants.FIRST:
@@ -277,7 +312,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mLastFgIndex = position;
         ft.hide(lastFg);
         if (!targetFg.isAdded()) {
-            ft.remove(targetFg);
             ft.add(R.id.fragment_group, targetFg);
         }
         ft.show(targetFg);
@@ -329,40 +363,5 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     startActivity(new Intent(this, LoginActivity.class));
                 },
                 v -> CommonAlertDialog.newInstance().cancelDialog());
-    }
-
-    @Override
-    public void showDismissErrorView() {
-        if (mErrorView != null) {
-            mErrorView.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
-    public void showErrorView() {
-        if (mErrorView != null) {
-            showError();
-        }
-    }
-
-    @Override
-    public void showLoginView() {
-        if (mNavigationView == null) {
-            return;
-        }
-        mUsTv = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.nav_header_login_tv);
-        mUsTv.setText(mDataManager.getLoginAccount());
-        mUsTv.setOnClickListener(null);
-        mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(true);
-    }
-
-    @Override
-    public void showLogoutView() {
-        mUsTv.setText(R.string.login_in);
-        mUsTv.setOnClickListener(v -> startActivity(new Intent(this, LoginActivity.class)));
-        if (mNavigationView == null) {
-            return;
-        }
-        mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(false);
     }
 }
