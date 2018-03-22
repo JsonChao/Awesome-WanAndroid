@@ -25,10 +25,8 @@ import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.activity.BaseActivity;
 import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.contract.hierarchy.KnowledgeHierarchyDetailContract;
-import json.chao.com.wanandroid.core.event.DismissDetailErrorView;
 import json.chao.com.wanandroid.core.event.KnowledgeJumpTopEvent;
 import json.chao.com.wanandroid.core.event.ReloadDetailEvent;
-import json.chao.com.wanandroid.core.event.ShowDetailErrorView;
 import json.chao.com.wanandroid.presenter.hierarchy.KnowledgeHierarchyDetailPresenter;
 import json.chao.com.wanandroid.ui.hierarchy.fragment.KnowledgeHierarchyListFragment;
 import json.chao.com.wanandroid.utils.StatusBarUtil;
@@ -47,7 +45,7 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
     @BindView(R.id.knowledge_hierarchy_detail_tab_layout)
     SlidingTabLayout mTabLayout;
     @BindView(R.id.knowledge_hierarchy_detail_viewpager)
-    ViewPager mNoScrollViewPager;
+    ViewPager mViewPager;
     @BindView(R.id.knowledge_floating_action_btn)
     FloatingActionButton mFloatingActionButton;
     @BindView(R.id.detail_view_stub)
@@ -79,7 +77,7 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
         for (KnowledgeHierarchyData data : knowledgeHierarchyDataList) {
             mFragments.add(KnowledgeHierarchyListFragment.getInstance(data, null));
         }
-        mNoScrollViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+        mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 return mFragments.get(position);
@@ -95,7 +93,7 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
                 return knowledgeHierarchyDataList.get(position).getName();
             }
         });
-        mTabLayout.setViewPager(mNoScrollViewPager);
+        mTabLayout.setViewPager(mViewPager);
     }
 
     @Override
