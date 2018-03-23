@@ -64,7 +64,8 @@
                 android:id="@+id/search_history_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_3" />
+                android:layout_marginTop="@dimen/dp_3"
+                android:background="@color/colorBackground" />
 
             <TextView
                 android:layout_width="wrap_content"

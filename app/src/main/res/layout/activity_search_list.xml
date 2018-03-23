@@ -33,7 +33,8 @@
             android:id="@+id/search_list_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="none" />
+            android:scrollbars="none"
+            android:background="@color/colorBackground" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
     <android.support.design.widget.FloatingActionButton
