@@ -16,7 +16,7 @@
 <img src="https://diycode.b0.upaiyun.com/user/avatar/2468.jpg">
 </div>
 
-### 更好的 Awesome-WanAndroid V1.1正式版发布，相比初始版本，项目的稳定性和界面的美化程度已提升了几个档次，如果您觉得还不错的话，就点个Star吧~，致力于打造一款极致体验的WanAndroid客户端，知识和美是可以并存的哦QAQn(*≧▽≦*)n   (持续打磨中~，敬请关注)
+### 更好的 Awesome-WanAndroid V1.1.0正式版发布，相比初始版本，项目的稳定性和界面的美化程度已提升了几个档次，如果您觉得还不错的话，就点个Star吧~，致力于打造一款极致体验的WanAndroid客户端，知识和美是可以并存的哦QAQn(*≧▽≦*)n   (持续打磨中~，敬请关注)
 
 ## Introduction
 
