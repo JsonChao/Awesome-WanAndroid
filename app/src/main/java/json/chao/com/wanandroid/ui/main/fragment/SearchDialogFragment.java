@@ -219,7 +219,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
 
     @Override
     public void showHistoryData(List<HistoryData> historyDataList) {
-        if (historyDataList == null) {
+        if (historyDataList == null || historyDataList.size() <= 0) {
             setHistoryTvStatus(true);
             return;
         }

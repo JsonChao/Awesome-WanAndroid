@@ -145,7 +145,7 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
                 case R.id.item_search_pager_chapterName:
                     JudgeUtils.startKnowledgeHierarchyDetailActivity(this,
                             true,
-                            mAdapter.getData().get(position).getSuperChapterName(),
+                            mAdapter.getData().get(position).getChapterName(),
                             mAdapter.getData().get(position).getChapterName(),
                             mAdapter.getData().get(position).getChapterId());
                     break;
