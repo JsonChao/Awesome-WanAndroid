@@ -109,6 +109,22 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 ## Version
 
+### :zap:v1.1.0
+
+1.增加RxBus订阅管理，解决RxBus内存泄露的问题
+
+2.解决Webview有时加载不出来的问题
+
+3.增加RxPermission，处理Android 6.0权限问题
+
+4.Base响应基类泛型化，减少大量实体代码
+
+5.增加知识分类导航详情页
+
+6.搜索页面增加删除搜索记录，UI界面更加美观
+
+7.项目整体UI美化
+
 ### v1.0.1
 
 1.合理化项目分包架构
