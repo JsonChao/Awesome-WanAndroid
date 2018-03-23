@@ -185,6 +185,7 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
     }
 
     private void setRefresh() {
+        mRefreshLayout.setPrimaryColorsId(Constants.BLUE_THEME, R.color.white);
         mRefreshLayout.setOnRefreshListener(refreshLayout -> {
             mCurrentPage = 0;
             if (mKnowledgeHierarchyData != null) {

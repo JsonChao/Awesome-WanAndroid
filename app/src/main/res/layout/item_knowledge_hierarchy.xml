@@ -17,25 +17,42 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
         android:padding="@dimen/dp_12">
 
-        <TextView
-            android:id="@+id/item_knowledge_hierarchy_title"
+        <ImageView
+            android:id="@+id/knowledge_hierarchy_enter_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:textSize="@dimen/sp_16"
-            tools:text="开发环境" />
+            android:src="@drawable/ic_enter"
+            android:contentDescription="@null"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dp_6" />
 
-        <TextView
-            android:id="@+id/item_knowledge_hierarchy_content"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/item_knowledge_hierarchy_title"
-            android:layout_marginTop="@dimen/dp_12"
-            android:textColor="@color/title_black"
-            tools:text="Android Studio相关   gradle  官方发布" />
+            android:orientation="vertical"
+            android:gravity="start"
+            android:layout_marginEnd="@dimen/dp_6"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/knowledge_hierarchy_enter_iv">
+
+            <TextView
+                android:id="@+id/item_knowledge_hierarchy_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_16"
+                tools:text="开发环境" />
+
+            <TextView
+                android:id="@+id/item_knowledge_hierarchy_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                android:textColor="@color/title_black"
+                tools:text="Android Studio相关   gradle  官方发布" />
+        </LinearLayout>
     </RelativeLayout>
 </android.support.v7.widget.CardView>

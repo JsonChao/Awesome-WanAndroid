@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="四大组件/handler"
-                android:textColor="@color/grey"
+                android:textColor="@color/colorPrimary"
                 android:gravity="end"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"

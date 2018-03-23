@@ -17,7 +17,7 @@
             android:id="@+id/knowledge_hierarchy_detail_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_48"
-            android:background="@color/blue"
+            android:background="@color/colorPrimary"
             app:tl_textAllCaps="false"
             app:tl_textBold="BOTH"
             app:tl_textsize="@dimen/sp_14" />

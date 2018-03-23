@@ -30,7 +30,6 @@ import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.contract.mainpager.MainPagerContract;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
-import json.chao.com.wanandroid.core.bean.main.login.LoginData;
 import json.chao.com.wanandroid.core.event.AutoLoginEvent;
 import json.chao.com.wanandroid.core.event.DismissErrorView;
 import json.chao.com.wanandroid.core.event.LoginEvent;
