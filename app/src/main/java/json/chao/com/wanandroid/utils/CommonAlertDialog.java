@@ -9,8 +9,9 @@ import android.widget.TextView;
 
 import json.chao.com.wanandroid.R;
 
+
 /**
- * Common AlertDialog
+ * Common AlertDialog Package
  *
  * @author chao.qu
  * @date 2017/11/15
@@ -18,21 +19,21 @@ import json.chao.com.wanandroid.R;
 
 public class CommonAlertDialog {
 
-    private static CommonAlertDialog dialog;
     private AlertDialog alertDialog;
 
-    public static CommonAlertDialog newInstance() {
-        if (dialog == null) {
-            dialog = new CommonAlertDialog();
-        }
-        return dialog;
+    public static CommonAlertDialog newInstance () {
+        return CommonAlertDialogHolder.COMMON_ALERT_DIALOG;
+    }
+
+    private static class CommonAlertDialogHolder {
+        private static final CommonAlertDialog COMMON_ALERT_DIALOG = new CommonAlertDialog();
     }
 
     /**
      * Cancel alertDialog
      */
-    public void cancelDialog() {
-        if (alertDialog != null && alertDialog.isShowing()) {
+    public void cancelDialog(boolean isAdd) {
+        if (isAdd && alertDialog != null && alertDialog.isShowing()) {
             alertDialog.dismiss();
             alertDialog = null;
         }

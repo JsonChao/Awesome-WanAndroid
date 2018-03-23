@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -29,6 +30,8 @@ import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.contract.mainpager.MainPagerContract;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
+import json.chao.com.wanandroid.core.bean.main.login.LoginData;
+import json.chao.com.wanandroid.core.event.AutoLoginEvent;
 import json.chao.com.wanandroid.core.event.DismissErrorView;
 import json.chao.com.wanandroid.core.event.LoginEvent;
 import json.chao.com.wanandroid.core.event.ShowErrorView;
@@ -134,7 +137,8 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
         mRecyclerView.setAdapter(mAdapter);
 
         setRefresh();
-        if (mDataManager.getLoginStatus()) {
+        if (!TextUtils.isEmpty(mDataManager.getLoginAccount())
+                && !TextUtils.isEmpty(mDataManager.getLoginPassword())) {
             mPresenter.loadMainPagerData();
         } else {
             mPresenter.autoRefresh();
@@ -145,6 +149,7 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
     public void showAutoLoginSuccess() {
         if (isAdded()) {
             CommonUtils.showSnackMessage(_mActivity, getString(R.string.auto_login_success));
+            RxBus.getDefault().post(new AutoLoginEvent());
         }
     }
 
@@ -153,7 +158,6 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
         mDataManager.setLoginStatus(false);
         CookiesManager.clearAllCookies();
         RxBus.getDefault().post(new LoginEvent(false));
-        mPresenter.getBannerData();
     }
 
     @Override

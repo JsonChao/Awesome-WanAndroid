@@ -82,7 +82,13 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
                     public void onNext(HashMap<String, Object> map) {
                         BaseResponse<LoginData> loginResponse = CommonUtils.cast(map.get(Constants.LOGIN_DATA));
                         if (loginResponse.getErrorCode() == BaseResponse.SUCCESS) {
+                            LoginData loginData = loginResponse.getData();
+                            mDataManager.setLoginAccount(loginData.getUsername());
+                            mDataManager.setLoginPassword(loginData.getPassword());
+                            mDataManager.setLoginStatus(true);
                             mView.showAutoLoginSuccess();
+                        } else {
+                            mView.showAutoLoginFail();
                         }
                         mView.showBannerData(CommonUtils.cast(map.get(Constants.BANNER_DATA)));
                         mView.showArticleList(CommonUtils.cast(map.get(Constants.ARTICLE_DATA)), isRefresh);

@@ -81,7 +81,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        CommonAlertDialog.newInstance().cancelDialog();
+        CommonAlertDialog.newInstance().cancelDialog(true);
     }
 
     @Override
@@ -355,13 +355,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 getString(R.string.ok),
                 getString(R.string.no),
                 v -> {
-                    CommonAlertDialog.newInstance().cancelDialog();
+                    CommonAlertDialog.newInstance().cancelDialog(true);
                     mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(false);
                     mDataManager.setLoginStatus(false);
                     CookiesManager.clearAllCookies();
                     RxBus.getDefault().post(new LoginEvent(false));
                     startActivity(new Intent(this, LoginActivity.class));
                 },
-                v -> CommonAlertDialog.newInstance().cancelDialog());
+                v -> CommonAlertDialog.newInstance().cancelDialog(true));
     }
 }

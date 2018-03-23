@@ -1,14 +1,12 @@
 package json.chao.com.wanandroid.presenter.main;
 
-
-import android.support.v7.view.menu.MenuView;
-
 import javax.inject.Inject;
 
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.contract.main.MainContract;
+import json.chao.com.wanandroid.core.event.AutoLoginEvent;
 import json.chao.com.wanandroid.core.event.DismissErrorView;
 import json.chao.com.wanandroid.core.event.LoginEvent;
 import json.chao.com.wanandroid.core.event.ShowErrorView;
@@ -44,6 +42,9 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
         addSubscribe(RxBus.getDefault().toFlowable(LoginEvent.class)
                 .filter(loginEvent -> !loginEvent.isLogin())
                 .subscribe(logoutEvent -> mView.showLogoutView()));
+
+        addSubscribe(RxBus.getDefault().toFlowable(AutoLoginEvent.class)
+                .subscribe(autoLoginEvent -> mView.showLoginView()));
 
         addSubscribe(RxBus.getDefault().toFlowable(ShowErrorView.class)
                 .subscribe(showErrorView -> mView.showErrorView()));
