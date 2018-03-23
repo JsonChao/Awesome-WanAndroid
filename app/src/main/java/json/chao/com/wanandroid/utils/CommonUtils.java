@@ -3,7 +3,6 @@ package json.chao.com.wanandroid.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.media.tv.TvView;
 import android.net.ConnectivityManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -18,6 +17,7 @@ import java.io.IOException;
 import java.util.Random;
 
 import json.chao.com.wanandroid.R;
+import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.app.GeeksApp;
 
 /**
@@ -112,7 +112,7 @@ public class CommonUtils {
     /**
      * 获取随机rgb颜色值
      */
-    public static int randomColor(){
+    public static int randomColor() {
         Random random = new Random();
         //0-190, 如果颜色值过大,就越接近白色,就看不清了,所以需要限定范围
         int red =random.nextInt(150);
@@ -122,6 +122,15 @@ public class CommonUtils {
         int blue =random.nextInt(150);
         //使用rgb混合生成一种新的颜色,Color.rgb生成的是一个int数
         return Color.rgb(red,green, blue);
+    }
+
+    public static int randomTagColor() {
+        int randomNum = new Random().nextInt();
+        int position = randomNum % Constants.TAB_COLORS.length;
+        if (position < 0) {
+            position = -position;
+        }
+        return Constants.TAB_COLORS[position];
     }
 
     /**

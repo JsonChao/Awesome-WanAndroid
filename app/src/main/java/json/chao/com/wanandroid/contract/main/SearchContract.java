@@ -70,6 +70,10 @@ public interface SearchContract {
          */
         void getUsefulSites();
 
+        /**
+         * Clear history data
+         */
+        void clearHistoryData();
     }
 
 }

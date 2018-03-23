@@ -1,6 +1,8 @@
 package json.chao.com.wanandroid.app;
 
 
+import android.graphics.Color;
+
 import java.io.File;
 
 import json.chao.com.wanandroid.R;
@@ -43,6 +45,19 @@ public class Constants {
     public static final String ARG_PARAM1 = "param1";
 
     public static final String ARG_PARAM2 = "param2";
+
+    /**
+     * Tab colors
+     */
+    public static final int[] TAB_COLORS = new int[]{
+            Color.parseColor("#90C5F0"),
+            Color.parseColor("#91CED5"),
+            Color.parseColor("#F88F55"),
+            Color.parseColor("#C0AFD0"),
+            Color.parseColor("#E78F8F"),
+            Color.parseColor("#67CCB7"),
+            Color.parseColor("#F6BC7E")
+    };
 
 
     /**

@@ -1,10 +1,13 @@
 package json.chao.com.wanandroid.ui.main.fragment;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -44,6 +47,7 @@ import json.chao.com.wanandroid.core.bean.main.search.TopSearchData;
 import json.chao.com.wanandroid.core.bean.main.search.UsefulSiteData;
 import json.chao.com.wanandroid.core.dao.HistoryData;
 import json.chao.com.wanandroid.presenter.main.SearchPresenter;
+import json.chao.com.wanandroid.ui.main.adapter.HistorySearchAdapter;
 import json.chao.com.wanandroid.utils.CommonUtils;
 import json.chao.com.wanandroid.utils.JudgeUtils;
 import json.chao.com.wanandroid.utils.KeyBoardUtils;
@@ -68,10 +72,12 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     EditText mSearchEdit;
     @BindView(R.id.search_tv)
     TextView mSearchTv;
+    @BindView(R.id.search_history_clear_all_tv)
+    TextView mClearAllHistoryTv;
     @BindView(R.id.search_scroll_view)
     NestedScrollView mSearchScrollView;
-    @BindView(R.id.history_search_flow_layout)
-    TagFlowLayout mHistorySearchFlowLayout;
+    @BindView(R.id.search_history_rv)
+    RecyclerView mRecyclerView;
     @BindView(R.id.top_search_flow_layout)
     TagFlowLayout mTopSearchFlowLayout;
     @BindView(R.id.useful_sites_flow_layout)
@@ -85,6 +91,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     @Inject
     DataManager mDataManager;
     private CircularRevealAnim mCircularRevealAnim;
+    private HistorySearchAdapter historySearchAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -139,6 +146,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
                 .filter(o -> !TextUtils.isEmpty(mSearchEdit.getText().toString().trim()))
                 .subscribe(o -> {
                     mPresenter.addHistoryData(mSearchEdit.getText().toString().trim());
+                    setHistoryTvStatus(false);
                     backEvent();
                     JudgeUtils.startSearchListActivity(getActivity(), mSearchEdit.getText().toString().trim());
                 });
@@ -163,14 +171,16 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
                         parent, false);
                 assert topSearchData != null;
                 String name = topSearchData.getName();
+                tv.setBackgroundColor(CommonUtils.randomTagColor());
                 tv.setText(name);
-                tv.setTextColor(CommonUtils.randomColor());
+                tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
                 mTopSearchFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
                     mSearchEdit.setText(mTopSearchDataList.get(position1).getName().trim());
                     mSearchEdit.setSelection(mSearchEdit.getText().length());
                     backEvent();
                     JudgeUtils.startSearchListActivity(getActivity(), mSearchEdit.getText().toString().trim());
                     mPresenter.addHistoryData(mTopSearchDataList.get(position1).getName().trim());
+                    setHistoryTvStatus(false);
                     return true;
                 });
                 return tv;
@@ -193,8 +203,9 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
                         parent, false);
                 assert usefulSiteData != null;
                 String name = usefulSiteData.getName();
+                tv.setBackgroundColor(CommonUtils.randomTagColor());
                 tv.setText(name);
-                tv.setTextColor(CommonUtils.randomColor());
+                tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
                 mUsefulSitesFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
                     JudgeUtils.startArticleDetailActivity(getActivity(),
                             mUsefulSiteDataList.get(position1).getId(),
@@ -213,30 +224,23 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     @Override
     public void showHistoryData(List<HistoryData> historyDataList) {
         if (historyDataList == null) {
+            setHistoryTvStatus(true);
             return;
         }
+        setHistoryTvStatus(false);
         Collections.reverse(historyDataList);
-        mHistorySearchFlowLayout.setAdapter(new TagAdapter<HistoryData>(historyDataList) {
-            @Override
-            public View getView(FlowLayout parent, int position, HistoryData historyData) {
-                assert getActivity() != null;
-                TextView tv = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.flow_layout_tv,
-                        parent, false);
-                assert historyData != null;
-                String data = historyData.getData();
-                tv.setText(data);
-                tv.setTextColor(CommonUtils.randomColor());
-                mHistorySearchFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
-                    mSearchEdit.setText(historyDataList.get(position1).getData().trim());
-                    mSearchEdit.setSelection(mSearchEdit.getText().length());
-                    backEvent();
-                    JudgeUtils.startSearchListActivity(getActivity(), mSearchEdit.getText().toString().trim());
-                    mPresenter.addHistoryData(historyDataList.get(position1).getData().trim());
-                    return true;
-                });
-                return tv;
-            }
+        historySearchAdapter = new HistorySearchAdapter(R.layout.item_search_history, historyDataList);
+        historySearchAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            HistoryData historyData = (HistoryData) adapter.getData().get(position);
+            mSearchEdit.setText(historyData.getData());
+            mSearchEdit.setSelection(mSearchEdit.getText().length());
+            backEvent();
+            JudgeUtils.startSearchListActivity(getActivity(), mSearchEdit.getText().toString().trim());
+            mPresenter.addHistoryData(historyData.getData());
+            setHistoryTvStatus(false);
         });
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setAdapter(historySearchAdapter);
     }
 
     @Override
@@ -267,7 +271,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
         return true;
     }
 
-    @OnClick({R.id.search_back_ib, R.id.search_floating_action_btn})
+    @OnClick({R.id.search_back_ib, R.id.search_floating_action_btn, R.id.search_history_clear_all_tv})
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.search_back_ib:
@@ -275,6 +279,11 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
                 break;
             case R.id.search_floating_action_btn:
                 mSearchScrollView.smoothScrollTo(0, 0);
+                break;
+            case R.id.search_history_clear_all_tv:
+                mPresenter.clearHistoryData();
+                historySearchAdapter.replaceData(new ArrayList<>());
+                setHistoryTvStatus(true);
                 break;
             default:
                 break;
@@ -302,6 +311,22 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     public void backEvent() {
         KeyBoardUtils.closeKeyboard(getActivity(), mSearchEdit);
         mCircularRevealAnim.hide(mSearchEdit, mRootView);
+    }
+
+    private void setHistoryTvStatus(boolean isClearAll) {
+        mClearAllHistoryTv.setEnabled(!isClearAll);
+        if (isClearAll) {
+            Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_all_gone);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            mClearAllHistoryTv.setCompoundDrawables(drawable, null, null, null);
+            mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.grey));
+        } else {
+            Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_all);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            mClearAllHistoryTv.setCompoundDrawables(drawable, null, null, null);
+            mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.title_black));
+        }
+        mClearAllHistoryTv.setCompoundDrawablePadding(CommonUtils.dp2px(6));
     }
 
 }

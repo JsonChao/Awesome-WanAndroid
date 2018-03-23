@@ -10,7 +10,7 @@
         <shape android:shape="rectangle">
             <corners android:radius="@dimen/dp_40" />
 
-            <solid android:color="@color/colorBackground" />
+            <solid android:color="@color/grey_bg" />
 
             <stroke
                 android:width="1px"

@@ -22,6 +22,11 @@
     <color name="blackish_green">#6D8FB0</color>
     <color name="text_bg">#8F9AA8</color>
 
+    <!--通用触摸背景色-->
+    <color name="common_touch_bg">#E3E3E3</color>
+    <!--通用背景色-->
+    <color name="common_bg">@color/white</color>
+
     <color name="light_transparent">#00ffffff</color>
     <color name="transparent">#00000000</color>
     <color name="white">#ffffff</color>

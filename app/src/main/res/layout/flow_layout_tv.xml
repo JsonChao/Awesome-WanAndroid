@@ -9,6 +9,9 @@
     android:clickable="true"
     android:focusable="true"
     android:gravity="center"
-    android:padding="@dimen/dp_10"
+    android:paddingTop="@dimen/dp_6"
+    android:paddingBottom="@dimen/dp_6"
+    android:paddingStart="@dimen/dp_10"
+    android:paddingEnd="@dimen/dp_10"
     android:textColor="@android:color/primary_text_light"
     tools:text="常用网址" />

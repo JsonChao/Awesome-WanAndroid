@@ -19,4 +19,9 @@ public interface DbHelper {
      */
     List<HistoryData> addHistoryData(String data);
 
+    /**
+     * Clear search history data
+     */
+    void clearHistoryData();
+
 }

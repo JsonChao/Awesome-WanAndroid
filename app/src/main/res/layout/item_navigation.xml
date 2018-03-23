@@ -19,6 +19,6 @@
         android:id="@+id/item_navigation_flow_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dp_20"
+        android:padding="@dimen/dp_12"
         app:max_select="0" />
 </LinearLayout>

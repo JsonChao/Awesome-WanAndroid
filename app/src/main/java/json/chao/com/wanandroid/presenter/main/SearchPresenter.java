@@ -44,6 +44,11 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
     }
 
     @Override
+    public void clearHistoryData() {
+        mDataManager.clearHistoryData();
+    }
+
+    @Override
     public void getTopSearchData() {
         addSubscribe(mDataManager.getTopSearchData()
                         .compose(RxUtils.rxSchedulerHelper())

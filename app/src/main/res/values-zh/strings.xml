@@ -13,7 +13,7 @@
     <string name="project">项目</string>
     <string name="search_tint">发现更多干货</string>
     <string name="action_search">搜索</string>
-    <string name="history_search">历史搜索</string>
+    <string name="history_search">搜索历史</string>
     <string name="hot_search">热搜</string>
     <string name="useful_sites">常用网站</string>
     <string name="navigation_drawer_open">打开侧栏</string>
@@ -83,6 +83,7 @@
     <string name="failed_to_obtain_top_data">获取热门数据失败</string>
     <string name="failed_to_obtain_useful_sites_data">获取常用网站数据失败</string>
     <string name="or">或</string>
+    <string name="clear_all">清空</string>
 
 
 </resources>

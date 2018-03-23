@@ -55,6 +55,11 @@ public class GreenDaoHelper implements DbHelper {
         return historyDataList;
     }
 
+    @Override
+    public void clearHistoryData() {
+        HistoryDataDao historyDataDao = daoSession.getHistoryDataDao();
+        historyDataDao.deleteAll();
+    }
 
 
 }

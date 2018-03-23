@@ -50,6 +50,8 @@ public class NavigationAdapter extends BaseQuickAdapter<NavigationListData, Navi
                     return null;
                 }
                 String name = feedArticleData.getTitle();
+                tv.setPadding(CommonUtils.dp2px(10), CommonUtils.dp2px(10),
+                        CommonUtils.dp2px(10), CommonUtils.dp2px(10));
                 tv.setText(name);
                 tv.setTextColor(CommonUtils.randomColor());
                 mTagFlowLayout.setOnTagClickListener((view, position1, parent1) -> {

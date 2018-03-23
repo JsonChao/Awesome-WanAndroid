@@ -33,54 +33,67 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/dp_16">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_16"
-                android:layout_marginTop="@dimen/dp_24"
-                android:text="@string/history_search"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/sp_16" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <com.zhy.view.flowlayout.TagFlowLayout
-                android:id="@+id/history_search_flow_layout"
+                <TextView
+                    android:id="@+id/search_history_clear_all_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/clear_all"
+                    android:textColor="@color/grey"
+                    android:drawableStart="@drawable/ic_clear_all_gone"
+                    android:drawablePadding="@dimen/dp_6"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/history_search"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/sp_16"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/search_history_clear_all_tv" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/search_history_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dp_20"
-                app:max_select="0" />
+                android:layout_marginTop="@dimen/dp_3" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_16"
                 android:layout_marginTop="@dimen/dp_24"
                 android:text="@string/hot_search"
                 android:textColor="@color/light_deep_red"
-                android:textSize="@dimen/sp_16" />
+                android:textSize="@dimen/sp_16"
+                android:layout_marginBottom="@dimen/dp_8" />
 
             <com.zhy.view.flowlayout.TagFlowLayout
                 android:id="@+id/top_search_flow_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dp_20"
                 app:max_select="0" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_16"
                 android:layout_marginTop="@dimen/dp_24"
                 android:text="@string/useful_sites"
                 android:textColor="@color/tab_bac"
-                android:textSize="@dimen/sp_16" />
+                android:textSize="@dimen/sp_16"
+                android:layout_marginBottom="@dimen/dp_8" />
 
             <com.zhy.view.flowlayout.TagFlowLayout
                 android:id="@+id/useful_sites_flow_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dp_20"
                 app:max_select="0" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
