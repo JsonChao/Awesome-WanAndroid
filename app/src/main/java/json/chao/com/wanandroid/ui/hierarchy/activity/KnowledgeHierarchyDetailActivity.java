@@ -51,9 +51,9 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
     @BindView(R.id.detail_view_stub)
     ViewStub mErrorView;
 
-    private KnowledgeHierarchyData mKnowledgeHierarchyData;
     private List<KnowledgeHierarchyData> knowledgeHierarchyDataList;
     private ArrayList<BaseFragment> mFragments;
+    private String chapterName;
 
     @Override
     protected void initInject() {
@@ -67,16 +67,7 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
 
     @Override
     protected void initEventAndData() {
-        mKnowledgeHierarchyData = (KnowledgeHierarchyData) getIntent().getSerializableExtra(Constants.ARG_PARAM1);
         initToolbar();
-        knowledgeHierarchyDataList = mKnowledgeHierarchyData.getChildren();
-        if (knowledgeHierarchyDataList == null) {
-            return;
-        }
-        mFragments = new ArrayList<>();
-        for (KnowledgeHierarchyData data : knowledgeHierarchyDataList) {
-            mFragments.add(KnowledgeHierarchyListFragment.getInstance(data, null));
-        }
         mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -90,7 +81,11 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
 
             @Override
             public CharSequence getPageTitle(int position) {
-                return knowledgeHierarchyDataList.get(position).getName();
+                if (getIntent().getBooleanExtra(Constants.IS_SINGLE_CHAPTER, false)) {
+                    return chapterName;
+                } else {
+                    return knowledgeHierarchyDataList.get(position).getName();
+                }
             }
         });
         mTabLayout.setViewPager(mViewPager);
@@ -115,15 +110,32 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
     }
 
     private void initToolbar() {
-        assert mKnowledgeHierarchyData != null && mKnowledgeHierarchyData.getName() != null;
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(false);
-        mTitleTv.setText(mKnowledgeHierarchyData.getName().trim());
         StatusBarUtil.immersive(this, ContextCompat.getColor(this, R.color.transparent), 0.3f);
         StatusBarUtil.setPaddingSmart(this, mToolbar);
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
+        mFragments = new ArrayList<>();
+        if (getIntent().getBooleanExtra(Constants.IS_SINGLE_CHAPTER, false)) {
+            String superChapterName = getIntent().getStringExtra(Constants.SUPER_CHAPTER_NAME);
+            chapterName = getIntent().getStringExtra(Constants.CHAPTER_NAME);
+            int chapterId = getIntent().getIntExtra(Constants.CHAPTER_ID, 0);
+            mTitleTv.setText(superChapterName);
+            mFragments.add(KnowledgeHierarchyListFragment.getInstance(chapterId, null));
+        } else {
+            KnowledgeHierarchyData knowledgeHierarchyData = (KnowledgeHierarchyData) getIntent().getSerializableExtra(Constants.ARG_PARAM1);
+            assert knowledgeHierarchyData != null && knowledgeHierarchyData.getName() != null;
+            mTitleTv.setText(knowledgeHierarchyData.getName().trim());
+            knowledgeHierarchyDataList = knowledgeHierarchyData.getChildren();
+            if (knowledgeHierarchyDataList == null) {
+                return;
+            }
+            for (KnowledgeHierarchyData data : knowledgeHierarchyDataList) {
+                mFragments.add(KnowledgeHierarchyListFragment.getInstance(data.getId(), null));
+            }
+        }
     }
 
 

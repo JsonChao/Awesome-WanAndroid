@@ -115,15 +115,19 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
                     false);
         });
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            if (!mDataManager.getLoginStatus()) {
-                startActivity(new Intent(_mActivity, LoginActivity.class));
-                CommonUtils.showMessage(_mActivity, getString(R.string.login_tint));
-                return;
-            }
-            if (mAdapter.getData().get(position).isCollect()) {
-                mPresenter.cancelCollectArticle(position, mAdapter.getData().get(position));
-            } else {
-                mPresenter.addCollectArticle(position, mAdapter.getData().get(position));
+            switch (view.getId()) {
+                case R.id.item_search_pager_chapterName:
+                    JudgeUtils.startKnowledgeHierarchyDetailActivity(_mActivity,
+                            true,
+                            mAdapter.getData().get(position).getSuperChapterName(),
+                            mAdapter.getData().get(position).getChapterName(),
+                            mAdapter.getData().get(position).getChapterId());
+                    break;
+                case R.id.item_search_pager_like_iv:
+                    likeEvent(position);
+                    break;
+                default:
+                    break;
             }
         });
 
@@ -272,6 +276,19 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
     public void showError() {
         mRefreshLayout.setVisibility(View.INVISIBLE);
         RxBus.getDefault().post(new ShowErrorView());
+    }
+
+    private void likeEvent(int position) {
+        if (!mDataManager.getLoginStatus()) {
+            startActivity(new Intent(_mActivity, LoginActivity.class));
+            CommonUtils.showMessage(_mActivity, getString(R.string.login_tint));
+            return;
+        }
+        if (mAdapter.getData().get(position).isCollect()) {
+            mPresenter.cancelCollectArticle(position, mAdapter.getData().get(position));
+        } else {
+            mPresenter.addCollectArticle(position, mAdapter.getData().get(position));
+        }
     }
 
     public void reLoad() {

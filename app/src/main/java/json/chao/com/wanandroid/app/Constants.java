@@ -87,6 +87,14 @@ public class Constants {
 
     public static final String IS_COLLECT_PAGE = "is_collect_page";
 
+    public static final String CHAPTER_ID = "chapter_id";
+
+    public static final String IS_SINGLE_CHAPTER = "is_single_chapter";
+
+    public static final String CHAPTER_NAME = "is_chapter_name";
+
+    public static final String SUPER_CHAPTER_NAME = "super_chapter_name";
+
 
     /**
      * Shared Preference key
@@ -118,5 +126,6 @@ public class Constants {
     public static final int FOUR = 4;
 
     public static final int PROGRESS_OK = 100;
+
 
 }

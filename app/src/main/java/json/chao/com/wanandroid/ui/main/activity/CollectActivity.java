@@ -49,7 +49,6 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
     private int mCurrentPage;
     private List<FeedArticleData> mArticles;
     private ArticleListAdapter mAdapter;
-    private int articlePosition;
 
     @Override
     protected void initInject() {
@@ -100,10 +99,10 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
     }
 
     @Override
-    public void showCancelCollectSuccess() {
-        if (mAdapter.getData().size() > articlePosition) {
-            mAdapter.remove(articlePosition);
-        }
+    public void showRefreshEvent() {
+        mCurrentPage = 0;
+        isRefresh = true;
+        mPresenter.getCollectList(mCurrentPage);
     }
 
     @OnClick({R.id.collect_floating_action_btn})
@@ -132,20 +131,32 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
         mArticles = new ArrayList<>();
         mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mArticles);
         mAdapter.isCollectPage();
-        mAdapter.setOnItemClickListener((adapter, view, position) -> {
-                    articlePosition = position;
-                    JudgeUtils.startArticleDetailActivity(this,
-                            mAdapter.getData().get(position).getId(),
-                            mAdapter.getData().get(position).getTitle(),
-                            mAdapter.getData().get(position).getLink(),
-                            true,
-                            true,
-                            false);
-        });
+        mAdapter.setOnItemClickListener((adapter, view, position) ->
+                JudgeUtils.startArticleDetailActivity(this,
+                mAdapter.getData().get(position).getId(),
+                mAdapter.getData().get(position).getTitle(),
+                mAdapter.getData().get(position).getLink(),
+                true,
+                true,
+                false));
 
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            //取消收藏
-            mPresenter.cancelCollectPageArticle(position, mAdapter.getData().get(position));
+            switch (view.getId()) {
+                case R.id.item_search_pager_chapterName:
+                    JudgeUtils.startKnowledgeHierarchyDetailActivity(this,
+                            true,
+                            mAdapter.getData().get(position).getSuperChapterName(),
+                            mAdapter.getData().get(position).getChapterName(),
+                            mAdapter.getData().get(position).getChapterId());
+                    break;
+                case R.id.item_search_pager_like_iv:
+                    //取消收藏
+                    mPresenter.cancelCollectPageArticle(position, mAdapter.getData().get(position));
+                    break;
+                default:
+                    break;
+            }
+
         });
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -154,9 +165,7 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
 
     private void setRefresh() {
         mRefreshLayout.setOnRefreshListener(refreshLayout -> {
-            mCurrentPage = 0;
-            isRefresh = true;
-            mPresenter.getCollectList(mCurrentPage);
+            showRefreshEvent();
             refreshLayout.finishRefresh(1000);
         });
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> {

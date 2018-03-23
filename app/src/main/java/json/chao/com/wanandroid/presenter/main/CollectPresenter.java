@@ -35,8 +35,7 @@ public class CollectPresenter extends BasePresenter<CollectContract.View> implem
 
     private void registerEvent() {
         addSubscribe(RxBus.getDefault().toFlowable(CollectEvent.class)
-                .filter(CollectEvent::isCancelCollectSuccess)
-                .subscribe(collectEvent -> mView.showCancelCollectSuccess()));
+                .subscribe(collectEvent -> mView.showRefreshEvent()));
     }
 
     @Override

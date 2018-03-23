@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -18,12 +17,12 @@ import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
-import json.chao.com.wanandroid.core.bean.hierarchy.KnowledgeHierarchyData;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.contract.hierarchy.KnowledgeHierarchyListContract;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
+import json.chao.com.wanandroid.core.event.CollectEvent;
 import json.chao.com.wanandroid.core.event.DismissDetailErrorView;
 import json.chao.com.wanandroid.core.event.ShowDetailErrorView;
 import json.chao.com.wanandroid.presenter.hierarchy.KnowledgeHierarchyListPresenter;
@@ -45,7 +44,7 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
     @BindView(R.id.knowledge_hierarchy_list_recycler_view)
     RecyclerView mRecyclerView;
 
-    private KnowledgeHierarchyData mKnowledgeHierarchyData;
+    private int id;
     private int mCurrentPage;
     private List<FeedArticleData> mArticles;
     private ArticleListAdapter mAdapter;
@@ -70,13 +69,13 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
         isInnerFragment = true;
         setRefresh();
         Bundle bundle = getArguments();
-        mKnowledgeHierarchyData = ((KnowledgeHierarchyData) bundle.getSerializable(Constants.ARG_PARAM1));
-        if (mKnowledgeHierarchyData == null) {
+        id = bundle.getInt(Constants.ARG_PARAM1, 0);
+        if (id == 0) {
             return;
         }
         //重置当前页数，防止页面切换后当前页数为较大而加载后面的数据或没有数据
         mCurrentPage = 0;
-        mPresenter.getKnowledgeHierarchyDetailData(mCurrentPage, mKnowledgeHierarchyData.getId());
+        mPresenter.getKnowledgeHierarchyDetailData(mCurrentPage, id);
         mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mArticles);
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
             articlePosition = position;
@@ -89,15 +88,14 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
                     false);
         });
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            if (!mDataManager.getLoginStatus()) {
-                startActivity(new Intent(_mActivity, LoginActivity.class));
-                CommonUtils.showMessage(_mActivity, getString(R.string.login_tint));
-                return;
-            }
-            if (mAdapter.getData().get(position).isCollect()) {
-                mPresenter.cancelCollectArticle(position, mAdapter.getData().get(position));
-            } else {
-                mPresenter.addCollectArticle(position, mAdapter.getData().get(position));
+            switch (view.getId()) {
+                case R.id.item_search_pager_chapterName:
+                    break;
+                case R.id.item_search_pager_like_iv:
+                    likeEvent(position);
+                    break;
+                default:
+                    break;
             }
         });
         mRecyclerView.setAdapter(mAdapter);
@@ -131,12 +129,14 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
     @Override
     public void showCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
         mAdapter.setData(position, feedArticleData);
+        RxBus.getDefault().post(new CollectEvent(false));
         CommonUtils.showSnackMessage(_mActivity, getString(R.string.collect_success));
     }
 
     @Override
     public void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
         mAdapter.setData(position, feedArticleData);
+        RxBus.getDefault().post(new CollectEvent(true));
         CommonUtils.showSnackMessage(_mActivity, getString(R.string.cancel_collect_success));
     }
 
@@ -175,30 +175,43 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
         }
     }
 
-    public static KnowledgeHierarchyListFragment getInstance(Serializable param1, String param2) {
+    public static KnowledgeHierarchyListFragment getInstance(int id, String param2) {
         KnowledgeHierarchyListFragment fragment = new KnowledgeHierarchyListFragment();
         Bundle args = new Bundle();
-        args.putSerializable(Constants.ARG_PARAM1, param1);
+        args.putInt(Constants.ARG_PARAM1, id);
         args.putString(Constants.ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    private void likeEvent(int position) {
+        if (!mDataManager.getLoginStatus()) {
+            startActivity(new Intent(_mActivity, LoginActivity.class));
+            CommonUtils.showMessage(_mActivity, getString(R.string.login_tint));
+            return;
+        }
+        if (mAdapter.getData().get(position).isCollect()) {
+            mPresenter.cancelCollectArticle(position, mAdapter.getData().get(position));
+        } else {
+            mPresenter.addCollectArticle(position, mAdapter.getData().get(position));
+        }
     }
 
     private void setRefresh() {
         mRefreshLayout.setPrimaryColorsId(Constants.BLUE_THEME, R.color.white);
         mRefreshLayout.setOnRefreshListener(refreshLayout -> {
             mCurrentPage = 0;
-            if (mKnowledgeHierarchyData != null) {
+            if (id != 0) {
                 isRefresh = true;
-                mPresenter.getKnowledgeHierarchyDetailData(0, mKnowledgeHierarchyData.getId());
+                mPresenter.getKnowledgeHierarchyDetailData(0, id);
             }
             refreshLayout.finishRefresh(1000);
         });
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
             mCurrentPage++;
-            if (mKnowledgeHierarchyData != null) {
+            if (id != 0) {
                 isRefresh = false;
-                mPresenter.getKnowledgeHierarchyDetailData(mCurrentPage, mKnowledgeHierarchyData.getId());
+                mPresenter.getKnowledgeHierarchyDetailData(mCurrentPage, id);
             }
             refreshLayout.finishLoadMore(1000);
         });

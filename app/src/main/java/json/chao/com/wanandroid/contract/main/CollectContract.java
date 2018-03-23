@@ -36,6 +36,11 @@ public interface CollectContract {
          */
         void showCollectListFail();
 
+        /**
+         * Show Refresh event
+         */
+        void showRefreshEvent();
+
     }
 
     interface Presenter extends AbstractPresenter<View> {

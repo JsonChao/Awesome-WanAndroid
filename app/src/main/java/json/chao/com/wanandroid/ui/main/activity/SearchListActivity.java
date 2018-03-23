@@ -85,15 +85,19 @@ public class SearchListActivity extends BaseActivity<SearchListPresenter> implem
         });
 
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            if (!mDataManager.getLoginStatus()) {
-                startActivity(new Intent(this, LoginActivity.class));
-                CommonUtils.showMessage(this, getString(R.string.login_tint));
-                return;
-            }
-            if (mAdapter.getData().get(position).isCollect()) {
-                mPresenter.cancelCollectArticle(position, mAdapter.getData().get(position));
-            } else {
-                mPresenter.addCollectArticle(position, mAdapter.getData().get(position));
+            switch (view.getId()) {
+                case R.id.item_search_pager_chapterName:
+                    JudgeUtils.startKnowledgeHierarchyDetailActivity(this,
+                            true,
+                            mAdapter.getData().get(position).getSuperChapterName(),
+                            mAdapter.getData().get(position).getChapterName(),
+                            mAdapter.getData().get(position).getChapterId());
+                    break;
+                case R.id.item_search_pager_like_iv:
+                    likeEvent(position);
+                    break;
+                default:
+                    break;
             }
         });
         mRecyclerView.setAdapter(mAdapter);
@@ -182,6 +186,19 @@ public class SearchListActivity extends BaseActivity<SearchListPresenter> implem
         mToolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
         mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_grey_24dp));
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
+    }
+
+    private void likeEvent(int position) {
+        if (!mDataManager.getLoginStatus()) {
+            startActivity(new Intent(this, LoginActivity.class));
+            CommonUtils.showMessage(this, getString(R.string.login_tint));
+            return;
+        }
+        if (mAdapter.getData().get(position).isCollect()) {
+            mPresenter.cancelCollectArticle(position, mAdapter.getData().get(position));
+        } else {
+            mPresenter.addCollectArticle(position, mAdapter.getData().get(position));
+        }
     }
 
     private void setRefresh() {

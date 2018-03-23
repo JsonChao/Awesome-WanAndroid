@@ -68,6 +68,7 @@ public class ArticleListAdapter extends BaseQuickAdapter<FeedArticleData, Knowle
             cardView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.selector_search_item_bac));
         }
 
+        helper.addOnClickListener(R.id.item_search_pager_chapterName);
         helper.addOnClickListener(R.id.item_search_pager_like_iv);
     }
 }
