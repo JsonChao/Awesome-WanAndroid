@@ -49,6 +49,11 @@ public interface SearchContract {
          */
         void showUsefulSitesDataFail();
 
+        /**
+         * Judge to the search list activity
+         */
+        void judgeToTheSearchListActivity();
+
     }
 
     interface Presenter extends AbstractPresenter<View> {

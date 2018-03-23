@@ -147,8 +147,6 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
                 .subscribe(o -> {
                     mPresenter.addHistoryData(mSearchEdit.getText().toString().trim());
                     setHistoryTvStatus(false);
-                    backEvent();
-                    JudgeUtils.startSearchListActivity(getActivity(), mSearchEdit.getText().toString().trim());
                 });
 
         showHistoryData(GeeksApp.getInstance().getDaoSession().getHistoryDataDao().loadAll());
@@ -175,12 +173,10 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
                 tv.setText(name);
                 tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
                 mTopSearchFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
-                    mSearchEdit.setText(mTopSearchDataList.get(position1).getName().trim());
-                    mSearchEdit.setSelection(mSearchEdit.getText().length());
-                    backEvent();
-                    JudgeUtils.startSearchListActivity(getActivity(), mSearchEdit.getText().toString().trim());
                     mPresenter.addHistoryData(mTopSearchDataList.get(position1).getName().trim());
                     setHistoryTvStatus(false);
+                    mSearchEdit.setText(mTopSearchDataList.get(position1).getName().trim());
+                    mSearchEdit.setSelection(mSearchEdit.getText().length());
                     return true;
                 });
                 return tv;
@@ -232,11 +228,9 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
         historySearchAdapter = new HistorySearchAdapter(R.layout.item_search_history, historyDataList);
         historySearchAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             HistoryData historyData = (HistoryData) adapter.getData().get(position);
+            mPresenter.addHistoryData(historyData.getData());
             mSearchEdit.setText(historyData.getData());
             mSearchEdit.setSelection(mSearchEdit.getText().length());
-            backEvent();
-            JudgeUtils.startSearchListActivity(getActivity(), mSearchEdit.getText().toString().trim());
-            mPresenter.addHistoryData(historyData.getData());
             setHistoryTvStatus(false);
         });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -251,6 +245,12 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     @Override
     public void showUsefulSitesDataFail() {
         CommonUtils.showSnackMessage(getActivity(), getString(R.string.failed_to_obtain_useful_sites_data));
+    }
+
+    @Override
+    public void judgeToTheSearchListActivity() {
+        backEvent();
+        JudgeUtils.startSearchListActivity(getActivity(), mSearchEdit.getText().toString().trim());
     }
 
     @Override
