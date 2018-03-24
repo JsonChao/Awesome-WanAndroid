@@ -24,7 +24,7 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 这是一款会让您觉得很nice的技术学习APP，所用技术基本涵盖了当前Android开发中常用的主流技术框架，阅读内容主要面向想在Android开发领域成为专家的朋友们。
 
-#### Some honest proposals：
+#### Tips：
 
 - Android Studio 上提示缺失Dagger生成的类，可以直接编译项目，会由Dagger2自动生成
 
