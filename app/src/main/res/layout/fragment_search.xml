@@ -57,8 +57,19 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/sp_16"
                     android:layout_alignParentStart="true"
-                    android:layout_toStartOf="@id/search_history_clear_all_tv" />
+                    android:layout_toStartOf="@+id/search_history_clear_all_tv" />
             </RelativeLayout>
+
+            <TextView
+                android:id="@+id/search_history_null_tint_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search_null_tint"
+                android:textColor="@color/grey_search"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:visibility="gone" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/search_history_rv"

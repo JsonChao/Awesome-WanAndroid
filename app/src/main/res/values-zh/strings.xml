@@ -84,6 +84,7 @@
     <string name="failed_to_obtain_useful_sites_data">获取常用网站数据失败</string>
     <string name="or">或</string>
     <string name="clear_all">清空</string>
+    <string name="search_null_tint">快来搜点干货吧*≧▽≦*</string>
 
 
 </resources>

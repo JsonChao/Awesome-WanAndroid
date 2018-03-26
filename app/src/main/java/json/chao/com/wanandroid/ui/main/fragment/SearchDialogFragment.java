@@ -76,6 +76,8 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     TextView mClearAllHistoryTv;
     @BindView(R.id.search_scroll_view)
     NestedScrollView mSearchScrollView;
+    @BindView(R.id.search_history_null_tint_tv)
+    TextView mHistoryNullTintTv;
     @BindView(R.id.search_history_rv)
     RecyclerView mRecyclerView;
     @BindView(R.id.top_search_flow_layout)
@@ -316,11 +318,13 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     private void setHistoryTvStatus(boolean isClearAll) {
         mClearAllHistoryTv.setEnabled(!isClearAll);
         if (isClearAll) {
+            mHistoryNullTintTv.setVisibility(View.VISIBLE);
             Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_all_gone);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             mClearAllHistoryTv.setCompoundDrawables(drawable, null, null, null);
             mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.grey));
         } else {
+            mHistoryNullTintTv.setVisibility(View.GONE);
             Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_all);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             mClearAllHistoryTv.setCompoundDrawables(drawable, null, null, null);
