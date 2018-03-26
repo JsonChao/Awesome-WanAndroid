@@ -38,7 +38,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
-import json.chao.com.wanandroid.app.GeeksApp;
 import json.chao.com.wanandroid.base.fragment.BaseDialogFragment;
 import json.chao.com.wanandroid.contract.main.SearchContract;
 import json.chao.com.wanandroid.core.DataManager;
@@ -53,6 +52,7 @@ import json.chao.com.wanandroid.utils.JudgeUtils;
 import json.chao.com.wanandroid.utils.KeyBoardUtils;
 import json.chao.com.wanandroid.utils.StatusBarUtil;
 import json.chao.com.wanandroid.widget.CircularRevealAnim;
+
 
 /**
  * @author quchao
@@ -151,7 +151,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
                     setHistoryTvStatus(false);
                 });
 
-        showHistoryData(GeeksApp.getInstance().getDaoSession().getHistoryDataDao().loadAll());
+        showHistoryData(mDataManager.loadAllHistoryData());
         mPresenter.getTopSearchData();
         mPresenter.getUsefulSites();
     }
@@ -171,9 +171,8 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
                         parent, false);
                 assert topSearchData != null;
                 String name = topSearchData.getName();
-                tv.setBackgroundColor(CommonUtils.randomTagColor());
                 tv.setText(name);
-                tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
+                setItemBackground(tv);
                 mTopSearchFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
                     mPresenter.addHistoryData(mTopSearchDataList.get(position1).getName().trim());
                     setHistoryTvStatus(false);
@@ -201,9 +200,8 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
                         parent, false);
                 assert usefulSiteData != null;
                 String name = usefulSiteData.getName();
-                tv.setBackgroundColor(CommonUtils.randomTagColor());
                 tv.setText(name);
-                tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
+                setItemBackground(tv);
                 mUsefulSitesFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
                     JudgeUtils.startArticleDetailActivity(getActivity(),
                             mUsefulSiteDataList.get(position1).getId(),
@@ -290,6 +288,11 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
             default:
                 break;
         }
+    }
+
+    private void setItemBackground(TextView tv) {
+        tv.setBackgroundColor(CommonUtils.randomTagColor());
+        tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
     }
 
     private void initCircleAnimation() {

@@ -78,12 +78,6 @@ public class Constants {
      */
     public static final int BLUE_THEME = R.color.colorPrimary;
 
-    public static final int GREEN_THEME = android.R.color.holo_green_light;
-
-    public static final int RED_THEME = android.R.color.holo_red_light;
-
-    public static final int ORANGE_THEME = android.R.color.holo_orange_light;
-
     /**
      * Avoid double click time area
      */
@@ -126,21 +120,6 @@ public class Constants {
     public static final String CURRENT_PAGE = "current_page";
 
     public static final String PROJECT_CURRENT_PAGE = "project_current_page";
-
-    /**
-     * number
-     */
-    public static final int ZERO = 0;
-
-    public static final int ONE = 1;
-
-    public static final int TWO = 2;
-
-    public static final int THREE = 3;
-
-    public static final int FOUR = 4;
-
-    public static final int PROGRESS_OK = 100;
 
 
 }

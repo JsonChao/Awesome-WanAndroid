@@ -24,7 +24,7 @@ public class SearchListPresenter extends BasePresenter<SearchListContract.View> 
     private DataManager mDataManager;
 
     @Inject
-    public SearchListPresenter(DataManager dataManager) {
+    SearchListPresenter(DataManager dataManager) {
         this.mDataManager = dataManager;
     }
 

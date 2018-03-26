@@ -26,9 +26,7 @@ import com.scwang.smartrefresh.layout.util.DensityUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import json.chao.com.wanandroid.R;
-import json.chao.com.wanandroid.base.activity.BaseActivity;
-import json.chao.com.wanandroid.contract.main.AboutUsContract;
-import json.chao.com.wanandroid.presenter.main.AboutUsPresenter;
+import json.chao.com.wanandroid.base.activity.AbstractSimpleActivity;
 import json.chao.com.wanandroid.utils.StatusBarUtil;
 import json.chao.com.wanandroid.widget.interpolator.ElasticOutInterpolator;
 
@@ -37,7 +35,7 @@ import json.chao.com.wanandroid.widget.interpolator.ElasticOutInterpolator;
  * @date 2018/2/28
  */
 
-public class AboutUsActivity extends BaseActivity<AboutUsPresenter> implements AboutUsContract.View {
+public class AboutUsActivity extends AbstractSimpleActivity {
 
     @BindView(R.id.about_us_mountain)
     MountainSceneView mAboutUsMountain;
@@ -68,11 +66,6 @@ public class AboutUsActivity extends BaseActivity<AboutUsPresenter> implements A
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-    }
-
-    @Override
-    protected void initInject() {
-        getActivityComponent().inject(this);
     }
 
     @Override

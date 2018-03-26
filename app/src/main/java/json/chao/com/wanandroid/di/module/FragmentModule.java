@@ -32,7 +32,7 @@ public class FragmentModule {
 
     @Provides
     @FragmentScope
-    public Activity provideActivity() {
+    Activity provideActivity() {
         if (fragment == null) {
             return dialogFragment.getActivity();
         } else {

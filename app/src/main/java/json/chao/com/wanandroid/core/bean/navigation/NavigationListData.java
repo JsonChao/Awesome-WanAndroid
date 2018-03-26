@@ -13,9 +13,9 @@ import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 public class NavigationListData implements Serializable {
 
     /**
-     *    "articles": [],
-     "cid": 272,
-     "name": "常用网站"
+     * "articles": [],
+     * "cid": 272,
+     * "name": "常用网站"
      */
 
     private List<FeedArticleData> articles;

@@ -19,7 +19,7 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     private final SharedPreferences mPreferences;
 
     @Inject
-    public PreferenceHelperImpl() {
+    PreferenceHelperImpl() {
         mPreferences = GeeksApp.getInstance().getSharedPreferences(MY_SHARED_PREFERENCE, Context.MODE_PRIVATE);
     }
 

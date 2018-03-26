@@ -20,7 +20,7 @@ public class GreenDaoHelper implements DbHelper {
     private DaoSession daoSession;
 
     @Inject
-    public GreenDaoHelper() {
+    GreenDaoHelper() {
         daoSession = GeeksApp.getInstance().getDaoSession();
     }
 
@@ -59,6 +59,12 @@ public class GreenDaoHelper implements DbHelper {
     public void clearHistoryData() {
         HistoryDataDao historyDataDao = daoSession.getHistoryDataDao();
         historyDataDao.deleteAll();
+    }
+
+    @Override
+    public List<HistoryData> loadAllHistoryData() {
+        HistoryDataDao historyDataDao = daoSession.getHistoryDataDao();
+        return historyDataDao.loadAll();
     }
 
 

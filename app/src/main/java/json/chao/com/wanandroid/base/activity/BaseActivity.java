@@ -92,7 +92,6 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
 
     }
 
-
     /**
      * 注入当前Activity所需的依赖
      */

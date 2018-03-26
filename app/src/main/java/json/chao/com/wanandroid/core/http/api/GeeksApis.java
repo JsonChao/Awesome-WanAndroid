@@ -14,7 +14,6 @@ import json.chao.com.wanandroid.core.bean.main.search.UsefulSiteData;
 import json.chao.com.wanandroid.core.bean.navigation.NavigationListData;
 import json.chao.com.wanandroid.core.bean.project.ProjectClassifyData;
 import json.chao.com.wanandroid.core.bean.project.ProjectListData;
-import json.chao.com.wanandroid.core.bean.project.ProjectListResponse;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -36,7 +35,7 @@ public interface GeeksApis {
      * 获取feed文章列表
      *
      * @param num 页数
-     * @return Observable<BaseResponse<FeedArticleListData>>
+     * @return feed文章列表数据
      */
     @GET("article/list/{num}/json")
     Observable<BaseResponse<FeedArticleListData>> getFeedArticleList(@Path("num") int num);
@@ -46,7 +45,7 @@ public interface GeeksApis {
      * http://www.wanandroid.com/article/query/0/json
      * @param page page
      * @param k POST search key
-     * @return Observable<BaseResponse<FeedArticleListData>>
+     * @return 搜索数据
      */
     @POST("article/query/{page}/json")
     @FormUrlEncoded
@@ -56,7 +55,7 @@ public interface GeeksApis {
      * 热搜
      * http://www.wanandroid.com//hotkey/json
      *
-     * @return Observable<BaseResponse<List<TopSearchData>>>
+     * @return 热门搜索数据
      */
     @GET("hotkey/json")
     @Headers("Cache-Control: public, max-age=36000")
@@ -66,7 +65,7 @@ public interface GeeksApis {
      * 常用网站
      * http://www.wanandroid.com/friend/json
      *
-     * @return Observable<BaseResponse<List<UsefulSiteData>>>
+     * @return 常用网站数据
      */
     @GET("friend/json")
     Observable<BaseResponse<List<UsefulSiteData>>> getUsefulSites();
@@ -75,7 +74,7 @@ public interface GeeksApis {
      * 广告栏
      * http://www.wanandroid.com/banner/json
      *
-     * @return Observable<BaseResponse<List<BannerData>>>
+     * @return 广告栏数据
      */
     @GET("banner/json")
     Observable<BaseResponse<List<BannerData>>> getBannerData();
@@ -84,7 +83,7 @@ public interface GeeksApis {
      * 知识体系
      * http://www.wanandroid.com/tree/json
      *
-     * @return Observable<BaseResponse<List<KnowledgeHierarchyData>>>
+     * @return 知识体系数据
      */
     @GET("tree/json")
     Observable<BaseResponse<List<KnowledgeHierarchyData>>> getKnowledgeHierarchyData();
@@ -95,7 +94,7 @@ public interface GeeksApis {
      *
      * @param page page num
      * @param cid second page id
-     * @return Observable<BaseResponse<FeedArticleListData>>
+     * @return 知识体系feed文章数据
      */
     @GET("article/list/{page}/json")
     Observable<BaseResponse<FeedArticleListData>> getKnowledgeHierarchyDetailData(@Path("page") int page, @Query("cid") int cid);
@@ -104,7 +103,7 @@ public interface GeeksApis {
      * 导航
      * http://www.wanandroid.com/navi/json
      *
-     * @return Observable<BaseResponse<List<NavigationListData>>>
+     * @return 导航数据
      */
     @GET("navi/json")
     Observable<BaseResponse<List<NavigationListData>>> getNavigationListData();
@@ -113,7 +112,7 @@ public interface GeeksApis {
      * 项目分类
      * http://www.wanandroid.com/project/tree/json
      *
-     * @return Observable<BaseResponse<List<ProjectClassifyData>>>
+     * @return 项目分类数据
      */
     @GET("project/tree/json")
     Observable<BaseResponse<List<ProjectClassifyData>>> getProjectClassifyData();
@@ -124,7 +123,7 @@ public interface GeeksApis {
      *
      * @param page page num
      * @param cid second page id
-     * @return Observable<BaseResponse<ProjectListData>>
+     * @return 项目类别数据
      */
     @GET("project/list/{page}/json")
     Observable<BaseResponse<ProjectListData>> getProjectListData(@Path("page") int page, @Query("cid") int cid);
@@ -135,7 +134,7 @@ public interface GeeksApis {
      *
      * @param username user name
      * @param password password
-     * @return Observable<BaseResponse<LoginData>>
+     * @return 登陆数据
      */
     @POST("user/login")
     @FormUrlEncoded
@@ -148,7 +147,7 @@ public interface GeeksApis {
      * @param username user name
      * @param password password
      * @param repassword re password
-     * @return Observable<BaseResponse<LoginData>>
+     * @return 注册数据
      */
     @POST("user/register")
     @FormUrlEncoded
@@ -159,7 +158,7 @@ public interface GeeksApis {
      * http://www.wanandroid.com/lg/collect/1165/json
      *
      * @param id article id
-     * @return Observable<BaseResponse<FeedArticleListData>>
+     * @return 收藏站内文章数据
      */
     @POST("lg/collect/{id}/json")
     Observable<BaseResponse<FeedArticleListData>> addCollectArticle(@Path("id") int id);
@@ -171,7 +170,7 @@ public interface GeeksApis {
      * @param title title
      * @param author author
      * @param link link
-     * @return Observable<BaseResponse<FeedArticleListData>>
+     * @return 收藏站外文章数据
      */
     @POST("lg/collect/add/json")
     @FormUrlEncoded
@@ -183,7 +182,7 @@ public interface GeeksApis {
      * http://www.wanandroid.com/lg/collect/list/0/json
      *
      * @param page page number
-     * @return Observable<BaseResponse<FeedArticleListData>>
+     * @return 收藏列表数据
      */
     @GET("lg/collect/list/{page}/json")
     Observable<BaseResponse<FeedArticleListData>> getCollectList(@Path("page") int page);
@@ -194,7 +193,7 @@ public interface GeeksApis {
      *
      * @param id article id
      * @param originId origin id
-     * @return Observable<BaseResponse<FeedArticleListData>>
+     * @return 取消站内文章数据
      */
     @POST("lg/uncollect/{id}/json")
     @FormUrlEncoded
@@ -206,7 +205,7 @@ public interface GeeksApis {
      *
      * @param id article id
      * @param originId origin id
-     * @return Observable<BaseResponse<FeedArticleListData>>
+     * @return 取消收藏页面站内文章数据
      */
     @POST("lg/uncollect_originId/{id}/json")
     @FormUrlEncoded

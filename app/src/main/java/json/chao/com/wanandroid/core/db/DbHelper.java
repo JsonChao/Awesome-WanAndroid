@@ -24,4 +24,11 @@ public interface DbHelper {
      */
     void clearHistoryData();
 
+    /**
+     * Load all history data
+     *
+     * @return List<HistoryData>
+     */
+    List<HistoryData> loadAllHistoryData();
+
 }

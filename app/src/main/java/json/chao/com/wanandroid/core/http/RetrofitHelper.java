@@ -28,7 +28,7 @@ public class RetrofitHelper implements HttpHelper {
     private GeeksApis mGeeksApis;
 
     @Inject
-    public RetrofitHelper(GeeksApis geeksApis) {
+    RetrofitHelper(GeeksApis geeksApis) {
         mGeeksApis = geeksApis;
     }
 

@@ -181,4 +181,9 @@ public class DataManager implements HttpHelper, DbHelper, PreferenceHelper {
     public void clearHistoryData() {
         mDbHelper.clearHistoryData();
     }
+
+    @Override
+    public List<HistoryData> loadAllHistoryData() {
+        return mDbHelper.loadAllHistoryData();
+    }
 }
