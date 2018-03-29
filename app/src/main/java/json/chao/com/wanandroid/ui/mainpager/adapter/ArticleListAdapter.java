@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.text.Html;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
@@ -51,6 +52,7 @@ public class ArticleListAdapter extends BaseQuickAdapter<FeedArticleData, Knowle
         if (!TextUtils.isEmpty(article.getAuthor())) {
             helper.setText(R.id.item_search_pager_author, article.getAuthor());
         }
+        setTag(helper, article);
         if (!TextUtils.isEmpty(article.getChapterName())) {
             String classifyName = article.getSuperChapterName() + " / " + article.getChapterName();
             if (isCollectPage) {
@@ -70,5 +72,36 @@ public class ArticleListAdapter extends BaseQuickAdapter<FeedArticleData, Knowle
 
         helper.addOnClickListener(R.id.item_search_pager_chapterName);
         helper.addOnClickListener(R.id.item_search_pager_like_iv);
+    }
+
+    private void setTag(KnowledgeHierarchyListViewHolder helper, FeedArticleData article) {
+        helper.getView(R.id.item_search_pager_tag_tv).setVisibility(View.GONE);
+        if (isCollectPage) {
+            return;
+        }
+        if (article.getSuperChapterName().contains(mContext.getString(R.string.open_project))) {
+            helper.getView(R.id.item_search_pager_tag_tv).setVisibility(View.VISIBLE);
+            helper.setText(R.id.item_search_pager_tag_tv, R.string.project);
+            helper.setTextColor(R.id.item_search_pager_tag_tv, ContextCompat.getColor(mContext, R.color.light_deep_red));
+            helper.setBackgroundRes(R.id.item_search_pager_tag_tv, R.drawable.ic_tag_red_background);
+        }
+
+        if (article.getSuperChapterName().contains(mContext.getString(R.string.navigation))) {
+            helper.getView(R.id.item_search_pager_tag_tv).setVisibility(View.VISIBLE);
+            helper.setText(R.id.item_search_pager_tag_tv, R.string.navigation);
+            helper.setTextColor(R.id.item_search_pager_tag_tv, ContextCompat.getColor(mContext, R.color.light_deep_red));
+            helper.setBackgroundRes(R.id.item_search_pager_tag_tv, R.drawable.ic_tag_red_background);
+        }
+
+        if (article.getNiceDate().contains(mContext.getString(R.string.minute))
+                || article.getNiceDate().contains(mContext.getString(R.string.hour))
+                || article.getNiceDate().contains(mContext.getString(R.string.one_day))) {
+            helper.getView(R.id.item_search_pager_tag_tv).setVisibility(View.VISIBLE);
+            helper.setText(R.id.item_search_pager_tag_tv, R.string.text_new);
+            helper.setTextColor(R.id.item_search_pager_tag_tv, ContextCompat.getColor(mContext, R.color.light_green));
+            helper.setBackgroundRes(R.id.item_search_pager_tag_tv, R.drawable.ic_tag_green_background);
+        }
+
+
     }
 }
