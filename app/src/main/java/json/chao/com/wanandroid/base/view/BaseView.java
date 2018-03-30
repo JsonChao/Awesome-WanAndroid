@@ -18,6 +18,11 @@ public interface BaseView {
     void showErrorMsg(String errorMsg);
 
     /**
+     * showNormal
+     */
+    void showNormal();
+
+    /**
      * Show error
      */
     void showError();

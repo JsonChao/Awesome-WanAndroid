@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
-import json.chao.com.wanandroid.base.activity.BaseActivity;
+import json.chao.com.wanandroid.base.activity.AbstractRootActivity;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.contract.main.SearchListContract;
 import json.chao.com.wanandroid.core.DataManager;
@@ -42,7 +42,7 @@ import json.chao.com.wanandroid.utils.StatusBarUtil;
  * @date 2018/3/13
  */
 
-public class SearchListActivity extends BaseActivity<SearchListPresenter> implements SearchListContract.View {
+public class SearchListActivity extends AbstractRootActivity<SearchListPresenter> implements SearchListContract.View {
 
     @BindView(R.id.common_toolbar)
     Toolbar mToolbar;
@@ -50,7 +50,7 @@ public class SearchListActivity extends BaseActivity<SearchListPresenter> implem
     TextView mTitleTv;
     @BindView(R.id.search_list_refresh_layout)
     RefreshLayout mRefreshLayout;
-    @BindView(R.id.search_list_recycler_view)
+    @BindView(R.id.normal_view)
     RecyclerView mRecyclerView;
     @BindView(R.id.search_list_floating_action_btn)
     FloatingActionButton mFloatingActionButton;
@@ -71,6 +71,7 @@ public class SearchListActivity extends BaseActivity<SearchListPresenter> implem
 
     @Override
     protected void initEventAndData() {
+        super.initEventAndData();
         initToolbar();
         mPresenter.getSearchList(mCurrentPage, searchText);
         mArticleList = new ArrayList<>();
@@ -116,6 +117,7 @@ public class SearchListActivity extends BaseActivity<SearchListPresenter> implem
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         setRefresh();
+        showLoading();
     }
 
     @Override
@@ -138,6 +140,7 @@ public class SearchListActivity extends BaseActivity<SearchListPresenter> implem
         } else {
             mAdapter.replaceData(mArticleList);
         }
+        showNormal();
     }
 
     @Override

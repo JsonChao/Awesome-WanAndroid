@@ -13,13 +13,13 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.hierarchy.KnowledgeHierarchyData;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
-import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.contract.hierarchy.KnowledgeHierarchyContract;
 import json.chao.com.wanandroid.core.event.DismissErrorView;
 import json.chao.com.wanandroid.core.event.ShowErrorView;
@@ -33,10 +33,10 @@ import json.chao.com.wanandroid.utils.CommonUtils;
  * @date 2017/11/29
  */
 
-public class KnowledgeHierarchyFragment extends BaseFragment<KnowledgeHierarchyPresenter>
+public class KnowledgeHierarchyFragment extends AbstractRootFragment<KnowledgeHierarchyPresenter>
         implements KnowledgeHierarchyContract.View {
 
-    @BindView(R.id.knowledge_hierarchy_refresh_layout)
+    @BindView(R.id.normal_view)
     SmartRefreshLayout mRefreshLayout;
     @BindView(R.id.knowledge_hierarchy_recycler_view)
     RecyclerView mRecyclerView;
@@ -62,6 +62,7 @@ public class KnowledgeHierarchyFragment extends BaseFragment<KnowledgeHierarchyP
 
     @Override
     protected void initEventAndData() {
+        super.initEventAndData();
         setRefresh();
         mAdapter = new KnowledgeHierarchyAdapter(R.layout.item_knowledge_hierarchy, mKnowledgeHierarchyDataList);
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
@@ -72,6 +73,7 @@ public class KnowledgeHierarchyFragment extends BaseFragment<KnowledgeHierarchyP
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
         mPresenter.getKnowledgeHierarchyData();
+        showLoading();
     }
 
     @Override
@@ -93,6 +95,7 @@ public class KnowledgeHierarchyFragment extends BaseFragment<KnowledgeHierarchyP
         }
         mKnowledgeHierarchyDataList = knowledgeHierarchyResponse.getData();
         mAdapter.replaceData(mKnowledgeHierarchyDataList);
+        showNormal();
     }
 
     @Override

@@ -16,7 +16,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import json.chao.com.wanandroid.R;
-import json.chao.com.wanandroid.base.activity.BaseActivity;
+import json.chao.com.wanandroid.base.activity.AbstractRootActivity;
 import json.chao.com.wanandroid.contract.main.CollectContract;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
@@ -32,13 +32,13 @@ import json.chao.com.wanandroid.utils.StatusBarUtil;
  * @date 2018/2/27
  */
 
-public class CollectActivity extends BaseActivity<CollectPresenter> implements CollectContract.View {
+public class CollectActivity extends AbstractRootActivity<CollectPresenter> implements CollectContract.View {
 
     @BindView(R.id.common_toolbar)
     Toolbar mToolbar;
     @BindView(R.id.common_toolbar_title_tv)
     TextView mTitleTv;
-    @BindView(R.id.collect_refresh_layout)
+    @BindView(R.id.normal_view)
     SmartRefreshLayout mRefreshLayout;
     @BindView(R.id.collect_recycler_view)
     RecyclerView mRecyclerView;

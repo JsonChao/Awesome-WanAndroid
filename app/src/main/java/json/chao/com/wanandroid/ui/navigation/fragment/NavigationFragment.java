@@ -12,13 +12,13 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.navigation.NavigationListData;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
-import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.contract.navigation.NavigationContract;
 import json.chao.com.wanandroid.core.event.DismissErrorView;
 import json.chao.com.wanandroid.core.event.ShowErrorView;
@@ -36,11 +36,11 @@ import q.rorbin.verticaltablayout.widget.TabView;
  * @date 2018/2/11
  */
 
-public class NavigationFragment extends BaseFragment<NavigationPresenter> implements NavigationContract.View {
+public class NavigationFragment extends AbstractRootFragment<NavigationPresenter> implements NavigationContract.View {
 
     @BindView(R.id.navigation_tab_layout)
     VerticalTabLayout mTabLayout;
-    @BindView(R.id.navigation_group)
+    @BindView(R.id.normal_view)
     LinearLayout mNavigationGroup;
     @BindView(R.id.navigation_divider)
     View mDivider;
@@ -75,7 +75,9 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
 
     @Override
     protected void initEventAndData() {
+        super.initEventAndData();
         mPresenter.getNavigationListData();
+        showLoading();
     }
 
     @Override
@@ -127,6 +129,7 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
         mManager = new LinearLayoutManager(_mActivity);
         mRecyclerView.setLayoutManager(mManager);
         leftRightLinkage();
+        showNormal();
     }
 
     @Override

@@ -20,6 +20,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
@@ -27,7 +28,6 @@ import json.chao.com.wanandroid.core.bean.main.banner.BannerData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
-import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.contract.mainpager.MainPagerContract;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.core.event.AutoLoginEvent;
@@ -49,9 +49,9 @@ import json.chao.com.wanandroid.utils.JudgeUtils;
  * @date 2017/11/29
  */
 
-public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implements MainPagerContract.View {
+public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> implements MainPagerContract.View {
 
-    @BindView(R.id.refresh_layout)
+    @BindView(R.id.normal_view)
     SmartRefreshLayout mRefreshLayout;
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
@@ -103,6 +103,7 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
 
     @Override
     protected void initEventAndData() {
+        super.initEventAndData();
         mFeedArticleDataList = new ArrayList<>();
         mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mFeedArticleDataList);
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
@@ -156,6 +157,7 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
         } else {
             mPresenter.autoRefresh();
         }
+        showLoading();
     }
 
     @Override
@@ -193,6 +195,7 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
             mFeedArticleDataList.addAll(feedArticleListResponse.getData().getDatas());
             mAdapter.addData(feedArticleListResponse.getData().getDatas());
         }
+        showNormal();
     }
 
     @Override

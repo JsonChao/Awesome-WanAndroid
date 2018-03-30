@@ -14,6 +14,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
@@ -33,7 +34,7 @@ import json.chao.com.wanandroid.utils.CommonUtils;
  * @date 2018/2/11
  */
 
-public class ProjectFragment extends BaseFragment<ProjectPresenter> implements ProjectContract.View {
+public class ProjectFragment extends AbstractRootFragment<ProjectPresenter> implements ProjectContract.View {
 
     @BindView(R.id.project_tab_layout)
     SlidingTabLayout mTabLayout;
@@ -71,9 +72,11 @@ public class ProjectFragment extends BaseFragment<ProjectPresenter> implements P
 
     @Override
     protected void initEventAndData() {
+        super.initEventAndData();
         mFragments = new ArrayList<>();
         mPresenter.getProjectClassifyData();
         currentPage = mDataManager.getProjectCurrentPage();
+        showLoading();
     }
 
     @Override
@@ -138,6 +141,7 @@ public class ProjectFragment extends BaseFragment<ProjectPresenter> implements P
 
         mTabLayout.setViewPager(mViewPager);
         mViewPager.setCurrentItem(Constants.TAB_ONE);
+        showNormal();
     }
 
     @Override

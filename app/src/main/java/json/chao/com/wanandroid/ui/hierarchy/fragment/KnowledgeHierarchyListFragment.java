@@ -13,13 +13,13 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
-import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.contract.hierarchy.KnowledgeHierarchyListContract;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.core.event.CollectEvent;
@@ -38,12 +38,12 @@ import json.chao.com.wanandroid.utils.JudgeUtils;
  * @date 2018/2/23
  */
 
-public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierarchyListPresenter>
+public class KnowledgeHierarchyListFragment extends AbstractRootFragment<KnowledgeHierarchyListPresenter>
         implements KnowledgeHierarchyListContract.View {
 
-    @BindView(R.id.knowledge_hierarchy_list_refresh_layout)
+    @BindView(R.id.knowledge_hierarchy_refresh_layout)
     SmartRefreshLayout mRefreshLayout;
-    @BindView(R.id.knowledge_hierarchy_list_recycler_view)
+    @BindView(R.id.normal_view)
     RecyclerView mRecyclerView;
 
     private int id;
@@ -68,6 +68,7 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
 
     @Override
     protected void initEventAndData() {
+        super.initEventAndData();
         isInnerFragment = true;
         setRefresh();
         Bundle bundle = getArguments();
@@ -110,6 +111,7 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
         });
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
+        showLoading();
     }
 
     @Override
@@ -128,6 +130,7 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
         } else {
             mAdapter.addData(mArticles);
         }
+        showNormal();
     }
 
     @Override

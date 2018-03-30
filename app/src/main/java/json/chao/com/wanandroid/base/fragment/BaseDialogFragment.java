@@ -57,6 +57,11 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
     }
 
     @Override
+    public void showNormal() {
+
+    }
+
+    @Override
     public void showError() {
 
     }

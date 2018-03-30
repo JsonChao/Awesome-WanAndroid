@@ -59,6 +59,11 @@ public abstract class BaseFragment<T extends AbstractPresenter> extends Abstract
     }
 
     @Override
+    public void showNormal() {
+
+    }
+
+    @Override
     public void showError() {
 
     }
