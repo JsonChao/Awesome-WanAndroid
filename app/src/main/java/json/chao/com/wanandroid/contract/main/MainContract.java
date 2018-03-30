@@ -21,6 +21,16 @@ public interface MainContract {
          * Show error view
          */
         void showErrorView();
+
+        /**
+         * Show switch project
+         */
+        void showSwitchProject();
+
+        /**
+         * Show switch navigation
+         */
+        void showSwitchNavigation();
     }
 
     interface Presenter extends AbstractPresenter<View> {

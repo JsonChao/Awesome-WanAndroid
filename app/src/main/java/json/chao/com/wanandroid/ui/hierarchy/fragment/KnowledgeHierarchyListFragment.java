@@ -25,6 +25,8 @@ import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.core.event.CollectEvent;
 import json.chao.com.wanandroid.core.event.DismissDetailErrorView;
 import json.chao.com.wanandroid.core.event.ShowDetailErrorView;
+import json.chao.com.wanandroid.core.event.SwitchNavigationEvent;
+import json.chao.com.wanandroid.core.event.SwitchProjectEvent;
 import json.chao.com.wanandroid.presenter.hierarchy.KnowledgeHierarchyListPresenter;
 import json.chao.com.wanandroid.ui.main.activity.LoginActivity;
 import json.chao.com.wanandroid.ui.mainpager.adapter.ArticleListAdapter;
@@ -93,6 +95,14 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
                     break;
                 case R.id.item_search_pager_like_iv:
                     likeEvent(position);
+                    break;
+                case R.id.item_search_pager_tag_tv:
+                    String superChapterName = mAdapter.getData().get(position).getSuperChapterName();
+                    if (superChapterName.contains(getString(R.string.open_project))) {
+                        RxBus.getDefault().post(new SwitchProjectEvent());
+                    } else if (superChapterName.contains(getString(R.string.navigation))) {
+                        RxBus.getDefault().post(new SwitchNavigationEvent());
+                    }
                     break;
                 default:
                     break;

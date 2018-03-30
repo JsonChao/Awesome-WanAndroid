@@ -23,11 +23,14 @@ import butterknife.OnClick;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.activity.BaseActivity;
+import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.contract.main.SearchListContract;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
+import json.chao.com.wanandroid.core.event.SwitchNavigationEvent;
+import json.chao.com.wanandroid.core.event.SwitchProjectEvent;
 import json.chao.com.wanandroid.presenter.main.SearchListPresenter;
 import json.chao.com.wanandroid.ui.mainpager.adapter.ArticleListAdapter;
 import json.chao.com.wanandroid.utils.CommonUtils;
@@ -95,6 +98,16 @@ public class SearchListActivity extends BaseActivity<SearchListPresenter> implem
                     break;
                 case R.id.item_search_pager_like_iv:
                     likeEvent(position);
+                    break;
+                case R.id.item_search_pager_tag_tv:
+                    String superChapterName = mAdapter.getData().get(position).getSuperChapterName();
+                    if (superChapterName.contains(getString(R.string.open_project))) {
+                        onBackPressedSupport();
+                        RxBus.getDefault().post(new SwitchProjectEvent());
+                    } else if (superChapterName.contains(getString(R.string.navigation))) {
+                        onBackPressedSupport();
+                        RxBus.getDefault().post(new SwitchNavigationEvent());
+                    }
                     break;
                 default:
                     break;

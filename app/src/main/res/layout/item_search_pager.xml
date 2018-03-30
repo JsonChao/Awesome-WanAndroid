@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 tools:text="新"
                 android:textColor="@color/light_deep_red"
-                android:background="@drawable/ic_tag_red_background"
+                android:background="@drawable/shape_tag_red_background_normal"
                 android:gravity="center"
                 android:paddingStart="@dimen/dp_5"
                 android:paddingEnd="@dimen/dp_5"

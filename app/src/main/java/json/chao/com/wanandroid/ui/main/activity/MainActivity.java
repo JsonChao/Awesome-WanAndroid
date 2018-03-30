@@ -117,16 +117,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     mDataManager.setCurrentPage(Constants.SECOND);
                     break;
                 case R.id.tab_navigation:
-                    mTitleTv.setText(getString(R.string.navigation));
-                    switchFragment(2);
-                    mNavigationFragment.reLoad();
-                    mDataManager.setCurrentPage(Constants.THIRD);
+                    switchNavigation();
                     break;
                 case R.id.tab_project:
-                    mTitleTv.setText(getString(R.string.project));
-                    switchFragment(3);
-                    mProjectFragment.reLoad();
-                    mDataManager.setCurrentPage(Constants.FOURTH);
+                    switchProject();
                     break;
                 default:
                     break;
@@ -227,6 +221,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     @Override
+    public void showSwitchProject() {
+        bottomNavigationBar.setSelectedItemId(R.id.tab_project);
+    }
+
+    @Override
+    public void showSwitchNavigation() {
+        bottomNavigationBar.setSelectedItemId(R.id.tab_navigation);
+    }
+
+    @Override
     public void showLoginView() {
         if (mNavigationView == null) {
             return;
@@ -295,6 +299,20 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mFragments.add(mNavigationFragment);
         mFragments.add(mProjectFragment);
         switchFragment(0);
+    }
+
+    private void switchProject() {
+        mTitleTv.setText(getString(R.string.project));
+        switchFragment(3);
+        mProjectFragment.reLoad();
+        mDataManager.setCurrentPage(Constants.FOURTH);
+    }
+
+    private void switchNavigation() {
+        mTitleTv.setText(getString(R.string.navigation));
+        switchFragment(2);
+        mNavigationFragment.reLoad();
+        mDataManager.setCurrentPage(Constants.THIRD);
     }
 
     /**

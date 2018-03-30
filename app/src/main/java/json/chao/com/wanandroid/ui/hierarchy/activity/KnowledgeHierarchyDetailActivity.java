@@ -153,5 +153,15 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
         }
     }
 
+    @Override
+    public void showSwitchProject() {
+        onBackPressedSupport();
+    }
+
+    @Override
+    public void showSwitchNavigation() {
+        onBackPressedSupport();
+    }
+
 
 }

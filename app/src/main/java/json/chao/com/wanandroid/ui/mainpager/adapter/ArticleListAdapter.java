@@ -72,6 +72,7 @@ public class ArticleListAdapter extends BaseQuickAdapter<FeedArticleData, Knowle
 
         helper.addOnClickListener(R.id.item_search_pager_chapterName);
         helper.addOnClickListener(R.id.item_search_pager_like_iv);
+        helper.addOnClickListener(R.id.item_search_pager_tag_tv);
     }
 
     private void setTag(KnowledgeHierarchyListViewHolder helper, FeedArticleData article) {
@@ -83,14 +84,14 @@ public class ArticleListAdapter extends BaseQuickAdapter<FeedArticleData, Knowle
             helper.getView(R.id.item_search_pager_tag_tv).setVisibility(View.VISIBLE);
             helper.setText(R.id.item_search_pager_tag_tv, R.string.project);
             helper.setTextColor(R.id.item_search_pager_tag_tv, ContextCompat.getColor(mContext, R.color.light_deep_red));
-            helper.setBackgroundRes(R.id.item_search_pager_tag_tv, R.drawable.ic_tag_red_background);
+            helper.setBackgroundRes(R.id.item_search_pager_tag_tv, R.drawable.selector_tag_red_background);
         }
 
         if (article.getSuperChapterName().contains(mContext.getString(R.string.navigation))) {
             helper.getView(R.id.item_search_pager_tag_tv).setVisibility(View.VISIBLE);
             helper.setText(R.id.item_search_pager_tag_tv, R.string.navigation);
             helper.setTextColor(R.id.item_search_pager_tag_tv, ContextCompat.getColor(mContext, R.color.light_deep_red));
-            helper.setBackgroundRes(R.id.item_search_pager_tag_tv, R.drawable.ic_tag_red_background);
+            helper.setBackgroundRes(R.id.item_search_pager_tag_tv, R.drawable.selector_tag_red_background);
         }
 
         if (article.getNiceDate().contains(mContext.getString(R.string.minute))
@@ -99,7 +100,7 @@ public class ArticleListAdapter extends BaseQuickAdapter<FeedArticleData, Knowle
             helper.getView(R.id.item_search_pager_tag_tv).setVisibility(View.VISIBLE);
             helper.setText(R.id.item_search_pager_tag_tv, R.string.text_new);
             helper.setTextColor(R.id.item_search_pager_tag_tv, ContextCompat.getColor(mContext, R.color.light_green));
-            helper.setBackgroundRes(R.id.item_search_pager_tag_tv, R.drawable.ic_tag_green_background);
+            helper.setBackgroundRes(R.id.item_search_pager_tag_tv, R.drawable.shape_tag_green_background);
         }
 
 

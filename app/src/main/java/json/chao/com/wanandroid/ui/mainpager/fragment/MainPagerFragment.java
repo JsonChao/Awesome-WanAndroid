@@ -34,6 +34,8 @@ import json.chao.com.wanandroid.core.event.AutoLoginEvent;
 import json.chao.com.wanandroid.core.event.DismissErrorView;
 import json.chao.com.wanandroid.core.event.LoginEvent;
 import json.chao.com.wanandroid.core.event.ShowErrorView;
+import json.chao.com.wanandroid.core.event.SwitchNavigationEvent;
+import json.chao.com.wanandroid.core.event.SwitchProjectEvent;
 import json.chao.com.wanandroid.core.http.cookies.CookiesManager;
 import json.chao.com.wanandroid.presenter.mainpager.MainPagerPresenter;
 import json.chao.com.wanandroid.ui.main.activity.LoginActivity;
@@ -125,6 +127,14 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter> implemen
                     break;
                 case R.id.item_search_pager_like_iv:
                     likeEvent(position);
+                    break;
+                case R.id.item_search_pager_tag_tv:
+                    String superChapterName = mAdapter.getData().get(position).getSuperChapterName();
+                    if (superChapterName.contains(getString(R.string.open_project))) {
+                        RxBus.getDefault().post(new SwitchProjectEvent());
+                    } else if (superChapterName.contains(getString(R.string.navigation))) {
+                        RxBus.getDefault().post(new SwitchNavigationEvent());
+                    }
                     break;
                 default:
                     break;

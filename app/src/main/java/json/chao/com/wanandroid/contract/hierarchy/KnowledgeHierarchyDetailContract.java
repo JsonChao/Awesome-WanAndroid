@@ -21,6 +21,16 @@ public interface KnowledgeHierarchyDetailContract  {
          * Show detail error view
          */
         void showDetailErrorView();
+
+        /**
+         * Show switch project
+         */
+        void showSwitchProject();
+
+        /**
+         * Show switch navigation
+         */
+        void showSwitchNavigation();
     }
 
     interface Presenter extends AbstractPresenter<View> {

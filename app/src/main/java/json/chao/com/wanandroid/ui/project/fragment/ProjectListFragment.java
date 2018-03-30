@@ -56,7 +56,6 @@ public class ProjectListFragment extends BaseFragment<ProjectListPresenter> impl
 
     @Override
     protected void initEventAndData() {
-        isInnerFragment = true;
         setRefresh();
         Bundle bundle = getArguments();
         cid = bundle.getInt(Constants.ARG_PARAM1);
