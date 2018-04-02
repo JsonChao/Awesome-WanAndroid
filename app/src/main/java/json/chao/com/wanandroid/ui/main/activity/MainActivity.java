@@ -35,6 +35,7 @@ import json.chao.com.wanandroid.core.event.LoginEvent;
 import json.chao.com.wanandroid.core.http.cookies.CookiesManager;
 import json.chao.com.wanandroid.presenter.main.MainPresenter;
 import json.chao.com.wanandroid.ui.hierarchy.fragment.KnowledgeHierarchyFragment;
+import json.chao.com.wanandroid.ui.main.fragment.UsageDialogFragment;
 import json.chao.com.wanandroid.ui.mainpager.fragment.MainPagerFragment;
 import json.chao.com.wanandroid.ui.navigation.fragment.NavigationFragment;
 import json.chao.com.wanandroid.ui.project.fragment.ProjectFragment;
@@ -179,9 +180,17 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_search) {
-            SearchDialogFragment searchDialogFragment = new SearchDialogFragment();
-            searchDialogFragment.show(getFragmentManager(), "SearchDialogFragment");
+        switch (item.getItemId()) {
+            case R.id.action_usage:
+                UsageDialogFragment usageDialogFragment = new UsageDialogFragment();
+                usageDialogFragment.show(getFragmentManager(), "UsageDialogFragment");
+                break;
+            case R.id.action_search:
+                SearchDialogFragment searchDialogFragment = new SearchDialogFragment();
+                searchDialogFragment.show(getFragmentManager(), "SearchDialogFragment");
+                break;
+            default:
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

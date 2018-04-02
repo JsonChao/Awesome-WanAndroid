@@ -92,21 +92,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_3"
                 android:background="@color/colorBackground" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_24"
-                android:text="@string/useful_sites"
-                android:textColor="@color/tab_bac"
-                android:textSize="@dimen/sp_16"
-                android:layout_marginBottom="@dimen/dp_8" />
-
-            <com.zhy.view.flowlayout.TagFlowLayout
-                android:id="@+id/useful_sites_flow_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:max_select="0" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

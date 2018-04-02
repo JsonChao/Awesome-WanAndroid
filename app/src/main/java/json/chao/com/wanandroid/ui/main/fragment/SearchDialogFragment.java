@@ -43,7 +43,6 @@ import json.chao.com.wanandroid.contract.main.SearchContract;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.search.TopSearchData;
-import json.chao.com.wanandroid.core.bean.main.search.UsefulSiteData;
 import json.chao.com.wanandroid.core.dao.HistoryData;
 import json.chao.com.wanandroid.presenter.main.SearchPresenter;
 import json.chao.com.wanandroid.ui.main.adapter.HistorySearchAdapter;
@@ -82,13 +81,10 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     RecyclerView mRecyclerView;
     @BindView(R.id.top_search_flow_layout)
     TagFlowLayout mTopSearchFlowLayout;
-    @BindView(R.id.useful_sites_flow_layout)
-    TagFlowLayout mUsefulSitesFlowLayout;
     @BindView(R.id.search_floating_action_btn)
     FloatingActionButton mFloatingActionButton;
 
     private List<TopSearchData> mTopSearchDataList;
-    private List<UsefulSiteData> mUsefulSiteDataList;
 
     @Inject
     DataManager mDataManager;
@@ -122,7 +118,6 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
         StatusBarUtil.immersive(getActivity().getWindow(), ContextCompat.getColor(getActivity(), R.color.transparent), 0.3f);
         initCircleAnimation();
         mTopSearchDataList = new ArrayList<>();
-        mUsefulSiteDataList = new ArrayList<>();
         mSearchEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -153,7 +148,6 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
 
         showHistoryData(mDataManager.loadAllHistoryData());
         mPresenter.getTopSearchData();
-        mPresenter.getUsefulSites();
     }
 
     @Override
@@ -186,38 +180,6 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     }
 
     @Override
-    public void showUsefulSites(BaseResponse<List<UsefulSiteData>> usefulSitesResponse) {
-        if (usefulSitesResponse == null) {
-            showUsefulSitesDataFail();
-            return;
-        }
-        mUsefulSiteDataList = usefulSitesResponse.getData();
-        mUsefulSitesFlowLayout.setAdapter(new TagAdapter<UsefulSiteData>(mUsefulSiteDataList) {
-            @Override
-            public View getView(FlowLayout parent, int position, UsefulSiteData usefulSiteData) {
-                assert getActivity() != null;
-                TextView tv = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.flow_layout_tv,
-                        parent, false);
-                assert usefulSiteData != null;
-                String name = usefulSiteData.getName();
-                tv.setText(name);
-                setItemBackground(tv);
-                mUsefulSitesFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
-                    JudgeUtils.startArticleDetailActivity(getActivity(),
-                            mUsefulSiteDataList.get(position1).getId(),
-                            mUsefulSiteDataList.get(position1).getName().trim(),
-                            mUsefulSiteDataList.get(position1).getLink().trim(),
-                            false,
-                            false,
-                            true);
-                    return true;
-                });
-                return tv;
-            }
-        });
-    }
-
-    @Override
     public void showHistoryData(List<HistoryData> historyDataList) {
         if (historyDataList == null || historyDataList.size() <= 0) {
             setHistoryTvStatus(true);
@@ -240,11 +202,6 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     @Override
     public void showTopSearchDataFail() {
         CommonUtils.showSnackMessage(getActivity(), getString(R.string.failed_to_obtain_top_data));
-    }
-
-    @Override
-    public void showUsefulSitesDataFail() {
-        CommonUtils.showSnackMessage(getActivity(), getString(R.string.failed_to_obtain_useful_sites_data));
     }
 
     @Override

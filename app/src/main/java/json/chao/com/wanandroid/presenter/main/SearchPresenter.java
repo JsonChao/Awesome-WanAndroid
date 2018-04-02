@@ -65,20 +65,4 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
                         }));
     }
 
-    @Override
-    public void getUsefulSites() {
-        addSubscribe(mDataManager.getUsefulSites()
-                        .compose(RxUtils.rxSchedulerHelper())
-                        .subscribeWith(new BaseObserver<BaseResponse<List<UsefulSiteData>>>(mView) {
-                            @Override
-                            public void onNext(BaseResponse<List<UsefulSiteData>> usefulSitesResponse) {
-                                if (usefulSitesResponse.getErrorCode() == BaseResponse.SUCCESS) {
-                                    mView.showUsefulSites(usefulSitesResponse);
-                                } else {
-                                    mView.showUsefulSitesDataFail();
-                                }
-                            }
-                        }));
-    }
-
 }
