@@ -35,7 +35,12 @@ public interface MainContract {
 
     interface Presenter extends AbstractPresenter<View> {
 
-
+        /**
+         * Set night mode state
+         *
+         * @param b current night mode state
+         */
+        void setNightModeState(boolean b);
     }
 
 }

@@ -45,6 +45,20 @@ public interface ArticleDetailContract {
     interface Presenter extends AbstractPresenter<View> {
 
         /**
+         * Get auto cache state
+         *
+         * @return if auto cache state
+         */
+        boolean getAutoCacheState();
+
+        /**
+         * Get no image state
+         *
+         * @return if has image state
+         */
+        boolean getNoImageState();
+
+        /**
          * Add collect article
          *
          * @param id article id

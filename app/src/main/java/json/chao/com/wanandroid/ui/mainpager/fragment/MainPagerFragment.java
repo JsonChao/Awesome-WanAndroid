@@ -1,5 +1,6 @@
 package json.chao.com.wanandroid.ui.mainpager.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -53,7 +54,7 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
 
     @BindView(R.id.normal_view)
     SmartRefreshLayout mRefreshLayout;
-    @BindView(R.id.recyclerView)
+    @BindView(R.id.main_pager_recycler_view)
     RecyclerView mRecyclerView;
 
     private List<FeedArticleData> mFeedArticleDataList;
@@ -65,6 +66,13 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
     private List<String> mBannerTitleList;
     private List<String> mBannerUrlList;
     private Banner mBanner;
+    private boolean isRecreate;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        isRecreate = getArguments().getBoolean(Constants.ARG_PARAM1);
+    }
 
     @Override
     public void onResume() {
@@ -82,10 +90,10 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
         }
     }
 
-    public static MainPagerFragment getInstance(String param1, String param2) {
+    public static MainPagerFragment getInstance(boolean param1, String param2) {
         MainPagerFragment fragment = new MainPagerFragment();
         Bundle args = new Bundle();
-        args.putString(Constants.ARG_PARAM1, param1);
+        args.putBoolean(Constants.ARG_PARAM1, param1);
         args.putString(Constants.ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
@@ -97,7 +105,7 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
     }
 
     @Override
-    protected int getLayout() {
+    protected int getLayoutId() {
         return R.layout.fragment_main_pager;
     }
 
@@ -152,12 +160,15 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
 
         setRefresh();
         if (!TextUtils.isEmpty(mDataManager.getLoginAccount())
-                && !TextUtils.isEmpty(mDataManager.getLoginPassword())) {
+                && !TextUtils.isEmpty(mDataManager.getLoginPassword())
+                && !isRecreate) {
             mPresenter.loadMainPagerData();
         } else {
             mPresenter.autoRefresh();
         }
-        showLoading();
+        if (CommonUtils.isNetworkConnected()) {
+            showLoading();
+        }
     }
 
     @Override
@@ -183,10 +194,13 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
             return;
         }
         RxBus.getDefault().post(new DismissErrorView());
-        if (mDataManager.getCurrentPage() == Constants.FIRST) {
-            mRefreshLayout.setVisibility(View.VISIBLE);
+        if (mDataManager.getCurrentPage() == Constants.TYPE_MAIN_PAGER) {
+            mRecyclerView.setVisibility(View.VISIBLE);
         } else {
-            mRefreshLayout.setVisibility(View.INVISIBLE);
+            mRecyclerView.setVisibility(View.INVISIBLE);
+        }
+        if (mAdapter == null) {
+            return;
         }
         if (isRefresh) {
             mFeedArticleDataList = feedArticleListResponse.getData().getDatas();
@@ -287,7 +301,7 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
 
     @Override
     public void showError() {
-        mRefreshLayout.setVisibility(View.INVISIBLE);
+        mRecyclerView.setVisibility(View.INVISIBLE);
         RxBus.getDefault().post(new ShowErrorView());
     }
 
@@ -306,7 +320,7 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
 
     public void reLoad() {
         if (mRefreshLayout != null && mPresenter != null
-                && mRefreshLayout.getVisibility() == View.INVISIBLE
+                && mRecyclerView.getVisibility() == View.INVISIBLE
                 && CommonUtils.isNetworkConnected()) {
             mRefreshLayout.autoRefresh();
         }
@@ -328,5 +342,4 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
             refreshLayout.finishLoadMore(1000);
         });
     }
-
 }

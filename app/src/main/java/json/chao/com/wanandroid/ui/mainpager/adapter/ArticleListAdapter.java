@@ -24,6 +24,7 @@ public class ArticleListAdapter extends BaseQuickAdapter<FeedArticleData, Knowle
 
     private boolean isCollectPage;
     private boolean isSearchPage;
+    private boolean isNightMode;
 
     public ArticleListAdapter(int layoutResId, @Nullable List<FeedArticleData> data) {
         super(layoutResId, data);
@@ -39,13 +40,18 @@ public class ArticleListAdapter extends BaseQuickAdapter<FeedArticleData, Knowle
         notifyDataSetChanged();
     }
 
+    public void isNightMode(boolean isNightMode) {
+        this.isNightMode = isNightMode;
+        notifyDataSetChanged();
+    }
+
     @Override
     protected void convert(KnowledgeHierarchyListViewHolder helper, FeedArticleData article) {
         if (!TextUtils.isEmpty(article.getTitle())) {
             helper.setText(R.id.item_search_pager_title, Html.fromHtml(article.getTitle()));
         }
         if (article.isCollect() || isCollectPage) {
-            helper.setImageResource(R.id.item_search_pager_like_iv, R.drawable.icon_like_article_selected);
+            helper.setImageResource(R.id.item_search_pager_like_iv, R.drawable.icon_like);
         } else {
             helper.setImageResource(R.id.item_search_pager_like_iv, R.drawable.icon_like_article_not_selected);
         }
@@ -67,7 +73,11 @@ public class ArticleListAdapter extends BaseQuickAdapter<FeedArticleData, Knowle
         if (isSearchPage) {
             CardView cardView = helper.getView(R.id.item_search_pager_group);
             cardView.setForeground(null);
-            cardView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.selector_search_item_bac));
+            if (isNightMode) {
+                cardView.setBackground(ContextCompat.getDrawable(mContext, R.color.card_color));
+            } else {
+                cardView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.selector_search_item_bac));
+            }
         }
 
         helper.addOnClickListener(R.id.item_search_pager_chapterName);

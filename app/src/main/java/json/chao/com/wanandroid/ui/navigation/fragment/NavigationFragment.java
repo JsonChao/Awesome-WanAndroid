@@ -69,7 +69,7 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
     }
 
     @Override
-    protected int getLayout() {
+    protected int getLayoutId() {
         return R.layout.fragment_navigation;
     }
 
@@ -77,7 +77,9 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
     protected void initEventAndData() {
         super.initEventAndData();
         mPresenter.getNavigationListData();
-        showLoading();
+        if (CommonUtils.isNetworkConnected()) {
+            showLoading();
+        }
     }
 
     @Override
@@ -117,7 +119,7 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
                 return -1;
             }
         });
-        if (mDataManager.getCurrentPage() == Constants.THIRD) {
+        if (mDataManager.getCurrentPage() == Constants.TYPE_NAVIGATION) {
             mNavigationGroup.setVisibility(View.VISIBLE);
             mDivider.setVisibility(View.VISIBLE);
         } else {

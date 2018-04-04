@@ -1,13 +1,14 @@
 package json.chao.com.wanandroid.ui.main.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -67,6 +69,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     ViewStub mErrorView;
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
+    @BindView(R.id.fragment_group)
+    FrameLayout mFrameGroup;
 
     @Inject
     DataManager mDataManager;
@@ -77,6 +81,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private KnowledgeHierarchyFragment mKnowledgeHierarchyFragment;
     private NavigationFragment mNavigationFragment;
     private ProjectFragment mProjectFragment;
+    private CollectFragment mCollectFragment;
+    private SettingFragment mSettingFragment;
     private int mLastFgIndex;
 
     @Override
@@ -98,70 +104,35 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void initEventAndData() {
         initToolbar();
-        initData();
-        initNavigationView();
+    }
 
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationBar);
-        mDataManager.setCurrentPage(Constants.FIRST);
-        bottomNavigationBar.setOnNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.tab_main_pager:
-                    mTitleTv.setText(getString(R.string.home_pager));
-                    switchFragment(0);
-                    mMainPagerFragment.reLoad();
-                    mDataManager.setCurrentPage(Constants.FIRST);
-                    break;
-                case R.id.tab_knowledge_hierarchy:
-                    mTitleTv.setText(getString(R.string.knowledge_hierarchy));
-                    switchFragment(1);
-                    mKnowledgeHierarchyFragment.reLoad();
-                    mDataManager.setCurrentPage(Constants.SECOND);
-                    break;
-                case R.id.tab_navigation:
-                    switchNavigation();
-                    break;
-                case R.id.tab_project:
-                    switchProject();
-                    break;
-                default:
-                    break;
-            }
-            return true;
-        });
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                //获取mDrawerLayout中的第一个子布局，也就是布局中的RelativeLayout
-                //获取抽屉的view
-                View mContent = mDrawerLayout.getChildAt(0);
-                float scale = 1 - slideOffset;
-                float endScale = 0.8f + scale * 0.2f;
-                float startScale = 1 - 0.3f * scale;
-
-                //设置左边菜单滑动后的占据屏幕大小
-                drawerView.setScaleX(startScale);
-                drawerView.setScaleY(startScale);
-                //设置菜单透明度
-                drawerView.setAlpha(0.6f + 0.4f * (1 - scale));
-
-                //设置内容界面水平和垂直方向偏转量
-                //在滑动时内容界面的宽度为 屏幕宽度减去菜单界面所占宽度
-                mContent.setTranslationX(drawerView.getMeasuredWidth() * (1 - scale));
-                //设置内容界面操作无效（比如有button就会点击无效）
-                mContent.invalidate();
-                //设置右边菜单滑动后的占据屏幕大小
-                mContent.setScaleX(endScale);
-                mContent.setScaleY(endScale);
-            }
-        };
-        toggle.syncState();
-        mDrawerLayout.addDrawerListener(toggle);
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mFragments = new ArrayList<>();
+        if (savedInstanceState == null) {
+            mPresenter.setNightModeState(false);
+            mMainPagerFragment = MainPagerFragment.getInstance(false, null);
+            mFragments.add(mMainPagerFragment);
+            initData();
+            init();
+            switchFragment(Constants.TYPE_MAIN_PAGER);
+        } else {
+            bottomNavigationBar.setSelectedItemId(R.id.tab_main_pager);
+            mMainPagerFragment = MainPagerFragment.getInstance(true, null);
+            mFragments.add(mMainPagerFragment);
+            initData();
+            init();
+            switchFragment(Constants.TYPE_SETTING);
+        }
     }
 
     @Override
     public void showError() {
+        mMainPagerFragment.showNormal();
+        mKnowledgeHierarchyFragment.showNormal();
+        mNavigationFragment.showNormal();
+        mProjectFragment.showNormal();
         mErrorView.setVisibility(View.VISIBLE);
         TextView reloadTv = (TextView) findViewById(R.id.error_reload_tv);
         reloadTv.setOnClickListener(v -> {
@@ -260,24 +231,85 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(false);
     }
 
+    private void init() {
+        initNavigationView();
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationBar);
+        mDataManager.setCurrentPage(Constants.TYPE_MAIN_PAGER);
+        bottomNavigationBar.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.tab_main_pager:
+                    mTitleTv.setText(getString(R.string.home_pager));
+                    switchFragment(0);
+                    mMainPagerFragment.reLoad();
+                    mDataManager.setCurrentPage(Constants.TYPE_MAIN_PAGER);
+                    break;
+                case R.id.tab_knowledge_hierarchy:
+                    mTitleTv.setText(getString(R.string.knowledge_hierarchy));
+                    switchFragment(1);
+                    mKnowledgeHierarchyFragment.reLoad();
+                    mDataManager.setCurrentPage(Constants.TYPE_KNOWLEDGE);
+                    break;
+                case R.id.tab_navigation:
+                    switchNavigation();
+                    break;
+                case R.id.tab_project:
+                    switchProject();
+                    break;
+                default:
+                    break;
+            }
+            return true;
+        });
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                //获取mDrawerLayout中的第一个子布局，也就是布局中的RelativeLayout
+                //获取抽屉的view
+                View mContent = mDrawerLayout.getChildAt(0);
+                float scale = 1 - slideOffset;
+                float endScale = 0.8f + scale * 0.2f;
+                float startScale = 1 - 0.3f * scale;
+
+                //设置左边菜单滑动后的占据屏幕大小
+                drawerView.setScaleX(startScale);
+                drawerView.setScaleY(startScale);
+                //设置菜单透明度
+                drawerView.setAlpha(0.6f + 0.4f * (1 - scale));
+
+                //设置内容界面水平和垂直方向偏转量
+                //在滑动时内容界面的宽度为 屏幕宽度减去菜单界面所占宽度
+                mContent.setTranslationX(drawerView.getMeasuredWidth() * (1 - scale));
+                //设置内容界面操作无效（比如有button就会点击无效）
+                mContent.invalidate();
+                //设置右边菜单滑动后的占据屏幕大小
+                mContent.setScaleX(endScale);
+                mContent.setScaleY(endScale);
+            }
+        };
+        toggle.syncState();
+        mDrawerLayout.addDrawerListener(toggle);
+    }
+
     private void jumpToTheTop() {
         switch (mDataManager.getCurrentPage()) {
-            case Constants.FIRST:
+            case Constants.TYPE_MAIN_PAGER:
                 if (mMainPagerFragment != null) {
                     mMainPagerFragment.jumpToTheTop();
                 }
                 break;
-            case Constants.SECOND:
+            case Constants.TYPE_KNOWLEDGE:
                 if (mKnowledgeHierarchyFragment != null) {
                     mKnowledgeHierarchyFragment.jumpToTheTop();
                 }
                 break;
-            case Constants.THIRD:
+            case Constants.TYPE_NAVIGATION:
                 if (mNavigationFragment != null) {
                     mNavigationFragment.jumpToTheTop();
                 }
                 break;
-            case Constants.FOURTH:
+            case Constants.TYPE_PROJECT:
                 if (mProjectFragment != null) {
                     mProjectFragment.jumpToTheTop();
                 }
@@ -293,35 +325,37 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(false);
         mTitleTv.setText(getString(R.string.home_pager));
-        StatusBarUtil.immersive(this, ContextCompat.getColor(this, R.color.transparent), 0.3f);
+        StatusBarUtil.immersive(this);
+        StatusBarUtil.setPaddingSmart(this, mToolbar);
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
     }
 
     private void initData() {
-        mFragments = new ArrayList<>();
-        mMainPagerFragment = MainPagerFragment.getInstance(null, null);
         mKnowledgeHierarchyFragment = KnowledgeHierarchyFragment.getInstance(null, null);
         mNavigationFragment = NavigationFragment.getInstance(null, null);
         mProjectFragment = ProjectFragment.getInstance(null, null);
-        mFragments.add(mMainPagerFragment);
+        mCollectFragment = CollectFragment.getInstance(null, null);
+        mSettingFragment = SettingFragment.getInstance(null, null);
+
         mFragments.add(mKnowledgeHierarchyFragment);
         mFragments.add(mNavigationFragment);
         mFragments.add(mProjectFragment);
-        switchFragment(0);
+        mFragments.add(mCollectFragment);
+        mFragments.add(mSettingFragment);
     }
 
     private void switchProject() {
         mTitleTv.setText(getString(R.string.project));
         switchFragment(3);
         mProjectFragment.reLoad();
-        mDataManager.setCurrentPage(Constants.FOURTH);
+        mDataManager.setCurrentPage(Constants.TYPE_PROJECT);
     }
 
     private void switchNavigation() {
         mTitleTv.setText(getString(R.string.navigation));
         switchFragment(2);
         mNavigationFragment.reLoad();
-        mDataManager.setCurrentPage(Constants.THIRD);
+        mDataManager.setCurrentPage(Constants.TYPE_NAVIGATION);
     }
 
     /**
@@ -330,6 +364,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
      * @param position 要显示的fragment的下标
      */
     private void switchFragment(int position) {
+        if (position >= Constants.TYPE_COLLECT) {
+            mFloatingActionButton.setVisibility(View.INVISIBLE);
+            bottomNavigationBar.setVisibility(View.INVISIBLE);
+        } else {
+            mFloatingActionButton.setVisibility(View.VISIBLE);
+            bottomNavigationBar.setVisibility(View.VISIBLE);
+        }
         if (position >= mFragments.size()) {
             return;
         }
@@ -353,10 +394,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             showLogoutView();
         }
 
+        mNavigationView.getMenu().findItem(R.id.nav_item_wan_android)
+                .setOnMenuItemClickListener(item -> {
+                    startMainPager();
+                    return true;
+                });
         mNavigationView.getMenu().findItem(R.id.nav_item_my_collect)
                 .setOnMenuItemClickListener(item -> {
                     if (mDataManager.getLoginStatus()) {
-                        startActivity(new Intent(this, CollectActivity.class));
+                        startCollectFragment();
                         return true;
                     } else {
                         startActivity(new Intent(this, LoginActivity.class));
@@ -374,6 +420,30 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     logout();
                     return true;
                 });
+        mNavigationView.getMenu().findItem(R.id.nav_item_setting)
+                .setOnMenuItemClickListener(item -> {
+                    startSettingFragment();
+                    return true;
+                });
+    }
+
+    private void startSettingFragment() {
+        mTitleTv.setText(getString(R.string.setting));
+        switchFragment(Constants.TYPE_SETTING);
+        mDrawerLayout.closeDrawers();
+    }
+
+    private void startMainPager() {
+        mTitleTv.setText(getString(R.string.home_pager));
+        bottomNavigationBar.setVisibility(View.VISIBLE);
+        bottomNavigationBar.setSelectedItemId(R.id.tab_main_pager);
+        mDrawerLayout.closeDrawers();
+    }
+
+    private void startCollectFragment() {
+        mTitleTv.setText(getString(R.string.my_collect));
+        switchFragment(Constants.TYPE_COLLECT);
+        mDrawerLayout.closeDrawers();
     }
 
     private void logout() {

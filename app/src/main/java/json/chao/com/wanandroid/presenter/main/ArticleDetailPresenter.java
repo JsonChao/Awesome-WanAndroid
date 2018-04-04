@@ -22,11 +22,22 @@ import json.chao.com.wanandroid.widget.BaseObserver;
 
 public class ArticleDetailPresenter extends BasePresenter<ArticleDetailContract.View> implements ArticleDetailContract.Presenter {
 
-    DataManager mDataManager;
+    private DataManager mDataManager;
 
     @Inject
     ArticleDetailPresenter(DataManager dataManager) {
+        super(dataManager);
         this.mDataManager = dataManager;
+    }
+
+    @Override
+    public boolean getAutoCacheState() {
+        return mDataManager.getAutoCacheState();
+    }
+
+    @Override
+    public boolean getNoImageState() {
+        return mDataManager.getNoImageState();
     }
 
     @Override
@@ -89,5 +100,6 @@ public class ArticleDetailPresenter extends BasePresenter<ArticleDetailContract.
                     }
                 });
     }
+
 
 }

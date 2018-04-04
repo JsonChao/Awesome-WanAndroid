@@ -3,7 +3,6 @@ package json.chao.com.wanandroid.ui.hierarchy.activity;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -36,7 +35,8 @@ import json.chao.com.wanandroid.utils.StatusBarUtil;
  * @date 2018/2/23
  */
 
-public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHierarchyDetailPresenter> implements KnowledgeHierarchyDetailContract.View {
+public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHierarchyDetailPresenter>
+        implements KnowledgeHierarchyDetailContract.View {
 
     @BindView(R.id.common_toolbar)
     Toolbar mToolbar;
@@ -114,7 +114,7 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(false);
-        StatusBarUtil.immersive(this, ContextCompat.getColor(this, R.color.transparent), 0.3f);
+        StatusBarUtil.immersive(this);
         StatusBarUtil.setPaddingSmart(this, mToolbar);
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
         mFragments = new ArrayList<>();

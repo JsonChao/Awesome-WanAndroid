@@ -1,12 +1,10 @@
 package json.chao.com.wanandroid.ui.main.activity;
 
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.TextView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -16,7 +14,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import json.chao.com.wanandroid.R;
-import json.chao.com.wanandroid.base.activity.AbstractRootActivity;
+import json.chao.com.wanandroid.app.Constants;
+import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
 import json.chao.com.wanandroid.contract.main.CollectContract;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
@@ -25,19 +24,15 @@ import json.chao.com.wanandroid.presenter.main.CollectPresenter;
 import json.chao.com.wanandroid.ui.mainpager.adapter.ArticleListAdapter;
 import json.chao.com.wanandroid.utils.CommonUtils;
 import json.chao.com.wanandroid.utils.JudgeUtils;
-import json.chao.com.wanandroid.utils.StatusBarUtil;
+
 
 /**
  * @author quchao
  * @date 2018/2/27
  */
 
-public class CollectActivity extends AbstractRootActivity<CollectPresenter> implements CollectContract.View {
+public class CollectFragment extends AbstractRootFragment<CollectPresenter> implements CollectContract.View {
 
-    @BindView(R.id.common_toolbar)
-    Toolbar mToolbar;
-    @BindView(R.id.common_toolbar_title_tv)
-    TextView mTitleTv;
     @BindView(R.id.normal_view)
     SmartRefreshLayout mRefreshLayout;
     @BindView(R.id.collect_recycler_view)
@@ -52,7 +47,7 @@ public class CollectActivity extends AbstractRootActivity<CollectPresenter> impl
 
     @Override
     protected void initInject() {
-        getActivityComponent().inject(this);
+        getFragmentComponent().inject(this);
     }
 
     @Override
@@ -62,7 +57,6 @@ public class CollectActivity extends AbstractRootActivity<CollectPresenter> impl
 
     @Override
     protected void initEventAndData() {
-        initToolbar();
         initView();
         setRefresh();
     }
@@ -83,19 +77,19 @@ public class CollectActivity extends AbstractRootActivity<CollectPresenter> impl
             mAdapter.addData(feedArticleListResponse.getData().getDatas());
         }
         if (mAdapter.getData().size() == 0) {
-            CommonUtils.showSnackMessage(this, getString(R.string.no_collect));
+            CommonUtils.showSnackMessage(_mActivity, getString(R.string.no_collect));
         }
     }
 
     @Override
     public void showCancelCollectPageArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
         mAdapter.remove(position);
-        CommonUtils.showSnackMessage(this, getString(R.string.cancel_collect_success));
+        CommonUtils.showSnackMessage(_mActivity, getString(R.string.cancel_collect_success));
     }
 
     @Override
     public void showCollectListFail() {
-        CommonUtils.showSnackMessage(this, getString(R.string.failed_to_obtain_collection_data));
+        CommonUtils.showSnackMessage(_mActivity, getString(R.string.failed_to_obtain_collection_data));
     }
 
     @Override
@@ -116,15 +110,13 @@ public class CollectActivity extends AbstractRootActivity<CollectPresenter> impl
         }
     }
 
-    private void initToolbar() {
-        setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        assert actionBar != null;
-        actionBar.setDisplayShowTitleEnabled(false);
-        mTitleTv.setText(getString(R.string.my_collect));
-        StatusBarUtil.immersive(this);
-        StatusBarUtil.setPaddingSmart(this, mToolbar);
-        mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
+    public static CollectFragment getInstance(String param1, String param2) {
+        CollectFragment fragment = new CollectFragment();
+        Bundle args = new Bundle();
+        args.putString(Constants.ARG_PARAM1, param1);
+        args.putString(Constants.ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     private void initView() {
@@ -132,7 +124,7 @@ public class CollectActivity extends AbstractRootActivity<CollectPresenter> impl
         mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mArticles);
         mAdapter.isCollectPage();
         mAdapter.setOnItemClickListener((adapter, view, position) ->
-                JudgeUtils.startArticleDetailActivity(this,
+                JudgeUtils.startArticleDetailActivity(_mActivity,
                 mAdapter.getData().get(position).getId(),
                 mAdapter.getData().get(position).getTitle(),
                 mAdapter.getData().get(position).getLink(),
@@ -143,7 +135,7 @@ public class CollectActivity extends AbstractRootActivity<CollectPresenter> impl
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
                 case R.id.item_search_pager_chapterName:
-                    JudgeUtils.startKnowledgeHierarchyDetailActivity(this,
+                    JudgeUtils.startKnowledgeHierarchyDetailActivity(_mActivity,
                             true,
                             mAdapter.getData().get(position).getChapterName(),
                             mAdapter.getData().get(position).getChapterName(),
@@ -159,11 +151,12 @@ public class CollectActivity extends AbstractRootActivity<CollectPresenter> impl
 
         });
         mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
         mPresenter.getCollectList(mCurrentPage);
     }
 
     private void setRefresh() {
+        mRefreshLayout.setPrimaryColorsId(Constants.BLUE_THEME, R.color.white);
         mRefreshLayout.setOnRefreshListener(refreshLayout -> {
             showRefreshEvent();
             refreshLayout.finishRefresh(1000);

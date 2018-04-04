@@ -166,10 +166,15 @@ public class UsageDialogFragment extends BaseDialogFragment<UsageDialogPresenter
 
     private void initToolbar() {
         mTitleTv.setText(R.string.useful_sites);
-        mTitleTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.title_black));
-        StatusBarUtil.immersive(getActivity().getWindow(), ContextCompat.getColor(getActivity(), R.color.transparent), 0.3f);
-        mToolbar.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
-        mToolbar.setNavigationIcon(ContextCompat.getDrawable(getActivity(), R.drawable.ic_arrow_back_grey_24dp));
+        if (mPresenter.getNightModeState()) {
+            mTitleTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.comment_text));
+            mToolbar.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorCard));
+            mToolbar.setNavigationIcon(ContextCompat.getDrawable(getActivity(), R.drawable.ic_arrow_back_white_24dp));
+        } else {
+            mTitleTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.title_black));
+            mToolbar.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
+            mToolbar.setNavigationIcon(ContextCompat.getDrawable(getActivity(), R.drawable.ic_arrow_back_grey_24dp));
+        }
         mToolbar.setNavigationOnClickListener(v -> mCircularRevealAnim.hide(mTitleTv, mRootView));
     }
 

@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/normal_view"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:visibility="invisible">
+    android:background="@color/colorCard">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/knowledge_hierarchy_recycler_view"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/normal_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:background="@color/colorBackground" />
+        android:layout_height="match_parent">
 
-    <com.scwang.smartrefresh.header.TaurusHeader
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/knowledge_hierarchy_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:background="@color/colorBackground"
+            android:visibility="invisible" />
+
+        <com.scwang.smartrefresh.header.TaurusHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</FrameLayout>

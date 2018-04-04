@@ -16,13 +16,14 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
-            android:background="@color/grey_divider" />
+            android:background="@color/comment_line" />
     </android.support.design.widget.AppBarLayout>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/search_list_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:srlPrimaryColor="@color/colorPrimary"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <com.scwang.smartrefresh.header.BezierCircleHeader
@@ -37,8 +38,8 @@
                 android:id="@+id/normal_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scrollbars="none"
-                android:background="@color/colorBackground" />
+                android:background="@color/colorBackground"
+                android:scrollbars="none" />
         </FrameLayout>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 

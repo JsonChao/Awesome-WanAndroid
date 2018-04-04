@@ -23,6 +23,7 @@ public class SplashPresenter extends BasePresenter<SplashContract.View> implemen
 
     @Inject
     SplashPresenter(DataManager dataManager) {
+        super(dataManager);
         this.dataManager = dataManager;
     }
 

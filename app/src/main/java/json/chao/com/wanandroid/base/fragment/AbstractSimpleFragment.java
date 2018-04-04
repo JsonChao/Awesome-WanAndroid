@@ -33,7 +33,7 @@ public abstract class AbstractSimpleFragment extends SupportFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(getLayout(), container, false);
+        View view = inflater.inflate(getLayoutId(), container, false);
         unBinder = ButterKnife.bind(this, view);
         mCompositeDisposable = new CompositeDisposable();
 
@@ -92,7 +92,7 @@ public abstract class AbstractSimpleFragment extends SupportFragment {
      *
      * @return 布局id
      */
-    protected abstract int getLayout();
+    protected abstract int getLayoutId();
 
     /**
      * 初始化数据

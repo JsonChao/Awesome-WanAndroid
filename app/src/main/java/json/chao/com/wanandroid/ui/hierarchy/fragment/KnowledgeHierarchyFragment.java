@@ -2,6 +2,7 @@ package json.chao.com.wanandroid.ui.hierarchy.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -56,7 +57,7 @@ public class KnowledgeHierarchyFragment extends AbstractRootFragment<KnowledgeHi
     }
 
     @Override
-    protected int getLayout() {
+    protected int getLayoutId() {
         return R.layout.fragment_knowledge_hierarchy;
     }
 
@@ -73,7 +74,9 @@ public class KnowledgeHierarchyFragment extends AbstractRootFragment<KnowledgeHi
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
         mPresenter.getKnowledgeHierarchyData();
-        showLoading();
+        if (CommonUtils.isNetworkConnected()) {
+            showLoading();
+        }
     }
 
     @Override
@@ -88,10 +91,10 @@ public class KnowledgeHierarchyFragment extends AbstractRootFragment<KnowledgeHi
             return;
         }
         RxBus.getDefault().post(new DismissErrorView());
-        if (mDataManager.getCurrentPage() == Constants.SECOND) {
-            mRefreshLayout.setVisibility(View.VISIBLE);
+        if (mDataManager.getCurrentPage() == 1) {
+            mRecyclerView.setVisibility(View.VISIBLE);
         } else {
-            mRefreshLayout.setVisibility(View.INVISIBLE);
+            mRecyclerView.setVisibility(View.INVISIBLE);
         }
         mKnowledgeHierarchyDataList = knowledgeHierarchyResponse.getData();
         mAdapter.replaceData(mKnowledgeHierarchyDataList);
@@ -105,12 +108,12 @@ public class KnowledgeHierarchyFragment extends AbstractRootFragment<KnowledgeHi
 
     @Override
     public void showError() {
-        mRefreshLayout.setVisibility(View.INVISIBLE);
+        mRecyclerView.setVisibility(View.INVISIBLE);
         RxBus.getDefault().post(new ShowErrorView());
     }
 
     public void reLoad() {
-        if (mPresenter != null && mRefreshLayout.getVisibility() == View.INVISIBLE) {
+        if (mPresenter != null && mRecyclerView.getVisibility() == View.INVISIBLE) {
             mPresenter.getKnowledgeHierarchyData();
         }
     }

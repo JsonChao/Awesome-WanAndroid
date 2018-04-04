@@ -1,18 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    //relative to night
     <color name="colorPrimary">#00abff</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorPrimaryOverlay">#cc0094ff</color>
+    <color name="colorBackground">#EEEEEE</color>
+    <color name="colorCard">#FFFFFF</color>
+    <color name="colorText">#2C2C2C</color>
+    <color name="colorLogo">#FED530</color>
+
+    <color name="fab_bg">#FF4081</color>
+    <color name="drawer_item_bg_p">#e8e8e8</color>
+    <color name="drawer_item_bg_n">#fffff9</color>
+    <color name="news_unread">#000000</color>
+    <color name="news_read">#898989</color>
+
+    <color name="comment_text">#5b5d5c</color>
+    <color name="setting_text">#5b5d5c</color>
+    <color name="comment_reply">#9ba4a3</color>
+    <color name="comment_btn">#bfbfbf</color>
+    <color name="comment_line">#dddddd</color>
+    <color name="comment_at">#5d8698</color>
+    <color name="gold_title">#3F51B5</color>
+    <color name="topic_text">#afafaf</color>
+    <color name="grey_search">#FF999999</color>
+    <color name="colorPrimaryOverlay">#00abff</color>
+    <color name="delete_text">#cccccc</color>
+    <color name="deep_grey">#e6e6e6</color>
+    <color name="dialog_background">#ffffff</color>
+    <color name="yellow">#f39c12</color>
+
+
+    //other
+    <color name="card_color">#202124</color>
     <color name="not_network_bac">#33ffffff</color>
     <color name="grey">#cccccc</color>
-    <color name="deep_grey">#e6e6e6</color>
+
     <color name="grey_bg">#EDEDED</color>
     <color name="blue_dark_btn">#009eff</color>
     <color name="blue_btn">#35B0FF</color>
     <color name="card_bac">#f7f3f3</color>
-    <color name="colorBackground">#EEEEEE</color>
-    <color name="grey_search">#FF999999</color>
     <color name="light_light_yellow">#dcd3ba</color>
     <color name="light_yellow">#e7c054</color>
     <color name="light_red">#e26d2e</color>
@@ -37,7 +64,6 @@
     <color name="grey_divider">#E5E5E5</color>
     <color name="blue">#3F9FE0</color>
     <color name="deep_blue">#0539be</color>
-    <color name="yellow">#f39c12</color>
     <color name="grey_bar">#ECECEC</color>
     <color name="light_green">#3fc75f</color>
     <color name="light_blue">#bf33efcd</color>

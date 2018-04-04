@@ -126,8 +126,8 @@
 
     <style name="style_line">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/dp_1</item>
-        <item name="android:background">@color/grey_divider</item>
+        <item name="android:layout_height">@dimen/dp_05</item>
+        <item name="android:background">@color/delete_text</item>
     </style>
 
 

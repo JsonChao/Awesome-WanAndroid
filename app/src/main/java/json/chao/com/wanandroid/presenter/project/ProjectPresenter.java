@@ -23,6 +23,7 @@ public class ProjectPresenter extends BasePresenter<ProjectContract.View> implem
 
     @Inject
     ProjectPresenter(DataManager dataManager) {
+        super(dataManager);
         this.mDataManager = dataManager;
     }
 

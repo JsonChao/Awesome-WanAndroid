@@ -52,6 +52,10 @@ public abstract class BaseFragment<T extends AbstractPresenter> extends Abstract
     }
 
     @Override
+    public void useNightMode(boolean isNightMode) {
+    }
+
+    @Override
     public void showErrorMsg(String errorMsg) {
         if (isAdded()) {
             CommonUtils.showSnackMessage(_mActivity, errorMsg);

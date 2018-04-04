@@ -23,6 +23,7 @@ public class KnowledgeHierarchyDetailPresenter extends BasePresenter<KnowledgeHi
 
     @Inject
     KnowledgeHierarchyDetailPresenter(DataManager dataManager) {
+        super(dataManager);
         this.mDataManager = dataManager;
     }
 

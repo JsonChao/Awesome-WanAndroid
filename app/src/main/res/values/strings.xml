@@ -86,5 +86,16 @@
     <string name="clear_all">Clear all</string>
     <string name="search_null_tint">find some dry goods *≧▽≦*</string>
 
+    //Setting
+    <string name="setting_normal">General settings</string>
+    <string name="setting_cache">Automatic cache</string>
+    <string name="setting_image">No Pic model</string>
+    <string name="setting_night">Night mode</string>
+    <string name="setting_other">Other settings</string>
+    <string name="setting_feedback">Feedback</string>
+    <string name="setting_clear">Clear cache</string>
+    <string name="setting">Setting</string>
+    <string name="send_email">Select the email client:</string>
+
 
 </resources>

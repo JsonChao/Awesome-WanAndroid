@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/project_list_refresh_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    app:srlPrimaryColor="@color/colorPrimary">
 
     <com.scwang.smartrefresh.header.DropboxHeader
         android:layout_width="match_parent"

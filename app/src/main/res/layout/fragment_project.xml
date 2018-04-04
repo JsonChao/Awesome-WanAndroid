@@ -1,40 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/normal_view"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/colorCard">
 
-    <com.flyco.tablayout.SlidingTabLayout
-        android:id="@+id/project_tab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_48"
-        android:background="@color/white"
-        android:paddingLeft="@dimen/dp_5"
-        android:paddingRight="@dimen/dp_5"
-        app:tl_indicator_color="@color/light_red"
-        app:tl_textSelectColor="@color/white"
-        app:tl_textUnselectColor="@color/grey"
-        app:tl_divider_color="@color/light_red"
-        app:tl_divider_width="@dimen/dp_1"
-        app:tl_divider_padding="@dimen/dp_10"
-        app:tl_indicator_corner_radius="@dimen/dp_5"
-        app:tl_indicator_margin_left="@dimen/dp_5"
-        app:tl_indicator_margin_right="@dimen/dp_5"
-        app:tl_indicator_style="BLOCK"
-        android:visibility="invisible" />
-
-    <View
-        android:id="@+id/project_divider"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_1"
-        android:background="@color/grey_divider"
-        android:visibility="invisible" />
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/project_viewpager"
+    <LinearLayout
+        android:id="@+id/normal_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible" />
-</LinearLayout>
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
+
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/project_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_48"
+            android:background="@color/colorCard"
+            android:paddingLeft="@dimen/dp_5"
+            android:paddingRight="@dimen/dp_5"
+            app:tl_indicator_color="@color/light_red"
+            app:tl_textSelectColor="@color/white"
+            app:tl_textUnselectColor="@color/grey"
+            app:tl_divider_color="@color/light_red"
+            app:tl_divider_width="@dimen/dp_1"
+            app:tl_divider_padding="@dimen/dp_10"
+            app:tl_indicator_corner_radius="@dimen/dp_5"
+            app:tl_indicator_margin_left="@dimen/dp_5"
+            app:tl_indicator_margin_right="@dimen/dp_5"
+            app:tl_indicator_style="BLOCK"
+            android:visibility="invisible" />
+
+        <View
+            android:id="@+id/project_divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/comment_line"
+            android:visibility="invisible" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/project_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible" />
+    </LinearLayout>
+</FrameLayout>

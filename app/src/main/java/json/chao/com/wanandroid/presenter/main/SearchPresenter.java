@@ -27,6 +27,7 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
 
     @Inject
     SearchPresenter(DataManager dataManager) {
+        super(dataManager);
         this.mDataManager = dataManager;
     }
 

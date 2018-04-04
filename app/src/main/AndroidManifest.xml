@@ -54,11 +54,6 @@
             android:launchMode="singleTask"
             android:exported="false" />
 
-        <activity android:name="json.chao.com.wanandroid.ui.main.activity.CollectActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"
-            android:exported="false" />
-
         <activity android:name="json.chao.com.wanandroid.ui.main.activity.AboutUsActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"

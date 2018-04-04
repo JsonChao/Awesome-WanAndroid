@@ -7,5 +7,5 @@
     <stroke android:width="@dimen/dp_1"
         android:color="@color/white" />
 
-    <solid android:color="@color/colorBackground" />
+    <solid android:color="@color/common_touch_bg" />
 </shape>

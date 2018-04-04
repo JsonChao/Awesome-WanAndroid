@@ -2,6 +2,7 @@ package json.chao.com.wanandroid.app;
 
 
 import android.graphics.Color;
+import android.os.Environment;
 
 import java.io.File;
 
@@ -19,20 +20,25 @@ public class Constants {
     /**
      * Path
      */
-    private static final String PATH_DATA = GeeksApp.getInstance().getCacheDir().getAbsolutePath() + File.separator + "data";
+    public static final String PATH_DATA = GeeksApp.getInstance().getCacheDir().getAbsolutePath() + File.separator + "data";
 
     public static final String PATH_CACHE = PATH_DATA + "/NetCache";
 
     /**
      * Tag fragment classify
      */
-    public static final int FIRST = 0;
+    public static final int TYPE_MAIN_PAGER = 0;
 
-    public static final int SECOND = 1;
+    public static final int TYPE_KNOWLEDGE = 1;
 
-    public static final int THIRD = 2;
+    public static final int TYPE_NAVIGATION = 2;
 
-    public static final int FOURTH = 3;
+    public static final int TYPE_PROJECT = 3;
+
+    public static final int TYPE_COLLECT = 4;
+
+    public static final int TYPE_SETTING = 5;
+
 
     /**
      * Bottom Navigation tab classify
@@ -104,6 +110,11 @@ public class Constants {
 
     public static final String SUPER_CHAPTER_NAME = "super_chapter_name";
 
+    static final String DB_NAME = "aws_wan_android.db";
+
+    public static final String CURRENT_PAGE = "current_page";
+
+    public static final String PROJECT_CURRENT_PAGE = "project_current_page";
 
     /**
      * Shared Preference key
@@ -114,12 +125,13 @@ public class Constants {
 
     public static final String LOGIN_STATUS = "login_status";
 
+    public static final String AUTO_CACHE_STATE = "auto_cache_state";
 
-    static final String DB_NAME = "aws_wan_android.db";
+    public static final String NO_IMAGE_STATE = "no_image_state";
 
-    public static final String CURRENT_PAGE = "current_page";
+    public static final String NIGHT_MODE_STATE = "night_mode_state";
 
-    public static final String PROJECT_CURRENT_PAGE = "project_current_page";
+
 
 
 }

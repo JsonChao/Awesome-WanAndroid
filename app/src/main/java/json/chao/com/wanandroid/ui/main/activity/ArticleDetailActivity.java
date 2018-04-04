@@ -9,6 +9,8 @@ import android.text.Html;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
@@ -62,7 +64,6 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
     protected void onPause() {
         mAgentWeb.getWebLifeCycle().onPause();
         super.onPause();
-
     }
 
     @Override
@@ -94,11 +95,46 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
         mAgentWeb = AgentWeb.with(this)
                 .setAgentWebParent(mWebContent, new LinearLayout.LayoutParams(-1, -1))
                 .useDefaultIndicator()
-                .defaultProgressBarColor() // 使用默认进度条颜色
                 .setMainFrameErrorView(R.layout.webview_error_view, -1)
                 .createAgentWeb()
                 .ready()
                 .go(articleLink);
+
+        WebView mWebView = mAgentWeb.getWebCreator().getWebView();
+        WebSettings mSettings = mWebView.getSettings();
+        if (mPresenter.getNoImageState()) {
+            mSettings.setBlockNetworkImage(true);
+        } else {
+            mSettings.setBlockNetworkImage(false);
+        }
+        if (mPresenter.getAutoCacheState()) {
+            mSettings.setAppCacheEnabled(true);
+            mSettings.setDomStorageEnabled(true);
+            mSettings.setDatabaseEnabled(true);
+            if (CommonUtils.isNetworkConnected()) {
+                mSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
+            } else {
+                mSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+            }
+        } else {
+            mSettings.setAppCacheEnabled(false);
+            mSettings.setDomStorageEnabled(false);
+            mSettings.setDatabaseEnabled(false);
+            mSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        }
+
+        mSettings.setJavaScriptEnabled(true);
+        mSettings.setSupportZoom(true);
+        mSettings.setBuiltInZoomControls(true);
+        //不显示缩放按钮
+        mSettings.setDisplayZoomControls(false);
+        //设置自适应屏幕，两者合用
+        //将图片调整到适合WebView的大小
+        mSettings.setUseWideViewPort(true);
+        //缩放至屏幕的大小
+        mSettings.setLoadWithOverviewMode(true);
+        //自适应屏幕
+        mSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
     }
 
     @Override

@@ -26,6 +26,7 @@ public class ProjectListPresenter extends BasePresenter<ProjectListContract.View
 
     @Inject
     ProjectListPresenter(DataManager dataManager) {
+        super(dataManager);
         this.mDataManager = dataManager;
     }
 

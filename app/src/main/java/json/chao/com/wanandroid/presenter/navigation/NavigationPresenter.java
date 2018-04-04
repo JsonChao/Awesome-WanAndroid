@@ -23,6 +23,7 @@ public class NavigationPresenter extends BasePresenter<NavigationContract.View> 
 
     @Inject
     NavigationPresenter(DataManager dataManager) {
+        super(dataManager);
         this.mDataManager = dataManager;
     }
 

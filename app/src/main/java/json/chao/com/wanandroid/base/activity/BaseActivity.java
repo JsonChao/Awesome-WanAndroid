@@ -1,5 +1,7 @@
 package json.chao.com.wanandroid.base.activity;
 
+import android.support.v7.app.AppCompatDelegate;
+
 import javax.inject.Inject;
 
 import json.chao.com.wanandroid.R;
@@ -45,6 +47,18 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
         if (mPresenter != null) {
             mPresenter.attachView(this);
         }
+    }
+
+    @Override
+    public void useNightMode(boolean isNight) {
+        if (isNight) {
+            AppCompatDelegate.setDefaultNightMode(
+                    AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(
+                    AppCompatDelegate.MODE_NIGHT_NO);
+        }
+        recreate();
     }
 
     @Override

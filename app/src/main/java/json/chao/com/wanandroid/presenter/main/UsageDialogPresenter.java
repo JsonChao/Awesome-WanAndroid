@@ -19,10 +19,11 @@ import json.chao.com.wanandroid.widget.BaseObserver;
 
 public class UsageDialogPresenter extends BasePresenter<UsageDialogContract.View> implements UsageDialogContract.Presenter {
 
-    DataManager mDataManager;
+    private DataManager mDataManager;
 
     @Inject
     UsageDialogPresenter(DataManager dataManager) {
+        super(dataManager);
         mDataManager = dataManager;
     }
 

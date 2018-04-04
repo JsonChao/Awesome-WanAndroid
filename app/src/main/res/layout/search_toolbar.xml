@@ -3,7 +3,7 @@
     android:id="@+id/search_toolbar"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp_56"
-    android:background="@color/white"
+    android:background="@color/colorCard"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     app:layout_scrollFlags="scroll|enterAlways">
@@ -41,7 +41,7 @@
             android:layout_marginEnd="@dimen/dp_12"
             android:inputType="text"
             android:labelFor="@id/search_edit"
-            android:textColor="@color/grey_search"
+            android:textColor="@color/title_black"
             android:textCursorDrawable="@drawable/shape_cursor"
             android:textSize="@dimen/sp_14"
             android:paddingStart="@dimen/dp_27"

@@ -66,7 +66,7 @@ public class ProjectFragment extends AbstractRootFragment<ProjectPresenter> impl
     }
 
     @Override
-    protected int getLayout() {
+    protected int getLayoutId() {
         return R.layout.fragment_project;
     }
 
@@ -76,7 +76,9 @@ public class ProjectFragment extends AbstractRootFragment<ProjectPresenter> impl
         mFragments = new ArrayList<>();
         mPresenter.getProjectClassifyData();
         currentPage = mDataManager.getProjectCurrentPage();
-        showLoading();
+        if (CommonUtils.isNetworkConnected()) {
+            showLoading();
+        }
     }
 
     @Override
@@ -91,7 +93,7 @@ public class ProjectFragment extends AbstractRootFragment<ProjectPresenter> impl
             return;
         }
         RxBus.getDefault().post(new DismissErrorView());
-        if (mDataManager.getCurrentPage() == Constants.FOURTH) {
+        if (mDataManager.getCurrentPage() == Constants.TYPE_PROJECT) {
             mTabLayout.setVisibility(View.VISIBLE);
             mDivider.setVisibility(View.VISIBLE);
             mViewPager.setVisibility(View.VISIBLE);

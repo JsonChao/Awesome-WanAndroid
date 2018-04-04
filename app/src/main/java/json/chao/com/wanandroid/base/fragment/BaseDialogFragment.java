@@ -57,6 +57,10 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
     }
 
     @Override
+    public void useNightMode(boolean isNightMode) {
+    }
+
+    @Override
     public void showNormal() {
 
     }

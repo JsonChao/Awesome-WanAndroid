@@ -24,6 +24,7 @@ public class CollectPresenter extends BasePresenter<CollectContract.View> implem
 
     @Inject
     CollectPresenter(DataManager dataManager) {
+        super(dataManager);
         mDataManager = dataManager;
     }
 

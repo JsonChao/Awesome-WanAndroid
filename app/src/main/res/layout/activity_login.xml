@@ -106,7 +106,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/or"
-        android:textColor="@color/common_black_bac"
+        android:textColor="@color/comment_text"
         android:textSize="@dimen/sp_16"
         android:layout_above="@id/login_register_btn"
         android:layout_centerHorizontal="true"

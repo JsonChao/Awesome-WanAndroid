@@ -4,7 +4,7 @@
     android:id="@+id/about_us_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/colorBackground"
     android:clipToPadding="false"
     android:paddingTop="@dimen/dp_25"
     tools:showIn="@layout/activity_about_us">
@@ -26,7 +26,7 @@
             android:gravity="center"
             android:text="@string/awesome_wan_android"
             android:textAllCaps="false"
-            android:textColor="@color/title_black"
+            android:textColor="@color/comment_text"
             android:textSize="@dimen/sp_16" />
 
         <TextView
@@ -34,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_16"
-            tools:text="@string/about_content" />
+            tools:text="@string/about_content"
+            android:textColor="@color/comment_text" />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

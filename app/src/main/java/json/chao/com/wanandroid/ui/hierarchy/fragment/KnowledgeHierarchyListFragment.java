@@ -62,7 +62,7 @@ public class KnowledgeHierarchyListFragment extends AbstractRootFragment<Knowled
     }
 
     @Override
-    protected int getLayout() {
+    protected int getLayoutId() {
         return R.layout.fragment_knowledge_hierarchy_list;
     }
 
@@ -111,7 +111,9 @@ public class KnowledgeHierarchyListFragment extends AbstractRootFragment<Knowled
         });
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
-        showLoading();
+        if (CommonUtils.isNetworkConnected()) {
+            showLoading();
+        }
     }
 
     @Override

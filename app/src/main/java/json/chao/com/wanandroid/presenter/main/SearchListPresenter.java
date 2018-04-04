@@ -20,11 +20,11 @@ import json.chao.com.wanandroid.widget.BaseObserver;
 
 public class SearchListPresenter extends BasePresenter<SearchListContract.View> implements SearchListContract.Presenter {
 
-
     private DataManager mDataManager;
 
     @Inject
     SearchListPresenter(DataManager dataManager) {
+        super(dataManager);
         this.mDataManager = dataManager;
     }
 
@@ -42,6 +42,11 @@ public class SearchListPresenter extends BasePresenter<SearchListContract.View> 
         addSubscribe(RxBus.getDefault().toFlowable(CollectEvent.class)
                 .filter(CollectEvent::isCancelCollectSuccess)
                 .subscribe(collectEvent -> mView.showCancelCollectSuccess()));
+    }
+
+    @Override
+    public boolean getNightModeState() {
+        return mDataManager.getNightModeState();
     }
 
     @Override

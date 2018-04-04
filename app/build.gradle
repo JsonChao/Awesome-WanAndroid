@@ -20,8 +20,8 @@ android {
         applicationId "json.chao.com.wanandroid"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 3
+        versionName "1.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         renderscriptTargetApi 21
         renderscriptSupportModeEnabled true    // Enable RS support
@@ -79,7 +79,7 @@ dependencies {
     compile "com.flyco.tablayout:FlycoTabLayout_Lib:$rootProject.tablayoutVersion"
     compile "q.rorbin:VerticalTabLayout:$rootProject.verticalTabLayoutVersion"
     compile "com.hyman:flowlayout-lib:$rootProject.flowlayoutVersion"
-    compile 'com.just.agentweb:agentweb:3.1.0'
+    compile 'com.just.agentweb:agentweb:4.0.2'
 
     //net
     compile "com.google.code.gson:gson:$rootProject.gsonVersion"

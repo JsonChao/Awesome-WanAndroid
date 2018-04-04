@@ -115,7 +115,6 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     
     @Override
     protected void initEventAndData() {
-        StatusBarUtil.immersive(getActivity().getWindow(), ContextCompat.getColor(getActivity(), R.color.transparent), 0.3f);
         initCircleAnimation();
         mTopSearchDataList = new ArrayList<>();
         mSearchEdit.addTextChangedListener(new TextWatcher() {
@@ -276,19 +275,30 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     }
 
     private void setHistoryTvStatus(boolean isClearAll) {
+        Drawable drawable;
         mClearAllHistoryTv.setEnabled(!isClearAll);
         if (isClearAll) {
             mHistoryNullTintTv.setVisibility(View.VISIBLE);
-            Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_all_gone);
+            if (mPresenter.getNightModeState()) {
+                mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
+                drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_all_gone_night);
+            } else {
+                mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.grey));
+                drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_all_gone);
+            }
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             mClearAllHistoryTv.setCompoundDrawables(drawable, null, null, null);
-            mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.grey));
         } else {
             mHistoryNullTintTv.setVisibility(View.GONE);
-            Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_all);
+            if (mPresenter.getNightModeState()) {
+                mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.grey_divider));
+                drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_all_gone_night);
+            } else {
+                mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.title_black));
+                drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_all);
+            }
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             mClearAllHistoryTv.setCompoundDrawables(drawable, null, null, null);
-            mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.title_black));
         }
         mClearAllHistoryTv.setCompoundDrawablePadding(CommonUtils.dp2px(6));
     }

@@ -17,12 +17,14 @@ import json.chao.com.wanandroid.widget.BaseObserver;
  * @date 2017/12/7
  */
 
-public class KnowledgeHierarchyPresenter extends BasePresenter<KnowledgeHierarchyContract.View> implements KnowledgeHierarchyContract.Presenter {
+public class KnowledgeHierarchyPresenter extends BasePresenter<KnowledgeHierarchyContract.View>
+        implements KnowledgeHierarchyContract.Presenter {
 
     private DataManager mDataManager;
 
     @Inject
     KnowledgeHierarchyPresenter(DataManager dataManager) {
+        super(dataManager);
         this.mDataManager = dataManager;
     }
 
@@ -41,4 +43,6 @@ public class KnowledgeHierarchyPresenter extends BasePresenter<KnowledgeHierarch
                             }
                         }));
     }
+
+
 }

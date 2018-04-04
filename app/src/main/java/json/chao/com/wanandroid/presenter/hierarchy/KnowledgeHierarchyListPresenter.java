@@ -27,6 +27,7 @@ public class KnowledgeHierarchyListPresenter extends BasePresenter<KnowledgeHier
 
     @Inject
     KnowledgeHierarchyListPresenter(DataManager dataManager) {
+        super(dataManager);
         this.mDataManager = dataManager;
     }
 

@@ -3,6 +3,7 @@ package json.chao.com.wanandroid.base.presenter;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import json.chao.com.wanandroid.base.view.BaseView;
+import json.chao.com.wanandroid.core.DataManager;
 
 /**
  * Base Presenter
@@ -16,6 +17,11 @@ public class BasePresenter<T extends BaseView> implements AbstractPresenter<T> {
 
     protected T mView;
     private CompositeDisposable compositeDisposable;
+    private DataManager mDataManager;
+
+    public BasePresenter(DataManager dataManager) {
+        mDataManager = dataManager;
+    }
 
     protected void addSubscribe(Disposable disposable) {
         if (compositeDisposable == null) {
@@ -35,6 +41,11 @@ public class BasePresenter<T extends BaseView> implements AbstractPresenter<T> {
         if (compositeDisposable != null) {
             compositeDisposable.clear();
         }
+    }
+
+    @Override
+    public boolean getNightModeState() {
+        return mDataManager.getNightModeState();
     }
 
 }

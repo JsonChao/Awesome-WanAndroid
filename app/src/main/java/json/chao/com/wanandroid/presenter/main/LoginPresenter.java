@@ -23,6 +23,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
 
     @Inject
     LoginPresenter(DataManager dataManager) {
+        super(dataManager);
         mDataManager = dataManager;
     }
 

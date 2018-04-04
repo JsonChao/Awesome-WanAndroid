@@ -12,7 +12,7 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/white"
+    app:cardBackgroundColor="@color/colorCard"
     app:cardCornerRadius="@dimen/dp_3"
     app:cardElevation="@dimen/dp_2">
 
@@ -35,7 +35,7 @@
                 android:drawableStart="@mipmap/icon_author"
                 android:gravity="center"
                 tools:text="Carson_Ho"
-                android:textColor="@color/title_black"
+                android:textColor="@color/comment_text"
                 android:layout_centerVertical="true" />
 
             <TextView
@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="四大组件/handler"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorPrimaryOverlay"
                 android:gravity="end"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Android Handler: 手把手带你深入分析Handler机制源码"
-            android:textColor="@color/title_black"
+            android:textColor="@color/comment_text"
             android:textSize="@dimen/sp_16"
             android:gravity="center"
             android:layout_gravity="center"
@@ -94,7 +94,7 @@
                 android:drawablePadding="@dimen/dp_5"
                 android:layout_marginStart="@dimen/dp_12"
                 tools:text="14小时之前"
-                android:textColor="@color/grey"
+                android:textColor="@color/comment_text"
                 android:gravity="center_vertical"
                 android:layout_toEndOf="@id/item_search_pager_like_iv"
                 android:layout_toStartOf="@id/item_search_pager_tag_tv" />

@@ -50,7 +50,7 @@ public class ProjectListFragment extends BaseFragment<ProjectListPresenter> impl
     }
 
     @Override
-    protected int getLayout() {
+    protected int getLayoutId() {
         return R.layout.fragment_project_list;
     }
 

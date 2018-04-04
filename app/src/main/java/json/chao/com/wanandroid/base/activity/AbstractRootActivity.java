@@ -14,7 +14,7 @@ import json.chao.com.wanandroid.base.presenter.BasePresenter;
  * @date 2018/3/30
  */
 
-public abstract class AbstractRootActivity<T extends BasePresenter> extends BaseActivity<T>{
+public abstract class AbstractRootActivity<T extends BasePresenter> extends BaseActivity<T> {
 
     private static final int NORMAL_STATE = 0;
     private static final int LOADING_STATE = 1;
@@ -22,7 +22,6 @@ public abstract class AbstractRootActivity<T extends BasePresenter> extends Base
     private LottieAnimationView mLoadingAnimation;
     private View mLoadingView;
     private ViewGroup mNormalView;
-    private ViewGroup mParent;
 
     private int currentState = NORMAL_STATE;
 
@@ -37,12 +36,20 @@ public abstract class AbstractRootActivity<T extends BasePresenter> extends Base
             throw new IllegalStateException(
                     "mNormalView's ParentView should be a ViewGroup.");
         }
-        mParent = (ViewGroup) mNormalView.getParent();
-        View.inflate(this, R.layout.loading_view, mParent);
-        mLoadingView = mParent.findViewById(R.id.loading_group);
+        ViewGroup parent = (ViewGroup) mNormalView.getParent();
+        View.inflate(this, R.layout.loading_view, parent);
+        mLoadingView = parent.findViewById(R.id.loading_group);
         mLoadingAnimation = (LottieAnimationView) mLoadingView.findViewById(R.id.loading_animation);
         mLoadingView.setVisibility(View.GONE);
         mNormalView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mLoadingAnimation != null) {
+            mLoadingAnimation.cancelAnimation();
+        }
+        super.onDestroy();
     }
 
     @Override

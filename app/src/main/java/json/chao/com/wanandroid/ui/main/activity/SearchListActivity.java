@@ -77,6 +77,7 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
         mArticleList = new ArrayList<>();
         mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mArticleList);
         mAdapter.isSearchPage();
+        mAdapter.isNightMode(mPresenter.getNightModeState());
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
             articlePosition = position;
             JudgeUtils.startArticleDetailActivity(this,
@@ -117,7 +118,9 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         setRefresh();
-        showLoading();
+        if (CommonUtils.isNetworkConnected()) {
+            showLoading();
+        }
     }
 
     @Override
@@ -195,12 +198,18 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
         searchText = ((String) bundle.get(Constants.SEARCH_TEXT));
         if (!TextUtils.isEmpty(searchText)) {
             mTitleTv.setText(searchText);
-            mTitleTv.setTextColor(ContextCompat.getColor(this, R.color.title_black));
         }
         StatusBarUtil.immersive(this, ContextCompat.getColor(this, R.color.transparent), 0.3f);
         StatusBarUtil.setPaddingSmart(this, mToolbar);
-        mToolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-        mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_grey_24dp));
+        if (mPresenter.getNightModeState()) {
+            mTitleTv.setTextColor(ContextCompat.getColor(this, R.color.white));
+            mToolbar.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_gradient_bg));
+            mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_white_24dp));
+        } else {
+            mTitleTv.setTextColor(ContextCompat.getColor(this, R.color.title_black));
+            mToolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+            mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_grey_24dp));
+        }
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
     }
 

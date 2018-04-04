@@ -30,7 +30,7 @@
     <string name="login_confirm_password_tint">请输入确认密码</string>
     <string name="login_in">登陆</string>
     <string name="register">注册</string>
-    <string name="my_collect">我的收藏</string>
+    <string name="my_collect">收藏</string>
     <string name="about_us">关于我们</string>
     <string name="auto_login_in">自动登录</string>
     <string name="logout">退出登录</string>
@@ -85,6 +85,17 @@
     <string name="or">或</string>
     <string name="clear_all">清空</string>
     <string name="search_null_tint">快来搜点干货吧*≧▽≦*</string>
+
+    //设置
+    <string name="setting_normal">通用设置</string>
+    <string name="setting_cache">自动缓存</string>
+    <string name="setting_image">无图模式</string>
+    <string name="setting_night">夜间模式</string>
+    <string name="setting_other">其它设置</string>
+    <string name="setting_feedback">意见反馈</string>
+    <string name="setting_clear">清除缓存</string>
+    <string name="setting">设置</string>
+    <string name="send_email">选择邮件客户端:</string>
 
 
 </resources>

@@ -23,4 +23,11 @@ public interface AbstractPresenter<T extends BaseView> {
      */
     void detachView();
 
+    /**
+     * Get night mode state
+     *
+     * @return if is night mode
+     */
+    boolean getNightModeState();
+
 }

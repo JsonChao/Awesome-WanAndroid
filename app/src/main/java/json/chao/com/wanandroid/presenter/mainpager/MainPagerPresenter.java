@@ -35,6 +35,7 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
 
     @Inject
     MainPagerPresenter(DataManager dataManager) {
+        super(dataManager);
         this.mDataManager = dataManager;
     }
 
@@ -68,7 +69,7 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
         String password = mDataManager.getLoginPassword();
         Observable<BaseResponse<LoginData>> mLoginObservable = mDataManager.getLoginData(account, password);
         Observable<BaseResponse<List<BannerData>>> mBannerObservable = mDataManager.getBannerData();
-        Observable<BaseResponse<FeedArticleListData>> mArticleObservable = mDataManager.getFeedArticleList(Constants.FIRST);
+        Observable<BaseResponse<FeedArticleListData>> mArticleObservable = mDataManager.getFeedArticleList(0);
         addSubscribe(Observable.zip(mLoginObservable, mBannerObservable, mArticleObservable,
                 (loginResponse, bannerResponse, feedArticleListResponse) -> {
                     HashMap<String, Object> map = new HashMap<>(3);
