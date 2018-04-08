@@ -1,5 +1,6 @@
 package json.chao.com.wanandroid.ui.mainpager.fragment;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -117,7 +118,9 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
             //记录点击的文章位置，便于在文章内点击收藏返回到此界面时能展示正确的收藏状态
             articlePosition = position;
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(_mActivity, view, "shareView");
             JudgeUtils.startArticleDetailActivity(_mActivity,
+                    options,
                     mAdapter.getData().get(position).getId(),
                     mAdapter.getData().get(position).getTitle(),
                     mAdapter.getData().get(position).getLink(),
@@ -197,6 +200,7 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
         if (mDataManager.getCurrentPage() == Constants.TYPE_MAIN_PAGER) {
             mRecyclerView.setVisibility(View.VISIBLE);
         } else {
+
             mRecyclerView.setVisibility(View.INVISIBLE);
         }
         if (mAdapter == null) {
@@ -256,7 +260,7 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
         //设置指示器位置（当banner模式中有指示器时）
         mBanner.setIndicatorGravity(BannerConfig.CENTER);
 
-        mBanner.setOnBannerListener(i -> JudgeUtils.startArticleDetailActivity(_mActivity,
+        mBanner.setOnBannerListener(i -> JudgeUtils.startArticleDetailActivity(_mActivity, null,
                 0, mBannerTitleList.get(i), mBannerUrlList.get(i),
                 false, false, true));
         //banner设置方法全部调用完毕时最后调用

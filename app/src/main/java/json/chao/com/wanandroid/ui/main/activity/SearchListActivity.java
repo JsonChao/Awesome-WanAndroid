@@ -81,6 +81,7 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
             articlePosition = position;
             JudgeUtils.startArticleDetailActivity(this,
+                    null,
                     mAdapter.getData().get(position).getId(),
                     mAdapter.getData().get(position).getTitle(),
                     mAdapter.getData().get(position).getLink(),

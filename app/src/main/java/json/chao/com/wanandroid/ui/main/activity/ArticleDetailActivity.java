@@ -152,8 +152,10 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
             mCollectItem = menu.findItem(R.id.item_collect);
             if (isCollect) {
                 mCollectItem.setTitle(getString(R.string.cancel_collect));
+                mCollectItem.setIcon(R.mipmap.ic_toolbar_like_p);
             } else {
                 mCollectItem.setTitle(getString(R.string.collect));
+                mCollectItem.setIcon(R.mipmap.ic_toolbar_like_n);
             }
         } else {
             getMenuInflater().inflate(R.menu.menu_article_common, menu);
@@ -260,6 +262,7 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
     public void showCollectArticleData(BaseResponse<FeedArticleListData> feedArticleListResponse) {
         isCollect = true;
         mCollectItem.setTitle(R.string.cancel_collect);
+        mCollectItem.setIcon(R.mipmap.ic_toolbar_like_p);
         CommonUtils.showSnackMessage(this, getString(R.string.collect_success));
     }
 
@@ -268,6 +271,7 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
         isCollect = false;
         if (!isCollectPage) {
             mCollectItem.setTitle(R.string.collect);
+            mCollectItem.setIcon(R.mipmap.ic_toolbar_like_n);
         }
         CommonUtils.showSnackMessage(this, getString(R.string.cancel_collect_success));
     }

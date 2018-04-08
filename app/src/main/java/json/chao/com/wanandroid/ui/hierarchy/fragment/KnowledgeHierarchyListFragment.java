@@ -83,6 +83,7 @@ public class KnowledgeHierarchyListFragment extends AbstractRootFragment<Knowled
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
             articlePosition = position;
             JudgeUtils.startArticleDetailActivity(_mActivity,
+                    null,
                     mAdapter.getData().get(position).getId(),
                     mAdapter.getData().get(position).getTitle().trim(),
                     mAdapter.getData().get(position).getLink().trim(),

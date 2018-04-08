@@ -52,7 +52,7 @@ public class CollectFragment extends AbstractRootFragment<CollectPresenter> impl
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_collect;
+        return R.layout.fragment_collect;
     }
 
     @Override
@@ -124,7 +124,7 @@ public class CollectFragment extends AbstractRootFragment<CollectPresenter> impl
         mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mArticles);
         mAdapter.isCollectPage();
         mAdapter.setOnItemClickListener((adapter, view, position) ->
-                JudgeUtils.startArticleDetailActivity(_mActivity,
+                JudgeUtils.startArticleDetailActivity(_mActivity, null,
                 mAdapter.getData().get(position).getId(),
                 mAdapter.getData().get(position).getTitle(),
                 mAdapter.getData().get(position).getLink(),

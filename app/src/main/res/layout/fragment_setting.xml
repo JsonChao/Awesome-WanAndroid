@@ -40,7 +40,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_cache"
+                    android:src="@drawable/ic_auto_cache"
                     android:contentDescription="@null" />
 
                 <TextView
@@ -73,7 +73,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_image"
+                    android:src="@drawable/ic_no_image"
                     android:contentDescription="@null" />
 
                 <TextView
@@ -105,7 +105,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_night"
+                    android:src="@drawable/ic_night_mode"
                     android:contentDescription="@null" />
 
                 <TextView
@@ -159,7 +159,7 @@
                 android:textColor="@color/setting_text"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:drawableStart="@mipmap/ic_feedback"
+                android:drawableStart="@drawable/ic_feedback"
                 android:drawablePadding="@dimen/dp_12"/>
 
             <include layout="@layout/divider_line_05"/>
@@ -176,7 +176,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_clear"
+                    android:src="@drawable/ic_cache_clean"
                     android:contentDescription="@null" />
 
                 <TextView

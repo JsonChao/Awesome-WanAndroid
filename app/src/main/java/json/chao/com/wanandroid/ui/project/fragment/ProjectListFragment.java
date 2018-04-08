@@ -63,6 +63,7 @@ public class ProjectListFragment extends BaseFragment<ProjectListPresenter> impl
         mAdapter = new ProjectListAdapter(R.layout.item_project_list, mDatas);
         mAdapter.setOnItemClickListener((adapter, view, position) ->
                 JudgeUtils.startArticleDetailActivity(_mActivity,
+                        null,
                 mAdapter.getData().get(position).getId(),
                 mAdapter.getData().get(position).getTitle().trim(),
                 mAdapter.getData().get(position).getLink().trim(),

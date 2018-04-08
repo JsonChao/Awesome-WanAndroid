@@ -47,7 +47,7 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_setting;
+        return R.layout.fragment_setting;
     }
 
     @Override

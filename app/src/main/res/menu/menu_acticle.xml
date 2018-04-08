@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/item_collect"
+        android:icon="@drawable/selector_toolbar_like"
+        android:orderInCategory="100"
+        android:title="@string/collect"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/item_share"
         android:icon="@drawable/ic_action_share"
         android:orderInCategory="100"
         android:title="@string/share"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/item_collect"
-        android:icon="@drawable/ic_love"
-        android:orderInCategory="100"
-        android:title="@string/collect"
         app:showAsAction="never" />
 
     <item

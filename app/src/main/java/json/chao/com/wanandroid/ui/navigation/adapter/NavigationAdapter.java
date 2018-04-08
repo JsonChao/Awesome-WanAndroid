@@ -55,6 +55,7 @@ public class NavigationAdapter extends BaseQuickAdapter<NavigationListData, Navi
                 tv.setTextColor(CommonUtils.randomColor());
                 mTagFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
                     JudgeUtils.startArticleDetailActivity(parent.getContext(),
+                            null,
                             mArticles.get(position1).getId(),
                             mArticles.get(position1).getTitle(),
                             mArticles.get(position1).getLink(),

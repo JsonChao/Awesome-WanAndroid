@@ -107,6 +107,7 @@ public class UsageDialogFragment extends BaseDialogFragment<UsageDialogPresenter
                 setItemBackground(tv);
                 mUsefulSitesFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
                     JudgeUtils.startArticleDetailActivity(getActivity(),
+                            null,
                             mUsefulSiteDataList.get(position1).getId(),
                             mUsefulSiteDataList.get(position1).getName().trim(),
                             mUsefulSiteDataList.get(position1).getLink().trim(),
