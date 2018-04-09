@@ -16,7 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewStub;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -65,8 +64,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     FloatingActionButton mFloatingActionButton;
     @BindView(R.id.bottom_navigation_view)
     BottomNavigationView bottomNavigationBar;
-    @BindView(R.id.main_view_stub)
-    ViewStub mErrorView;
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
     @BindView(R.id.fragment_group)
@@ -81,8 +78,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private KnowledgeHierarchyFragment mKnowledgeHierarchyFragment;
     private NavigationFragment mNavigationFragment;
     private ProjectFragment mProjectFragment;
-    private CollectFragment mCollectFragment;
-    private SettingFragment mSettingFragment;
     private int mLastFgIndex;
 
     @Override
@@ -125,22 +120,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             init();
             switchFragment(Constants.TYPE_SETTING);
         }
-    }
-
-    @Override
-    public void showError() {
-        mMainPagerFragment.showNormal();
-        mKnowledgeHierarchyFragment.showNormal();
-        mNavigationFragment.showNormal();
-        mProjectFragment.showNormal();
-        mErrorView.setVisibility(View.VISIBLE);
-        TextView reloadTv = (TextView) findViewById(R.id.error_reload_tv);
-        reloadTv.setOnClickListener(v -> {
-            mMainPagerFragment.reLoad();
-            mKnowledgeHierarchyFragment.reLoad();
-            mNavigationFragment.reLoad();
-            mProjectFragment.reLoad();
-        });
     }
 
     @Override
@@ -187,20 +166,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     @Override
-    public void showDismissErrorView() {
-        if (mErrorView != null) {
-            mErrorView.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
-    public void showErrorView() {
-        if (mErrorView != null) {
-            showError();
-        }
-    }
-
-    @Override
     public void showSwitchProject() {
         bottomNavigationBar.setSelectedItemId(R.id.tab_project);
     }
@@ -240,13 +205,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 case R.id.tab_main_pager:
                     mTitleTv.setText(getString(R.string.home_pager));
                     switchFragment(0);
-                    mMainPagerFragment.reLoad();
+                    mMainPagerFragment.reload();
                     mDataManager.setCurrentPage(Constants.TYPE_MAIN_PAGER);
                     break;
                 case R.id.tab_knowledge_hierarchy:
                     mTitleTv.setText(getString(R.string.knowledge_hierarchy));
                     switchFragment(1);
-                    mKnowledgeHierarchyFragment.reLoad();
+                    mKnowledgeHierarchyFragment.reload();
                     mDataManager.setCurrentPage(Constants.TYPE_KNOWLEDGE);
                     break;
                 case R.id.tab_navigation:
@@ -334,27 +299,27 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mKnowledgeHierarchyFragment = KnowledgeHierarchyFragment.getInstance(null, null);
         mNavigationFragment = NavigationFragment.getInstance(null, null);
         mProjectFragment = ProjectFragment.getInstance(null, null);
-        mCollectFragment = CollectFragment.getInstance(null, null);
-        mSettingFragment = SettingFragment.getInstance(null, null);
+        CollectFragment collectFragment = CollectFragment.getInstance(null, null);
+        SettingFragment settingFragment = SettingFragment.getInstance(null, null);
 
         mFragments.add(mKnowledgeHierarchyFragment);
         mFragments.add(mNavigationFragment);
         mFragments.add(mProjectFragment);
-        mFragments.add(mCollectFragment);
-        mFragments.add(mSettingFragment);
+        mFragments.add(collectFragment);
+        mFragments.add(settingFragment);
     }
 
     private void switchProject() {
         mTitleTv.setText(getString(R.string.project));
         switchFragment(3);
-        mProjectFragment.reLoad();
+        mProjectFragment.reload();
         mDataManager.setCurrentPage(Constants.TYPE_PROJECT);
     }
 
     private void switchNavigation() {
         mTitleTv.setText(getString(R.string.navigation));
         switchFragment(2);
-        mNavigationFragment.reLoad();
+        mNavigationFragment.reload();
         mDataManager.setCurrentPage(Constants.TYPE_NAVIGATION);
     }
 

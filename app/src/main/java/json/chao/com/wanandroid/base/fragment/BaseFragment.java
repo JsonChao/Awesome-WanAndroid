@@ -78,6 +78,11 @@ public abstract class BaseFragment<T extends AbstractPresenter> extends Abstract
     }
 
     @Override
+    public void reload() {
+
+    }
+
+    @Override
     public void showCollectFail() {
         CommonUtils.showSnackMessage(_mActivity, getString(R.string.collect_fail));
     }

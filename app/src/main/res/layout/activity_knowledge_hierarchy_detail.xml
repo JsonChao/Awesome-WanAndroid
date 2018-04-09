@@ -37,11 +37,4 @@
         android:layout_margin="@dimen/dp_16"
         android:src="@mipmap/icon_up_arrow"
         app:layout_behavior="@string/scale_down_show_behavior" />
-
-    <ViewStub
-        android:id="@+id/detail_view_stub"
-        android:inflatedId="@+id/main_pager_view_stub"
-        android:layout="@layout/error_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 </android.support.design.widget.CoordinatorLayout>

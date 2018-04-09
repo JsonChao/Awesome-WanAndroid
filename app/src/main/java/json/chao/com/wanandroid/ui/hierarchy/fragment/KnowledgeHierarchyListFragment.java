@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -24,8 +23,6 @@ import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.contract.hierarchy.KnowledgeHierarchyListContract;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.core.event.CollectEvent;
-import json.chao.com.wanandroid.core.event.DismissDetailErrorView;
-import json.chao.com.wanandroid.core.event.ShowDetailErrorView;
 import json.chao.com.wanandroid.core.event.SwitchNavigationEvent;
 import json.chao.com.wanandroid.core.event.SwitchProjectEvent;
 import json.chao.com.wanandroid.presenter.hierarchy.KnowledgeHierarchyListPresenter;
@@ -42,9 +39,9 @@ import json.chao.com.wanandroid.utils.JudgeUtils;
 public class KnowledgeHierarchyListFragment extends AbstractRootFragment<KnowledgeHierarchyListPresenter>
         implements KnowledgeHierarchyListContract.View {
 
-    @BindView(R.id.knowledge_hierarchy_refresh_layout)
-    SmartRefreshLayout mRefreshLayout;
     @BindView(R.id.normal_view)
+    SmartRefreshLayout mRefreshLayout;
+    @BindView(R.id.knowledge_hierarchy_list_recycler_view)
     RecyclerView mRecyclerView;
 
     private int id;
@@ -128,8 +125,6 @@ public class KnowledgeHierarchyListFragment extends AbstractRootFragment<Knowled
             showKnowledgeHierarchyDetailDataFail();
             return;
         }
-        RxBus.getDefault().post(new DismissDetailErrorView());
-        mRefreshLayout.setVisibility(View.VISIBLE);
         mArticles = feedArticleListResponse.getData().getDatas();
         if (isRefresh) {
             mAdapter.replaceData(mArticles);
@@ -140,9 +135,10 @@ public class KnowledgeHierarchyListFragment extends AbstractRootFragment<Knowled
     }
 
     @Override
-    public void showError() {
-        RxBus.getDefault().post(new ShowDetailErrorView());
-        mRefreshLayout.setVisibility(View.GONE);
+    public void reload() {
+        if (mPresenter != null) {
+            mRefreshLayout.autoRefresh();
+        }
     }
 
     @Override

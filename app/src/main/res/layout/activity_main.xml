@@ -49,13 +49,6 @@
             app:menu="@menu/bottom_navigation_main" />
     </android.support.design.widget.CoordinatorLayout>
 
-    <ViewStub
-        android:id="@+id/main_view_stub"
-        android:inflatedId="@+id/main_pager_view_stub"
-        android:layout="@layout/error_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"

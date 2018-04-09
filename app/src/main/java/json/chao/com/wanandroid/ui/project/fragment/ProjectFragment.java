@@ -23,9 +23,7 @@ import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.contract.project.ProjectContract;
-import json.chao.com.wanandroid.core.event.DismissErrorView;
 import json.chao.com.wanandroid.core.event.JumpToTheTopEvent;
-import json.chao.com.wanandroid.core.event.ShowErrorView;
 import json.chao.com.wanandroid.presenter.project.ProjectPresenter;
 import json.chao.com.wanandroid.utils.CommonUtils;
 
@@ -92,7 +90,6 @@ public class ProjectFragment extends AbstractRootFragment<ProjectPresenter> impl
             showProjectClassifyDataFail();
             return;
         }
-        RxBus.getDefault().post(new DismissErrorView());
         if (mDataManager.getCurrentPage() == Constants.TYPE_PROJECT) {
             mTabLayout.setVisibility(View.VISIBLE);
             mDivider.setVisibility(View.VISIBLE);
@@ -156,10 +153,11 @@ public class ProjectFragment extends AbstractRootFragment<ProjectPresenter> impl
         mTabLayout.setVisibility(View.INVISIBLE);
         mDivider.setVisibility(View.INVISIBLE);
         mViewPager.setVisibility(View.INVISIBLE);
-        RxBus.getDefault().post(new ShowErrorView());
+        super.showError();
     }
 
-    public void reLoad() {
+    @Override
+    public void reload() {
         if (mPresenter != null && mTabLayout.getVisibility() == View.INVISIBLE) {
             mPresenter.getProjectClassifyData();
         }

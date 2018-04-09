@@ -13,16 +13,6 @@ public interface MainContract {
     interface View extends BaseView {
 
         /**
-         * Show dismiss error view
-         */
-        void showDismissErrorView();
-
-        /**
-         * Show error view
-         */
-        void showErrorView();
-
-        /**
          * Show switch project
          */
         void showSwitchProject();

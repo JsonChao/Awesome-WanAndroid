@@ -40,6 +40,11 @@ public interface BaseView {
     void showLoading();
 
     /**
+     * Reload
+     */
+    void reload();
+
+    /**
      * Show login view
      */
     void showLoginView();

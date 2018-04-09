@@ -33,9 +33,7 @@ import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.contract.mainpager.MainPagerContract;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.core.event.AutoLoginEvent;
-import json.chao.com.wanandroid.core.event.DismissErrorView;
 import json.chao.com.wanandroid.core.event.LoginEvent;
-import json.chao.com.wanandroid.core.event.ShowErrorView;
 import json.chao.com.wanandroid.core.event.SwitchNavigationEvent;
 import json.chao.com.wanandroid.core.event.SwitchProjectEvent;
 import json.chao.com.wanandroid.core.http.cookies.CookiesManager;
@@ -196,7 +194,6 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
             showArticleListFail();
             return;
         }
-        RxBus.getDefault().post(new DismissErrorView());
         if (mDataManager.getCurrentPage() == Constants.TYPE_MAIN_PAGER) {
             mRecyclerView.setVisibility(View.VISIBLE);
         } else {
@@ -306,7 +303,16 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
     @Override
     public void showError() {
         mRecyclerView.setVisibility(View.INVISIBLE);
-        RxBus.getDefault().post(new ShowErrorView());
+        super.showError();
+    }
+
+    @Override
+    public void reload() {
+        if (mRefreshLayout != null && mPresenter != null
+                && mRecyclerView.getVisibility() == View.INVISIBLE
+                && CommonUtils.isNetworkConnected()) {
+            mRefreshLayout.autoRefresh();
+        }
     }
 
     private void likeEvent(int position) {
@@ -319,14 +325,6 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
             mPresenter.cancelCollectArticle(position, mAdapter.getData().get(position));
         } else {
             mPresenter.addCollectArticle(position, mAdapter.getData().get(position));
-        }
-    }
-
-    public void reLoad() {
-        if (mRefreshLayout != null && mPresenter != null
-                && mRecyclerView.getVisibility() == View.INVISIBLE
-                && CommonUtils.isNetworkConnected()) {
-            mRefreshLayout.autoRefresh();
         }
     }
 

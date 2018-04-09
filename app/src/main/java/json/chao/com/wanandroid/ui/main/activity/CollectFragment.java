@@ -59,8 +59,12 @@ public class CollectFragment extends AbstractRootFragment<CollectPresenter> impl
 
     @Override
     protected void initEventAndData() {
+        super.initEventAndData();
         initView();
         setRefresh();
+        if (CommonUtils.isNetworkConnected()) {
+            showLoading();
+        }
     }
 
     @Override
@@ -76,7 +80,6 @@ public class CollectFragment extends AbstractRootFragment<CollectPresenter> impl
         }
         if (isRefresh) {
             mArticles = feedArticleListResponse.getData().getDatas();
-
             mAdapter.replaceData(mArticles);
         } else {
             mArticles.addAll(feedArticleListResponse.getData().getDatas());
@@ -85,6 +88,12 @@ public class CollectFragment extends AbstractRootFragment<CollectPresenter> impl
         if (mAdapter.getData().size() == 0) {
             CommonUtils.showSnackMessage(_mActivity, getString(R.string.no_collect));
         }
+        showNormal();
+    }
+
+    @Override
+    public void showError() {
+        super.showError();
     }
 
     @Override
@@ -114,6 +123,11 @@ public class CollectFragment extends AbstractRootFragment<CollectPresenter> impl
             default:
                 break;
         }
+    }
+
+    @Override
+    public void reload() {
+        mRefreshLayout.autoRefresh();
     }
 
     public static CollectFragment getInstance(String param1, String param2) {

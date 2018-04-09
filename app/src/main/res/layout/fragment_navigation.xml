@@ -23,7 +23,8 @@
             app:indicator_color="@color/white"
             app:indicator_gravity="fill"
             app:tab_margin="@dimen/dp_15"
-            app:tab_mode="scrollable" />
+            app:tab_mode="scrollable"
+            android:visibility="invisible" />
 
         <View
             android:id="@+id/navigation_divider"

@@ -52,8 +52,8 @@ public abstract class AbstractSimpleDialogFragment extends DialogFragment {
     public void onDestroy() {
         super.onDestroy();
         //LeakCanary
-        RefWatcher refWatcher = GeeksApp.getRefWatcher(getActivity());
-        refWatcher.watch(this);
+//        RefWatcher refWatcher = GeeksApp.getRefWatcher(getActivity());
+//        refWatcher.watch(this);
     }
 
     /**

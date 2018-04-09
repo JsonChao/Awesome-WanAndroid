@@ -76,6 +76,11 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
     }
 
     @Override
+    public void reload() {
+
+    }
+
+    @Override
     public void showCollectFail() {
         if (getActivity() != null) {
             CommonUtils.showSnackMessage(getActivity(), getString(R.string.collect_fail));

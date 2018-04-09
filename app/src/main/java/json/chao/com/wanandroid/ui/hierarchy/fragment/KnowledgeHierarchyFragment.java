@@ -3,7 +3,6 @@ package json.chao.com.wanandroid.ui.hierarchy.fragment;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -23,8 +22,6 @@ import json.chao.com.wanandroid.core.bean.hierarchy.KnowledgeHierarchyData;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.contract.hierarchy.KnowledgeHierarchyContract;
-import json.chao.com.wanandroid.core.event.DismissErrorView;
-import json.chao.com.wanandroid.core.event.ShowErrorView;
 import json.chao.com.wanandroid.presenter.hierarchy.KnowledgeHierarchyPresenter;
 import json.chao.com.wanandroid.ui.hierarchy.activity.KnowledgeHierarchyDetailActivity;
 import json.chao.com.wanandroid.ui.hierarchy.adapter.KnowledgeHierarchyAdapter;
@@ -92,7 +89,6 @@ public class KnowledgeHierarchyFragment extends AbstractRootFragment<KnowledgeHi
             showKnowledgeHierarchyDetailDataFail();
             return;
         }
-        RxBus.getDefault().post(new DismissErrorView());
         if (mDataManager.getCurrentPage() == 1) {
             mRecyclerView.setVisibility(View.VISIBLE);
         } else {
@@ -111,10 +107,11 @@ public class KnowledgeHierarchyFragment extends AbstractRootFragment<KnowledgeHi
     @Override
     public void showError() {
         mRecyclerView.setVisibility(View.INVISIBLE);
-        RxBus.getDefault().post(new ShowErrorView());
+        super.showError();
     }
 
-    public void reLoad() {
+    @Override
+    public void reload() {
         if (mPresenter != null && mRecyclerView.getVisibility() == View.INVISIBLE) {
             mPresenter.getKnowledgeHierarchyData();
         }

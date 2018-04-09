@@ -7,7 +7,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewStub;
 import android.widget.TextView;
 
 import com.flyco.tablayout.SlidingTabLayout;
@@ -25,7 +24,6 @@ import json.chao.com.wanandroid.base.activity.BaseActivity;
 import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.contract.hierarchy.KnowledgeHierarchyDetailContract;
 import json.chao.com.wanandroid.core.event.KnowledgeJumpTopEvent;
-import json.chao.com.wanandroid.core.event.ReloadDetailEvent;
 import json.chao.com.wanandroid.presenter.hierarchy.KnowledgeHierarchyDetailPresenter;
 import json.chao.com.wanandroid.ui.hierarchy.fragment.KnowledgeHierarchyListFragment;
 import json.chao.com.wanandroid.utils.StatusBarUtil;
@@ -48,8 +46,6 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
     ViewPager mViewPager;
     @BindView(R.id.knowledge_floating_action_btn)
     FloatingActionButton mFloatingActionButton;
-    @BindView(R.id.detail_view_stub)
-    ViewStub mErrorView;
 
     private List<KnowledgeHierarchyData> knowledgeHierarchyDataList;
     private ArrayList<BaseFragment> mFragments;
@@ -91,13 +87,6 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
         mTabLayout.setViewPager(mViewPager);
     }
 
-    @Override
-    public void showError() {
-        mErrorView.setVisibility(View.VISIBLE);
-        TextView reloadTv = (TextView) findViewById(R.id.error_reload_tv);
-        reloadTv.setOnClickListener(v -> RxBus.getDefault().post(new ReloadDetailEvent()));
-    }
-
     @OnClick({R.id.knowledge_floating_action_btn})
     void onClick(View view) {
         switch (view.getId()) {
@@ -135,21 +124,6 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
             for (KnowledgeHierarchyData data : knowledgeHierarchyDataList) {
                 mFragments.add(KnowledgeHierarchyListFragment.getInstance(data.getId(), null));
             }
-        }
-    }
-
-
-    @Override
-    public void showDismissDetailErrorView() {
-        if (mErrorView != null) {
-            mErrorView.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
-    public void showDetailErrorView() {
-        if (mErrorView != null) {
-            showError();
         }
     }
 

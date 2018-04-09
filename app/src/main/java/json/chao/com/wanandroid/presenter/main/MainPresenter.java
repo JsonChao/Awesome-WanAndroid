@@ -58,9 +58,6 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
                 })
         );
 
-        addSubscribe(RxBus.getDefault().toFlowable(DismissErrorView.class)
-                .subscribe(dismissErrorView -> mView.showDismissErrorView()));
-
         addSubscribe(RxBus.getDefault().toFlowable(LoginEvent.class)
                 .filter(LoginEvent::isLogin)
                 .subscribe(loginEvent -> mView.showLoginView()));
@@ -71,9 +68,6 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
 
         addSubscribe(RxBus.getDefault().toFlowable(AutoLoginEvent.class)
                 .subscribe(autoLoginEvent -> mView.showLoginView()));
-
-        addSubscribe(RxBus.getDefault().toFlowable(ShowErrorView.class)
-                .subscribe(showErrorView -> mView.showErrorView()));
 
         addSubscribe(RxBus.getDefault().toFlowable(SwitchProjectEvent.class)
                 .subscribe(switchProjectEvent -> mView.showSwitchProject()));

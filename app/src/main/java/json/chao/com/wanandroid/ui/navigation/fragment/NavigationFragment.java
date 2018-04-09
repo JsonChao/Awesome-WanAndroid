@@ -1,7 +1,6 @@
 package json.chao.com.wanandroid.ui.navigation.fragment;
 
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,15 +12,12 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
-import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.navigation.NavigationListData;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.contract.navigation.NavigationContract;
-import json.chao.com.wanandroid.core.event.DismissErrorView;
-import json.chao.com.wanandroid.core.event.ShowErrorView;
 import json.chao.com.wanandroid.presenter.navigation.NavigationPresenter;
 import json.chao.com.wanandroid.ui.navigation.adapter.NavigationAdapter;
 import json.chao.com.wanandroid.utils.CommonUtils;
@@ -88,7 +84,6 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
             showNavigationListFail();
             return;
         }
-        RxBus.getDefault().post(new DismissErrorView());
         List<NavigationListData> navigationListData = navigationListResponse.getData();
         mTabLayout.setTabAdapter(new TabAdapter() {
             @Override
@@ -121,9 +116,11 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
         });
         if (mDataManager.getCurrentPage() == Constants.TYPE_NAVIGATION) {
             mNavigationGroup.setVisibility(View.VISIBLE);
+            mTabLayout.setVisibility(View.VISIBLE);
             mDivider.setVisibility(View.VISIBLE);
         } else {
             mNavigationGroup.setVisibility(View.INVISIBLE);
+            mTabLayout.setVisibility(View.INVISIBLE);
             mDivider.setVisibility(View.INVISIBLE);
         }
         NavigationAdapter adapter = new NavigationAdapter(R.layout.item_navigation, navigationListData);
@@ -141,10 +138,17 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
 
     @Override
     public void showError() {
-        mTabLayout.setBackgroundColor(ContextCompat.getColor(_mActivity, R.color.transparent));
+        mTabLayout.setVisibility(View.INVISIBLE);
         mNavigationGroup.setVisibility(View.INVISIBLE);
         mDivider.setVisibility(View.INVISIBLE);
-        RxBus.getDefault().post(new ShowErrorView());
+        super.showError();
+    }
+
+    @Override
+    public void reload() {
+        if (mPresenter != null && mNavigationGroup.getVisibility() == View.INVISIBLE) {
+            mPresenter.getNavigationListData();
+        }
     }
 
     /**
@@ -244,12 +248,6 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
         } else {
             mRecyclerView.smoothScrollToPosition(currentPosition);
             needScroll = true;
-        }
-    }
-
-    public void reLoad() {
-        if (mPresenter != null && mNavigationGroup.getVisibility() == View.INVISIBLE) {
-            mPresenter.getNavigationListData();
         }
     }
 

@@ -34,12 +34,6 @@ public class KnowledgeHierarchyDetailPresenter extends BasePresenter<KnowledgeHi
     }
 
     private void registerEvent() {
-        addSubscribe(RxBus.getDefault().toFlowable(DismissDetailErrorView.class)
-                .subscribe(dismissDetailErrorView -> mView.showDismissDetailErrorView()));
-
-        addSubscribe(RxBus.getDefault().toFlowable(ShowDetailErrorView.class)
-                .subscribe(showDetailErrorView -> mView.showDetailErrorView()));
-
         addSubscribe(RxBus.getDefault().toFlowable(SwitchProjectEvent.class)
                 .subscribe(switchProjectEvent -> mView.showSwitchProject()));
 
