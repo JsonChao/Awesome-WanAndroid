@@ -17,5 +17,6 @@
         android:id="@+id/article_detail_web_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false" />
+        android:clipToPadding="false"
+        android:transitionName="@string/share_view" />
 </LinearLayout>

@@ -1,5 +1,6 @@
 package json.chao.com.wanandroid.ui.main.fragment;
 
+import android.app.ActivityOptions;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
@@ -106,8 +107,9 @@ public class UsageDialogFragment extends BaseDialogFragment<UsageDialogPresenter
                 tv.setText(name);
                 setItemBackground(tv);
                 mUsefulSitesFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), view, getString(R.string.share_view));
                     JudgeUtils.startArticleDetailActivity(getActivity(),
-                            null,
+                            options,
                             mUsefulSiteDataList.get(position1).getId(),
                             mUsefulSiteDataList.get(position1).getName().trim(),
                             mUsefulSiteDataList.get(position1).getLink().trim(),

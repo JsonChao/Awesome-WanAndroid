@@ -118,7 +118,7 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
             //记录点击的文章位置，便于在文章内点击收藏返回到此界面时能展示正确的收藏状态
             articlePosition = position;
-            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(_mActivity, view, "shareView");
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(_mActivity, view, getString(R.string.share_view));
             JudgeUtils.startArticleDetailActivity(_mActivity,
                     options,
                     mAdapter.getData().get(position).getId(),

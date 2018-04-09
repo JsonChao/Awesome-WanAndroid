@@ -1,5 +1,6 @@
 package json.chao.com.wanandroid.ui.project.fragment;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -62,14 +63,14 @@ public class ProjectListFragment extends BaseFragment<ProjectListPresenter> impl
         mDatas = new ArrayList<>();
         mAdapter = new ProjectListAdapter(R.layout.item_project_list, mDatas);
         mAdapter.setOnItemClickListener((adapter, view, position) ->
-                JudgeUtils.startArticleDetailActivity(_mActivity,
-                        null,
-                mAdapter.getData().get(position).getId(),
-                mAdapter.getData().get(position).getTitle().trim(),
-                mAdapter.getData().get(position).getLink().trim(),
-                mAdapter.getData().get(position).isCollect(),
-                false,
-                true));
+                    JudgeUtils.startArticleDetailActivity(_mActivity,
+                            null,
+                            mAdapter.getData().get(position).getId(),
+                            mAdapter.getData().get(position).getTitle().trim(),
+                            mAdapter.getData().get(position).getLink().trim(),
+                            mAdapter.getData().get(position).isCollect(),
+                            false,
+                            true));
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
                 case R.id.item_project_list_install_tv:

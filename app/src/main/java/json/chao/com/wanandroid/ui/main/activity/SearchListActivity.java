@@ -1,5 +1,6 @@
 package json.chao.com.wanandroid.ui.main.activity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -80,8 +81,9 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
         mAdapter.isNightMode(mPresenter.getNightModeState());
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
             articlePosition = position;
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, view, getString(R.string.share_view));
             JudgeUtils.startArticleDetailActivity(this,
-                    null,
+                    options,
                     mAdapter.getData().get(position).getId(),
                     mAdapter.getData().get(position).getTitle(),
                     mAdapter.getData().get(position).getLink(),

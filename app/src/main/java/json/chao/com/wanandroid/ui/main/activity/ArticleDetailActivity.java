@@ -218,6 +218,15 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
         CommonUtils.showSnackMessage(this, getString(R.string.write_permission_not_allowed));
     }
 
+    @Override
+    public void onBackPressedSupport() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            pop();
+        } else {
+            finishAfterTransition();
+        }
+    }
+
     private void collectEvent() {
         if (!mDataManager.getLoginStatus()) {
             CommonUtils.showMessage(this, getString(R.string.login_tint));

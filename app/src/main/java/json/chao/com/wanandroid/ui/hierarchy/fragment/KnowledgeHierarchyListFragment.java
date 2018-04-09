@@ -1,5 +1,6 @@
 package json.chao.com.wanandroid.ui.hierarchy.fragment;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -55,6 +56,7 @@ public class KnowledgeHierarchyListFragment extends AbstractRootFragment<Knowled
     @Inject
     DataManager mDataManager;
     private int articlePosition;
+    private ActivityOptions mOptions;
 
     @Override
     protected void initInject() {
@@ -82,8 +84,9 @@ public class KnowledgeHierarchyListFragment extends AbstractRootFragment<Knowled
         mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mArticles);
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
             articlePosition = position;
+            mOptions = ActivityOptions.makeSceneTransitionAnimation(_mActivity, view, getString(R.string.share_view));
             JudgeUtils.startArticleDetailActivity(_mActivity,
-                    null,
+                    mOptions,
                     mAdapter.getData().get(position).getId(),
                     mAdapter.getData().get(position).getTitle().trim(),
                     mAdapter.getData().get(position).getLink().trim(),

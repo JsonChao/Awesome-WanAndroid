@@ -1,5 +1,6 @@
 package json.chao.com.wanandroid.ui.main.activity;
 
+import android.app.ActivityOptions;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,6 +45,7 @@ public class CollectFragment extends AbstractRootFragment<CollectPresenter> impl
     private int mCurrentPage;
     private List<FeedArticleData> mArticles;
     private ArticleListAdapter mAdapter;
+    private ActivityOptions mOptions;
 
     @Override
     protected void initInject() {
@@ -69,8 +71,12 @@ public class CollectFragment extends AbstractRootFragment<CollectPresenter> impl
             showCollectListFail();
             return;
         }
+        if (mAdapter == null) {
+            return;
+        }
         if (isRefresh) {
             mArticles = feedArticleListResponse.getData().getDatas();
+
             mAdapter.replaceData(mArticles);
         } else {
             mArticles.addAll(feedArticleListResponse.getData().getDatas());
@@ -123,14 +129,16 @@ public class CollectFragment extends AbstractRootFragment<CollectPresenter> impl
         mArticles = new ArrayList<>();
         mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mArticles);
         mAdapter.isCollectPage();
-        mAdapter.setOnItemClickListener((adapter, view, position) ->
-                JudgeUtils.startArticleDetailActivity(_mActivity, null,
+        mAdapter.setOnItemClickListener((adapter, view, position) -> {
+            mOptions = ActivityOptions.makeSceneTransitionAnimation(_mActivity, view, getString(R.string.share_view));
+            JudgeUtils.startArticleDetailActivity(_mActivity, mOptions,
                 mAdapter.getData().get(position).getId(),
                 mAdapter.getData().get(position).getTitle(),
                 mAdapter.getData().get(position).getLink(),
                 true,
                 true,
-                false));
+                false);
+        });
 
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {

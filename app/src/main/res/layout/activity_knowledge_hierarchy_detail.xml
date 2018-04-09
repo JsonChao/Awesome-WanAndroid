@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:fitsSystemWindows="false"
         android:theme="@style/AppTheme.AppBarOverlay"
+        android:transitionName="@string/share_view"
         app:elevation="@dimen/dp_6">
 
         <include layout="@layout/common_toolbar_no_scroll" />

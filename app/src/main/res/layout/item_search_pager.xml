@@ -12,6 +12,7 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
+    android:transitionName="@string/share_view"
     app:cardBackgroundColor="@color/colorCard"
     app:cardCornerRadius="@dimen/dp_3"
     app:cardElevation="@dimen/dp_2">
@@ -59,7 +60,7 @@
             android:textSize="@dimen/sp_16"
             android:gravity="center"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/dp_10"/>
+            android:layout_marginTop="@dimen/dp_10" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
