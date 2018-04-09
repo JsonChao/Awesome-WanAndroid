@@ -92,11 +92,6 @@ public class CollectFragment extends AbstractRootFragment<CollectPresenter> impl
     }
 
     @Override
-    public void showError() {
-        super.showError();
-    }
-
-    @Override
     public void showCancelCollectPageArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
         mAdapter.remove(position);
         CommonUtils.showSnackMessage(_mActivity, getString(R.string.cancel_collect_success));

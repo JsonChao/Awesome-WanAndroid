@@ -1,6 +1,5 @@
 package json.chao.com.wanandroid.ui.project.fragment;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,13 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.core.bean.project.ProjectListData;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
-import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.contract.project.ProjectListContract;
 import json.chao.com.wanandroid.presenter.project.ProjectListPresenter;
 import json.chao.com.wanandroid.ui.project.adapter.ProjectListAdapter;
@@ -32,9 +31,9 @@ import json.chao.com.wanandroid.utils.JudgeUtils;
  * @date 2018/2/24
  */
 
-public class ProjectListFragment extends BaseFragment<ProjectListPresenter> implements ProjectListContract.View {
+public class ProjectListFragment extends AbstractRootFragment<ProjectListPresenter> implements ProjectListContract.View {
 
-    @BindView(R.id.project_list_refresh_layout)
+    @BindView(R.id.normal_view)
     SmartRefreshLayout mRefreshLayout;
     @BindView(R.id.project_list_recycler_view)
     RecyclerView mRecyclerView;
@@ -57,6 +56,7 @@ public class ProjectListFragment extends BaseFragment<ProjectListPresenter> impl
 
     @Override
     protected void initEventAndData() {
+        super.initEventAndData();
         setRefresh();
         Bundle bundle = getArguments();
         cid = bundle.getInt(Constants.ARG_PARAM1);
@@ -86,6 +86,9 @@ public class ProjectListFragment extends BaseFragment<ProjectListPresenter> impl
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
         mPresenter.getProjectListData(mCurrentPage, cid);
+        if (CommonUtils.isNetworkConnected()) {
+            showLoading();
+        }
     }
 
     public static ProjectListFragment getInstance(int param1, String param2) {
@@ -110,6 +113,14 @@ public class ProjectListFragment extends BaseFragment<ProjectListPresenter> impl
             mAdapter.replaceData(mDatas);
         } else {
             mAdapter.addData(mDatas);
+        }
+        showNormal();
+    }
+
+    @Override
+    public void reload() {
+        if (mPresenter != null) {
+            mPresenter.getProjectListData(0, cid);
         }
     }
 

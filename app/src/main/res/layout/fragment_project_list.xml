@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/project_list_refresh_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:srlPrimaryColor="@color/colorPrimary">
+    android:layout_height="match_parent">
 
-    <com.scwang.smartrefresh.header.DropboxHeader
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/project_list_recycler_view"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/normal_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBackground" />
-</com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        app:srlPrimaryColor="@color/colorPrimary">
+
+        <com.scwang.smartrefresh.header.DropboxHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/project_list_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBackground" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</FrameLayout>
