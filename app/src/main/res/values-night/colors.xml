@@ -25,4 +25,8 @@
     <color name="deep_grey">#37383b</color>
     <color name="dialog_background">#0F1010</color>
     <color name="yellow">#f2efef</color>
+    <color name="search_grey_gone">#cccccc</color>
+    <color name="search_grey">#ffffff</color>
+
+
 </resources>

@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/clear_all"
                     android:textColor="@color/delete_text"
-                    android:drawableStart="@drawable/ic_clear_all_gone_night"
+                    android:drawableStart="@drawable/ic_clear_all_gone"
                     android:drawablePadding="@dimen/dp_6"
                     android:layout_alignParentEnd="true" />
 

@@ -1,6 +1,5 @@
 package json.chao.com.wanandroid.ui.main.fragment;
 
-import android.app.ActivityOptions;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -50,7 +49,6 @@ import json.chao.com.wanandroid.ui.main.adapter.HistorySearchAdapter;
 import json.chao.com.wanandroid.utils.CommonUtils;
 import json.chao.com.wanandroid.utils.JudgeUtils;
 import json.chao.com.wanandroid.utils.KeyBoardUtils;
-import json.chao.com.wanandroid.utils.StatusBarUtil;
 import json.chao.com.wanandroid.widget.CircularRevealAnim;
 
 
@@ -280,24 +278,14 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
         mClearAllHistoryTv.setEnabled(!isClearAll);
         if (isClearAll) {
             mHistoryNullTintTv.setVisibility(View.VISIBLE);
-            if (mPresenter.getNightModeState()) {
-                mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
-                drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_all_gone_night);
-            } else {
-                mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.grey));
-                drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_all_gone);
-            }
+            mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.search_grey_gone));
+            drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_all_gone);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             mClearAllHistoryTv.setCompoundDrawables(drawable, null, null, null);
         } else {
             mHistoryNullTintTv.setVisibility(View.GONE);
-            if (mPresenter.getNightModeState()) {
-                mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.grey_divider));
-                drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_all_gone_night);
-            } else {
-                mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.title_black));
-                drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_all);
-            }
+            mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.search_grey));
+            drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_all);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             mClearAllHistoryTv.setCompoundDrawables(drawable, null, null, null);
         }
