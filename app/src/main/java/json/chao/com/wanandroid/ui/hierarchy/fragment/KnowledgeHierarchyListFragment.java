@@ -101,7 +101,7 @@ public class KnowledgeHierarchyListFragment extends AbstractRootFragment<Knowled
                 case R.id.item_search_pager_like_iv:
                     likeEvent(position);
                     break;
-                case R.id.item_search_pager_tag_tv:
+                case R.id.item_search_pager_tag_red_tv:
                     String superChapterName = mAdapter.getData().get(position).getSuperChapterName();
                     if (superChapterName.contains(getString(R.string.open_project))) {
                         RxBus.getDefault().post(new SwitchProjectEvent());
