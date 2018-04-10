@@ -150,6 +150,13 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
     }
 
     @Override
+    public void reload() {
+        if (mPresenter != null) {
+            mPresenter.getSearchList(0, searchText);
+        }
+    }
+
+    @Override
     public void showCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
         mAdapter.setData(position, feedArticleData);
         CommonUtils.showSnackMessage(this, getString(R.string.collect_success));
@@ -163,6 +170,7 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
 
     @Override
     public void showSearchListFail() {
+        showError();
         CommonUtils.showSnackMessage(this, getString(R.string.failed_to_obtain_search_data_list));
     }
 

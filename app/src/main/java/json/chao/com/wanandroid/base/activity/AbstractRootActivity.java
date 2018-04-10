@@ -2,6 +2,7 @@ package json.chao.com.wanandroid.base.activity;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 
@@ -18,12 +19,14 @@ public abstract class AbstractRootActivity<T extends BasePresenter> extends Base
 
     private static final int NORMAL_STATE = 0;
     private static final int LOADING_STATE = 1;
+    public static final int ERROR_STATE = 2;
 
     private LottieAnimationView mLoadingAnimation;
     private View mLoadingView;
     private ViewGroup mNormalView;
 
     private int currentState = NORMAL_STATE;
+    private View mErrorView;
 
     @Override
     protected void initEventAndData() {
@@ -36,10 +39,15 @@ public abstract class AbstractRootActivity<T extends BasePresenter> extends Base
             throw new IllegalStateException(
                     "mNormalView's ParentView should be a ViewGroup.");
         }
-        ViewGroup parent = (ViewGroup) mNormalView.getParent();
-        View.inflate(this, R.layout.loading_view, parent);
-        mLoadingView = parent.findViewById(R.id.loading_group);
+        ViewGroup mParent = (ViewGroup) mNormalView.getParent();
+        View.inflate(this, R.layout.loading_view, mParent);
+        View.inflate(this, R.layout.error_view, mParent);
+        mLoadingView = mParent.findViewById(R.id.loading_group);
+        mErrorView = mParent.findViewById(R.id.error_group);
+        TextView reloadTv = (TextView) mErrorView.findViewById(R.id.error_reload_tv);
+        reloadTv.setOnClickListener(v -> reload());
         mLoadingAnimation = (LottieAnimationView) mLoadingView.findViewById(R.id.loading_animation);
+        mErrorView.setVisibility(View.GONE);
         mLoadingView.setVisibility(View.GONE);
         mNormalView.setVisibility(View.VISIBLE);
     }
@@ -61,7 +69,18 @@ public abstract class AbstractRootActivity<T extends BasePresenter> extends Base
         currentState = LOADING_STATE;
         mLoadingView.setVisibility(View.VISIBLE);
         mLoadingAnimation.setAnimation("loading_bus.json");
+        mLoadingAnimation.loop(true);
         mLoadingAnimation.playAnimation();
+    }
+
+    @Override
+    public void showError() {
+        if (currentState == ERROR_STATE) {
+            return;
+        }
+        hideCurrentView();
+        currentState = ERROR_STATE;
+        mErrorView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -83,6 +102,8 @@ public abstract class AbstractRootActivity<T extends BasePresenter> extends Base
                 mLoadingAnimation.cancelAnimation();
                 mLoadingView.setVisibility(View.GONE);
                 break;
+            case ERROR_STATE:
+                mErrorView.setVisibility(View.GONE);
             default:
                 break;
         }

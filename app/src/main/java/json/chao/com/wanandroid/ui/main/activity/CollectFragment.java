@@ -99,6 +99,7 @@ public class CollectFragment extends AbstractRootFragment<CollectPresenter> impl
 
     @Override
     public void showCollectListFail() {
+        showError();
         CommonUtils.showSnackMessage(_mActivity, getString(R.string.failed_to_obtain_collection_data));
     }
 

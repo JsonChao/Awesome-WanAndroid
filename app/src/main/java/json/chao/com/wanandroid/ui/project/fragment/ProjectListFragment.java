@@ -138,6 +138,7 @@ public class ProjectListFragment extends AbstractRootFragment<ProjectListPresent
 
     @Override
     public void showProjectListFail() {
+        showError();
         CommonUtils.showSnackMessage(_mActivity, getString(R.string.failed_to_obtain_project_list));
     }
 

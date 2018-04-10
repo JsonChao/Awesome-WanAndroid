@@ -57,6 +57,14 @@ public abstract class AbstractRootFragment<T extends BasePresenter> extends Base
     }
 
     @Override
+    public void onDestroyView() {
+        if (mLoadingAnimation != null) {
+            mLoadingAnimation.cancelAnimation();
+        }
+        super.onDestroyView();
+    }
+
+    @Override
     public void showLoading() {
         if (currentState == LOADING_STATE) {
             return;
@@ -65,6 +73,7 @@ public abstract class AbstractRootFragment<T extends BasePresenter> extends Base
         currentState = LOADING_STATE;
         mLoadingView.setVisibility(View.VISIBLE);
         mLoadingAnimation.setAnimation("loading_bus.json");
+        mLoadingAnimation.loop(true);
         mLoadingAnimation.playAnimation();
     }
 
