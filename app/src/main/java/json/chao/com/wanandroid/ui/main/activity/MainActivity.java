@@ -133,11 +133,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         switch (item.getItemId()) {
             case R.id.action_usage:
                 UsageDialogFragment usageDialogFragment = new UsageDialogFragment();
-                usageDialogFragment.show(getFragmentManager(), "UsageDialogFragment");
+                usageDialogFragment.show(getSupportFragmentManager(), "UsageDialogFragment");
                 break;
             case R.id.action_search:
                 SearchDialogFragment searchDialogFragment = new SearchDialogFragment();
-                searchDialogFragment.show(getFragmentManager(), "SearchDialogFragment");
+                searchDialogFragment.show(getSupportFragmentManager(), "SearchDialogFragment");
                 break;
             default:
                 break;

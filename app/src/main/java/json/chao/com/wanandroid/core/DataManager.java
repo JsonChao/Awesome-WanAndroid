@@ -152,6 +152,16 @@ public class DataManager implements HttpHelper, DbHelper, PreferenceHelper {
     }
 
     @Override
+    public void setCookie(String domain, String cookie) {
+        mPreferenceHelper.setCookie(domain, cookie);
+    }
+
+    @Override
+    public String getCookie(String domain) {
+        return mPreferenceHelper.getCookie(domain);
+    }
+
+    @Override
     public void setCurrentPage(int position) {
         mPreferenceHelper.setCurrentPage(position);
     }

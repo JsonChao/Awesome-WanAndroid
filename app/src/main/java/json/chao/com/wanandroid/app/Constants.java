@@ -2,7 +2,6 @@ package json.chao.com.wanandroid.app;
 
 
 import android.graphics.Color;
-import android.os.Environment;
 
 import java.io.File;
 
@@ -16,6 +15,14 @@ import json.chao.com.wanandroid.R;
 public class Constants {
 
     static final String  BUGLY_ID = "a29fb52485";
+
+    /**
+     * url
+     */
+    public static final String SAVE_USER_LOGIN_KEY = "user/login";
+    public static final String SAVE_USER_REGISTER_KEY = "user/register";
+    public static final String SET_COOKIE_KEY = "set-cookie";
+    public static final String COOKIE = "Cookie";
 
     /**
      * Path
@@ -130,8 +137,5 @@ public class Constants {
     public static final String NO_IMAGE_STATE = "no_image_state";
 
     public static final String NIGHT_MODE_STATE = "night_mode_state";
-
-
-
 
 }

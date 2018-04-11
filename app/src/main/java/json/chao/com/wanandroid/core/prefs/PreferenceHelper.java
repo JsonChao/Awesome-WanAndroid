@@ -50,6 +50,22 @@ public interface PreferenceHelper {
     boolean getLoginStatus();
 
     /**
+     * Set cookie
+     *
+     * @param domain Domain
+     * @param cookie Cookie
+     */
+    void setCookie(String domain, String cookie);
+
+    /**
+     * Get cookie
+     *
+     * @param domain Domain
+     * @return cookie
+     */
+    String getCookie(String domain);
+
+    /**
      * Set current page
      *
      * @param position Position

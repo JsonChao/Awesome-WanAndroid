@@ -54,6 +54,16 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     }
 
     @Override
+    public void setCookie(String domain, String cookie) {
+        mPreferences.edit().putString(domain, cookie).apply();
+    }
+
+    @Override
+    public String getCookie(String domain) {
+        return mPreferences.getString(Constants.COOKIE, "");
+    }
+
+    @Override
     public void setCurrentPage(int position) {
         mPreferences.edit().putInt(Constants.CURRENT_PAGE, position).apply();
     }
@@ -102,6 +112,8 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     public void setAutoCacheState(boolean b) {
         mPreferences.edit().putBoolean(Constants.AUTO_CACHE_STATE, b).apply();
     }
+
+
 
 
 }
