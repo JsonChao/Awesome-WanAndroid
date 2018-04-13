@@ -90,7 +90,7 @@ public class ArticleDetailPresenter extends BasePresenter<ArticleDetailContract.
 
     @Override
     public void shareEventPermissionVerify(RxPermissions rxPermissions) {
-        rxPermissions
+        addSubscribe(rxPermissions
                 .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .subscribe(granted -> {
                     if (granted) {
@@ -98,7 +98,7 @@ public class ArticleDetailPresenter extends BasePresenter<ArticleDetailContract.
                     } else {
                         mView.shareError();
                     }
-                });
+                }));
     }
 
 

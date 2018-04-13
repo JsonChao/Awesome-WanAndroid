@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
-        android:name="json.chao.com.wanandroid.app.GeeksApp"
+        android:name="json.chao.com.wanandroid.app.WanAndroidApp"
         tools:replace="android:allowBackup"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"

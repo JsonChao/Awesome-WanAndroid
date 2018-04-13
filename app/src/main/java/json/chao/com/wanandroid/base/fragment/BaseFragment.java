@@ -7,7 +7,7 @@ import android.view.View;
 import javax.inject.Inject;
 
 import json.chao.com.wanandroid.R;
-import json.chao.com.wanandroid.app.GeeksApp;
+import json.chao.com.wanandroid.app.WanAndroidApp;
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
 import json.chao.com.wanandroid.base.view.BaseView;
 import json.chao.com.wanandroid.di.component.DaggerFragmentComponent;
@@ -46,7 +46,7 @@ public abstract class BaseFragment<T extends AbstractPresenter> extends Abstract
 
     public FragmentComponent getFragmentComponent() {
         return DaggerFragmentComponent.builder()
-                .appComponent(GeeksApp.getAppComponent())
+                .appComponent(WanAndroidApp.getAppComponent())
                 .fragmentModule(new FragmentModule(this))
                 .build();
     }

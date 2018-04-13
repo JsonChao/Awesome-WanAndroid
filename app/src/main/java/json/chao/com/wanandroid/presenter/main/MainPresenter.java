@@ -3,16 +3,14 @@ package json.chao.com.wanandroid.presenter.main;
 import javax.inject.Inject;
 
 import json.chao.com.wanandroid.R;
-import json.chao.com.wanandroid.app.GeeksApp;
+import json.chao.com.wanandroid.app.WanAndroidApp;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.contract.main.MainContract;
 import json.chao.com.wanandroid.core.event.AutoLoginEvent;
-import json.chao.com.wanandroid.core.event.DismissErrorView;
 import json.chao.com.wanandroid.core.event.LoginEvent;
 import json.chao.com.wanandroid.core.event.NightModeEvent;
-import json.chao.com.wanandroid.core.event.ShowErrorView;
 import json.chao.com.wanandroid.core.event.SwitchNavigationEvent;
 import json.chao.com.wanandroid.core.event.SwitchProjectEvent;
 import json.chao.com.wanandroid.utils.RxUtils;
@@ -44,7 +42,7 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
         addSubscribe(RxBus.getDefault().toFlowable(NightModeEvent.class)
                 .compose(RxUtils.rxFlSchedulerHelper())
                 .map(NightModeEvent::isNightMode)
-                .subscribeWith(new BaseSubscribe<Boolean>(mView, GeeksApp.getInstance().getString(R.string.failed_to_cast_mode)) {
+                .subscribeWith(new BaseSubscribe<Boolean>(mView, WanAndroidApp.getInstance().getString(R.string.failed_to_cast_mode)) {
                     @Override
                     public void onNext(Boolean aBoolean) {
                         mView.useNightMode(aBoolean);

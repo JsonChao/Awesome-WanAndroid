@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import io.reactivex.subscribers.ResourceSubscriber;
 import json.chao.com.wanandroid.R;
-import json.chao.com.wanandroid.app.GeeksApp;
+import json.chao.com.wanandroid.app.WanAndroidApp;
 import json.chao.com.wanandroid.base.view.BaseView;
 import json.chao.com.wanandroid.core.http.exception.ServerException;
 import json.chao.com.wanandroid.utils.LogHelper;
@@ -56,9 +56,9 @@ public abstract class BaseSubscribe <T> extends ResourceSubscriber<T> {
         } else if (e instanceof ServerException) {
             mView.showErrorMsg(e.toString());
         } else if (e instanceof HttpException) {
-            mView.showErrorMsg(GeeksApp.getInstance().getString(R.string.http_error));
+            mView.showErrorMsg(WanAndroidApp.getInstance().getString(R.string.http_error));
         } else {
-            mView.showErrorMsg(GeeksApp.getInstance().getString(R.string.unKnown_error));
+            mView.showErrorMsg(WanAndroidApp.getInstance().getString(R.string.unKnown_error));
             LogHelper.d(e.toString());
         }
         if (isShowError) {

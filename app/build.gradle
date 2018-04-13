@@ -1,6 +1,9 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'org.greenrobot.greendao'
+
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -22,6 +25,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         renderscriptTargetApi 21
         renderscriptSupportModeEnabled true    // Enable RS support
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -108,6 +112,9 @@ dependencies {
     implementation "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
 
+    //multidex
+    implementation "com.android.support:multidex:$rootProject.multidexVersion"
+
     //other
     implementation "com.airbnb.android:lottie:$rootProject.lottieVersion"
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
@@ -124,6 +131,7 @@ dependencies {
 
     //unit test
     testImplementation "junit:junit:$rootProject.junitVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 
 //解决支持库版本不兼容问题

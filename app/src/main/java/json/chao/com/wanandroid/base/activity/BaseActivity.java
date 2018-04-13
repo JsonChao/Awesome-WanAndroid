@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatDelegate;
 import javax.inject.Inject;
 
 import json.chao.com.wanandroid.R;
-import json.chao.com.wanandroid.app.GeeksApp;
+import json.chao.com.wanandroid.app.WanAndroidApp;
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
 import json.chao.com.wanandroid.base.view.BaseView;
 import json.chao.com.wanandroid.di.component.ActivityComponent;
@@ -35,7 +35,7 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
 
     protected ActivityComponent getActivityComponent() {
         return DaggerActivityComponent.builder()
-                .appComponent(GeeksApp.getAppComponent())
+                .appComponent(WanAndroidApp.getAppComponent())
                 .activityModule(new ActivityModule(this))
                 .build();
     }

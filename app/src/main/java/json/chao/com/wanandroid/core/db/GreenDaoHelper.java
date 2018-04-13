@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import json.chao.com.wanandroid.app.GeeksApp;
+import json.chao.com.wanandroid.app.WanAndroidApp;
 import json.chao.com.wanandroid.core.dao.DaoSession;
 import json.chao.com.wanandroid.core.dao.HistoryData;
 import json.chao.com.wanandroid.core.dao.HistoryDataDao;
@@ -21,7 +21,7 @@ public class GreenDaoHelper implements DbHelper {
 
     @Inject
     GreenDaoHelper() {
-        daoSession = GeeksApp.getInstance().getDaoSession();
+        daoSession = WanAndroidApp.getInstance().getDaoSession();
     }
 
     @Override

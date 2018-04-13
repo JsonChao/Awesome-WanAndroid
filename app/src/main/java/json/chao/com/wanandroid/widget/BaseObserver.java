@@ -3,9 +3,9 @@ package json.chao.com.wanandroid.widget;
 import android.text.TextUtils;
 
 import io.reactivex.observers.ResourceObserver;
+import json.chao.com.wanandroid.app.WanAndroidApp;
 import json.chao.com.wanandroid.core.http.exception.ServerException;
 import json.chao.com.wanandroid.R;
-import json.chao.com.wanandroid.app.GeeksApp;
 import json.chao.com.wanandroid.utils.LogHelper;
 import json.chao.com.wanandroid.base.view.BaseView;
 import retrofit2.HttpException;
@@ -58,9 +58,9 @@ public abstract class BaseObserver<T> extends ResourceObserver<T> {
         } else if (e instanceof ServerException) {
             mView.showErrorMsg(e.toString());
         } else if (e instanceof HttpException) {
-                mView.showErrorMsg(GeeksApp.getInstance().getString(R.string.http_error));
+                mView.showErrorMsg(WanAndroidApp.getInstance().getString(R.string.http_error));
         } else {
-            mView.showErrorMsg(GeeksApp.getInstance().getString(R.string.unKnown_error));
+            mView.showErrorMsg(WanAndroidApp.getInstance().getString(R.string.unKnown_error));
             LogHelper.d(e.toString());
         }
         if (isShowError) {

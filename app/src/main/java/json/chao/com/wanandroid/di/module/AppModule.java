@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import json.chao.com.wanandroid.app.WanAndroidApp;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.db.DbHelper;
 import json.chao.com.wanandroid.core.db.GreenDaoHelper;
@@ -12,7 +13,6 @@ import json.chao.com.wanandroid.core.http.HttpHelper;
 import json.chao.com.wanandroid.core.http.RetrofitHelper;
 import json.chao.com.wanandroid.core.prefs.PreferenceHelper;
 import json.chao.com.wanandroid.core.prefs.PreferenceHelperImpl;
-import json.chao.com.wanandroid.app.GeeksApp;
 
 /**
  * @author quchao
@@ -22,15 +22,15 @@ import json.chao.com.wanandroid.app.GeeksApp;
 @Module
 public class AppModule {
 
-    private final GeeksApp application;
+    private final WanAndroidApp application;
 
-    public AppModule(GeeksApp application) {
+    public AppModule(WanAndroidApp application) {
         this.application = application;
     }
 
     @Provides
     @Singleton
-    GeeksApp provideApplicationContext() {
+    WanAndroidApp provideApplicationContext() {
         return application;
     }
 

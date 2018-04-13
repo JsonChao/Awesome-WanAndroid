@@ -5,7 +5,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
-import json.chao.com.wanandroid.app.GeeksApp;
+import json.chao.com.wanandroid.app.WanAndroidApp;
 
 /**
  * @author quchao
@@ -22,7 +22,7 @@ public class ImageLoader {
      * @param iv imageView
      */
     public static void load(Context context, String url, ImageView iv) {
-        if (!GeeksApp.getAppComponent().preferencesHelper().getNoImageState()) {
+        if (!WanAndroidApp.getAppComponent().preferencesHelper().getNoImageState()) {
             Glide.with(context).load(url).into(iv);
         }
     }

@@ -1,16 +1,12 @@
 package json.chao.com.wanandroid.di.module;
 
-import android.text.TextUtils;
-
 import java.io.File;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import json.chao.com.wanandroid.app.GeeksApp;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
@@ -100,35 +96,6 @@ public class HttpModule {
         //设置缓存
         builder.addNetworkInterceptor(cacheInterceptor);
         builder.addInterceptor(cacheInterceptor);
-        builder.addInterceptor(chain -> {
-            Request request = chain.request();
-            Response response = chain.proceed(request);
-            String requestUrl = request.url().toString();
-            String domain = request.url().host();
-            // set-cookie maybe has multi, login to save cookie
-            boolean isLoginOrRegister = requestUrl.contains(Constants.SAVE_USER_LOGIN_KEY)
-                    || requestUrl.contains(Constants.SAVE_USER_REGISTER_KEY);
-            if (isLoginOrRegister && !response.headers(Constants.SET_COOKIE_KEY).isEmpty()) {
-                List<String> cookies = response.headers(Constants.SET_COOKIE_KEY);
-                String cookie = CommonUtils.encodeCookie(cookies);
-                GeeksApp.getAppComponent().preferencesHelper().setCookie(domain, cookie);
-            }
-            return response;
-        });
-        builder.addInterceptor(chain -> {
-            Request request = chain.request();
-            Request.Builder builder1 = request.newBuilder();
-            String domain = request.url().host();
-            if (TextUtils.isEmpty(domain)) {
-                return chain.proceed(request);
-            }
-            String cookie = GeeksApp.getAppComponent().preferencesHelper().getCookie(domain);
-            if (TextUtils.isEmpty(cookie)) {
-                return chain.proceed(request);
-            }
-            builder1.addHeader(Constants.COOKIE, cookie);
-            return chain.proceed(builder1.build());
-        });
         builder.cache(cache);
         //设置超时
         builder.connectTimeout(10, TimeUnit.SECONDS);

@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import javax.inject.Inject;
 
 import json.chao.com.wanandroid.app.Constants;
-import json.chao.com.wanandroid.app.GeeksApp;
+import json.chao.com.wanandroid.app.WanAndroidApp;
 
 /**
  * @author quchao
@@ -20,7 +20,7 @@ public class PreferenceHelperImpl implements PreferenceHelper {
 
     @Inject
     PreferenceHelperImpl() {
-        mPreferences = GeeksApp.getInstance().getSharedPreferences(MY_SHARED_PREFERENCE, Context.MODE_PRIVATE);
+        mPreferences = WanAndroidApp.getInstance().getSharedPreferences(MY_SHARED_PREFERENCE, Context.MODE_PRIVATE);
     }
 
     @Override

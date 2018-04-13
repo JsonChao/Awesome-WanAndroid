@@ -6,7 +6,7 @@ import com.airbnb.lottie.LottieAnimationView;
 
 import butterknife.BindView;
 import json.chao.com.wanandroid.R;
-import json.chao.com.wanandroid.app.GeeksApp;
+import json.chao.com.wanandroid.app.WanAndroidApp;
 import json.chao.com.wanandroid.base.activity.BaseActivity;
 import json.chao.com.wanandroid.contract.main.SplashContract;
 import json.chao.com.wanandroid.presenter.main.SplashPresenter;
@@ -58,12 +58,12 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 
     @Override
     protected void initEventAndData() {
-        if (GeeksApp.isFirstRun) {
+        if (WanAndroidApp.isFirstRun) {
             jumpToMain();
             return;
         }
         StatusBarUtil.immersive(this);
-        GeeksApp.isFirstRun = true;
+        WanAndroidApp.isFirstRun = true;
         mOneAnimation.setAnimation("W.json");
         mOneAnimation.playAnimation();
         mTwoAnimation.setAnimation("A.json");

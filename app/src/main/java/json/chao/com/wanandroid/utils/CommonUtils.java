@@ -14,14 +14,11 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Random;
 
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
-import json.chao.com.wanandroid.app.GeeksApp;
+import json.chao.com.wanandroid.app.WanAndroidApp;
 
 /**
  * @author quchao
@@ -34,7 +31,7 @@ public class CommonUtils {
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      */
     public static int dp2px(float dpValue) {
-        final float scale = GeeksApp.getInstance().getResources().getDisplayMetrics().density;
+        final float scale = WanAndroidApp.getInstance().getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
@@ -78,7 +75,7 @@ public class CommonUtils {
      * 检查是否有可用网络
      */
     public static boolean isNetworkConnected() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) GeeksApp.getInstance().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) WanAndroidApp.getInstance().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         assert connectivityManager != null;
         return connectivityManager.getActiveNetworkInfo() != null;
     }
@@ -147,26 +144,5 @@ public class CommonUtils {
     public static <T> T cast(Object object) {
         return (T) object;
     }
-
-    /**
-     * save cookie string
-     */
-    public static String encodeCookie(List<String> cookies) {
-        StringBuilder sb = new StringBuilder();
-        Iterator<String> ite = cookies.iterator();
-
-        while (ite.hasNext()) {
-            String cookie = ite.next();
-            sb.append(cookie).append(";");
-        }
-
-        int last = sb.lastIndexOf(";");
-        if (sb.length() - 1 == last) {
-            sb.deleteCharAt(last);
-        }
-
-        return sb.toString();
-    }
-
 
 }

@@ -1,6 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    ext.kotlin_version = '1.2.10'
     repositories {
         google()
         jcenter()
@@ -12,6 +13,7 @@ buildscript {
         classpath 'com.jakewharton:butterknife-gradle-plugin:8.4.0'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -36,13 +38,13 @@ task clean(type: Delete) {
 // Define versions in a single place
 ext {
     // Sdk and tools
-    compileSdkVersion = 26
-    buildToolsVersion = '26.0.2'
+    compileSdkVersion = 27
+    buildToolsVersion = '27.0.3'
     minSdkVersion = 21
     targetSdkVersion = 25
 
     // App dependencies
-    supportLibraryVersion = '25.3.1'
+    supportLibraryVersion = '27.1.1'
     loggerVersion = '2.1.1'
     leakcanaryVersion = '1.5.4'
     gsonVersion = '2.8.2'
@@ -58,6 +60,7 @@ ext {
     daggerVersion = '2.0.2'
     javaxVersion = '10.0-b28'
     butterknifeVersion = '8.8.1'
+    multidexVersion = '1.0.3'
     lottieVersion = '2.3.0'
     constraintVersion = '1.0.2'
     ByeBurgerVersion = '1.2.3'
