@@ -210,13 +210,14 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
         if (!TextUtils.isEmpty(searchText)) {
             mTitleTv.setText(searchText);
         }
-        StatusBarUtil.immersive(this, ContextCompat.getColor(this, R.color.transparent), 0.3f);
-        StatusBarUtil.setPaddingSmart(this, mToolbar);
+
+        StatusBarUtil.setStatusColor(getWindow(), ContextCompat.getColor(this, R.color.search_status_bar_white), 1f);
         if (mPresenter.getNightModeState()) {
             mTitleTv.setTextColor(ContextCompat.getColor(this, R.color.white));
             mToolbar.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_gradient_bg));
             mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_white_24dp));
         } else {
+            StatusBarUtil.setStatusDarkColor(getWindow());
             mTitleTv.setTextColor(ContextCompat.getColor(this, R.color.title_black));
             mToolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
             mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_grey_24dp));

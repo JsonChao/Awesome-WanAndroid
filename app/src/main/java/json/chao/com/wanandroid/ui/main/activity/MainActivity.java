@@ -9,6 +9,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -290,8 +291,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(false);
         mTitleTv.setText(getString(R.string.home_pager));
-        StatusBarUtil.immersive(this);
-        StatusBarUtil.setPaddingSmart(this, mToolbar);
+        StatusBarUtil.setStatusColor(getWindow(), ContextCompat.getColor(this, R.color.main_status_bar_blue), 1f);
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
     }
 

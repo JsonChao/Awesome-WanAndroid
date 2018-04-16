@@ -1,0 +1,60 @@
+@startuml
+
+'plantUML入门
+Alice -> Bob : Request
+Alice -> Bob: Request
+
+Bob --> Alice : Response
+Bob --> Alice : Response
+
+'这是单行注释
+/'这是
+多行
+注释'/
+
+'声明参与者
+
+'可以使用
+participant s1
+'也可以使用
+actor ac1
+boundary ac2
+control ac3
+entity ac4
+database ac5
+ac1 -> ac2 : to boundary
+ac2 -> ac3 : to control
+ac3 -> ac4 : to entity
+ac4 -> ac5 : to database
+ac2 --> ac1 : to actor
+ac3 --> ac2 : to boundary
+ac4 --> ac3 : to control
+ac5 --> ac4 : to entity
+
+'使用#red追加背景色
+actor sen #red
+'使用as ...追加别名
+participant "追加背景别名L" as L #99ff99
+
+sen -> L : to L
+L --> sen : to sen
+
+'对于非字母的别名，可以使用""，as后面的非字母别名也可以使用""
+jan -> "qu()" as didi
+didi --> didi as "quf()"
+'注意，as两旁只能有一个为双引号
+
+'发送消息给自己，使用/n换行
+zan -> zan : This is a test to send message \n to self
+
+'改变箭头的样式，使用 < > 、<< >> 、\ / 、\\ // 、o
+js1 <-> js2
+js2 <<->> js3
+js3 \-/ js4
+js4 \\-// js5
+js5 <-//o js6
+'-两旁只要有一个变实心箭头的操作符:<<、>>、//、\\，两旁全部变实心
+
+
+
+@enduml

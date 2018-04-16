@@ -27,6 +27,8 @@
     <color name="yellow">#f2efef</color>
     <color name="search_grey_gone">#cccccc</color>
     <color name="search_grey">#ffffff</color>
+    <color name="main_status_bar_blue">#333333</color>
+    <color name="search_status_bar_white">#333333</color>
 
 
 </resources>

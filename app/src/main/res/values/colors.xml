@@ -31,7 +31,8 @@
     <color name="yellow">#f39c12</color>
     <color name="search_grey_gone">#bbbbbb</color>
     <color name="search_grey">#FF000000</color>
-
+    <color name="main_status_bar_blue">#3F9FE0</color>
+    <color name="search_status_bar_white">#ffffff</color>
 
     //other
     <color name="card_color">#202124</color>
