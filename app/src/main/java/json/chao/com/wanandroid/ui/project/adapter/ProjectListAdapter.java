@@ -46,13 +46,7 @@ public class ProjectListAdapter extends BaseQuickAdapter<FeedArticleData, Projec
         } else {
             helper.getView(R.id.item_project_list_install_tv).setVisibility(View.GONE);
         }
-//        if (item.isCollect()) {
-//            helper.setImageResource(R.id.item_project_list_like_iv, R.mipmap.icon_like_article_selected);
-//        } else {
-//            helper.setImageResource(R.id.item_project_list_like_iv, R.mipmap.icon_like_article_not_selected);
-//        }
 
         helper.addOnClickListener(R.id.item_project_list_install_tv);
-//        helper.addOnClickListener(R.id.item_project_list_like_iv);
     }
 }

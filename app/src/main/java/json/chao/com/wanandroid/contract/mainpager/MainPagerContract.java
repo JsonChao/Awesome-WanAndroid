@@ -76,6 +76,13 @@ public interface MainPagerContract {
     interface Presenter extends AbstractPresenter<View> {
 
         /**
+         * Get login password
+         *
+         * @return login password
+         */
+        String getLoginPassword();
+
+        /**
          * Load main pager data
          */
         void loadMainPagerData();

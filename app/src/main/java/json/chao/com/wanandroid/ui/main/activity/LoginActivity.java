@@ -13,12 +13,9 @@ import com.jakewharton.rxbinding2.view.RxView;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.component.RxBus;
-import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.login.LoginData;
 import json.chao.com.wanandroid.R;
@@ -50,8 +47,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @BindView(R.id.login_register_btn)
     Button mRegisterBtn;
 
-    @Inject
-    DataManager mDataManager;
     private RegisterPopupWindow mPopupWindow;
 
     @Override
@@ -98,9 +93,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             return;
         }
         LoginData loginData = loginResponse.getData();
-        mDataManager.setLoginAccount(loginData.getUsername());
-        mDataManager.setLoginPassword(loginData.getPassword());
-        mDataManager.setLoginStatus(true);
+        mPresenter.setLoginAccount(loginData.getUsername());
+        mPresenter.setLoginPassword(loginData.getPassword());
+        mPresenter.setLoginStatus(true);
         RxBus.getDefault().post(new LoginEvent(true));
         CommonUtils.showSnackMessage(this, getString(R.string.login_success));
         onBackPressedSupport();

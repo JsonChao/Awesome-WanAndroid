@@ -44,9 +44,9 @@ public abstract class AbstractRootActivity<T extends BasePresenter> extends Base
         View.inflate(this, R.layout.error_view, mParent);
         mLoadingView = mParent.findViewById(R.id.loading_group);
         mErrorView = mParent.findViewById(R.id.error_group);
-        TextView reloadTv = (TextView) mErrorView.findViewById(R.id.error_reload_tv);
+        TextView reloadTv = mErrorView.findViewById(R.id.error_reload_tv);
         reloadTv.setOnClickListener(v -> reload());
-        mLoadingAnimation = (LottieAnimationView) mLoadingView.findViewById(R.id.loading_animation);
+        mLoadingAnimation = mLoadingView.findViewById(R.id.loading_animation);
         mErrorView.setVisibility(View.GONE);
         mLoadingView.setVisibility(View.GONE);
         mNormalView.setVisibility(View.VISIBLE);

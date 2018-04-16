@@ -11,12 +11,9 @@ import com.flyco.tablayout.SlidingTabLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
 import json.chao.com.wanandroid.component.RxBus;
-import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.project.ProjectClassifyData;
 import json.chao.com.wanandroid.R;
@@ -41,9 +38,6 @@ public class ProjectFragment extends AbstractRootFragment<ProjectPresenter> impl
     @BindView(R.id.project_viewpager)
     ViewPager mViewPager;
 
-    @Inject
-    DataManager mDataManager;
-
     private List<ProjectClassifyData> mData;
     private ArrayList<BaseFragment> mFragments;
     private int currentPage;
@@ -51,7 +45,7 @@ public class ProjectFragment extends AbstractRootFragment<ProjectPresenter> impl
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mDataManager.setProjectCurrentPage(currentPage);
+        mPresenter.setProjectCurrentPage(currentPage);
     }
 
     public static ProjectFragment getInstance(String param1, String param2) {
@@ -73,7 +67,7 @@ public class ProjectFragment extends AbstractRootFragment<ProjectPresenter> impl
         super.initEventAndData();
         mFragments = new ArrayList<>();
         mPresenter.getProjectClassifyData();
-        currentPage = mDataManager.getProjectCurrentPage();
+        currentPage = mPresenter.getProjectCurrentPage();
         if (CommonUtils.isNetworkConnected()) {
             showLoading();
         }
@@ -90,7 +84,7 @@ public class ProjectFragment extends AbstractRootFragment<ProjectPresenter> impl
             showProjectClassifyDataFail();
             return;
         }
-        if (mDataManager.getCurrentPage() == Constants.TYPE_PROJECT) {
+        if (mPresenter.getCurrentPage() == Constants.TYPE_PROJECT) {
             mTabLayout.setVisibility(View.VISIBLE);
             mDivider.setVisibility(View.VISIBLE);
             mViewPager.setVisibility(View.VISIBLE);

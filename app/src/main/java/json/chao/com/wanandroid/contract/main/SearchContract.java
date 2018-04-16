@@ -47,6 +47,13 @@ public interface SearchContract {
     interface Presenter extends AbstractPresenter<View> {
 
         /**
+         * Load all history data
+         *
+         * @return all history data
+         */
+        List<HistoryData> loadAllHistoryData();
+
+        /**
          * Add history data
          *
          * @param data history data

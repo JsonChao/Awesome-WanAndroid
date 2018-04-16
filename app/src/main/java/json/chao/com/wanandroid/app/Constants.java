@@ -19,9 +19,6 @@ public class Constants {
     /**
      * url
      */
-    public static final String SAVE_USER_LOGIN_KEY = "user/login";
-    public static final String SAVE_USER_REGISTER_KEY = "user/register";
-    public static final String SET_COOKIE_KEY = "set-cookie";
     public static final String COOKIE = "Cookie";
 
     /**

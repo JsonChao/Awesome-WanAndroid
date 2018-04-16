@@ -21,13 +21,10 @@ import com.zhy.view.flowlayout.TagFlowLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.base.fragment.BaseDialogFragment;
 import json.chao.com.wanandroid.contract.main.UsageDialogContract;
-import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.search.UsefulSiteData;
 import json.chao.com.wanandroid.presenter.main.UsageDialogPresenter;
@@ -53,9 +50,6 @@ public class UsageDialogFragment extends BaseDialogFragment<UsageDialogPresenter
     TagFlowLayout mUsefulSitesFlowLayout;
 
     private List<UsefulSiteData> mUsefulSiteDataList;
-
-    @Inject
-    DataManager mDataManager;
     private CircularRevealAnim mCircularRevealAnim;
 
     @Override

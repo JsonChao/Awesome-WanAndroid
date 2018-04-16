@@ -22,8 +22,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import json.chao.com.wanandroid.R;
@@ -32,7 +30,6 @@ import json.chao.com.wanandroid.base.activity.BaseActivity;
 import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.contract.main.MainContract;
-import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.event.LoginEvent;
 import json.chao.com.wanandroid.core.http.cookies.CookiesManager;
 import json.chao.com.wanandroid.presenter.main.MainPresenter;
@@ -69,9 +66,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     NavigationView mNavigationView;
     @BindView(R.id.fragment_group)
     FrameLayout mFrameGroup;
-
-    @Inject
-    DataManager mDataManager;
 
     private ArrayList<BaseFragment> mFragments;
     private TextView mUsTv;
@@ -181,8 +175,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         if (mNavigationView == null) {
             return;
         }
-        mUsTv = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.nav_header_login_tv);
-        mUsTv.setText(mDataManager.getLoginAccount());
+        mUsTv = mNavigationView.getHeaderView(0).findViewById(R.id.nav_header_login_tv);
+        mUsTv.setText(mPresenter.getLoginAccount());
         mUsTv.setOnClickListener(null);
         mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(true);
     }
@@ -200,20 +194,20 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private void init() {
         initNavigationView();
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationBar);
-        mDataManager.setCurrentPage(Constants.TYPE_MAIN_PAGER);
+        mPresenter.setCurrentPage(Constants.TYPE_MAIN_PAGER);
         bottomNavigationBar.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.tab_main_pager:
                     mTitleTv.setText(getString(R.string.home_pager));
                     switchFragment(0);
                     mMainPagerFragment.reload();
-                    mDataManager.setCurrentPage(Constants.TYPE_MAIN_PAGER);
+                    mPresenter.setCurrentPage(Constants.TYPE_MAIN_PAGER);
                     break;
                 case R.id.tab_knowledge_hierarchy:
                     mTitleTv.setText(getString(R.string.knowledge_hierarchy));
                     switchFragment(1);
                     mKnowledgeHierarchyFragment.reload();
-                    mDataManager.setCurrentPage(Constants.TYPE_KNOWLEDGE);
+                    mPresenter.setCurrentPage(Constants.TYPE_KNOWLEDGE);
                     break;
                 case R.id.tab_navigation:
                     switchNavigation();
@@ -259,7 +253,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     private void jumpToTheTop() {
-        switch (mDataManager.getCurrentPage()) {
+        switch (mPresenter.getCurrentPage()) {
             case Constants.TYPE_MAIN_PAGER:
                 if (mMainPagerFragment != null) {
                     mMainPagerFragment.jumpToTheTop();
@@ -313,14 +307,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mTitleTv.setText(getString(R.string.project));
         switchFragment(3);
         mProjectFragment.reload();
-        mDataManager.setCurrentPage(Constants.TYPE_PROJECT);
+        mPresenter.setCurrentPage(Constants.TYPE_PROJECT);
     }
 
     private void switchNavigation() {
         mTitleTv.setText(getString(R.string.navigation));
         switchFragment(2);
         mNavigationFragment.reload();
-        mDataManager.setCurrentPage(Constants.TYPE_NAVIGATION);
+        mPresenter.setCurrentPage(Constants.TYPE_NAVIGATION);
     }
 
     /**
@@ -352,8 +346,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     private void initNavigationView() {
-        mUsTv = ((TextView) mNavigationView.getHeaderView(0).findViewById(R.id.nav_header_login_tv));
-        if (mDataManager.getLoginStatus()) {
+        mUsTv = mNavigationView.getHeaderView(0).findViewById(R.id.nav_header_login_tv);
+        if (mPresenter.getLoginStatus()) {
             showLoginView();
         } else {
             showLogoutView();
@@ -366,7 +360,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 });
         mNavigationView.getMenu().findItem(R.id.nav_item_my_collect)
                 .setOnMenuItemClickListener(item -> {
-                    if (mDataManager.getLoginStatus()) {
+                    if (mPresenter.getLoginStatus()) {
                         startCollectFragment();
                         return true;
                     } else {
@@ -419,7 +413,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 v -> {
                     CommonAlertDialog.newInstance().cancelDialog(true);
                     mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(false);
-                    mDataManager.setLoginStatus(false);
+                    mPresenter.setLoginStatus(false);
                     CookiesManager.clearAllCookies();
                     RxBus.getDefault().post(new LoginEvent(false));
                     startActivity(new Intent(this, LoginActivity.class));

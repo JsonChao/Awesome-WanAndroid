@@ -19,12 +19,9 @@ import com.youth.banner.Transformer;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
 import json.chao.com.wanandroid.component.RxBus;
-import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.banner.BannerData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
@@ -59,8 +56,6 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
     private List<FeedArticleData> mFeedArticleDataList;
     private ArticleListAdapter mAdapter;
 
-    @Inject
-    DataManager mDataManager;
     private int articlePosition;
     private List<String> mBannerTitleList;
     private List<String> mBannerUrlList;
@@ -154,14 +149,14 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
         //add head banner
         LinearLayout mHeaderGroup = ((LinearLayout) LayoutInflater.from(_mActivity).inflate(R.layout.head_banner, null));
-        mBanner = ((Banner) mHeaderGroup.findViewById(R.id.head_banner));
+        mBanner = mHeaderGroup.findViewById(R.id.head_banner);
         mHeaderGroup.removeView(mBanner);
         mAdapter.addHeaderView(mBanner);
         mRecyclerView.setAdapter(mAdapter);
 
         setRefresh();
-        if (!TextUtils.isEmpty(mDataManager.getLoginAccount())
-                && !TextUtils.isEmpty(mDataManager.getLoginPassword())
+        if (!TextUtils.isEmpty(mPresenter.getLoginAccount())
+                && !TextUtils.isEmpty(mPresenter.getLoginPassword())
                 && !isRecreate) {
             mPresenter.loadMainPagerData();
         } else {
@@ -182,7 +177,7 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
 
     @Override
     public void showAutoLoginFail() {
-        mDataManager.setLoginStatus(false);
+        mPresenter.setLoginStatus(false);
         CookiesManager.clearAllCookies();
         RxBus.getDefault().post(new LoginEvent(false));
     }
@@ -194,7 +189,7 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
             showArticleListFail();
             return;
         }
-        if (mDataManager.getCurrentPage() == Constants.TYPE_MAIN_PAGER) {
+        if (mPresenter.getCurrentPage() == Constants.TYPE_MAIN_PAGER) {
             mRecyclerView.setVisibility(View.VISIBLE);
         } else {
 
@@ -316,7 +311,7 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
     }
 
     private void likeEvent(int position) {
-        if (!mDataManager.getLoginStatus()) {
+        if (!mPresenter.getLoginStatus()) {
             startActivity(new Intent(_mActivity, LoginActivity.class));
             CommonUtils.showMessage(_mActivity, getString(R.string.login_tint));
             return;

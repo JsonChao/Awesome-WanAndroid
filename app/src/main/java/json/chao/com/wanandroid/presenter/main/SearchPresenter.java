@@ -11,7 +11,6 @@ import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.contract.main.SearchContract;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.search.TopSearchData;
-import json.chao.com.wanandroid.core.bean.main.search.UsefulSiteData;
 import json.chao.com.wanandroid.core.dao.HistoryData;
 import json.chao.com.wanandroid.utils.RxUtils;
 import json.chao.com.wanandroid.widget.BaseObserver;
@@ -34,6 +33,11 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
     @Override
     public void attachView(SearchContract.View view) {
         super.attachView(view);
+    }
+
+    @Override
+    public List<HistoryData> loadAllHistoryData() {
+        return mDataManager.loadAllHistoryData();
     }
 
     @Override

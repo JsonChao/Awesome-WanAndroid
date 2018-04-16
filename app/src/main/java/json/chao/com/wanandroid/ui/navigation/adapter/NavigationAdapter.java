@@ -1,7 +1,5 @@
 package json.chao.com.wanandroid.ui.navigation.adapter;
 
-
-import android.app.Activity;
 import android.app.ActivityOptions;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;

@@ -30,4 +30,33 @@ public interface AbstractPresenter<T extends BaseView> {
      */
     boolean getNightModeState();
 
+    /**
+     * Set login status
+     *
+     * @param loginStatus login status
+     */
+    void setLoginStatus(boolean loginStatus);
+
+    /**
+     * Get login status
+     *
+     * @return if is login status
+     */
+    boolean getLoginStatus();
+
+    /**
+     * Get login account
+     *
+     * @return login account
+     */
+    String getLoginAccount();
+
+    /**
+     * Get current page
+     *
+     * @return current page
+     */
+    int getCurrentPage();
+
+
 }

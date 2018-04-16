@@ -26,6 +26,13 @@ public interface MainContract {
     interface Presenter extends AbstractPresenter<View> {
 
         /**
+         * Set current page
+         *
+         * @param page current page
+         */
+        void setCurrentPage(int page);
+
+        /**
          * Set night mode state
          *
          * @param b current night mode state

@@ -43,6 +43,20 @@ public interface LoginContract {
     interface Presenter extends AbstractPresenter<View> {
 
         /**
+         * Set login status
+         *
+         * @param account account
+         */
+        void setLoginAccount(String account);
+
+        /**
+         * Set login password
+         *
+         * @param password password
+         */
+        void setLoginPassword(String password);
+
+        /**
          * Get Login data
          *
          * @param username user name

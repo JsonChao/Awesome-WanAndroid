@@ -8,11 +8,8 @@ import android.widget.LinearLayout;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
-import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.navigation.NavigationListData;
 import json.chao.com.wanandroid.R;
@@ -43,8 +40,6 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
     @BindView(R.id.navigation_RecyclerView)
     RecyclerView mRecyclerView;
 
-    @Inject
-    DataManager mDataManager;
     private LinearLayoutManager mManager;
     private boolean needScroll;
     private int index;
@@ -114,7 +109,7 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
                 return -1;
             }
         });
-        if (mDataManager.getCurrentPage() == Constants.TYPE_NAVIGATION) {
+        if (mPresenter.getCurrentPage() == Constants.TYPE_NAVIGATION) {
             mNavigationGroup.setVisibility(View.VISIBLE);
             mTabLayout.setVisibility(View.VISIBLE);
             mDivider.setVisibility(View.VISIBLE);

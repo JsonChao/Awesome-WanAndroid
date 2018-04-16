@@ -32,15 +32,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.fragment.BaseDialogFragment;
 import json.chao.com.wanandroid.contract.main.SearchContract;
-import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.search.TopSearchData;
 import json.chao.com.wanandroid.core.dao.HistoryData;
@@ -84,9 +81,6 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     FloatingActionButton mFloatingActionButton;
 
     private List<TopSearchData> mTopSearchDataList;
-
-    @Inject
-    DataManager mDataManager;
     private CircularRevealAnim mCircularRevealAnim;
     private HistorySearchAdapter historySearchAdapter;
 
@@ -144,7 +138,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
                     setHistoryTvStatus(false);
                 });
 
-        showHistoryData(mDataManager.loadAllHistoryData());
+        showHistoryData(mPresenter.loadAllHistoryData());
         mPresenter.getTopSearchData();
     }
 

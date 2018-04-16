@@ -28,6 +28,16 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
     }
 
     @Override
+    public void setLoginAccount(String account) {
+        mDataManager.setLoginAccount(account);
+    }
+
+    @Override
+    public void setLoginPassword(String password) {
+        mDataManager.setLoginPassword(password);
+    }
+
+    @Override
     public void getLoginData(String username, String password) {
         addSubscribe(mDataManager.getLoginData(username, password)
                         .compose(RxUtils.rxSchedulerHelper())

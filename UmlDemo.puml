@@ -55,6 +55,90 @@ js4 \\-// js5
 js5 <-//o js6
 '-两旁只要有一个变实心箭头的操作符:<<、>>、//、\\，两旁全部变实心
 
+'改变箭头的颜色，在箭头中间使用[#...]
+cs1 -[#red]> cs2
+cs2 -[#black]-> cs1
+
+'消息序号，格式为autonumber start increment
+autonumber
+bs1 -[#ff99ff]> bs2
+bs2 -[#ff99ff]> bs3
+
+autonumber 20
+bs3 -> bs4
+bs4 -> bs5
+
+autonumber 30 10
+bs5 -> bs6
+bs6 -> bs7
+
+/'使用HTML标签为序号指定数字格式,格式化过程是Java类中的
+DecimalFormat执行的，"0"表示数字，"#"表示缺省符'/
+autonumber "<b>[000]"
+ds1 -> ds2
+ds2 -> ds3
+
+autonumber "<b>(<u>##<u>) "
+ds3 -> ds4
+ds4 -> ds5
+
+autonumber 20 10 "<font color=blue> message 0"
+ds5 -> ds6
+ds6 -> ds7
+
+'添加标题，使用title
+title This is an awesome plantUML study demo
+es1 -> es2
+es2 -->> es3
+
+/'使用legend、end legend设置图形图例，
+支持左对齐、右对齐、居中对齐'/
+fs1 -> fs2
+fs2 -> fs3
+legend right
+this is
+legend show
+end legend
+
+/'分割图形，使用newpage，将图像分割为块，
+每块可看做是一个页面，后面可加描述'/
+hs1 -> hs2
+hs2 -> hs3
+
+newpage
+hs1 -> hs2
+hs2 -> hs3
+
+newpage this newpage usage
+hs1 -> hs2
+hs2 -> hs3
+
+/'消息分组
+alt/else
+opt
+loop
+par
+break
+critical
+group
+除了group外，其它的关键字都可以在后面
+添加文本进行描述，group后面则跟的是组名,
+使用end来关闭一个组'/
+alt message group start
+    gs1 -> gs2
+else some other way
+    gs2 -> gs3
+    loop start loop
+        gs3 -> gs2
+        gs2 -> gs1
+        group custom group
+            gs1 -> gs2
+            gs2 -> gs3
+        end
+    end
+else final way
+    gs3 -> gs4
+end
 
 
 @enduml

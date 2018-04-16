@@ -47,4 +47,15 @@ public class ProjectPresenter extends BasePresenter<ProjectContract.View> implem
                             }
                         }));
     }
+
+    @Override
+    public int getProjectCurrentPage() {
+        return mDataManager.getProjectCurrentPage();
+    }
+
+    @Override
+    public void setProjectCurrentPage(int page) {
+        mDataManager.setProjectCurrentPage(page);
+    }
+
 }

@@ -64,6 +64,16 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
     }
 
     @Override
+    public String getLoginAccount() {
+        return mDataManager.getLoginAccount();
+    }
+
+    @Override
+    public String getLoginPassword() {
+        return mDataManager.getLoginPassword();
+    }
+
+    @Override
     public void loadMainPagerData() {
         String account = mDataManager.getLoginAccount();
         String password = mDataManager.getLoginPassword();

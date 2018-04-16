@@ -24,7 +24,6 @@ public abstract class AbstractRootFragment<T extends BasePresenter> extends Base
     private LottieAnimationView mLoadingAnimation;
     private View mLoadingView;
     private ViewGroup mNormalView;
-    private ViewGroup mParent;
 
     private int currentState = NORMAL_STATE;
     private View mErrorView;
@@ -34,7 +33,7 @@ public abstract class AbstractRootFragment<T extends BasePresenter> extends Base
         if (getView() == null) {
             return;
         }
-        mNormalView = (ViewGroup) getView().findViewById(R.id.normal_view);
+        mNormalView = getView().findViewById(R.id.normal_view);
         if (mNormalView == null) {
             throw new IllegalStateException(
                     "The subclass of RootActivity must contain a View named 'mNormalView'.");
@@ -43,14 +42,14 @@ public abstract class AbstractRootFragment<T extends BasePresenter> extends Base
             throw new IllegalStateException(
                     "mNormalView's ParentView should be a ViewGroup.");
         }
-        mParent = (ViewGroup) mNormalView.getParent();
-        View.inflate(_mActivity, R.layout.loading_view, mParent);
-        View.inflate(_mActivity, R.layout.error_view, mParent);
-        mLoadingView = mParent.findViewById(R.id.loading_group);
-        mErrorView = mParent.findViewById(R.id.error_group);
-        TextView reloadTv = (TextView) mErrorView.findViewById(R.id.error_reload_tv);
+        ViewGroup parent = (ViewGroup) mNormalView.getParent();
+        View.inflate(_mActivity, R.layout.loading_view, parent);
+        View.inflate(_mActivity, R.layout.error_view, parent);
+        mLoadingView = parent.findViewById(R.id.loading_group);
+        mErrorView = parent.findViewById(R.id.error_group);
+        TextView reloadTv = mErrorView.findViewById(R.id.error_reload_tv);
         reloadTv.setOnClickListener(v -> reload());
-        mLoadingAnimation = (LottieAnimationView) mLoadingView.findViewById(R.id.loading_animation);
+        mLoadingAnimation = mLoadingView.findViewById(R.id.loading_animation);
         mErrorView.setVisibility(View.GONE);
         mLoadingView.setVisibility(View.GONE);
         mNormalView.setVisibility(View.VISIBLE);

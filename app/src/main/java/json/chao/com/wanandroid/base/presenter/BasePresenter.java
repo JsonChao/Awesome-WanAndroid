@@ -48,4 +48,27 @@ public class BasePresenter<T extends BaseView> implements AbstractPresenter<T> {
         return mDataManager.getNightModeState();
     }
 
+    @Override
+    public void setLoginStatus(boolean loginStatus) {
+        mDataManager.setLoginStatus(loginStatus);
+    }
+
+    @Override
+    public boolean getLoginStatus() {
+        return mDataManager.getLoginStatus();
+    }
+
+    @Override
+    public String getLoginAccount() {
+        return mDataManager.getLoginAccount();
+    }
+
+    @Override
+    public int getCurrentPage() {
+        return mDataManager.getCurrentPage();
+    }
+
+
+
+
 }

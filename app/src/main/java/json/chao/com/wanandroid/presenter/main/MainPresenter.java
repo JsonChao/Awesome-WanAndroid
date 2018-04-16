@@ -76,6 +76,11 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
 
 
     @Override
+    public void setCurrentPage(int page) {
+        mDataManager.setCurrentPage(page);
+    }
+
+    @Override
     public void setNightModeState(boolean b) {
         mDataManager.setNightModeState(b);
     }

@@ -6,8 +6,6 @@ import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.contract.hierarchy.KnowledgeHierarchyDetailContract;
-import json.chao.com.wanandroid.core.event.DismissDetailErrorView;
-import json.chao.com.wanandroid.core.event.ShowDetailErrorView;
 import json.chao.com.wanandroid.core.event.SwitchNavigationEvent;
 import json.chao.com.wanandroid.core.event.SwitchProjectEvent;
 

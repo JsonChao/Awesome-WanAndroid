@@ -17,8 +17,6 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import json.chao.com.wanandroid.R;
@@ -26,7 +24,6 @@ import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.activity.AbstractRootActivity;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.contract.main.SearchListContract;
-import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
@@ -56,8 +53,6 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
     @BindView(R.id.search_list_floating_action_btn)
     FloatingActionButton mFloatingActionButton;
 
-    @Inject
-    DataManager mDataManager;
     private int articlePosition;
     private int mCurrentPage;
     private List<FeedArticleData> mArticleList;
@@ -226,7 +221,7 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
     }
 
     private void likeEvent(int position) {
-        if (!mDataManager.getLoginStatus()) {
+        if (!mPresenter.getLoginStatus()) {
             startActivity(new Intent(this, LoginActivity.class));
             CommonUtils.showMessage(this, getString(R.string.login_tint));
             return;
