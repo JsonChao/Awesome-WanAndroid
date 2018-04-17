@@ -47,7 +47,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
                                 if (loginResponse.getErrorCode() == BaseResponse.SUCCESS) {
                                     mView.showLoginData(loginResponse);
                                 } else {
-                                    mView.showLoginFail();
+                                    mView.showLoginFail(loginResponse.getErrorMsg());
                                 }
                             }
                         }));
@@ -66,7 +66,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
                                 if (loginResponse.getErrorCode() == BaseResponse.SUCCESS) {
                                     mView.showRegisterData(loginResponse);
                                 } else {
-                                    mView.showRegisterFail();
+                                    mView.showRegisterFail(loginResponse.getErrorMsg());
                                 }
                             }
                         }));

@@ -30,13 +30,17 @@ public interface LoginContract {
 
         /**
          * Show login fail
+         *
+         * @param errorMsg error message
          */
-        void showLoginFail();
+        void showLoginFail(String errorMsg);
 
         /**
          * Show register fail
+         *
+         * @param errorMsg error message
          */
-        void showRegisterFail();
+        void showRegisterFail(String errorMsg);
 
     }
 
