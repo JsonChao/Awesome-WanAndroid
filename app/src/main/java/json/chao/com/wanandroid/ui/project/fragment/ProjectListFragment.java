@@ -62,7 +62,10 @@ public class ProjectListFragment extends AbstractRootFragment<ProjectListPresent
         cid = bundle.getInt(Constants.ARG_PARAM1);
         mDatas = new ArrayList<>();
         mAdapter = new ProjectListAdapter(R.layout.item_project_list, mDatas);
-        mAdapter.setOnItemClickListener((adapter, view, position) ->
+        mAdapter.setOnItemClickListener((adapter, view, position) -> {
+                    if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+                        return;
+                    }
                     JudgeUtils.startArticleDetailActivity(_mActivity,
                             null,
                             mAdapter.getData().get(position).getId(),
@@ -70,10 +73,14 @@ public class ProjectListFragment extends AbstractRootFragment<ProjectListPresent
                             mAdapter.getData().get(position).getLink().trim(),
                             mAdapter.getData().get(position).isCollect(),
                             false,
-                            true));
+                            true);
+                });
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
                 case R.id.item_project_list_install_tv:
+                    if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+                        return;
+                    }
                     if (TextUtils.isEmpty(mAdapter.getData().get(position).getApkLink())) {
                         return;
                     }

@@ -123,7 +123,7 @@ public class UsageDialogFragment extends BaseDialogFragment<UsageDialogPresenter
 
     @Override
     public void onHideAnimationEnd() {
-        dismiss();
+        dismissAllowingStateLoss();
     }
 
     @Override

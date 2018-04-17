@@ -75,6 +75,9 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
         mAdapter.isSearchPage();
         mAdapter.isNightMode(mPresenter.getNightModeState());
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
+            if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+                return;
+            }
             articlePosition = position;
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, view, getString(R.string.share_view));
             JudgeUtils.startArticleDetailActivity(this,
@@ -90,6 +93,9 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
                 case R.id.item_search_pager_chapterName:
+                    if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+                        return;
+                    }
                     JudgeUtils.startKnowledgeHierarchyDetailActivity(this,
                             true,
                             mAdapter.getData().get(position).getSuperChapterName(),
@@ -100,6 +106,9 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
                     likeEvent(position);
                     break;
                 case R.id.item_search_pager_tag_red_tv:
+                    if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+                        return;
+                    }
                     String superChapterName = mAdapter.getData().get(position).getSuperChapterName();
                     if (superChapterName.contains(getString(R.string.open_project))) {
                         onBackPressedSupport();
@@ -228,6 +237,9 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
         if (!mPresenter.getLoginStatus()) {
             startActivity(new Intent(this, LoginActivity.class));
             CommonUtils.showMessage(this, getString(R.string.login_tint));
+            return;
+        }
+        if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
             return;
         }
         if (mAdapter.getData().get(position).isCollect()) {

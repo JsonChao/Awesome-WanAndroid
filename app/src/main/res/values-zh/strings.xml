@@ -23,12 +23,12 @@
     <string name="no">否</string>
     <string name="reload">重新加载</string>
 
-    //登陆
-    <string name="login_title">账号密码登陆</string>
+    //登录
+    <string name="login_title">账号密码登录</string>
     <string name="login_account_tint">请输入用户名</string>
     <string name="login_password_tint">请输入密码</string>
     <string name="login_confirm_password_tint">请输入确认密码</string>
-    <string name="login_in">登陆</string>
+    <string name="login_in">登录</string>
     <string name="register">注册</string>
     <string name="my_collect">收藏</string>
     <string name="about_us">关于我们</string>
@@ -37,10 +37,10 @@
     <string name="login_tint">请先登录~~</string>
     <string name="login_success">登录成功n(*≧▽≦*)n</string>
     <string name="account_password_null_tint">用户名或密码不能为空</string>
-    <string name="login_fail">登陆失败ヽ(≧Д≦)ノ</string>
+    <string name="login_fail">登录失败ヽ(≧Д≦)ノ</string>
     <string name="register_fail">注册失败ヽ(≧Д≦)ノ</string>
     <string name="password_not_same">密码不匹配</string>
-    <string name="auto_login_success">自动登陆成功</string>
+    <string name="auto_login_success">自动登录成功</string>
 
     //收藏
     <string name="no_collect">大侠，赶快存点干货吧~</string>

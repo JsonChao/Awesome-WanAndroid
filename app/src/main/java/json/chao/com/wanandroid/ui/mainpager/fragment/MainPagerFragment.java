@@ -109,6 +109,9 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
         mFeedArticleDataList = new ArrayList<>();
         mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mFeedArticleDataList);
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
+            if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() < position) {
+                return;
+            }
             //记录点击的文章位置，便于在文章内点击收藏返回到此界面时能展示正确的收藏状态
             articlePosition = position;
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(_mActivity, view, getString(R.string.share_view));
@@ -124,6 +127,9 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
                 case R.id.item_search_pager_chapterName:
+                    if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+                        return;
+                    }
                     JudgeUtils.startKnowledgeHierarchyDetailActivity(_mActivity,
                             true,
                             mAdapter.getData().get(position).getSuperChapterName(),
@@ -134,6 +140,9 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
                     likeEvent(position);
                     break;
                 case R.id.item_search_pager_tag_red_tv:
+                    if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+                        return;
+                    }
                     String superChapterName = mAdapter.getData().get(position).getSuperChapterName();
                     if (superChapterName.contains(getString(R.string.open_project))) {
                         RxBus.getDefault().post(new SwitchProjectEvent());
@@ -314,6 +323,9 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
         if (!mPresenter.getLoginStatus()) {
             startActivity(new Intent(_mActivity, LoginActivity.class));
             CommonUtils.showMessage(_mActivity, getString(R.string.login_tint));
+            return;
+        }
+        if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
             return;
         }
         if (mAdapter.getData().get(position).isCollect()) {

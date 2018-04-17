@@ -74,6 +74,9 @@ public class KnowledgeHierarchyListFragment extends AbstractRootFragment<Knowled
         mPresenter.getKnowledgeHierarchyDetailData(mCurrentPage, id);
         mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mArticles);
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
+            if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+                return;
+            }
             articlePosition = position;
             mOptions = ActivityOptions.makeSceneTransitionAnimation(_mActivity, view, getString(R.string.share_view));
             JudgeUtils.startArticleDetailActivity(_mActivity,
@@ -93,6 +96,9 @@ public class KnowledgeHierarchyListFragment extends AbstractRootFragment<Knowled
                     likeEvent(position);
                     break;
                 case R.id.item_search_pager_tag_red_tv:
+                    if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+                        return;
+                    }
                     String superChapterName = mAdapter.getData().get(position).getSuperChapterName();
                     if (superChapterName.contains(getString(R.string.open_project))) {
                         RxBus.getDefault().post(new SwitchProjectEvent());
@@ -201,6 +207,9 @@ public class KnowledgeHierarchyListFragment extends AbstractRootFragment<Knowled
         if (!mPresenter.getLoginStatus()) {
             startActivity(new Intent(_mActivity, LoginActivity.class));
             CommonUtils.showMessage(_mActivity, getString(R.string.login_tint));
+            return;
+        }
+        if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
             return;
         }
         if (mAdapter.getData().get(position).isCollect()) {

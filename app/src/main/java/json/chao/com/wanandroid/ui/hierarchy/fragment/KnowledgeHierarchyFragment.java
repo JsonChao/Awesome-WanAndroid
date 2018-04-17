@@ -60,6 +60,9 @@ public class KnowledgeHierarchyFragment extends AbstractRootFragment<KnowledgeHi
         setRefresh();
         mAdapter = new KnowledgeHierarchyAdapter(R.layout.item_knowledge_hierarchy, mKnowledgeHierarchyDataList);
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
+            if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+                return;
+            }
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(_mActivity, view, getString(R.string.share_view));
             Intent intent = new Intent(_mActivity, KnowledgeHierarchyDetailActivity.class);
             intent.putExtra(Constants.ARG_PARAM1, mAdapter.getData().get(position));

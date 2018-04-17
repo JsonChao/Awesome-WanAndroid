@@ -218,7 +218,7 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
         if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
             pop();
         } else {
-            finishAfterTransition();
+            supportFinishAfterTransition();
         }
     }
 

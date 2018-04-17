@@ -12,7 +12,6 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    android:transitionName="@string/share_view"
     app:cardBackgroundColor="@color/colorCard"
     app:cardCornerRadius="@dimen/dp_3"
     app:cardElevation="@dimen/dp_2">
@@ -21,7 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/dp_12"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:transitionName="@string/share_view">
 
         <RelativeLayout
             android:layout_width="match_parent"

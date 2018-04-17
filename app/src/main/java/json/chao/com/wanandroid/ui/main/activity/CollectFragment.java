@@ -146,6 +146,9 @@ public class CollectFragment extends AbstractRootFragment<CollectPresenter> impl
         mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mArticles);
         mAdapter.isCollectPage();
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
+            if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+                return;
+            }
             mOptions = ActivityOptions.makeSceneTransitionAnimation(_mActivity, view, getString(R.string.share_view));
             JudgeUtils.startArticleDetailActivity(_mActivity, mOptions,
                 mAdapter.getData().get(position).getId(),
@@ -159,6 +162,9 @@ public class CollectFragment extends AbstractRootFragment<CollectPresenter> impl
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
                 case R.id.item_search_pager_chapterName:
+                    if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+                        return;
+                    }
                     JudgeUtils.startKnowledgeHierarchyDetailActivity(_mActivity,
                             true,
                             mAdapter.getData().get(position).getChapterName(),
@@ -167,6 +173,9 @@ public class CollectFragment extends AbstractRootFragment<CollectPresenter> impl
                     break;
                 case R.id.item_search_pager_like_iv:
                     //取消收藏
+                    if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+                        return;
+                    }
                     mPresenter.cancelCollectPageArticle(position, mAdapter.getData().get(position));
                     break;
                 default:

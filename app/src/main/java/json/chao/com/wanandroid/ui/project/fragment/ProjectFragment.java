@@ -43,9 +43,9 @@ public class ProjectFragment extends AbstractRootFragment<ProjectPresenter> impl
     private int currentPage;
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
         mPresenter.setProjectCurrentPage(currentPage);
+        super.onDestroyView();
     }
 
     public static ProjectFragment getInstance(String param1, String param2) {

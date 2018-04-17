@@ -61,7 +61,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @BindView(R.id.main_floating_action_btn)
     FloatingActionButton mFloatingActionButton;
     @BindView(R.id.bottom_navigation_view)
-    BottomNavigationView bottomNavigationBar;
+    BottomNavigationView mBottomNavigationView;
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
     @BindView(R.id.fragment_group)
@@ -108,7 +108,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             init();
             switchFragment(Constants.TYPE_MAIN_PAGER);
         } else {
-            bottomNavigationBar.setSelectedItemId(R.id.tab_main_pager);
+            mBottomNavigationView.setSelectedItemId(R.id.tab_main_pager);
             mMainPagerFragment = MainPagerFragment.getInstance(true, null);
             mFragments.add(mMainPagerFragment);
             initData();
@@ -162,12 +162,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void showSwitchProject() {
-        bottomNavigationBar.setSelectedItemId(R.id.tab_project);
+        mBottomNavigationView.setSelectedItemId(R.id.tab_project);
     }
 
     @Override
     public void showSwitchNavigation() {
-        bottomNavigationBar.setSelectedItemId(R.id.tab_navigation);
+        mBottomNavigationView.setSelectedItemId(R.id.tab_navigation);
     }
 
     @Override
@@ -193,9 +193,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     private void init() {
         initNavigationView();
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationBar);
+        BottomNavigationViewHelper.disableShiftMode(mBottomNavigationView);
         mPresenter.setCurrentPage(Constants.TYPE_MAIN_PAGER);
-        bottomNavigationBar.setOnNavigationItemSelectedListener(item -> {
+        mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.tab_main_pager:
                     mTitleTv.setText(getString(R.string.home_pager));
@@ -325,10 +325,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private void switchFragment(int position) {
         if (position >= Constants.TYPE_COLLECT) {
             mFloatingActionButton.setVisibility(View.INVISIBLE);
-            bottomNavigationBar.setVisibility(View.INVISIBLE);
+            mBottomNavigationView.setVisibility(View.INVISIBLE);
         } else {
             mFloatingActionButton.setVisibility(View.VISIBLE);
-            bottomNavigationBar.setVisibility(View.VISIBLE);
+            mBottomNavigationView.setVisibility(View.VISIBLE);
         }
         if (position >= mFragments.size()) {
             return;
@@ -339,6 +339,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mLastFgIndex = position;
         ft.hide(lastFg);
         if (!targetFg.isAdded()) {
+            getSupportFragmentManager().beginTransaction().remove(targetFg).commit();
             ft.add(R.id.fragment_group, targetFg);
         }
         ft.show(targetFg);
@@ -394,8 +395,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     private void startMainPager() {
         mTitleTv.setText(getString(R.string.home_pager));
-        bottomNavigationBar.setVisibility(View.VISIBLE);
-        bottomNavigationBar.setSelectedItemId(R.id.tab_main_pager);
+        mBottomNavigationView.setVisibility(View.VISIBLE);
+        mBottomNavigationView.setSelectedItemId(R.id.tab_main_pager);
         mDrawerLayout.closeDrawers();
     }
 

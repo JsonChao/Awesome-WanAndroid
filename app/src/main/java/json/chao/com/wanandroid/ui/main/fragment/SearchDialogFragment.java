@@ -205,7 +205,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     @Override
     public void onHideAnimationEnd() {
         mSearchEdit.setText("");
-        dismiss();
+        dismissAllowingStateLoss();
     }
 
     @Override
