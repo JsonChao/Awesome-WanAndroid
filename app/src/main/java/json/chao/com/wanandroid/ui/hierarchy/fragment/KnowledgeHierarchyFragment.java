@@ -11,11 +11,8 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
-import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.hierarchy.KnowledgeHierarchyData;
 import json.chao.com.wanandroid.R;
@@ -39,10 +36,9 @@ public class KnowledgeHierarchyFragment extends AbstractRootFragment<KnowledgeHi
     @BindView(R.id.knowledge_hierarchy_recycler_view)
     RecyclerView mRecyclerView;
 
-    @Inject
-    DataManager mDataManager;
     private List<KnowledgeHierarchyData> mKnowledgeHierarchyDataList;
     private KnowledgeHierarchyAdapter mAdapter;
+    private boolean isRefresh;
 
     public static KnowledgeHierarchyFragment getInstance(String param1, String param2) {
         KnowledgeHierarchyFragment fragment = new KnowledgeHierarchyFragment();
@@ -88,13 +84,19 @@ public class KnowledgeHierarchyFragment extends AbstractRootFragment<KnowledgeHi
             showKnowledgeHierarchyDetailDataFail();
             return;
         }
-        if (mDataManager.getCurrentPage() == 1) {
+        if (mPresenter.getCurrentPage() == 1) {
             mRecyclerView.setVisibility(View.VISIBLE);
         } else {
             mRecyclerView.setVisibility(View.INVISIBLE);
         }
-        mKnowledgeHierarchyDataList = knowledgeHierarchyResponse.getData();
-        mAdapter.replaceData(mKnowledgeHierarchyDataList);
+        if (mAdapter.getData().size() < knowledgeHierarchyResponse.getData().size()) {
+            mKnowledgeHierarchyDataList = knowledgeHierarchyResponse.getData();
+            mAdapter.replaceData(mKnowledgeHierarchyDataList);
+        } else {
+            if (!isRefresh) {
+                CommonUtils.showMessage(_mActivity, getString(R.string.load_more_no_data));
+            }
+        }
         showNormal();
     }
 
@@ -125,10 +127,12 @@ public class KnowledgeHierarchyFragment extends AbstractRootFragment<KnowledgeHi
     private void setRefresh() {
         mRefreshLayout.setPrimaryColorsId(Constants.BLUE_THEME, R.color.white);
         mRefreshLayout.setOnRefreshListener(refreshLayout -> {
+            isRefresh = true;
             mPresenter.getKnowledgeHierarchyData();
             refreshLayout.finishRefresh(1000);
         });
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
+            isRefresh = false;
             mPresenter.getKnowledgeHierarchyData();
             refreshLayout.finishLoadMore(1000);
         });

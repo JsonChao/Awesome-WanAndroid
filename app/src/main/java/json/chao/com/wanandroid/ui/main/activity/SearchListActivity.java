@@ -137,7 +137,11 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
         FeedArticleListData articleData = feedArticleListResponse.getData();
         mArticleList = articleData.getDatas();
         if (isAddData) {
-            mAdapter.addData(mArticleList);
+            if (mArticleList.size() > 0) {
+                mAdapter.addData(mArticleList);
+            } else {
+                CommonUtils.showMessage(this, getString(R.string.load_more_no_data));
+            }
         } else {
             mAdapter.replaceData(mArticleList);
         }

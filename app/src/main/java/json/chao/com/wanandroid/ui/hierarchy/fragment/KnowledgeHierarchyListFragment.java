@@ -10,12 +10,9 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
 import json.chao.com.wanandroid.component.RxBus;
-import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.R;
@@ -49,9 +46,6 @@ public class KnowledgeHierarchyListFragment extends AbstractRootFragment<Knowled
     private List<FeedArticleData> mArticles;
     private ArticleListAdapter mAdapter;
     private boolean isRefresh = true;
-
-    @Inject
-    DataManager mDataManager;
     private int articlePosition;
     private ActivityOptions mOptions;
 
@@ -129,7 +123,11 @@ public class KnowledgeHierarchyListFragment extends AbstractRootFragment<Knowled
         if (isRefresh) {
             mAdapter.replaceData(mArticles);
         } else {
-            mAdapter.addData(mArticles);
+            if (mArticles.size() > 0) {
+                mAdapter.addData(mArticles);
+            } else {
+                CommonUtils.showMessage(_mActivity, getString(R.string.load_more_no_data));
+            }
         }
         showNormal();
     }
@@ -200,7 +198,7 @@ public class KnowledgeHierarchyListFragment extends AbstractRootFragment<Knowled
     }
 
     private void likeEvent(int position) {
-        if (!mDataManager.getLoginStatus()) {
+        if (!mPresenter.getLoginStatus()) {
             startActivity(new Intent(_mActivity, LoginActivity.class));
             CommonUtils.showMessage(_mActivity, getString(R.string.login_tint));
             return;

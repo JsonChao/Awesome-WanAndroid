@@ -78,12 +78,18 @@ public class CollectFragment extends AbstractRootFragment<CollectPresenter> impl
         if (mAdapter == null) {
             return;
         }
+        mArticles = feedArticleListResponse.getData().getDatas();
         if (isRefresh) {
-            mArticles = feedArticleListResponse.getData().getDatas();
             mAdapter.replaceData(mArticles);
         } else {
-            mArticles.addAll(feedArticleListResponse.getData().getDatas());
-            mAdapter.addData(feedArticleListResponse.getData().getDatas());
+            if (mArticles.size() > 0) {
+                mArticles.addAll(feedArticleListResponse.getData().getDatas());
+                mAdapter.addData(feedArticleListResponse.getData().getDatas());
+            } else {
+                if (mAdapter.getData().size() != 0) {
+                    CommonUtils.showMessage(_mActivity, getString(R.string.load_more_no_data));
+                }
+            }
         }
         if (mAdapter.getData().size() == 0) {
             CommonUtils.showSnackMessage(_mActivity, getString(R.string.no_collect));

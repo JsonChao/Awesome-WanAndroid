@@ -96,6 +96,7 @@
     <string name="setting_clear">Clear cache</string>
     <string name="setting">Setting</string>
     <string name="send_email">Select the email client:</string>
+    <string name="load_more_no_data">There\'s no extra data</string>
 
 
 </resources>

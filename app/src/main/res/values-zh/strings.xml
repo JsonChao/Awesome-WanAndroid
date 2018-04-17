@@ -96,6 +96,7 @@
     <string name="setting_clear">清除缓存</string>
     <string name="setting">设置</string>
     <string name="send_email">选择邮件客户端:</string>
+    <string name="load_more_no_data">没有多余的干货了(*≧Д≦*)</string>
 
 
 </resources>

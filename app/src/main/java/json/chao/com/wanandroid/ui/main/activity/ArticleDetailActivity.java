@@ -19,15 +19,12 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.lang.reflect.Method;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.activity.BaseActivity;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.contract.main.ArticleDetailContract;
-import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.core.event.CollectEvent;
@@ -53,8 +50,6 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
     private String articleLink;
     private String title;
 
-    @Inject
-    DataManager mDataManager;
     private boolean isCollect;
     private boolean isCommonSite;
     private boolean isCollectPage;
@@ -228,7 +223,7 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
     }
 
     private void collectEvent() {
-        if (!mDataManager.getLoginStatus()) {
+        if (!mPresenter.getLoginStatus()) {
             CommonUtils.showMessage(this, getString(R.string.login_tint));
             startActivity(new Intent(this, LoginActivity.class));
         } else {

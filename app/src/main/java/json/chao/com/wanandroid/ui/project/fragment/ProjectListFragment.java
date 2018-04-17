@@ -112,7 +112,11 @@ public class ProjectListFragment extends AbstractRootFragment<ProjectListPresent
         if (isRefresh) {
             mAdapter.replaceData(mDatas);
         } else {
-            mAdapter.addData(mDatas);
+            if (mDatas.size() > 0) {
+                mAdapter.addData(mDatas);
+            } else {
+                CommonUtils.showMessage(_mActivity, getString(R.string.load_more_no_data));
+            }
         }
         showNormal();
     }
