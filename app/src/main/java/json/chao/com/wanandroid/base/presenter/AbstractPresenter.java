@@ -1,5 +1,6 @@
 package json.chao.com.wanandroid.base.presenter;
 
+import io.reactivex.disposables.Disposable;
 import json.chao.com.wanandroid.base.view.BaseView;
 
 /**
@@ -22,6 +23,13 @@ public interface AbstractPresenter<T extends BaseView> {
      * 回收View
      */
     void detachView();
+
+    /**
+     * Add rxBing subscribe manager
+     *
+     * @param disposable Disposable
+     */
+    void addRxBindingSubscribe(Disposable disposable);
 
     /**
      * Get night mode state

@@ -1,6 +1,7 @@
 package json.chao.com.wanandroid.ui.navigation.fragment;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -100,7 +101,8 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
             public ITabView.TabTitle getTitle(int i) {
                 return new TabView.TabTitle.Builder()
                         .setContent(navigationListData.get(i).getName())
-                        .setTextColor(0xFF36BC9B, 0xFF757575)
+                        .setTextColor(ContextCompat.getColor(_mActivity, R.color.shallow_green),
+                                ContextCompat.getColor(_mActivity, R.color.shallow_grey))
                         .build();
             }
 

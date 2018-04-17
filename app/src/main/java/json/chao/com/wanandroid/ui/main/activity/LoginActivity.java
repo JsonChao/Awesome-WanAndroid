@@ -72,7 +72,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         StatusBarUtil.setPaddingSmart(this, mToolbar);
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
 
-        RxView.clicks(mLoginBtn)
+        mPresenter.addRxBindingSubscribe(RxView.clicks(mLoginBtn)
                 .throttleFirst(Constants.CLICK_TIME_AREA, TimeUnit.MILLISECONDS)
                 .filter(o -> mPresenter != null)
                 .subscribe(o -> {
@@ -83,7 +83,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                         return;
                     }
                     mPresenter.getLoginData(account, password);
-                });
+                }));
     }
 
     @Override

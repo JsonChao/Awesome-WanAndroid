@@ -35,6 +35,8 @@
     <color name="search_status_bar_white">#ffffff</color>
 
     //other
+    <color name="shallow_green">#FF36BC9B</color>
+    <color name="shallow_grey">#FF757575</color>
     <color name="card_color">#202124</color>
     <color name="not_network_bac">#33ffffff</color>
     <color name="grey">#cccccc</color>

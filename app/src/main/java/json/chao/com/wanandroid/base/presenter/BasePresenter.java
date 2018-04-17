@@ -44,6 +44,11 @@ public class BasePresenter<T extends BaseView> implements AbstractPresenter<T> {
     }
 
     @Override
+    public void addRxBindingSubscribe(Disposable disposable) {
+        addSubscribe(disposable);
+    }
+
+    @Override
     public boolean getNightModeState() {
         return mDataManager.getNightModeState();
     }

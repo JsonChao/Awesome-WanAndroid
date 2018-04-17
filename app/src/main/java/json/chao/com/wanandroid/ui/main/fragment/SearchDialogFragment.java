@@ -130,13 +130,13 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
                 }
             }
         });
-        RxView.clicks(mSearchTv)
+        mPresenter.addRxBindingSubscribe(RxView.clicks(mSearchTv)
                 .throttleFirst(Constants.CLICK_TIME_AREA, TimeUnit.MILLISECONDS)
                 .filter(o -> !TextUtils.isEmpty(mSearchEdit.getText().toString().trim()))
                 .subscribe(o -> {
                     mPresenter.addHistoryData(mSearchEdit.getText().toString().trim());
                     setHistoryTvStatus(false);
-                });
+                }));
 
         showHistoryData(mPresenter.loadAllHistoryData());
         mPresenter.getTopSearchData();
