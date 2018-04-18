@@ -2,6 +2,8 @@ package json.chao.com.wanandroid.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.support.design.widget.Snackbar;
@@ -143,6 +145,21 @@ public class CommonUtils {
     @SuppressWarnings("unchecked")
     public static <T> T cast(Object object) {
         return (T) object;
+    }
+
+    /**
+     * 获取版本号
+     * @return 当前应用的版本号
+     */
+    public static int getVersionCode() {
+        try {
+            PackageManager manager = WanAndroidApp.getInstance().getPackageManager();
+            PackageInfo info = manager.getPackageInfo(WanAndroidApp.getInstance().getPackageName(), 0);
+            return info.versionCode;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
 }

@@ -3,6 +3,7 @@ package json.chao.com.wanandroid.utils;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.ui.hierarchy.activity.KnowledgeHierarchyDetailActivity;
@@ -26,7 +27,7 @@ public class JudgeUtils {
         intent.putExtra(Constants.IS_COLLECT, isCollect);
         intent.putExtra(Constants.IS_COLLECT_PAGE, isCollectPage);
         intent.putExtra(Constants.IS_COMMON_SITE, isCommonSite);
-        if (activityOptions != null) {
+        if (activityOptions != null && !Build.BOARD.contains("samsung") && CommonUtils.getVersionCode() >= 23) {
             mActivity.startActivity(intent, activityOptions.toBundle());
         } else {
             mActivity.startActivity(intent);

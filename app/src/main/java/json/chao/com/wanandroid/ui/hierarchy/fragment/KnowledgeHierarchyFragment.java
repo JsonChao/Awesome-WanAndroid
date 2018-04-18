@@ -2,6 +2,7 @@ package json.chao.com.wanandroid.ui.hierarchy.fragment;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -66,7 +67,11 @@ public class KnowledgeHierarchyFragment extends AbstractRootFragment<KnowledgeHi
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(_mActivity, view, getString(R.string.share_view));
             Intent intent = new Intent(_mActivity, KnowledgeHierarchyDetailActivity.class);
             intent.putExtra(Constants.ARG_PARAM1, mAdapter.getData().get(position));
-            startActivity(intent, options.toBundle());
+            if (!Build.BOARD.contains("samsung") && CommonUtils.getVersionCode() >= 23) {
+                startActivity(intent, options.toBundle());
+            } else {
+                startActivity(intent);
+            }
         });
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
