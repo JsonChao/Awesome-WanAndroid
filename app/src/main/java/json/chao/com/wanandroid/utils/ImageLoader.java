@@ -22,7 +22,7 @@ public class ImageLoader {
      * @param iv imageView
      */
     public static void load(Context context, String url, ImageView iv) {
-        if (!WanAndroidApp.getAppComponent().preferencesHelper().getNoImageState()) {
+        if (!WanAndroidApp.getAppComponent().getDataManager().getNoImageState()) {
             Glide.with(context).load(url).into(iv);
         }
     }

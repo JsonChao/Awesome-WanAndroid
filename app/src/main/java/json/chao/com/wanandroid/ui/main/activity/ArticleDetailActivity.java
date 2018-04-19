@@ -275,8 +275,8 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
         isCollect = false;
         if (!isCollectPage) {
             mCollectItem.setTitle(R.string.collect);
-            mCollectItem.setIcon(R.mipmap.ic_toolbar_like_n);
         }
+        mCollectItem.setIcon(R.mipmap.ic_toolbar_like_n);
         CommonUtils.showSnackMessage(this, getString(R.string.cancel_collect_success));
     }
 

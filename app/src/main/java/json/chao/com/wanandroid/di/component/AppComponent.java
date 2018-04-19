@@ -35,25 +35,4 @@ public interface AppComponent {
      */
     DataManager getDataManager();
 
-    /**
-     * 提供http的帮助类
-     *
-     * @return RetrofitHelper
-     */
-    RetrofitHelper retrofitHelper();
-
-    /**
-     * 提供数据库帮助类
-     *
-     * @return GreenDaoHelper
-     */
-    GreenDaoHelper realmHelper();
-
-    /**
-     * 提供sp帮助类
-     *
-     * @return PreferenceHelperImpl
-     */
-    PreferenceHelperImpl preferencesHelper();
-
 }
