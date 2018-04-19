@@ -67,7 +67,7 @@ public class KnowledgeHierarchyFragment extends AbstractRootFragment<KnowledgeHi
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(_mActivity, view, getString(R.string.share_view));
             Intent intent = new Intent(_mActivity, KnowledgeHierarchyDetailActivity.class);
             intent.putExtra(Constants.ARG_PARAM1, mAdapter.getData().get(position));
-            if (!Build.BOARD.contains("samsung") && CommonUtils.getVersionCode() >= 23) {
+            if (!Build.BOARD.contains("samsung") && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 startActivity(intent, options.toBundle());
             } else {
                 startActivity(intent);

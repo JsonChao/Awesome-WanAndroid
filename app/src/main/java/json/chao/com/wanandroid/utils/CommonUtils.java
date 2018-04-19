@@ -147,19 +147,4 @@ public class CommonUtils {
         return (T) object;
     }
 
-    /**
-     * 获取版本号
-     * @return 当前应用的版本号
-     */
-    public static int getVersionCode() {
-        try {
-            PackageManager manager = WanAndroidApp.getInstance().getPackageManager();
-            PackageInfo info = manager.getPackageInfo(WanAndroidApp.getInstance().getPackageName(), 0);
-            return info.versionCode;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
 }
