@@ -99,6 +99,9 @@ public abstract class AbstractRootFragment<T extends BasePresenter> extends Base
     private void hideCurrentView() {
         switch (currentState) {
             case NORMAL_STATE:
+                if (mNormalView == null) {
+                    return;
+                }
                 mNormalView.setVisibility(View.INVISIBLE);
                 break;
             case LOADING_STATE:
