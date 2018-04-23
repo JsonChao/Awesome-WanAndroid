@@ -3,10 +3,12 @@ package json.chao.com.wanandroid.ui.hierarchy.activity;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.flyco.tablayout.SlidingTabLayout;
@@ -48,7 +50,7 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
     FloatingActionButton mFloatingActionButton;
 
     private List<KnowledgeHierarchyData> knowledgeHierarchyDataList;
-    private ArrayList<BaseFragment> mFragments;
+    private List<BaseFragment> mFragments = new ArrayList<>();
     private String chapterName;
 
     @Override
@@ -83,6 +85,16 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
                     return knowledgeHierarchyDataList.get(position).getName();
                 }
             }
+
+            @Override
+            public int getItemPosition(Object object) {
+                return PagerAdapter.POSITION_NONE;
+            }
+
+            @Override
+            public void destroyItem(ViewGroup container, int position, Object object) {
+
+            }
         });
         mTabLayout.setViewPager(mViewPager);
     }
@@ -106,7 +118,6 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
         StatusBarUtil.immersive(this);
         StatusBarUtil.setPaddingSmart(this, mToolbar);
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
-        mFragments = new ArrayList<>();
         if (getIntent().getBooleanExtra(Constants.IS_SINGLE_CHAPTER, false)) {
             String superChapterName = getIntent().getStringExtra(Constants.SUPER_CHAPTER_NAME);
             chapterName = getIntent().getStringExtra(Constants.CHAPTER_NAME);

@@ -3,8 +3,10 @@ package json.chao.com.wanandroid.ui.project.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.flyco.tablayout.SlidingTabLayout;
 
@@ -39,7 +41,7 @@ public class ProjectFragment extends AbstractRootFragment<ProjectPresenter> impl
     ViewPager mViewPager;
 
     private List<ProjectClassifyData> mData;
-    private ArrayList<BaseFragment> mFragments;
+    private List<BaseFragment> mFragments = new ArrayList<>();
     private int currentPage;
 
     @Override
@@ -65,7 +67,6 @@ public class ProjectFragment extends AbstractRootFragment<ProjectPresenter> impl
     @Override
     protected void initEventAndData() {
         super.initEventAndData();
-        mFragments = new ArrayList<>();
         mPresenter.getProjectClassifyData();
         currentPage = mPresenter.getProjectCurrentPage();
         if (CommonUtils.isNetworkConnected()) {
@@ -112,6 +113,15 @@ public class ProjectFragment extends AbstractRootFragment<ProjectPresenter> impl
             @Override
             public CharSequence getPageTitle(int position) {
                 return mData.get(position).getName();
+            }
+
+            @Override
+            public int getItemPosition(Object object) {
+                return PagerAdapter.POSITION_NONE;
+            }
+
+            @Override
+            public void destroyItem(ViewGroup container, int position, Object object) {
             }
         });
 
