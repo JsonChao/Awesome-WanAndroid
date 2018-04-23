@@ -6,7 +6,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.multidex.MultiDex;
 import android.support.v4.BuildConfig;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatDelegate;
 
+import com.bumptech.glide.Glide;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.DiskLogAdapter;
 import com.orhanobut.logger.Logger;
@@ -42,6 +44,8 @@ public class WanAndroidApp extends Application {
 
     //static 代码段可以防止内存泄露, 全局设置刷新头部及尾部，优先级最低
     static {
+        AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_NO);
         SmartRefreshLayout.setDefaultRefreshHeaderCreater((context, refreshLayout) -> {
             //全局设置主题颜色
             refreshLayout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white);
@@ -84,6 +88,21 @@ public class WanAndroidApp extends Application {
 
         initLogger();
 
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        if (level == TRIM_MEMORY_UI_HIDDEN) {
+            Glide.get(this).clearMemory();
+        }
+        Glide.get(this).trimMemory(level);
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        Glide.get(this).clearMemory();
     }
 
     private void initGreenDao() {
