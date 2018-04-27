@@ -3,7 +3,7 @@ package json.chao.com.wanandroid.utils;
 import android.content.Context;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import json.chao.com.wanandroid.app.WanAndroidApp;
 
@@ -23,7 +23,7 @@ public class ImageLoader {
      */
     public static void load(Context context, String url, ImageView iv) {
         if (!WanAndroidApp.getAppComponent().getDataManager().getNoImageState()) {
-            Glide.with(context).load(url).into(iv);
+            GlideApp.with(context).load(url).diskCacheStrategy(DiskCacheStrategy.DATA).into(iv);
         }
     }
 }

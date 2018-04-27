@@ -2,7 +2,7 @@ package json.chao.com.wanandroid.ui.project.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -16,7 +16,6 @@ import java.util.List;
 import butterknife.BindView;
 import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
 import json.chao.com.wanandroid.component.RxBus;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.project.ProjectClassifyData;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
@@ -95,7 +94,7 @@ public class ProjectFragment extends AbstractRootFragment<ProjectPresenter> impl
             ProjectListFragment projectListFragment = ProjectListFragment.getInstance(data.getId(), null);
             mFragments.add(projectListFragment);
         }
-        mViewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
+        mViewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 return mFragments.get(position);
@@ -109,15 +108,6 @@ public class ProjectFragment extends AbstractRootFragment<ProjectPresenter> impl
             @Override
             public CharSequence getPageTitle(int position) {
                 return mData.get(position).getName();
-            }
-
-            @Override
-            public int getItemPosition(Object object) {
-                return PagerAdapter.POSITION_NONE;
-            }
-
-            @Override
-            public void destroyItem(ViewGroup container, int position, Object object) {
             }
         });
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
