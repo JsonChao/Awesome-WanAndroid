@@ -3,6 +3,7 @@ package json.chao.com.wanandroid.ui.hierarchy.activity;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -66,7 +67,7 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
     @Override
     protected void initEventAndData() {
         initToolbar();
-        mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+        mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 return mFragments.get(position);
@@ -84,16 +85,6 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
                 } else {
                     return knowledgeHierarchyDataList.get(position).getName();
                 }
-            }
-
-            @Override
-            public int getItemPosition(Object object) {
-                return PagerAdapter.POSITION_NONE;
-            }
-
-            @Override
-            public void destroyItem(ViewGroup container, int position, Object object) {
-
             }
         });
         mTabLayout.setViewPager(mViewPager);
