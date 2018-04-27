@@ -20,14 +20,9 @@ public interface UsageDialogContract {
         /**
          * Show useful sites
          *
-         * @param usefulSitesResponse BaseResponse<List<UsefulSiteData>>
+         * @param usefulSiteDataList List<UsefulSiteData>
          */
-        void showUsefulSites(BaseResponse<List<UsefulSiteData>> usefulSitesResponse);
-
-        /**
-         * Show useful sites data fail
-         */
-        void showUsefulSitesDataFail();
+        void showUsefulSites(List<UsefulSiteData> usefulSiteDataList);
     }
 
     interface Presenter extends AbstractPresenter<UsageDialogContract.View> {

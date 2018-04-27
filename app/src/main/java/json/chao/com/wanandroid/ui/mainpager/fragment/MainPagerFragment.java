@@ -192,12 +192,7 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
     }
 
     @Override
-    public void showArticleList(BaseResponse<FeedArticleListData> feedArticleListResponse, boolean isRefresh) {
-        if (feedArticleListResponse == null || feedArticleListResponse.getData() == null
-                || feedArticleListResponse.getData().getDatas() == null) {
-            showArticleListFail();
-            return;
-        }
+    public void showArticleList(FeedArticleListData feedArticleListData, boolean isRefresh) {
         if (mPresenter.getCurrentPage() == Constants.TYPE_MAIN_PAGER) {
             mRecyclerView.setVisibility(View.VISIBLE);
         } else {
@@ -208,37 +203,32 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
             return;
         }
         if (isRefresh) {
-            mFeedArticleDataList = feedArticleListResponse.getData().getDatas();
-            mAdapter.replaceData(feedArticleListResponse.getData().getDatas());
+            mFeedArticleDataList = feedArticleListData.getDatas();
+            mAdapter.replaceData(feedArticleListData.getDatas());
         } else {
-            mFeedArticleDataList.addAll(feedArticleListResponse.getData().getDatas());
-            mAdapter.addData(feedArticleListResponse.getData().getDatas());
+            mFeedArticleDataList.addAll(feedArticleListData.getDatas());
+            mAdapter.addData(feedArticleListData.getDatas());
         }
         showNormal();
     }
 
     @Override
-    public void showCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
+    public void showCollectArticleData(int position, FeedArticleData feedArticleData, FeedArticleListData feedArticleListData) {
         mAdapter.setData(position, feedArticleData);
         CommonUtils.showSnackMessage(_mActivity, getString(R.string.collect_success));
     }
 
     @Override
-    public void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
+    public void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, FeedArticleListData feedArticleListData) {
         mAdapter.setData(position, feedArticleData);
         CommonUtils.showSnackMessage(_mActivity, getString(R.string.cancel_collect_success));
     }
 
     @Override
-    public void showBannerData(BaseResponse<List<BannerData>> bannerResponse) {
-        if (bannerResponse == null || bannerResponse.getData() == null) {
-            showBannerDataFail();
-            return;
-        }
+    public void showBannerData(List<BannerData> bannerDataList) {
         mBannerTitleList = new ArrayList<>();
         List<String> bannerImageList = new ArrayList<>();
         mBannerUrlList = new ArrayList<>();
-        List<BannerData> bannerDataList = bannerResponse.getData();
         for (BannerData bannerData : bannerDataList) {
             mBannerTitleList.add(bannerData.getTitle());
             bannerImageList.add(bannerData.getImagePath());
@@ -276,16 +266,6 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
     @Override
     public void showLogoutView() {
         mPresenter.getFeedArticleList();
-    }
-
-    @Override
-    public void showArticleListFail() {
-        CommonUtils.showSnackMessage(_mActivity, getString(R.string.failed_to_obtain_article_list));
-    }
-
-    @Override
-    public void showBannerDataFail() {
-        CommonUtils.showSnackMessage(_mActivity, getString(R.string.failed_to_obtain_banner_data));
     }
 
     @Override

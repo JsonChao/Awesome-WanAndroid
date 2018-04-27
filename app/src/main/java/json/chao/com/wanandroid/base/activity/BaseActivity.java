@@ -24,6 +24,7 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
 
     @Inject
     protected T mPresenter;
+    private ActivityComponent mBuild;
 
     @Override
     protected void onDestroy() {
@@ -34,10 +35,13 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
     }
 
     protected ActivityComponent getActivityComponent() {
-        return DaggerActivityComponent.builder()
-                .appComponent(WanAndroidApp.getAppComponent())
-                .activityModule(new ActivityModule(this))
-                .build();
+        if (mBuild == null) {
+            mBuild = DaggerActivityComponent.builder()
+                    .appComponent(WanAndroidApp.getAppComponent())
+                    .activityModule(new ActivityModule(this))
+                    .build();
+        }
+        return mBuild;
     }
 
     @Override

@@ -74,6 +74,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private NavigationFragment mNavigationFragment;
     private ProjectFragment mProjectFragment;
     private int mLastFgIndex;
+    private UsageDialogFragment usageDialogFragment;
+    private SearchDialogFragment searchDialogFragment;
 
     @Override
     protected void onDestroy() {
@@ -127,11 +129,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_usage:
-                UsageDialogFragment usageDialogFragment = new UsageDialogFragment();
+                if (usageDialogFragment == null) {
+                    usageDialogFragment = new UsageDialogFragment();
+                }
                 usageDialogFragment.show(getSupportFragmentManager(), "UsageDialogFragment");
                 break;
             case R.id.action_search:
-                SearchDialogFragment searchDialogFragment = new SearchDialogFragment();
+                if (searchDialogFragment == null) {
+                    searchDialogFragment = new SearchDialogFragment();
+                }
                 searchDialogFragment.show(getSupportFragmentManager(), "SearchDialogFragment");
                 break;
             default:

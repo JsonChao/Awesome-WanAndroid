@@ -87,12 +87,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     @Override
-    public void showLoginData(BaseResponse<LoginData> loginResponse) {
-        if (loginResponse == null || loginResponse.getData() == null) {
-            showLoginFail(getString(R.string.login_fail));
-            return;
-        }
-        LoginData loginData = loginResponse.getData();
+    public void showLoginData(LoginData loginData) {
         mPresenter.setLoginAccount(loginData.getUsername());
         mPresenter.setLoginPassword(loginData.getPassword());
         mPresenter.setLoginStatus(true);
@@ -102,18 +97,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     @Override
-    public void showRegisterData(BaseResponse<LoginData> loginResponse) {
-        if (loginResponse == null || loginResponse.getData() == null) {
-            showRegisterFail(getString(R.string.register_fail));
-            return;
-        }
-        mPresenter.getLoginData(loginResponse.getData().getUsername(),
-                loginResponse.getData().getPassword());
-    }
-
-    @Override
-    public void showLoginFail(String errorMsg) {
-        CommonUtils.showSnackMessage(this, errorMsg);
+    public void showRegisterData(LoginData loginData) {
+        mPresenter.getLoginData(loginData.getUsername(), loginData.getPassword());
     }
 
     @Override

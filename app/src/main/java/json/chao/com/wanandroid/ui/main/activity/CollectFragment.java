@@ -68,23 +68,17 @@ public class CollectFragment extends AbstractRootFragment<CollectPresenter> impl
     }
 
     @Override
-    public void showCollectList(BaseResponse<FeedArticleListData> feedArticleListResponse) {
-        if (feedArticleListResponse == null
-                || feedArticleListResponse.getData() == null
-                || feedArticleListResponse.getData().getDatas() == null) {
-            showCollectListFail();
-            return;
-        }
+    public void showCollectList(FeedArticleListData feedArticleListData) {
         if (mAdapter == null) {
             return;
         }
-        mArticles = feedArticleListResponse.getData().getDatas();
+        mArticles = feedArticleListData.getDatas();
         if (isRefresh) {
             mAdapter.replaceData(mArticles);
         } else {
             if (mArticles.size() > 0) {
-                mArticles.addAll(feedArticleListResponse.getData().getDatas());
-                mAdapter.addData(feedArticleListResponse.getData().getDatas());
+                mArticles.addAll(feedArticleListData.getDatas());
+                mAdapter.addData(feedArticleListData.getDatas());
             } else {
                 if (mAdapter.getData().size() != 0) {
                     CommonUtils.showMessage(_mActivity, getString(R.string.load_more_no_data));
@@ -98,15 +92,9 @@ public class CollectFragment extends AbstractRootFragment<CollectPresenter> impl
     }
 
     @Override
-    public void showCancelCollectPageArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
+    public void showCancelCollectPageArticleData(int position, FeedArticleData feedArticleData, FeedArticleListData feedArticleListData) {
         mAdapter.remove(position);
         CommonUtils.showSnackMessage(_mActivity, getString(R.string.cancel_collect_success));
-    }
-
-    @Override
-    public void showCollectListFail() {
-        showError();
-        CommonUtils.showSnackMessage(_mActivity, getString(R.string.failed_to_obtain_collection_data));
     }
 
     @Override

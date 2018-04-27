@@ -108,14 +108,15 @@ public class ProjectListFragment extends AbstractRootFragment<ProjectListPresent
     }
 
     @Override
-    public void showProjectListData(BaseResponse<ProjectListData> projectListResponse) {
-        if (projectListResponse == null || projectListResponse.getData() == null ||
-                projectListResponse.getData().getDatas() == null) {
-            showProjectListFail();
-            return;
+    public void reload() {
+        if (mPresenter != null) {
+            mPresenter.getProjectListData(0, cid);
         }
-        mDatas = projectListResponse.getData().getDatas();
+    }
 
+    @Override
+    public void showProjectListData(ProjectListData projectListData) {
+        mDatas = projectListData.getDatas();
         if (isRefresh) {
             mAdapter.replaceData(mDatas);
         } else {
@@ -129,28 +130,15 @@ public class ProjectListFragment extends AbstractRootFragment<ProjectListPresent
     }
 
     @Override
-    public void reload() {
-        if (mPresenter != null) {
-            mPresenter.getProjectListData(0, cid);
-        }
-    }
-
-    @Override
-    public void showCollectOutsideArticle(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
+    public void showCollectOutsideArticle(int position, FeedArticleData feedArticleData, FeedArticleListData feedArticleListData) {
         mAdapter.setData(position, feedArticleData);
         CommonUtils.showSnackMessage(_mActivity, getString(R.string.collect_success));
     }
 
     @Override
-    public void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
+    public void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, FeedArticleListData feedArticleListData) {
         mAdapter.setData(position, feedArticleData);
         CommonUtils.showSnackMessage(_mActivity, getString(R.string.cancel_collect_success));
-    }
-
-    @Override
-    public void showProjectListFail() {
-        showError();
-        CommonUtils.showSnackMessage(_mActivity, getString(R.string.failed_to_obtain_project_list));
     }
 
     @Override

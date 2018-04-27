@@ -75,16 +75,11 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
     }
 
     @Override
-    public void showNavigationListData(BaseResponse<List<NavigationListData>> navigationListResponse) {
-        if (navigationListResponse == null || navigationListResponse.getData() == null) {
-            showNavigationListFail();
-            return;
-        }
-        List<NavigationListData> navigationListData = navigationListResponse.getData();
+    public void showNavigationListData(List<NavigationListData> navigationDataList) {
         mTabLayout.setTabAdapter(new TabAdapter() {
             @Override
             public int getCount() {
-                return navigationListData == null ? 0 : navigationListData.size();
+                return navigationDataList == null ? 0 : navigationDataList.size();
             }
 
             @Override
@@ -100,7 +95,7 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
             @Override
             public ITabView.TabTitle getTitle(int i) {
                 return new TabView.TabTitle.Builder()
-                        .setContent(navigationListData.get(i).getName())
+                        .setContent(navigationDataList.get(i).getName())
                         .setTextColor(ContextCompat.getColor(_mActivity, R.color.shallow_green),
                                 ContextCompat.getColor(_mActivity, R.color.shallow_grey))
                         .build();
@@ -120,17 +115,12 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
             mTabLayout.setVisibility(View.INVISIBLE);
             mDivider.setVisibility(View.INVISIBLE);
         }
-        NavigationAdapter adapter = new NavigationAdapter(R.layout.item_navigation, navigationListData);
+        NavigationAdapter adapter = new NavigationAdapter(R.layout.item_navigation, navigationDataList);
         mRecyclerView.setAdapter(adapter);
         mManager = new LinearLayoutManager(_mActivity);
         mRecyclerView.setLayoutManager(mManager);
         leftRightLinkage();
         showNormal();
-    }
-
-    @Override
-    public void showNavigationListFail() {
-        CommonUtils.showSnackMessage(_mActivity, getString(R.string.failed_to_obtain_navigation_list));
     }
 
     @Override

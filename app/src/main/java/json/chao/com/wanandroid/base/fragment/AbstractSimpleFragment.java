@@ -27,7 +27,6 @@ public abstract class AbstractSimpleFragment extends SupportFragment {
 
     private Unbinder unBinder;
     private long clickTime;
-    private CompositeDisposable mCompositeDisposable;
     public boolean isInnerFragment;
 
     @Nullable
@@ -35,7 +34,6 @@ public abstract class AbstractSimpleFragment extends SupportFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutId(), container, false);
         unBinder = ButterKnife.bind(this, view);
-        mCompositeDisposable = new CompositeDisposable();
 
         return view;
     }
@@ -43,9 +41,6 @@ public abstract class AbstractSimpleFragment extends SupportFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (mCompositeDisposable != null) {
-            mCompositeDisposable.clear();
-        }
         unBinder.unbind();
     }
 

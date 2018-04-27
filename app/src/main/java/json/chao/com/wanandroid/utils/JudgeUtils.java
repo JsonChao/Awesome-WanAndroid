@@ -27,7 +27,7 @@ public class JudgeUtils {
         intent.putExtra(Constants.IS_COLLECT, isCollect);
         intent.putExtra(Constants.IS_COLLECT_PAGE, isCollectPage);
         intent.putExtra(Constants.IS_COMMON_SITE, isCommonSite);
-        if (activityOptions != null && !Build.BOARD.contains("samsung") && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (activityOptions != null && !Build.MANUFACTURER.contains("samsung") && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             mActivity.startActivity(intent, activityOptions.toBundle());
         } else {
             mActivity.startActivity(intent);

@@ -28,14 +28,9 @@ public interface SearchContract {
         /**
          * Show top search data
          *
-         * @param topSearchDataResponse BaseResponse<List<TopSearchData>>
+         * @param topSearchDataList List<TopSearchData>
          */
-        void showTopSearchData(BaseResponse<List<TopSearchData>> topSearchDataResponse);
-
-        /**
-         * Show top search data fail
-         */
-        void showTopSearchDataFail();
+        void showTopSearchData(List<TopSearchData> topSearchDataList);
 
         /**
          * Judge to the search list activity

@@ -19,14 +19,9 @@ public interface ProjectContract {
         /**
          * Show project classify data
          *
-         * @param projectClassifyResponse List<ProjectClassifyData>
+         * @param projectClassifyDataList List<ProjectClassifyData>
          */
-        void showProjectClassifyData(BaseResponse<List<ProjectClassifyData>> projectClassifyResponse);
-
-        /**
-         * Show project calssify data fail
-         */
-        void showProjectClassifyDataFail();
+        void showProjectClassifyData(List<ProjectClassifyData> projectClassifyDataList);
 
     }
 

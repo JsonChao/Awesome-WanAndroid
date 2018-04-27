@@ -136,15 +136,15 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
     }
 
     @Override
-    public void showSearchList(BaseResponse<FeedArticleListData> feedArticleListResponse) {
-        if (feedArticleListResponse == null
-                || feedArticleListResponse.getData() == null
-                || feedArticleListResponse.getData().getDatas() == null) {
-            showSearchListFail();
-            return;
+    public void reload() {
+        if (mPresenter != null) {
+            mPresenter.getSearchList(0, searchText);
         }
-        FeedArticleListData articleData = feedArticleListResponse.getData();
-        mArticleList = articleData.getDatas();
+    }
+
+    @Override
+    public void showSearchList(FeedArticleListData feedArticleListData) {
+        mArticleList = feedArticleListData.getDatas();
         if (isAddData) {
             if (mArticleList.size() > 0) {
                 mAdapter.addData(mArticleList);
@@ -158,28 +158,15 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
     }
 
     @Override
-    public void reload() {
-        if (mPresenter != null) {
-            mPresenter.getSearchList(0, searchText);
-        }
-    }
-
-    @Override
-    public void showCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
+    public void showCollectArticleData(int position, FeedArticleData feedArticleData, FeedArticleListData feedArticleListData) {
         mAdapter.setData(position, feedArticleData);
         CommonUtils.showSnackMessage(this, getString(R.string.collect_success));
     }
 
     @Override
-    public void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
+    public void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, FeedArticleListData feedArticleListData) {
         mAdapter.setData(position, feedArticleData);
         CommonUtils.showSnackMessage(this, getString(R.string.cancel_collect_success));
-    }
-
-    @Override
-    public void showSearchListFail() {
-        showError();
-        CommonUtils.showSnackMessage(this, getString(R.string.failed_to_obtain_search_data_list));
     }
 
     @Override

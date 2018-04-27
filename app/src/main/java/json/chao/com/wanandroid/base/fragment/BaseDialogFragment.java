@@ -24,6 +24,7 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
 
     @Inject
     protected T mPresenter;
+    private FragmentComponent mBuild;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,10 +44,13 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
     }
 
     public FragmentComponent getFragmentComponent() {
-        return DaggerFragmentComponent.builder()
-                .appComponent(WanAndroidApp.getAppComponent())
-                .fragmentModule(new FragmentModule(this))
-                .build();
+        if (mBuild == null) {
+            mBuild = DaggerFragmentComponent.builder()
+                    .appComponent(WanAndroidApp.getAppComponent())
+                    .fragmentModule(new FragmentModule(this))
+                    .build();
+        }
+       return mBuild;
     }
 
     @Override

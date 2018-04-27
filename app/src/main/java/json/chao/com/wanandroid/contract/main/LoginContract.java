@@ -17,23 +17,16 @@ public interface LoginContract {
         /**
          * Show login data
          *
-         * @param loginResponse BaseResponse<LoginData>
+         * @param loginData LoginData
          */
-        void showLoginData(BaseResponse<LoginData> loginResponse);
+        void showLoginData(LoginData loginData);
 
         /**
          * Show register data
          *
-         * @param loginResponse BaseResponse<LoginData>
+         * @param loginData LoginData
          */
-        void showRegisterData(BaseResponse<LoginData> loginResponse);
-
-        /**
-         * Show login fail
-         *
-         * @param errorMsg error message
-         */
-        void showLoginFail(String errorMsg);
+        void showRegisterData(LoginData loginData);
 
         /**
          * Show register fail

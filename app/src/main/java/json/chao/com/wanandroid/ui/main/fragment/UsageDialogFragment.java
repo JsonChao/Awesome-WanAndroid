@@ -83,12 +83,8 @@ public class UsageDialogFragment extends BaseDialogFragment<UsageDialogPresenter
     }
 
     @Override
-    public void showUsefulSites(BaseResponse<List<UsefulSiteData>> usefulSitesResponse) {
-        if (usefulSitesResponse == null) {
-            showUsefulSitesDataFail();
-            return;
-        }
-        mUsefulSiteDataList = usefulSitesResponse.getData();
+    public void showUsefulSites(List<UsefulSiteData> usefulSiteDataList) {
+        mUsefulSiteDataList = usefulSiteDataList;
         mUsefulSitesFlowLayout.setAdapter(new TagAdapter<UsefulSiteData>(mUsefulSiteDataList) {
             @Override
             public View getView(FlowLayout parent, int position, UsefulSiteData usefulSiteData) {
@@ -114,11 +110,6 @@ public class UsageDialogFragment extends BaseDialogFragment<UsageDialogPresenter
                 return tv;
             }
         });
-    }
-
-    @Override
-    public void showUsefulSitesDataFail() {
-        CommonUtils.showSnackMessage(getActivity(), getString(R.string.failed_to_obtain_useful_sites_data));
     }
 
     @Override

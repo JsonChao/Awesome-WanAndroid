@@ -13,7 +13,6 @@ import java.util.List;
 import butterknife.BindView;
 import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
 import json.chao.com.wanandroid.component.RxBus;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
@@ -118,14 +117,8 @@ public class KnowledgeHierarchyListFragment extends AbstractRootFragment<Knowled
     }
 
     @Override
-    public void showKnowledgeHierarchyDetailData(BaseResponse<FeedArticleListData> feedArticleListResponse) {
-        if (feedArticleListResponse == null
-                || feedArticleListResponse.getData() == null
-                || feedArticleListResponse.getData().getDatas() == null) {
-            showKnowledgeHierarchyDetailDataFail();
-            return;
-        }
-        mArticles = feedArticleListResponse.getData().getDatas();
+    public void showKnowledgeHierarchyDetailData(FeedArticleListData feedArticleListData) {
+        mArticles = feedArticleListData.getDatas();
         if (isRefresh) {
             mAdapter.replaceData(mArticles);
         } else {
@@ -146,22 +139,17 @@ public class KnowledgeHierarchyListFragment extends AbstractRootFragment<Knowled
     }
 
     @Override
-    public void showCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
+    public void showCollectArticleData(int position, FeedArticleData feedArticleData, FeedArticleListData feedArticleListData) {
         mAdapter.setData(position, feedArticleData);
         RxBus.getDefault().post(new CollectEvent(false));
         CommonUtils.showSnackMessage(_mActivity, getString(R.string.collect_success));
     }
 
     @Override
-    public void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
+    public void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, FeedArticleListData feedArticleListData) {
         mAdapter.setData(position, feedArticleData);
         RxBus.getDefault().post(new CollectEvent(true));
         CommonUtils.showSnackMessage(_mActivity, getString(R.string.cancel_collect_success));
-    }
-
-    @Override
-    public void showKnowledgeHierarchyDetailDataFail() {
-        CommonUtils.showSnackMessage(_mActivity, getString(R.string.failed_to_obtain_knowledge_data));
     }
 
     @Override

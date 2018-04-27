@@ -31,45 +31,35 @@ public interface MainPagerContract {
         /**
          * Show content
          *
-         * @param feedArticleListResponse BaseResponse<FeedArticleListData>
+         * @param feedArticleListData FeedArticleListData
          * @param isRefresh If refresh
          */
-        void showArticleList(BaseResponse<FeedArticleListData> feedArticleListResponse, boolean isRefresh);
+        void showArticleList(FeedArticleListData feedArticleListData, boolean isRefresh);
 
         /**
          * Show collect article data
          *
          * @param position Position
          * @param feedArticleData FeedArticleData
-         * @param feedArticleListResponse BaseResponse<FeedArticleListData>
+         * @param feedArticleListData FeedArticleListData
          */
-        void showCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse);
+        void showCollectArticleData(int position, FeedArticleData feedArticleData, FeedArticleListData feedArticleListData);
 
         /**
          * Show cancel collect article data
          *
          * @param position Position
          * @param feedArticleData FeedArticleData
-         * @param feedArticleListResponse BaseResponse<FeedArticleListData>
+         * @param feedArticleListData FeedArticleListData
          */
-        void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse);
+        void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, FeedArticleListData feedArticleListData);
 
         /**
          * Show banner data
          *
-         * @param bannerResponse BaseResponse<List<BannerData>>
+         * @param bannerDataList List<BannerData>
          */
-        void showBannerData(BaseResponse<List<BannerData>> bannerResponse);
-
-        /**
-         * Show article list fail
-         */
-        void showArticleListFail();
-
-        /**
-         * Show banner data fail
-         */
-        void showBannerDataFail();
+        void showBannerData(List<BannerData> bannerDataList);
 
     }
 

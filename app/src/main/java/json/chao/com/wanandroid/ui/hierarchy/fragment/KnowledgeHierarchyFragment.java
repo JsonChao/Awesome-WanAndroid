@@ -67,7 +67,7 @@ public class KnowledgeHierarchyFragment extends AbstractRootFragment<KnowledgeHi
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(_mActivity, view, getString(R.string.share_view));
             Intent intent = new Intent(_mActivity, KnowledgeHierarchyDetailActivity.class);
             intent.putExtra(Constants.ARG_PARAM1, mAdapter.getData().get(position));
-            if (!Build.BOARD.contains("samsung") && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Build.MANUFACTURER.contains("samsung") && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 startActivity(intent, options.toBundle());
             } else {
                 startActivity(intent);
@@ -87,18 +87,14 @@ public class KnowledgeHierarchyFragment extends AbstractRootFragment<KnowledgeHi
     }
 
     @Override
-    public void showKnowledgeHierarchyData(BaseResponse<List<KnowledgeHierarchyData>> knowledgeHierarchyResponse) {
-        if (knowledgeHierarchyResponse == null || knowledgeHierarchyResponse.getData() == null) {
-            showKnowledgeHierarchyDetailDataFail();
-            return;
-        }
+    public void showKnowledgeHierarchyData(List<KnowledgeHierarchyData> knowledgeHierarchyDataList) {
         if (mPresenter.getCurrentPage() == 1) {
             mRecyclerView.setVisibility(View.VISIBLE);
         } else {
             mRecyclerView.setVisibility(View.INVISIBLE);
         }
-        if (mAdapter.getData().size() < knowledgeHierarchyResponse.getData().size()) {
-            mKnowledgeHierarchyDataList = knowledgeHierarchyResponse.getData();
+        if (mAdapter.getData().size() < knowledgeHierarchyDataList.size()) {
+            mKnowledgeHierarchyDataList = knowledgeHierarchyDataList;
             mAdapter.replaceData(mKnowledgeHierarchyDataList);
         } else {
             if (!isRefresh) {
@@ -106,11 +102,6 @@ public class KnowledgeHierarchyFragment extends AbstractRootFragment<KnowledgeHi
             }
         }
         showNormal();
-    }
-
-    @Override
-    public void showKnowledgeHierarchyDetailDataFail() {
-        CommonUtils.showSnackMessage(_mActivity, getString(R.string.failed_to_obtain_knowledge_data));
     }
 
     @Override

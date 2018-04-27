@@ -25,7 +25,6 @@ import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.activity.BaseActivity;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.contract.main.ArticleDetailContract;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.core.event.CollectEvent;
 import json.chao.com.wanandroid.presenter.main.ArticleDetailPresenter;
@@ -263,7 +262,7 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
     }
 
     @Override
-    public void showCollectArticleData(BaseResponse<FeedArticleListData> feedArticleListResponse) {
+    public void showCollectArticleData(FeedArticleListData feedArticleListData) {
         isCollect = true;
         mCollectItem.setTitle(R.string.cancel_collect);
         mCollectItem.setIcon(R.mipmap.ic_toolbar_like_p);
@@ -271,7 +270,7 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
     }
 
     @Override
-    public void showCancelCollectArticleData(BaseResponse<FeedArticleListData> feedArticleListResponse) {
+    public void showCancelCollectArticleData(FeedArticleListData feedArticleListData) {
         isCollect = false;
         if (!isCollectPage) {
             mCollectItem.setTitle(R.string.collect);

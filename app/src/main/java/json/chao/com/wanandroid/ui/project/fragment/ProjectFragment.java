@@ -80,11 +80,7 @@ public class ProjectFragment extends AbstractRootFragment<ProjectPresenter> impl
     }
 
     @Override
-    public void showProjectClassifyData(BaseResponse<List<ProjectClassifyData>> projectClassifyResponse) {
-        if (projectClassifyResponse == null || projectClassifyResponse.getData() == null) {
-            showProjectClassifyDataFail();
-            return;
-        }
+    public void showProjectClassifyData(List<ProjectClassifyData> projectClassifyDataList) {
         if (mPresenter.getCurrentPage() == Constants.TYPE_PROJECT) {
             mTabLayout.setVisibility(View.VISIBLE);
             mDivider.setVisibility(View.VISIBLE);
@@ -94,7 +90,7 @@ public class ProjectFragment extends AbstractRootFragment<ProjectPresenter> impl
             mDivider.setVisibility(View.INVISIBLE);
             mViewPager.setVisibility(View.INVISIBLE);
         }
-        mData = projectClassifyResponse.getData();
+        mData = projectClassifyDataList;
         for (ProjectClassifyData data : mData) {
             ProjectListFragment projectListFragment = ProjectListFragment.getInstance(data.getId(), null);
             mFragments.add(projectListFragment);
@@ -124,7 +120,6 @@ public class ProjectFragment extends AbstractRootFragment<ProjectPresenter> impl
             public void destroyItem(ViewGroup container, int position, Object object) {
             }
         });
-
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -141,15 +136,9 @@ public class ProjectFragment extends AbstractRootFragment<ProjectPresenter> impl
 
             }
         });
-
         mTabLayout.setViewPager(mViewPager);
         mViewPager.setCurrentItem(Constants.TAB_ONE);
         showNormal();
-    }
-
-    @Override
-    public void showProjectClassifyDataFail() {
-        CommonUtils.showSnackMessage(_mActivity, getString(R.string.failed_to_obtain_project_classify_data));
     }
 
     @Override

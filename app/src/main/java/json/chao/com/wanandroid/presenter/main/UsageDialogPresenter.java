@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import json.chao.com.wanandroid.R;
+import json.chao.com.wanandroid.app.WanAndroidApp;
 import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.contract.main.UsageDialogContract;
 import json.chao.com.wanandroid.core.DataManager;
@@ -31,14 +33,12 @@ public class UsageDialogPresenter extends BasePresenter<UsageDialogContract.View
     public void getUsefulSites() {
         addSubscribe(mDataManager.getUsefulSites()
                 .compose(RxUtils.rxSchedulerHelper())
-                .subscribeWith(new BaseObserver<BaseResponse<List<UsefulSiteData>>>(mView) {
+                .compose(RxUtils.handleResult())
+                .subscribeWith(new BaseObserver<List<UsefulSiteData>>(mView,
+                        WanAndroidApp.getInstance().getString(R.string.failed_to_obtain_useful_sites_data)) {
                     @Override
-                    public void onNext(BaseResponse<List<UsefulSiteData>> usefulSitesResponse) {
-                        if (usefulSitesResponse.getErrorCode() == BaseResponse.SUCCESS) {
-                            mView.showUsefulSites(usefulSitesResponse);
-                        } else {
-                            mView.showUsefulSitesDataFail();
-                        }
+                    public void onNext(List<UsefulSiteData> usefulSiteDataList) {
+                        mView.showUsefulSites(usefulSiteDataList);
                     }
                 }));
     }

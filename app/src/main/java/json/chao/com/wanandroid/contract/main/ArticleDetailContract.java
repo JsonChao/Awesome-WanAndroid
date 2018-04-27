@@ -19,16 +19,16 @@ public interface ArticleDetailContract {
         /**
          * Show collect article data
          *
-         * @param feedArticleListResponse BaseResponse<FeedArticleListData>
+         * @param feedArticleListData FeedArticleListData
          */
-        void showCollectArticleData(BaseResponse<FeedArticleListData> feedArticleListResponse);
+        void showCollectArticleData(FeedArticleListData feedArticleListData);
 
         /**
          * Show cancel collect article data
          *
-         * @param feedArticleListResponse BaseResponse<FeedArticleListData>
+         * @param feedArticleListData feedArticleListData
          */
-        void showCancelCollectArticleData(BaseResponse<FeedArticleListData> feedArticleListResponse);
+        void showCancelCollectArticleData(FeedArticleListData feedArticleListData);
 
         /**
          * Share event
