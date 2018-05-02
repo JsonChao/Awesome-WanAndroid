@@ -27,7 +27,7 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 ## WanAndroid Architecture
 
 <div align="center">
-<img src="https://user-gold-cdn.xitu.io/2018/4/18/162d72c111f88981?w=1795&h=1283&f=png&s=106279">
+<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/AppArchitectrue.png">
 </div>
 
 #### 借鉴于[设计MVP架构的最佳实践](https://blog.mindorks.com/essential-guide-for-designing-your-android-app-architecture-mvp-part-1-74efaf1cda40#.3lyk8t57x)
