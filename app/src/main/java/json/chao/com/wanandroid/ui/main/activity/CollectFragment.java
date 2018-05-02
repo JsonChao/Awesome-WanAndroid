@@ -18,7 +18,6 @@ import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
 import json.chao.com.wanandroid.contract.main.CollectContract;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.presenter.main.CollectPresenter;
@@ -99,9 +98,11 @@ public class CollectFragment extends AbstractRootFragment<CollectPresenter> impl
 
     @Override
     public void showRefreshEvent() {
-        mCurrentPage = 0;
-        isRefresh = true;
-        mPresenter.getCollectList(mCurrentPage);
+        if (isVisible()) {
+            mCurrentPage = 0;
+            isRefresh = true;
+            mPresenter.getCollectList(mCurrentPage);
+        }
     }
 
     @OnClick({R.id.collect_floating_action_btn})

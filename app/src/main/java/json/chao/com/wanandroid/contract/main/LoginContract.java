@@ -28,13 +28,6 @@ public interface LoginContract {
          */
         void showRegisterData(LoginData loginData);
 
-        /**
-         * Show register fail
-         *
-         * @param errorMsg error message
-         */
-        void showRegisterFail(String errorMsg);
-
     }
 
     interface Presenter extends AbstractPresenter<View> {

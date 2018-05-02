@@ -61,7 +61,8 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
                 .filter(loginResponse -> !TextUtils.isEmpty(username)
                         && !TextUtils.isEmpty(password)
                         && !TextUtils.isEmpty(rePassword))
-                .subscribeWith(new BaseObserver<LoginData>(mView) {
+                .subscribeWith(new BaseObserver<LoginData>(mView,
+                        WanAndroidApp.getInstance().getString(R.string.register_fail)) {
                     @Override
                     public void onNext(LoginData loginData) {
                         mView.showRegisterData(loginData);

@@ -29,11 +29,11 @@ public class RegisterPopupWindow extends PopupWindow {
     public RegisterPopupWindow(Activity mContext, View.OnClickListener itemsOnClick) {
         View mRootView = LayoutInflater.from(mContext).inflate(R.layout.popup_window_register, null);
 
-        mUserNameEdit = (EditText) mRootView.findViewById(R.id.register_account_edit);
-        mPasswordEdit = (EditText) mRootView.findViewById(R.id.register_password_edit);
-        mRePasswordEdit = (EditText) mRootView.findViewById(R.id.register_re_password_edit);
+        mUserNameEdit = mRootView.findViewById(R.id.register_account_edit);
+        mPasswordEdit = mRootView.findViewById(R.id.register_password_edit);
+        mRePasswordEdit = mRootView.findViewById(R.id.register_re_password_edit);
 
-        Button registerBtn = (Button) mRootView.findViewById(R.id.register_btn);
+        Button registerBtn = mRootView.findViewById(R.id.register_btn);
 
         // 设置按钮监听
         registerBtn.setOnClickListener(itemsOnClick);
