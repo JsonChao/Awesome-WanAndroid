@@ -6,6 +6,8 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import javax.inject.Inject;
 
+import json.chao.com.wanandroid.R;
+import json.chao.com.wanandroid.app.WanAndroidApp;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.contract.main.ArticleDetailContract;
@@ -22,64 +24,69 @@ import json.chao.com.wanandroid.widget.BaseObserver;
 
 public class ArticleDetailPresenter extends BasePresenter<ArticleDetailContract.View> implements ArticleDetailContract.Presenter {
 
-    DataManager mDataManager;
+    private DataManager mDataManager;
 
     @Inject
     ArticleDetailPresenter(DataManager dataManager) {
+        super(dataManager);
         this.mDataManager = dataManager;
+    }
+
+    @Override
+    public boolean getAutoCacheState() {
+        return mDataManager.getAutoCacheState();
+    }
+
+    @Override
+    public boolean getNoImageState() {
+        return mDataManager.getNoImageState();
     }
 
     @Override
     public void addCollectArticle(int articleId) {
         addSubscribe(mDataManager.addCollectArticle(articleId)
-                        .compose(RxUtils.rxSchedulerHelper())
-                        .subscribeWith(new BaseObserver<BaseResponse<FeedArticleListData>>(mView) {
-                            @Override
-                            public void onNext(BaseResponse<FeedArticleListData> feedArticleListResponse) {
-                                if (feedArticleListResponse.getErrorCode() == BaseResponse.SUCCESS) {
-                                    mView.showCollectArticleData(feedArticleListResponse);
-                                } else {
-                                    mView.showCollectFail();
-                                }
-                            }
-                        }));
+                .compose(RxUtils.rxSchedulerHelper())
+                .compose(RxUtils.handleCollectResult())
+                .subscribeWith(new BaseObserver<FeedArticleListData>(mView,
+                        WanAndroidApp.getInstance().getString(R.string.collect_fail)) {
+                    @Override
+                    public void onNext(FeedArticleListData feedArticleListData) {
+                        mView.showCollectArticleData(feedArticleListData);
+                    }
+                }));
     }
 
     @Override
     public void cancelCollectArticle(int articleId) {
         addSubscribe(mDataManager.cancelCollectArticle(articleId)
-                        .compose(RxUtils.rxSchedulerHelper())
-                        .subscribeWith(new BaseObserver<BaseResponse<FeedArticleListData>>(mView) {
-                            @Override
-                            public void onNext(BaseResponse<FeedArticleListData> feedArticleListResponse) {
-                                if (feedArticleListResponse.getErrorCode() == BaseResponse.SUCCESS) {
-                                    mView.showCancelCollectArticleData(feedArticleListResponse);
-                                } else {
-                                    mView.showCancelCollectFail();
-                                }
-                            }
-                        }));
+                .compose(RxUtils.rxSchedulerHelper())
+                .compose(RxUtils.handleCollectResult())
+                .subscribeWith(new BaseObserver<FeedArticleListData>(mView,
+                        WanAndroidApp.getInstance().getString(R.string.cancel_collect_fail)) {
+                    @Override
+                    public void onNext(FeedArticleListData feedArticleListData) {
+                        mView.showCancelCollectArticleData(feedArticleListData);
+                    }
+                }));
     }
 
     @Override
     public void cancelCollectPageArticle(int articleId) {
         addSubscribe(mDataManager.cancelCollectPageArticle(articleId)
                 .compose(RxUtils.rxSchedulerHelper())
-                .subscribeWith(new BaseObserver<BaseResponse<FeedArticleListData>>(mView) {
+                .compose(RxUtils.handleCollectResult())
+                .subscribeWith(new BaseObserver<FeedArticleListData>(mView,
+                        WanAndroidApp.getInstance().getString(R.string.cancel_collect_fail)) {
                     @Override
-                    public void onNext(BaseResponse<FeedArticleListData> feedArticleListResponse) {
-                        if (feedArticleListResponse.getErrorCode() == BaseResponse.SUCCESS) {
-                            mView.showCancelCollectArticleData(feedArticleListResponse);
-                        } else {
-                            mView.showCancelCollectFail();
-                        }
+                    public void onNext(FeedArticleListData feedArticleListData) {
+                        mView.showCancelCollectArticleData(feedArticleListData);
                     }
                 }));
     }
 
     @Override
     public void shareEventPermissionVerify(RxPermissions rxPermissions) {
-        rxPermissions
+        addSubscribe(rxPermissions
                 .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .subscribe(granted -> {
                     if (granted) {
@@ -87,7 +94,8 @@ public class ArticleDetailPresenter extends BasePresenter<ArticleDetailContract.
                     } else {
                         mView.shareError();
                     }
-                });
+                }));
     }
+
 
 }

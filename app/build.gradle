@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'org.greenrobot.greendao'
-apply plugin: 'com.neenbedankt.android-apt'// 注释处理
-apply plugin: 'me.tatarka.retrolambda'
 
 
 android {
@@ -20,11 +20,13 @@ android {
         applicationId "json.chao.com.wanandroid"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 4
+        versionName "1.2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         renderscriptTargetApi 21
         renderscriptSupportModeEnabled true    // Enable RS support
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -41,6 +43,10 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    flavorDimensions "code"
+    productFlavors {
     }
 
     packagingOptions {
@@ -60,69 +66,76 @@ greendao {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
     //base
-    compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
-    compile "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
-    compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
-    compile "com.android.support:design:$rootProject.supportLibraryVersion"
-    compile "com.android.support.constraint:constraint-layout:$rootProject.constraintVersion"
+    implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:support-v4:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:design:$rootProject.supportLibraryVersion"
+    implementation "com.android.support.constraint:constraint-layout:$rootProject.constraintVersion"
 
     //ui
-    compile "com.scwang.smartrefresh:SmartRefreshLayout:$rootProject.smartrefreshVersion"
-    compile "com.scwang.smartrefresh:SmartRefreshHeader:$rootProject.smartrefreshVersion"
-    compile "com.youth.banner:banner:$rootProject.bannerVersion"
-    compile "com.flyco.tablayout:FlycoTabLayout_Lib:$rootProject.tablayoutVersion"
-    compile "q.rorbin:VerticalTabLayout:$rootProject.verticalTabLayoutVersion"
-    compile "com.hyman:flowlayout-lib:$rootProject.flowlayoutVersion"
-    compile 'com.just.agentweb:agentweb:3.1.0'
+    implementation "com.scwang.smartrefresh:SmartRefreshLayout:$rootProject.smartrefreshVersion"
+    implementation "com.scwang.smartrefresh:SmartRefreshHeader:$rootProject.smartrefreshVersion"
+    implementation "com.youth.banner:banner:$rootProject.bannerVersion"
+    implementation "com.flyco.tablayout:FlycoTabLayout_Lib:$rootProject.tablayoutVersion"
+    implementation "q.rorbin:VerticalTabLayout:$rootProject.verticalTabLayoutVersion"
+    implementation "com.hyman:flowlayout-lib:$rootProject.flowlayoutVersion"
+    implementation 'com.just.agentweb:agentweb:4.0.2'
 
     //net
-    compile "com.google.code.gson:gson:$rootProject.gsonVersion"
-    compile "com.squareup.okhttp3:okhttp:$rootProject.okhttpVersion"
-    compile "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpVersion"
-    compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
-    compile "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
-    compile "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
-    compile "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
+    implementation "com.squareup.okhttp3:okhttp:$rootProject.okhttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpVersion"
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
+    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
     annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
 
     //dao
-    compile "org.greenrobot:greendao:$rootProject.greendaoVersion"
+    implementation "org.greenrobot:greendao:$rootProject.greendaoVersion"
 
     //rx
-    compile "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
-    compile "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
-    compile "com.jakewharton.rxbinding2:rxbinding:$rootProject.rxbindingVersion"
-    compile "com.tbruyelle.rxpermissions2:rxpermissions:$rootProject.rxpermissionsVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
+    implementation "com.jakewharton.rxbinding2:rxbinding:$rootProject.rxbindingVersion"
+    implementation "com.tbruyelle.rxpermissions2:rxpermissions:$rootProject.rxpermissionsVersion"
 
     //di
-    compile "com.google.dagger:dagger:$rootProject.daggerVersion"
-    apt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
-    compile "org.glassfish:javax.annotation:$rootProject.javaxVersion"
-    compile "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
-    apt "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
+    implementation "com.google.dagger:dagger:$rootProject.daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
+    implementation 'com.google.dagger:dagger-android:2.15'
+    implementation 'com.google.dagger:dagger-android-support:2.15'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.15'
+    implementation "org.glassfish:javax.annotation:$rootProject.javaxVersion"
+    implementation "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
+
+    //multidex
+    implementation "com.android.support:multidex:$rootProject.multidexVersion"
 
     //other
-    compile "com.airbnb.android:lottie:$rootProject.lottieVersion"
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
-    compile "me.yokeyword:fragmentation:$rootProject.fragmentationVersion"
-    compile "me.yokeyword:fragmentation-swipeback:$rootProject.fragmentationVersion"
-    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
-    compile "com.orhanobut:logger:$rootProject.loggerVersion"
-    compile "com.github.githubwing:ByeBurger:$rootProject.ByeBurgerVersion"
+    implementation "com.airbnb.android:lottie:$rootProject.lottieVersion"
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
+    implementation "me.yokeyword:fragmentation:$rootProject.fragmentationVersion"
+    implementation "me.yokeyword:fragmentation-swipeback:$rootProject.fragmentationVersion"
+    implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    implementation "com.orhanobut:logger:$rootProject.loggerVersion"
+    implementation "com.github.githubwing:ByeBurger:$rootProject.ByeBurgerVersion"
 
     //canary
-    debugCompile "com.squareup.leakcanary:leakcanary-android:$rootProject.leakcanaryVersion"
-    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakcanaryVersion"
-    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakcanaryVersion"
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.leakcanaryVersion"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakcanaryVersion"
+    testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakcanaryVersion"
 
     //unit test
-    testCompile "junit:junit:$rootProject.junitVersion"
+    testImplementation "junit:junit:$rootProject.junitVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 
 //解决支持库版本不兼容问题

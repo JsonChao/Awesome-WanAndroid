@@ -11,7 +11,7 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/white"
+    app:cardBackgroundColor="@color/colorCard"
     app:cardCornerRadius="@dimen/dp_3"
     app:cardElevation="@dimen/dp_2">
 
@@ -45,7 +45,7 @@
                 android:ellipsize="end"
                 android:gravity="center"
                 android:maxLines="1"
-                android:textColor="@color/title_black"
+                android:textColor="@color/comment_text"
                 android:textSize="@dimen/sp_16"
                 tools:text="【开源完整项目】diycode客户端" />
 
@@ -57,7 +57,8 @@
                 android:layout_marginTop="@dimen/dp_16"
                 android:ellipsize="end"
                 android:maxLines="4"
-                tools:text="Diycode 社区客户端，可以更方便的在手机上查看社区信息。应用采用了数据多级缓存，并且实现了离线浏览(访问过一次的页面会被缓存下来，没有网络也可查看)，相比于网页版，在一定程度上可以" />
+                tools:text="Diycode 社区客户端，可以更方便的在手机上查看社区信息。应用采用了数据多级缓存，并且实现了离线浏览(访问过一次的页面会被缓存下来，没有网络也可查看)，相比于网页版，在一定程度上可以"
+                android:textColor="@color/comment_text" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -70,7 +71,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:gravity="center"
-                    tools:text="2018-01-29" />
+                    tools:text="2018-01-29"
+                    android:textColor="@color/comment_text" />
 
                 <TextView
                     android:id="@+id/item_project_list_author_tv"
@@ -80,7 +82,8 @@
                     android:layout_marginStart="@dimen/dp_5"
                     android:layout_toEndOf="@id/item_project_list_time_tv"
                     android:gravity="center"
-                    tools:text="GcsSloop" />
+                    tools:text="GcsSloop"
+                    android:textColor="@color/comment_text" />
 
                 <TextView
                     android:id="@+id/item_project_list_install_tv"

@@ -7,7 +7,6 @@ import json.chao.com.wanandroid.di.module.ActivityModule;
 import json.chao.com.wanandroid.di.scope.ActivityScope;
 import json.chao.com.wanandroid.ui.main.activity.AboutUsActivity;
 import json.chao.com.wanandroid.ui.main.activity.ArticleDetailActivity;
-import json.chao.com.wanandroid.ui.main.activity.CollectActivity;
 import json.chao.com.wanandroid.ui.hierarchy.activity.KnowledgeHierarchyDetailActivity;
 import json.chao.com.wanandroid.ui.main.activity.LoginActivity;
 import json.chao.com.wanandroid.ui.main.activity.MainActivity;
@@ -65,13 +64,6 @@ public interface ActivityComponent {
      * @param loginActivity LoginActivity
      */
     void inject(LoginActivity loginActivity);
-
-    /**
-     * 注入CollectActivity所需的依赖
-     *
-     * @param collectActivity CollectActivity
-     */
-    void inject(CollectActivity collectActivity);
 
     /**
      * 注入AboutUsActivity所需的依赖

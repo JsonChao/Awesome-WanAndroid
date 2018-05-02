@@ -5,7 +5,6 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".ui.main.activity.MainActivity"
     tools:openDrawer="start">
 
@@ -42,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@color/white"
+            android:background="@color/colorCard"
             app:elevation="@dimen/dp_16"
             app:itemIconTint="@drawable/nav_item_color_state"
             app:itemTextColor="@drawable/nav_item_color_state"
@@ -50,19 +49,14 @@
             app:menu="@menu/bottom_navigation_main" />
     </android.support.design.widget.CoordinatorLayout>
 
-    <ViewStub
-        android:id="@+id/main_view_stub"
-        android:inflatedId="@+id/main_pager_view_stub"
-        android:layout="@layout/error_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        android:background="@color/drawer_item_bg_n"
         app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/nav_menu" />
+        app:menu="@menu/nav_menu"
+        app:itemBackground="@drawable/drawer_item_bg" />
 </android.support.v4.widget.DrawerLayout>

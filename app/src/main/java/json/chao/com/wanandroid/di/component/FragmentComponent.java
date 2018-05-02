@@ -8,6 +8,9 @@ import json.chao.com.wanandroid.di.module.FragmentModule;
 import json.chao.com.wanandroid.di.scope.FragmentScope;
 import json.chao.com.wanandroid.ui.hierarchy.fragment.KnowledgeHierarchyFragment;
 import json.chao.com.wanandroid.ui.hierarchy.fragment.KnowledgeHierarchyListFragment;
+import json.chao.com.wanandroid.ui.main.activity.CollectFragment;
+import json.chao.com.wanandroid.ui.main.activity.SettingFragment;
+import json.chao.com.wanandroid.ui.main.fragment.UsageDialogFragment;
 import json.chao.com.wanandroid.ui.mainpager.fragment.MainPagerFragment;
 import json.chao.com.wanandroid.ui.navigation.fragment.NavigationFragment;
 import json.chao.com.wanandroid.ui.project.fragment.ProjectFragment;
@@ -79,5 +82,25 @@ public interface FragmentComponent {
      */
     void inject(SearchDialogFragment searchDialogFragment);
 
+    /**
+     * 注入UsageDialogFragment所需的依赖
+     *
+     * @param usageDialogFragment UsageDialogFragment
+     */
+    void inject(UsageDialogFragment usageDialogFragment);
+
+    /**
+     * 注入CollectFragment所需的依赖
+     *
+     * @param collectFragment CollectFragment
+     */
+    void inject(CollectFragment collectFragment);
+
+    /**
+     * 注入SettingFragment所需的依赖
+     *
+     * @param settingFragment SettingFragment
+     */
+    void inject(SettingFragment settingFragment);
 
 }

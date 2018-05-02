@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.scwang.smartrefresh.layout.SmartRefreshLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/knowledge_hierarchy_list_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:visibility="gone">
+    android:background="@color/colorBackground">
 
-    <com.scwang.smartrefresh.layout.header.BezierRadarHeader
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/normal_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/knowledge_hierarchy_list_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorBackground" />
-</com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        <com.scwang.smartrefresh.layout.header.BezierRadarHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/knowledge_hierarchy_list_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBackground" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</FrameLayout>

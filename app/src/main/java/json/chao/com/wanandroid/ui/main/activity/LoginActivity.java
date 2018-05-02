@@ -13,13 +13,9 @@ import com.jakewharton.rxbinding2.view.RxView;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.component.RxBus;
-import json.chao.com.wanandroid.core.DataManager;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.login.LoginData;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.base.activity.BaseActivity;
@@ -50,8 +46,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @BindView(R.id.login_register_btn)
     Button mRegisterBtn;
 
-    @Inject
-    DataManager mDataManager;
     private RegisterPopupWindow mPopupWindow;
 
     @Override
@@ -68,16 +62,14 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     protected void initEventAndData() {
         mRegisterBtn.setOnClickListener(this);
         mPopupWindow = new RegisterPopupWindow(this, this);
+        mPopupWindow.setBackgroundDrawable(getDrawable(R.color.transparent));
         mPopupWindow.setAnimationStyle(R.style.popup_window_animation);
-        mPopupWindow.setOnDismissListener(() -> {
-            setBackgroundAlpha();
-            mRegisterBtn.setOnClickListener(this);
-        });
+        mPopupWindow.setOnDismissListener(() -> mRegisterBtn.setOnClickListener(this));
         StatusBarUtil.immersive(this);
         StatusBarUtil.setPaddingSmart(this, mToolbar);
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
 
-        RxView.clicks(mLoginBtn)
+        mPresenter.addRxBindingSubscribe(RxView.clicks(mLoginBtn)
                 .throttleFirst(Constants.CLICK_TIME_AREA, TimeUnit.MILLISECONDS)
                 .filter(o -> mPresenter != null)
                 .subscribe(o -> {
@@ -88,42 +80,22 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                         return;
                     }
                     mPresenter.getLoginData(account, password);
-                });
+                }));
     }
 
     @Override
-    public void showLoginData(BaseResponse<LoginData> loginResponse) {
-        if (loginResponse == null || loginResponse.getData() == null) {
-            showLoginFail();
-            return;
-        }
-        LoginData loginData = loginResponse.getData();
-        mDataManager.setLoginAccount(loginData.getUsername());
-        mDataManager.setLoginPassword(loginData.getPassword());
-        mDataManager.setLoginStatus(true);
+    public void showLoginData(LoginData loginData) {
+        mPresenter.setLoginAccount(loginData.getUsername());
+        mPresenter.setLoginPassword(loginData.getPassword());
+        mPresenter.setLoginStatus(true);
         RxBus.getDefault().post(new LoginEvent(true));
         CommonUtils.showSnackMessage(this, getString(R.string.login_success));
         onBackPressedSupport();
     }
 
     @Override
-    public void showRegisterData(BaseResponse<LoginData> loginResponse) {
-        if (loginResponse == null || loginResponse.getData() == null) {
-            showRegisterFail();
-            return;
-        }
-        mPresenter.getLoginData(loginResponse.getData().getUsername(),
-                loginResponse.getData().getPassword());
-    }
-
-    @Override
-    public void showLoginFail() {
-        CommonUtils.showSnackMessage(this, getString(R.string.login_fail));
-    }
-
-    @Override
-    public void showRegisterFail() {
-        CommonUtils.showSnackMessage(this, getString(R.string.register_fail));
+    public void showRegisterData(LoginData loginData) {
+        mPresenter.getLoginData(loginData.getUsername(), loginData.getPassword());
     }
 
     @Override
@@ -160,15 +132,4 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
         mPresenter.getRegisterData(account, password, rePassword);
     }
-
-    /**
-     * 设置屏幕透明度
-     */
-    public void setBackgroundAlpha() {
-        WindowManager.LayoutParams lp = getWindow().getAttributes();
-        // 0.0~1.0
-        lp.alpha = 1.0f;
-        getWindow().setAttributes(lp);
-    }
-
 }

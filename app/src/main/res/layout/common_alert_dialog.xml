@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/dp_230"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:background="@color/colorCard">
 
     <TextView
         android:id="@+id/dialog_content"
@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:minHeight="@dimen/dp_60"
-        android:textColor="@color/title_black"
+        android:textColor="@color/comment_text"
         android:textSize="@dimen/sp_16" />
 
     <View
@@ -35,9 +35,9 @@
 
         <View
             android:id="@+id/dialog_btn_divider"
-            android:layout_width="@dimen/dp_1"
+            android:layout_width="@dimen/dp_05"
             android:layout_height="match_parent"
-            android:background="@color/grey_divider"
+            android:background="@color/delete_text"
             android:visibility="gone" />
 
         <Button

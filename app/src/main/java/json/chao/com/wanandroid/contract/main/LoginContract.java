@@ -17,30 +17,34 @@ public interface LoginContract {
         /**
          * Show login data
          *
-         * @param loginResponse BaseResponse<LoginData>
+         * @param loginData LoginData
          */
-        void showLoginData(BaseResponse<LoginData> loginResponse);
+        void showLoginData(LoginData loginData);
 
         /**
          * Show register data
          *
-         * @param loginResponse BaseResponse<LoginData>
+         * @param loginData LoginData
          */
-        void showRegisterData(BaseResponse<LoginData> loginResponse);
-
-        /**
-         * Show login fail
-         */
-        void showLoginFail();
-
-        /**
-         * Show register fail
-         */
-        void showRegisterFail();
+        void showRegisterData(LoginData loginData);
 
     }
 
     interface Presenter extends AbstractPresenter<View> {
+
+        /**
+         * Set login status
+         *
+         * @param account account
+         */
+        void setLoginAccount(String account);
+
+        /**
+         * Set login password
+         *
+         * @param password password
+         */
+        void setLoginPassword(String password);
 
         /**
          * Get Login data

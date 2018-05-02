@@ -161,7 +161,6 @@ public class AboutUsActivity extends AbstractSimpleActivity {
                 }
             }
         });
-
     }
 
     /**

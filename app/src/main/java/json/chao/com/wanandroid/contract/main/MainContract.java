@@ -13,19 +13,31 @@ public interface MainContract {
     interface View extends BaseView {
 
         /**
-         * Show dismiss error view
+         * Show switch project
          */
-        void showDismissErrorView();
+        void showSwitchProject();
 
         /**
-         * Show error view
+         * Show switch navigation
          */
-        void showErrorView();
+        void showSwitchNavigation();
     }
 
     interface Presenter extends AbstractPresenter<View> {
 
+        /**
+         * Set current page
+         *
+         * @param page current page
+         */
+        void setCurrentPage(int page);
 
+        /**
+         * Set night mode state
+         *
+         * @param b current night mode state
+         */
+        void setNightModeState(boolean b);
     }
 
 }

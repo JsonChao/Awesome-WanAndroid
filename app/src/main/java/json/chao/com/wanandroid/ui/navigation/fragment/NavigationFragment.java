@@ -9,19 +9,13 @@ import android.widget.LinearLayout;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
-import json.chao.com.wanandroid.component.RxBus;
-import json.chao.com.wanandroid.core.DataManager;
+import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.navigation.NavigationListData;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
-import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.contract.navigation.NavigationContract;
-import json.chao.com.wanandroid.core.event.DismissErrorView;
-import json.chao.com.wanandroid.core.event.ShowErrorView;
 import json.chao.com.wanandroid.presenter.navigation.NavigationPresenter;
 import json.chao.com.wanandroid.ui.navigation.adapter.NavigationAdapter;
 import json.chao.com.wanandroid.utils.CommonUtils;
@@ -36,19 +30,17 @@ import q.rorbin.verticaltablayout.widget.TabView;
  * @date 2018/2/11
  */
 
-public class NavigationFragment extends BaseFragment<NavigationPresenter> implements NavigationContract.View {
+public class NavigationFragment extends AbstractRootFragment<NavigationPresenter> implements NavigationContract.View {
 
     @BindView(R.id.navigation_tab_layout)
     VerticalTabLayout mTabLayout;
-    @BindView(R.id.navigation_group)
+    @BindView(R.id.normal_view)
     LinearLayout mNavigationGroup;
     @BindView(R.id.navigation_divider)
     View mDivider;
     @BindView(R.id.navigation_RecyclerView)
     RecyclerView mRecyclerView;
 
-    @Inject
-    DataManager mDataManager;
     private LinearLayoutManager mManager;
     private boolean needScroll;
     private int index;
@@ -69,27 +61,25 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
     }
 
     @Override
-    protected int getLayout() {
+    protected int getLayoutId() {
         return R.layout.fragment_navigation;
     }
 
     @Override
     protected void initEventAndData() {
+        super.initEventAndData();
         mPresenter.getNavigationListData();
+        if (CommonUtils.isNetworkConnected()) {
+            showLoading();
+        }
     }
 
     @Override
-    public void showNavigationListData(BaseResponse<List<NavigationListData>> navigationListResponse) {
-        if (navigationListResponse == null || navigationListResponse.getData() == null) {
-            showNavigationListFail();
-            return;
-        }
-        RxBus.getDefault().post(new DismissErrorView());
-        List<NavigationListData> navigationListData = navigationListResponse.getData();
+    public void showNavigationListData(List<NavigationListData> navigationDataList) {
         mTabLayout.setTabAdapter(new TabAdapter() {
             @Override
             public int getCount() {
-                return navigationListData == null ? 0 : navigationListData.size();
+                return navigationDataList == null ? 0 : navigationDataList.size();
             }
 
             @Override
@@ -105,8 +95,9 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
             @Override
             public ITabView.TabTitle getTitle(int i) {
                 return new TabView.TabTitle.Builder()
-                        .setContent(navigationListData.get(i).getName())
-                        .setTextColor(0xFF36BC9B, 0xFF757575)
+                        .setContent(navigationDataList.get(i).getName())
+                        .setTextColor(ContextCompat.getColor(_mActivity, R.color.shallow_green),
+                                ContextCompat.getColor(_mActivity, R.color.shallow_grey))
                         .build();
             }
 
@@ -115,31 +106,36 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
                 return -1;
             }
         });
-        if (mDataManager.getCurrentPage() == Constants.THIRD) {
+        if (mPresenter.getCurrentPage() == Constants.TYPE_NAVIGATION) {
             mNavigationGroup.setVisibility(View.VISIBLE);
+            mTabLayout.setVisibility(View.VISIBLE);
             mDivider.setVisibility(View.VISIBLE);
         } else {
             mNavigationGroup.setVisibility(View.INVISIBLE);
+            mTabLayout.setVisibility(View.INVISIBLE);
             mDivider.setVisibility(View.INVISIBLE);
         }
-        NavigationAdapter adapter = new NavigationAdapter(R.layout.item_navigation, navigationListData);
+        NavigationAdapter adapter = new NavigationAdapter(R.layout.item_navigation, navigationDataList);
         mRecyclerView.setAdapter(adapter);
         mManager = new LinearLayoutManager(_mActivity);
         mRecyclerView.setLayoutManager(mManager);
         leftRightLinkage();
-    }
-
-    @Override
-    public void showNavigationListFail() {
-        CommonUtils.showSnackMessage(_mActivity, getString(R.string.failed_to_obtain_navigation_list));
+        showNormal();
     }
 
     @Override
     public void showError() {
-        mTabLayout.setBackgroundColor(ContextCompat.getColor(_mActivity, R.color.transparent));
+        mTabLayout.setVisibility(View.INVISIBLE);
         mNavigationGroup.setVisibility(View.INVISIBLE);
         mDivider.setVisibility(View.INVISIBLE);
-        RxBus.getDefault().post(new ShowErrorView());
+        super.showError();
+    }
+
+    @Override
+    public void reload() {
+        if (mPresenter != null && mNavigationGroup.getVisibility() == View.INVISIBLE) {
+            mPresenter.getNavigationListData();
+        }
     }
 
     /**
@@ -239,12 +235,6 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
         } else {
             mRecyclerView.smoothScrollToPosition(currentPosition);
             needScroll = true;
-        }
-    }
-
-    public void reLoad() {
-        if (mPresenter != null && mNavigationGroup.getVisibility() == View.INVISIBLE) {
-            mPresenter.getNavigationListData();
         }
     }
 

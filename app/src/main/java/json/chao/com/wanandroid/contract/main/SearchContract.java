@@ -28,26 +28,9 @@ public interface SearchContract {
         /**
          * Show top search data
          *
-         * @param topSearchDataResponse BaseResponse<List<TopSearchData>>
+         * @param topSearchDataList List<TopSearchData>
          */
-        void showTopSearchData(BaseResponse<List<TopSearchData>> topSearchDataResponse);
-
-        /**
-         * Show useful sites
-         *
-         * @param usefulSitesResponse BaseResponse<List<UsefulSiteData>>
-         */
-        void showUsefulSites(BaseResponse<List<UsefulSiteData>> usefulSitesResponse);
-
-        /**
-         * Show top search data fail
-         */
-        void showTopSearchDataFail();
-
-        /**
-         * Show useful sites data fail
-         */
-        void showUsefulSitesDataFail();
+        void showTopSearchData(List<TopSearchData> topSearchDataList);
 
         /**
          * Judge to the search list activity
@@ -57,6 +40,13 @@ public interface SearchContract {
     }
 
     interface Presenter extends AbstractPresenter<View> {
+
+        /**
+         * Load all history data
+         *
+         * @return all history data
+         */
+        List<HistoryData> loadAllHistoryData();
 
         /**
          * Add history data
@@ -69,11 +59,6 @@ public interface SearchContract {
          * 热搜
          */
         void getTopSearchData();
-
-        /**
-         * 常用网站
-         */
-        void getUsefulSites();
 
         /**
          * Clear history data

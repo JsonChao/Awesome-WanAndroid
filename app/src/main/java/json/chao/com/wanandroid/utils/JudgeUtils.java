@@ -1,7 +1,9 @@
 package json.chao.com.wanandroid.utils;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.ui.hierarchy.activity.KnowledgeHierarchyDetailActivity;
@@ -15,7 +17,7 @@ import json.chao.com.wanandroid.ui.main.activity.SearchListActivity;
 
 public class JudgeUtils {
 
-    public static void startArticleDetailActivity(Context mActivity, int id, String articleTitle,
+    public static void startArticleDetailActivity(Context mActivity, ActivityOptions activityOptions, int id, String articleTitle,
                                                   String articleLink, boolean isCollect,
                                                   boolean isCollectPage,boolean isCommonSite) {
         Intent intent = new Intent(mActivity, ArticleDetailActivity.class);
@@ -25,7 +27,11 @@ public class JudgeUtils {
         intent.putExtra(Constants.IS_COLLECT, isCollect);
         intent.putExtra(Constants.IS_COLLECT_PAGE, isCollectPage);
         intent.putExtra(Constants.IS_COMMON_SITE, isCommonSite);
-        mActivity.startActivity(intent);
+        if (activityOptions != null && !Build.MANUFACTURER.contains("samsung") && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mActivity.startActivity(intent, activityOptions.toBundle());
+        } else {
+            mActivity.startActivity(intent);
+        }
     }
 
     public static void startKnowledgeHierarchyDetailActivity(Context mActivity, boolean isSingleChapter,

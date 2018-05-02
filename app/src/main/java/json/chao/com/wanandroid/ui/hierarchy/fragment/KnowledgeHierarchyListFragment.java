@@ -1,30 +1,26 @@
 package json.chao.com.wanandroid.ui.hierarchy.fragment;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
+import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
 import json.chao.com.wanandroid.component.RxBus;
-import json.chao.com.wanandroid.core.DataManager;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
-import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.contract.hierarchy.KnowledgeHierarchyListContract;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.core.event.CollectEvent;
-import json.chao.com.wanandroid.core.event.DismissDetailErrorView;
-import json.chao.com.wanandroid.core.event.ShowDetailErrorView;
+import json.chao.com.wanandroid.core.event.SwitchNavigationEvent;
+import json.chao.com.wanandroid.core.event.SwitchProjectEvent;
 import json.chao.com.wanandroid.presenter.hierarchy.KnowledgeHierarchyListPresenter;
 import json.chao.com.wanandroid.ui.main.activity.LoginActivity;
 import json.chao.com.wanandroid.ui.mainpager.adapter.ArticleListAdapter;
@@ -36,10 +32,10 @@ import json.chao.com.wanandroid.utils.JudgeUtils;
  * @date 2018/2/23
  */
 
-public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierarchyListPresenter>
+public class KnowledgeHierarchyListFragment extends AbstractRootFragment<KnowledgeHierarchyListPresenter>
         implements KnowledgeHierarchyListContract.View {
 
-    @BindView(R.id.knowledge_hierarchy_list_refresh_layout)
+    @BindView(R.id.normal_view)
     SmartRefreshLayout mRefreshLayout;
     @BindView(R.id.knowledge_hierarchy_list_recycler_view)
     RecyclerView mRecyclerView;
@@ -49,10 +45,8 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
     private List<FeedArticleData> mArticles;
     private ArticleListAdapter mAdapter;
     private boolean isRefresh = true;
-
-    @Inject
-    DataManager mDataManager;
     private int articlePosition;
+    private ActivityOptions mOptions;
 
     @Override
     protected void initInject() {
@@ -60,12 +54,13 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
     }
 
     @Override
-    protected int getLayout() {
+    protected int getLayoutId() {
         return R.layout.fragment_knowledge_hierarchy_list;
     }
 
     @Override
     protected void initEventAndData() {
+        super.initEventAndData();
         isInnerFragment = true;
         setRefresh();
         Bundle bundle = getArguments();
@@ -78,8 +73,13 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
         mPresenter.getKnowledgeHierarchyDetailData(mCurrentPage, id);
         mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mArticles);
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
+            if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+                return;
+            }
             articlePosition = position;
+            mOptions = ActivityOptions.makeSceneTransitionAnimation(_mActivity, view, getString(R.string.share_view));
             JudgeUtils.startArticleDetailActivity(_mActivity,
+                    mOptions,
                     mAdapter.getData().get(position).getId(),
                     mAdapter.getData().get(position).getTitle().trim(),
                     mAdapter.getData().get(position).getLink().trim(),
@@ -94,55 +94,62 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
                 case R.id.item_search_pager_like_iv:
                     likeEvent(position);
                     break;
+                case R.id.item_search_pager_tag_red_tv:
+                    if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+                        return;
+                    }
+                    String superChapterName = mAdapter.getData().get(position).getSuperChapterName();
+                    if (superChapterName.contains(getString(R.string.open_project))) {
+                        RxBus.getDefault().post(new SwitchProjectEvent());
+                    } else if (superChapterName.contains(getString(R.string.navigation))) {
+                        RxBus.getDefault().post(new SwitchNavigationEvent());
+                    }
+                    break;
                 default:
                     break;
             }
         });
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
+        if (CommonUtils.isNetworkConnected()) {
+            showLoading();
+        }
     }
 
     @Override
-    public void showKnowledgeHierarchyDetailData(BaseResponse<FeedArticleListData> feedArticleListResponse) {
-        if (feedArticleListResponse == null
-                || feedArticleListResponse.getData() == null
-                || feedArticleListResponse.getData().getDatas() == null) {
-            showKnowledgeHierarchyDetailDataFail();
-            return;
-        }
-        RxBus.getDefault().post(new DismissDetailErrorView());
-        mRefreshLayout.setVisibility(View.VISIBLE);
-        mArticles = feedArticleListResponse.getData().getDatas();
+    public void showKnowledgeHierarchyDetailData(FeedArticleListData feedArticleListData) {
+        mArticles = feedArticleListData.getDatas();
         if (isRefresh) {
             mAdapter.replaceData(mArticles);
         } else {
-            mAdapter.addData(mArticles);
+            if (mArticles.size() > 0) {
+                mAdapter.addData(mArticles);
+            } else {
+                CommonUtils.showMessage(_mActivity, getString(R.string.load_more_no_data));
+            }
+        }
+        showNormal();
+    }
+
+    @Override
+    public void reload() {
+        if (mPresenter != null) {
+            mRefreshLayout.autoRefresh();
         }
     }
 
     @Override
-    public void showError() {
-        RxBus.getDefault().post(new ShowDetailErrorView());
-        mRefreshLayout.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void showCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
+    public void showCollectArticleData(int position, FeedArticleData feedArticleData, FeedArticleListData feedArticleListData) {
         mAdapter.setData(position, feedArticleData);
         RxBus.getDefault().post(new CollectEvent(false));
         CommonUtils.showSnackMessage(_mActivity, getString(R.string.collect_success));
     }
 
     @Override
-    public void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
+    public void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, FeedArticleListData feedArticleListData) {
         mAdapter.setData(position, feedArticleData);
         RxBus.getDefault().post(new CollectEvent(true));
         CommonUtils.showSnackMessage(_mActivity, getString(R.string.cancel_collect_success));
-    }
-
-    @Override
-    public void showKnowledgeHierarchyDetailDataFail() {
-        CommonUtils.showSnackMessage(_mActivity, getString(R.string.failed_to_obtain_knowledge_data));
     }
 
     @Override
@@ -185,9 +192,12 @@ public class KnowledgeHierarchyListFragment extends BaseFragment<KnowledgeHierar
     }
 
     private void likeEvent(int position) {
-        if (!mDataManager.getLoginStatus()) {
+        if (!mPresenter.getLoginStatus()) {
             startActivity(new Intent(_mActivity, LoginActivity.class));
             CommonUtils.showMessage(_mActivity, getString(R.string.login_tint));
+            return;
+        }
+        if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
             return;
         }
         if (mAdapter.getData().get(position).isCollect()) {

@@ -26,6 +26,10 @@ public class KnowledgeHierarchyListViewHolder extends BaseViewHolder {
     TextView mItemSearchPagerTitle;
     @BindView(R.id.item_search_pager_author)
     TextView mItemSearchPagerAuthor;
+    @BindView(R.id.item_search_pager_tag_green_tv)
+    TextView mTagGreenTv;
+    @BindView(R.id.item_search_pager_tag_red_tv)
+    TextView mTagRedTv;
     @BindView(R.id.item_search_pager_chapterName)
     TextView mItemSearchPagerChapterName;
     @BindView(R.id.item_search_pager_niceDate)

@@ -2,16 +2,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:id="@+id/other">
+        <item android:id="@+id/nav_item_wan_android"
+            android:icon="@drawable/ic_wan_android"
+            android:title="@string/app_name"
+            android:checkable="true"
+            android:checked="true" />
+
         <item android:id="@+id/nav_item_my_collect"
-            android:icon="@drawable/icon_like_article_selected"
-            android:title="@string/my_collect" />
+            android:icon="@drawable/icon_like"
+            android:title="@string/my_collect"
+            android:checkable="true" />
+
+        <item android:id="@+id/nav_item_setting"
+            android:icon="@drawable/ic_setting"
+            android:title="@string/setting"
+            android:checkable="true" />
 
         <item android:id="@+id/nav_item_about_us"
-            android:icon="@mipmap/icon_about_us"
+            android:icon="@drawable/ic_about"
             android:title="@string/about_us" />
 
         <item android:id="@+id/nav_item_logout"
-            android:icon="@mipmap/icon_logout"
+            android:icon="@drawable/ic_logout"
             android:title="@string/logout" />
     </group>
 </menu>

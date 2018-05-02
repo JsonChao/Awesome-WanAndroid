@@ -3,26 +3,26 @@
 
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/white" />
+            <solid android:color="@color/colorCard" />
             <!-- 弧度 -->
-            <corners android:radius="6dp" />
+            <corners android:radius="@dimen/dp_6" />
         </shape>
     </item>
 
     <item
-        android:bottom="8dp"
-        android:left="8dp"
-        android:right="8dp"
-        android:top="8dp">
+        android:bottom="@dimen/dp_8"
+        android:left="@dimen/dp_8"
+        android:right="@dimen/dp_8"
+        android:top="@dimen/dp_8">
         <!-- 边框宽度 -->
         <shape android:shape="rectangle">
-            <solid android:color="@color/white" />
-            <corners android:radius="6dp" />
+            <solid android:color="@color/colorCard" />
+            <corners android:radius="@dimen/dp_6" />
             <padding
-                android:bottom="8dp"
-                android:left="8dp"
-                android:right="8dp"
-                android:top="8dp" />
+                android:bottom="@dimen/dp_8"
+                android:left="@dimen/dp_8"
+                android:right="@dimen/dp_8"
+                android:top="@dimen/dp_8" />
         </shape>
     </item>
 </layer-list>

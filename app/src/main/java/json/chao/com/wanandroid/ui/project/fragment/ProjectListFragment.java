@@ -13,13 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.core.bean.project.ProjectListData;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
-import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.contract.project.ProjectListContract;
 import json.chao.com.wanandroid.presenter.project.ProjectListPresenter;
 import json.chao.com.wanandroid.ui.project.adapter.ProjectListAdapter;
@@ -31,9 +31,9 @@ import json.chao.com.wanandroid.utils.JudgeUtils;
  * @date 2018/2/24
  */
 
-public class ProjectListFragment extends BaseFragment<ProjectListPresenter> implements ProjectListContract.View {
+public class ProjectListFragment extends AbstractRootFragment<ProjectListPresenter> implements ProjectListContract.View {
 
-    @BindView(R.id.project_list_refresh_layout)
+    @BindView(R.id.normal_view)
     SmartRefreshLayout mRefreshLayout;
     @BindView(R.id.project_list_recycler_view)
     RecyclerView mRecyclerView;
@@ -50,29 +50,37 @@ public class ProjectListFragment extends BaseFragment<ProjectListPresenter> impl
     }
 
     @Override
-    protected int getLayout() {
+    protected int getLayoutId() {
         return R.layout.fragment_project_list;
     }
 
     @Override
     protected void initEventAndData() {
-        isInnerFragment = true;
+        super.initEventAndData();
         setRefresh();
         Bundle bundle = getArguments();
         cid = bundle.getInt(Constants.ARG_PARAM1);
         mDatas = new ArrayList<>();
         mAdapter = new ProjectListAdapter(R.layout.item_project_list, mDatas);
-        mAdapter.setOnItemClickListener((adapter, view, position) ->
-                JudgeUtils.startArticleDetailActivity(_mActivity,
-                mAdapter.getData().get(position).getId(),
-                mAdapter.getData().get(position).getTitle().trim(),
-                mAdapter.getData().get(position).getLink().trim(),
-                mAdapter.getData().get(position).isCollect(),
-                false,
-                true));
+        mAdapter.setOnItemClickListener((adapter, view, position) -> {
+                    if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+                        return;
+                    }
+                    JudgeUtils.startArticleDetailActivity(_mActivity,
+                            null,
+                            mAdapter.getData().get(position).getId(),
+                            mAdapter.getData().get(position).getTitle().trim(),
+                            mAdapter.getData().get(position).getLink().trim(),
+                            mAdapter.getData().get(position).isCollect(),
+                            false,
+                            true);
+                });
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
                 case R.id.item_project_list_install_tv:
+                    if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+                        return;
+                    }
                     if (TextUtils.isEmpty(mAdapter.getData().get(position).getApkLink())) {
                         return;
                     }
@@ -85,6 +93,9 @@ public class ProjectListFragment extends BaseFragment<ProjectListPresenter> impl
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
         mPresenter.getProjectListData(mCurrentPage, cid);
+        if (CommonUtils.isNetworkConnected()) {
+            showLoading();
+        }
     }
 
     public static ProjectListFragment getInstance(int param1, String param2) {
@@ -97,36 +108,37 @@ public class ProjectListFragment extends BaseFragment<ProjectListPresenter> impl
     }
 
     @Override
-    public void showProjectListData(BaseResponse<ProjectListData> projectListResponse) {
-        if (projectListResponse == null || projectListResponse.getData() == null ||
-                projectListResponse.getData().getDatas() == null) {
-            showProjectListFail();
-            return;
-        }
-        mDatas = projectListResponse.getData().getDatas();
-
-        if (isRefresh) {
-            mAdapter.replaceData(mDatas);
-        } else {
-            mAdapter.addData(mDatas);
+    public void reload() {
+        if (mPresenter != null) {
+            mPresenter.getProjectListData(0, cid);
         }
     }
 
     @Override
-    public void showCollectOutsideArticle(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
+    public void showProjectListData(ProjectListData projectListData) {
+        mDatas = projectListData.getDatas();
+        if (isRefresh) {
+            mAdapter.replaceData(mDatas);
+        } else {
+            if (mDatas.size() > 0) {
+                mAdapter.addData(mDatas);
+            } else {
+                CommonUtils.showMessage(_mActivity, getString(R.string.load_more_no_data));
+            }
+        }
+        showNormal();
+    }
+
+    @Override
+    public void showCollectOutsideArticle(int position, FeedArticleData feedArticleData, FeedArticleListData feedArticleListData) {
         mAdapter.setData(position, feedArticleData);
         CommonUtils.showSnackMessage(_mActivity, getString(R.string.collect_success));
     }
 
     @Override
-    public void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, BaseResponse<FeedArticleListData> feedArticleListResponse) {
+    public void showCancelCollectArticleData(int position, FeedArticleData feedArticleData, FeedArticleListData feedArticleListData) {
         mAdapter.setData(position, feedArticleData);
         CommonUtils.showSnackMessage(_mActivity, getString(R.string.cancel_collect_success));
-    }
-
-    @Override
-    public void showProjectListFail() {
-        CommonUtils.showSnackMessage(_mActivity, getString(R.string.failed_to_obtain_project_list));
     }
 
     @Override

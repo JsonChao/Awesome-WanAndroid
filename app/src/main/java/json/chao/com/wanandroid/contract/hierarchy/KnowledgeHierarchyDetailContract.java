@@ -13,14 +13,14 @@ public interface KnowledgeHierarchyDetailContract  {
     interface View extends BaseView {
 
         /**
-         * Show dismiss detail error view
+         * Show switch project
          */
-        void showDismissDetailErrorView();
+        void showSwitchProject();
 
         /**
-         * Show detail error view
+         * Show switch navigation
          */
-        void showDetailErrorView();
+        void showSwitchNavigation();
     }
 
     interface Presenter extends AbstractPresenter<View> {

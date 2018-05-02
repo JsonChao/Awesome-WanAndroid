@@ -152,6 +152,16 @@ public class DataManager implements HttpHelper, DbHelper, PreferenceHelper {
     }
 
     @Override
+    public void setCookie(String domain, String cookie) {
+        mPreferenceHelper.setCookie(domain, cookie);
+    }
+
+    @Override
+    public String getCookie(String domain) {
+        return mPreferenceHelper.getCookie(domain);
+    }
+
+    @Override
     public void setCurrentPage(int position) {
         mPreferenceHelper.setCurrentPage(position);
     }
@@ -171,6 +181,35 @@ public class DataManager implements HttpHelper, DbHelper, PreferenceHelper {
         return mPreferenceHelper.getProjectCurrentPage();
     }
 
+    @Override
+    public boolean getAutoCacheState() {
+        return mPreferenceHelper.getAutoCacheState();
+    }
+
+    @Override
+    public boolean getNoImageState() {
+        return mPreferenceHelper.getNoImageState();
+    }
+
+    @Override
+    public boolean getNightModeState() {
+        return mPreferenceHelper.getNightModeState();
+    }
+
+    @Override
+    public void setNightModeState(boolean b) {
+        mPreferenceHelper.setNightModeState(b);
+    }
+
+    @Override
+    public void setNoImageState(boolean b) {
+        mPreferenceHelper.setNoImageState(b);
+    }
+
+    @Override
+    public void setAutoCacheState(boolean b) {
+        mPreferenceHelper.setAutoCacheState(b);
+    }
 
     @Override
     public List<HistoryData> addHistoryData(String data) {
@@ -186,4 +225,5 @@ public class DataManager implements HttpHelper, DbHelper, PreferenceHelper {
     public List<HistoryData> loadAllHistoryData() {
         return mDbHelper.loadAllHistoryData();
     }
+
 }

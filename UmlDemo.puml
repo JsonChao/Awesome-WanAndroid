@@ -1,0 +1,440 @@
+@startuml
+
+''plantUML入门
+'Alice -> Bob : Request
+'Alice -> Bob: Request
+'
+'Bob --> Alice : Response
+'Bob --> Alice : Response
+'
+''这是单行注释
+'/'这是
+'多行
+'注释'/
+'
+''声明参与者
+'
+''可以使用
+'participant s1
+''也可以使用
+'actor ac1
+'boundary ac2
+'control ac3
+'entity ac4
+'database ac5
+'ac1 -> ac2 : to boundary
+'ac2 -> ac3 : to control
+'ac3 -> ac4 : to entity
+'ac4 -> ac5 : to database
+'ac2 --> ac1 : to actor
+'ac3 --> ac2 : to boundary
+'ac4 --> ac3 : to control
+'ac5 --> ac4 : to entity
+'
+''使用#red追加背景色
+'actor sen #red
+''使用as ...追加别名
+'participant "追加背景别名L" as L #99ff99
+'
+'sen -> L : to L
+'L --> sen : to sen
+'
+''对于非字母的别名，可以使用""，as后面的非字母别名也可以使用""
+'jan -> "qu()" as didi
+'didi --> didi as "quf()"
+''注意，as两旁只能有一个为双引号
+'
+''发送消息给自己，使用/n换行
+'zan -> zan : This is a test to send message \n to self
+'
+''改变箭头的样式，使用 < > 、<< >> 、\ / 、\\ // 、o
+'js1 <-> js2
+'js2 <<->> js3
+'js3 \-/ js4
+'js4 \\-// js5
+'js5 <-//o js6
+''-两旁只要有一个变实心箭头的操作符:<<、>>、//、\\，两旁全部变实心
+'
+''改变箭头的颜色，在箭头中间使用[#...]
+'cs1 -[#red]> cs2
+'cs2 -[#black]-> cs1
+'
+''消息序号，格式为autonumber start increment
+'autonumber
+'bs1 -[#ff99ff]> bs2
+'bs2 -[#ff99ff]> bs3
+'
+'autonumber 20
+'bs3 -> bs4
+'bs4 -> bs5
+'
+'autonumber 30 10
+'bs5 -> bs6
+'bs6 -> bs7
+'
+'/'使用HTML标签为序号指定数字格式,格式化过程是Java类中的
+'DecimalFormat执行的，"0"表示数字，"#"表示缺省符'/
+'autonumber "<b>[000]"
+'ds1 -> ds2
+'ds2 -> ds3
+'
+'autonumber "<b>(<u>##<u>) "
+'ds3 -> ds4
+'ds4 -> ds5
+'
+'autonumber 20 10 "<font color=blue> message 0"
+'ds5 -> ds6
+'ds6 -> ds7
+'
+''添加标题，使用title
+'title This is an awesome plantUML study demo
+'es1 -> es2
+'es2 -->> es3
+'
+'/'使用legend、end legend设置图形图例，
+'支持左对齐、右对齐、居中对齐'/
+'fs1 -> fs2
+'fs2 -> fs3
+'legend right
+'this is
+'legend show
+'end legend
+'
+'/'分割图形，使用newpage，将图像分割为块，
+'每块可看做是一个页面，后面可加描述'/
+'hs1 -> hs2
+'hs2 -> hs3
+'
+'newpage
+'hs1 -> hs2
+'hs2 -> hs3
+'
+'newpage this newpage usage
+'hs1 -> hs2
+'hs2 -> hs3
+'
+'/'消息分组
+'alt/else
+'opt
+'loop
+'par
+'break
+'critical
+'group
+'除了group外，其它的关键字都可以在后面
+'添加文本进行描述，group后面则跟的是组名,
+'使用end来关闭一个组'/
+'alt message group start
+'    gs1 -> gs2
+'else some other way
+'    gs2 -> gs3
+'    loop start loop
+'        gs3 -> gs2
+'        gs2 -> gs1
+'        group custom group
+'            gs1 -> gs2
+'            gs2 -> gs3
+'        end
+'    end
+'else final way
+'    gs3 -> gs4
+'end
+
+'/'消息注解，note left : /note right :
+' 在消息的左边或右边添加注解，起解释说明的作用, 如果有多行，
+' 使用 note left / note right 开始 加 end note 结束。'/
+'h1 -> h2 : first study
+'note left : this is first study
+'
+'h2 -> h1 : second study
+'note right : this is second study
+'
+'h2 -> h2 : third study
+'note left
+'    this is third study
+'end note
+
+'/'一些其它的注解方式，可以使用 note left of /
+'note right of / note over 将注解放在与之相关的参与者
+'旁边，通过改变注解的背景色，我们可以高亮一个注解模块'/
+'participant h3
+'participant h4
+'
+'note left of h3
+'    this is h3 range
+'end note
+'
+'note right of h4
+'     this is h4 range
+'end note
+'
+'note over h3 : I am in h3.
+'note over h4 : I am in h4.
+'
+'note over h3, h4 : locate in common area of h3 and h4
+'
+'note over h3, h4 #e2e2f3
+'    locate in common area of h3 and h4 + highlight
+'end note
+
+'/'使用HTML来格式化文本，常用的有：
+'<b> 加粗文本
+'<u> 或 <u:#ffffff> / <u:colorName> 加下滑线
+'<i> 斜体
+'<s> 或 <s:#ffffff> / <s:colorName> 加删除线
+'<w> 或 <w:#ffffff> / <w:colorName> 加波浪线
+'<color:#ffffff> / <color:colorName> 设置文本颜色
+'<back:#ffffff> / <back:colorName> 设置背景颜色
+'<size:aa> 设置文本大小
+'<img src="file"> / <img:file> 设置图片
+'<img src="http://url"> / <img:http://url> 设置网络图片'/
+'participant h5
+'participant "hello, I am <b>h6</b>" as h6
+'
+'note left of h5 : this is <u>h5 area</u>
+'note left of h5 : this is <u:#cbc2e5>h5 area</u>
+'
+'note right of h6 : this is <i>h6 area</i>
+'
+'note over h5
+'    locate in <s>h6</s>h5
+'end note
+'
+'note over h6
+'    locate in <s:#f2f2b2>h5</s>h6
+'end note
+'
+'note over h5, h6
+'    <back:#aaaaaa><size:16><w:#ff4081>locate in h5, h6</w></size></back>
+'end note
+'
+'note over h5, h6 #ececec
+'    <img:http://pics.sc.chinaz.com/Files/pic/icons128/6962/r10.png>
+'    <img:screenshots/apk.png>
+'end note
+
+''/'用例图'/
+'/'用例：使用() / usecase 关键字来创建一个用例图，as可以设置别名'/
+'(UC1)
+'(This is UC2) as UC2
+'usecase UC3
+'usecase (This is last\n usecase) as UC4
+
+'/'参与者：使用:participant name: / actor 来创建一个参与者，as可以设置别名'/
+':UC1:
+':UC2: as UC2
+'actor UC3
+'actor :last actor: as UC4
+
+'/'示例'/
+'left to right direction
+'skinparam packageStyle rect
+':UC1:
+':UC2:
+'rectangle "UC MODULE" {
+'UC1 -- (UC)
+'(UC) .> (UC TOP)
+'(UC DOWN) .> (UC)
+'(UC) -- UC2
+'}
+
+'/'类图'/
+'
+'/'活动图'/
+'
+'/'简单活动，使用(*)来表示活动的开始点与结束点，--> 表示箭头。'/
+'(*) --> "first activity"
+'"first activity" --> (*)
+
+'/'带标注的箭头，形如 -->[...] '/
+'(*) --> "first activity"
+'--> [jump to the second activity] "second activity"
+'--> "third activity"
+'--> (*)
+
+'/'改变箭头的方向，形如
+'-down-> 向下，默认，等同于 -->
+'-up-> 向上
+'-left-> 向左
+'-right-> 向右
+'down/up/left/right 可以简写为前面1个或2个字母'/
+'(*) -r-> "1"
+'-r-> "2"
+'--> "3"
+'--> "4"
+'-l-> "5"
+'--> "6"
+'-r-> "7"
+'-r-> "8"
+'-r-> "9"
+'-r-> "10"
+'-u-> "11"
+'-l-> (*)
+
+'/'分支，使用if/then/else 来定义分支'/
+'(*) --> "some test"
+'
+'if "do some judge" then
+'    --> [true] "some activity"
+'    --> "start up"
+'else
+'    --> [false] "other activity"
+'    --> "start up"
+'    --> (*)
+'end if
+
+'/'多分支'/
+'(*) --> "some test"
+'
+'if "event type" then
+'    --> [true] "touch screen"
+'    --> "to activity"
+'    --> "to window"
+'    --> "to content group"
+'    --> "to activity layout viewGroup"
+'    --> "last to the scrollView" as a1
+'else
+'    --> [false] "click screen"
+'    --> "to activity2"
+'    -right-> "to window2"
+'    --> "to content group2"
+'    --> "to activity layout viewGroup2"
+'    -right-> "to viewPager"
+'    if "if intercept" then
+'        --> [true] "intercept event"
+'        if "if touch" then
+'            -l-> [true] "viewPager touch event"
+'            --> (*)
+'        else
+'            -r-> [false] "viewPager not touch event"
+'            --> "last to the view2"
+'        end if
+'    else
+'        -r-> [false] "do not intercept event"
+'        --> "last to the view2"
+'        --> (*)
+'    end if
+'end if
+'
+'a1 --> if "if intercept" then
+'    --> [true] "last to the view2"
+'else
+'    --> [false] "scrollView touch"
+'    --> (*)
+'end if
+
+'/'同步块，使用===code===表示'/
+'(*) --> ===B1===
+'    --> "a2"
+'    --> ===B2===
+'
+'===B1=== -> "a3"
+'    --> ===B2===
+'    --> (*)
+
+'/'一个实例'/
+'(*) --> "WanAndroid"
+'    --> "computer basic knowledge" as a1
+'    --> "computer network"
+'    --> ===B1===
+'
+'    ===B1=== --> [build base] "java basic knowledge"
+'    --> [java classify knowledge] ===B2===
+'
+'    ===B2=== --> "java collection"
+'        --> ===B3===
+'    ===B2=== --> "java io"
+'        --> ===B3===
+'    ===B2=== --> "java concurrency"
+'        --> ===B3===
+'    ===B2=== --> "java network"
+'        --> ===B3===
+'    ===B2=== --> "jvm"
+'        --> ===B3===
+'
+'    ===B3=== --> "android basic knowledge"
+'        --> "android advance"
+'        --> "android source"
+'        --> "awesome third party source"
+'        --> "hot technology"
+'        --> "study more advance knowledge"
+'        --> (*)
+'
+'a1 --> "computer operating system"
+'    --> ===B1===
+'
+'a1 --> "database"
+'    --> ===B1===
+'
+'a1 --> "dataStruct and algorithm"
+'    --> ===B1===
+
+'/'长文本的描述活动，可使用换行符\n或者少量的HTML标签'/
+'(*) -l-> "This is <size:25>activity</size> , it is <b>very large</b>
+' and it's <color:#ff4034>name</color> is <i>unique</i>" as a1
+'    -u-> "this is <b>super</b> activity"
+'
+'a1 -d-> "this is <b><i>subclass</i></b> activity, below is qrcode\n
+'    <img:screenshots/apk.png>"
+
+'/'注释，注释命令如下
+'note left
+'note right
+'note top
+'note bottom
+'可使用单行或多行形式'/
+'(*) --> "some activity" as a1
+'    note right: "build some activity as show"
+'
+'a1 -l-> "left activity"
+'
+'a1 --> "bottom activity"
+'    --> (*)
+
+'/'分区，使用 partition、end partition 定义分区，
+'也可以使用HTML的颜色码或颜色值设置背景色'/
+'partition H1 #ff4356
+'(*) --> "first activity"
+'    --> ===S1===
+'    --> "second activity" as a1
+'    --> ===S2===
+'    --> (*)
+'end partition
+'
+'partition H2 #blue
+'    a1 -r-> "third activity"
+'end partition
+'
+'partition H3 #cc4324
+'    a1 --> "last activity"
+'        --> (*)
+'end partition
+
+'/'图形标题，使用 title、title / end title 设置图形标题'/
+'title This RxJava study router
+'(*) --> observer and observable concept
+'    --> operator conscious
+'    --> exercise operator
+'    --> (*)
+
+'/'皮肤，使用 skinparam 来设置皮肤'/
+'skinparam backgroundColor #AEFFFF
+'skinparam activityBackgroundColor peru
+'skinparam activityStartColor #red
+'skinparam activityEndColor #white
+'skinparam activityBarColor #green
+'skinparam activityBorderColor #ef5345
+'skinparam activityFontName Impact
+'skinparam activityShape octagon
+'
+'(*) --> "first activity"
+'    --> ===B1===
+'    --> "second activity"
+'    -r-> ===B2===
+'    --> "last activity"
+'    --> (*)
+
+
+
+
+@enduml

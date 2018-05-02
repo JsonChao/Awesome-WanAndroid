@@ -1,18 +1,19 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.0.0'
+    ext.kotlin_version = '1.2.10'
     repositories {
+        google()
         jcenter()
         mavenCentral()
         maven { url 'https://maven.google.com' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath 'com.jakewharton:butterknife-gradle-plugin:8.8.1'
+        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:8.4.0'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -37,13 +38,13 @@ task clean(type: Delete) {
 // Define versions in a single place
 ext {
     // Sdk and tools
-    compileSdkVersion = 25
-    buildToolsVersion = '25.0.3'
+    compileSdkVersion = 27
+    buildToolsVersion = '27.0.3'
     minSdkVersion = 21
     targetSdkVersion = 25
 
     // App dependencies
-    supportLibraryVersion = '25.3.1'
+    supportLibraryVersion = '27.1.1'
     loggerVersion = '2.1.1'
     leakcanaryVersion = '1.5.4'
     gsonVersion = '2.8.2'
@@ -56,9 +57,10 @@ ext {
     rxandroidVersion = '2.0.1'
     rxbindingVersion = '2.1.0'
     rxpermissionsVersion = '0.9.5@aar'
-    daggerVersion = '2.0.2'
+    daggerVersion = '2.15'
     javaxVersion = '10.0-b28'
     butterknifeVersion = '8.8.1'
+    multidexVersion = '1.0.3'
     lottieVersion = '2.3.0'
     constraintVersion = '1.0.2'
     ByeBurgerVersion = '1.2.3'

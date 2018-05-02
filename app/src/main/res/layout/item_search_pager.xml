@@ -12,7 +12,7 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/white"
+    app:cardBackgroundColor="@color/colorCard"
     app:cardCornerRadius="@dimen/dp_3"
     app:cardElevation="@dimen/dp_2">
 
@@ -20,7 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/dp_12"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:transitionName="@string/share_view">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -35,7 +36,7 @@
                 android:drawableStart="@mipmap/icon_author"
                 android:gravity="center"
                 tools:text="Carson_Ho"
-                android:textColor="@color/title_black"
+                android:textColor="@color/comment_text"
                 android:layout_centerVertical="true" />
 
             <TextView
@@ -43,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="四大组件/handler"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorPrimaryOverlay"
                 android:gravity="end"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
@@ -55,18 +56,50 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Android Handler: 手把手带你深入分析Handler机制源码"
-            android:textColor="@color/title_black"
+            android:textColor="@color/comment_text"
             android:textSize="@dimen/sp_16"
             android:gravity="center"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/dp_10"/>
+            android:layout_marginTop="@dimen/dp_10" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_marginTop="@dimen/dp_10">
+
+            <LinearLayout
+                android:id="@+id/item_search_tag_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentEnd="true">
+
+                <TextView
+                    android:id="@+id/item_search_pager_tag_red_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="新"
+                    android:textColor="@color/light_deep_red"
+                    android:background="@drawable/shape_tag_red_background_normal"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/dp_5"
+                    android:paddingEnd="@dimen/dp_5"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/item_search_pager_tag_green_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="项目"
+                    android:textColor="@color/light_green"
+                    android:background="@drawable/shape_tag_green_background"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/dp_5"
+                    android:paddingEnd="@dimen/dp_5"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:visibility="gone"/>
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/item_search_pager_like_iv"
@@ -83,8 +116,10 @@
                 android:drawablePadding="@dimen/dp_5"
                 android:layout_marginStart="@dimen/dp_12"
                 tools:text="14小时之前"
-                android:textColor="@color/grey"
-                android:gravity="center"/>
-        </LinearLayout>
+                android:textColor="@color/comment_text"
+                android:gravity="center_vertical"
+                android:layout_toEndOf="@id/item_search_pager_like_iv"
+                android:layout_toStartOf="@id/item_search_tag_group" />
+        </RelativeLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

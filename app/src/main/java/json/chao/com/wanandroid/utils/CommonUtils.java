@@ -2,6 +2,8 @@ package json.chao.com.wanandroid.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.support.design.widget.Snackbar;
@@ -18,7 +20,7 @@ import java.util.Random;
 
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
-import json.chao.com.wanandroid.app.GeeksApp;
+import json.chao.com.wanandroid.app.WanAndroidApp;
 
 /**
  * @author quchao
@@ -31,7 +33,7 @@ public class CommonUtils {
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      */
     public static int dp2px(float dpValue) {
-        final float scale = GeeksApp.getInstance().getResources().getDisplayMetrics().density;
+        final float scale = WanAndroidApp.getInstance().getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
@@ -75,7 +77,7 @@ public class CommonUtils {
      * 检查是否有可用网络
      */
     public static boolean isNetworkConnected() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) GeeksApp.getInstance().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) WanAndroidApp.getInstance().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         assert connectivityManager != null;
         return connectivityManager.getActiveNetworkInfo() != null;
     }
@@ -144,7 +146,5 @@ public class CommonUtils {
     public static <T> T cast(Object object) {
         return (T) object;
     }
-
-
 
 }

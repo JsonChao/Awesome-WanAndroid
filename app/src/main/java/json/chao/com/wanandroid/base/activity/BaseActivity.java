@@ -1,9 +1,11 @@
 package json.chao.com.wanandroid.base.activity;
 
+import android.support.v7.app.AppCompatDelegate;
+
 import javax.inject.Inject;
 
 import json.chao.com.wanandroid.R;
-import json.chao.com.wanandroid.app.GeeksApp;
+import json.chao.com.wanandroid.app.WanAndroidApp;
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
 import json.chao.com.wanandroid.base.view.BaseView;
 import json.chao.com.wanandroid.di.component.ActivityComponent;
@@ -22,6 +24,7 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
 
     @Inject
     protected T mPresenter;
+    private ActivityComponent mBuild;
 
     @Override
     protected void onDestroy() {
@@ -32,10 +35,13 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
     }
 
     protected ActivityComponent getActivityComponent() {
-        return DaggerActivityComponent.builder()
-                .appComponent(GeeksApp.getAppComponent())
-                .activityModule(new ActivityModule(this))
-                .build();
+        if (mBuild == null) {
+            mBuild = DaggerActivityComponent.builder()
+                    .appComponent(WanAndroidApp.getAppComponent())
+                    .activityModule(new ActivityModule(this))
+                    .build();
+        }
+        return mBuild;
     }
 
     @Override
@@ -48,8 +54,25 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
     }
 
     @Override
+    public void useNightMode(boolean isNight) {
+        if (isNight) {
+            AppCompatDelegate.setDefaultNightMode(
+                    AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(
+                    AppCompatDelegate.MODE_NIGHT_NO);
+        }
+        recreate();
+    }
+
+    @Override
     public void showErrorMsg(String errorMsg) {
         CommonUtils.showSnackMessage(this, errorMsg);
+    }
+
+    @Override
+    public void showNormal() {
+
     }
 
     @Override
@@ -59,6 +82,11 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
 
     @Override
     public void showLoading() {
+
+    }
+
+    @Override
+    public void reload() {
 
     }
 

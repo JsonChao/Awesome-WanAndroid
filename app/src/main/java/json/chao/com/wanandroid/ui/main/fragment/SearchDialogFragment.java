@@ -32,25 +32,20 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.fragment.BaseDialogFragment;
 import json.chao.com.wanandroid.contract.main.SearchContract;
-import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.search.TopSearchData;
-import json.chao.com.wanandroid.core.bean.main.search.UsefulSiteData;
 import json.chao.com.wanandroid.core.dao.HistoryData;
 import json.chao.com.wanandroid.presenter.main.SearchPresenter;
 import json.chao.com.wanandroid.ui.main.adapter.HistorySearchAdapter;
 import json.chao.com.wanandroid.utils.CommonUtils;
 import json.chao.com.wanandroid.utils.JudgeUtils;
 import json.chao.com.wanandroid.utils.KeyBoardUtils;
-import json.chao.com.wanandroid.utils.StatusBarUtil;
 import json.chao.com.wanandroid.widget.CircularRevealAnim;
 
 
@@ -82,16 +77,10 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     RecyclerView mRecyclerView;
     @BindView(R.id.top_search_flow_layout)
     TagFlowLayout mTopSearchFlowLayout;
-    @BindView(R.id.useful_sites_flow_layout)
-    TagFlowLayout mUsefulSitesFlowLayout;
     @BindView(R.id.search_floating_action_btn)
     FloatingActionButton mFloatingActionButton;
 
     private List<TopSearchData> mTopSearchDataList;
-    private List<UsefulSiteData> mUsefulSiteDataList;
-
-    @Inject
-    DataManager mDataManager;
     private CircularRevealAnim mCircularRevealAnim;
     private HistorySearchAdapter historySearchAdapter;
 
@@ -119,10 +108,8 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     
     @Override
     protected void initEventAndData() {
-        StatusBarUtil.immersive(getActivity().getWindow(), ContextCompat.getColor(getActivity(), R.color.transparent), 0.3f);
         initCircleAnimation();
         mTopSearchDataList = new ArrayList<>();
-        mUsefulSiteDataList = new ArrayList<>();
         mSearchEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -143,78 +130,16 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
                 }
             }
         });
-        RxView.clicks(mSearchTv)
+        mPresenter.addRxBindingSubscribe(RxView.clicks(mSearchTv)
                 .throttleFirst(Constants.CLICK_TIME_AREA, TimeUnit.MILLISECONDS)
                 .filter(o -> !TextUtils.isEmpty(mSearchEdit.getText().toString().trim()))
                 .subscribe(o -> {
                     mPresenter.addHistoryData(mSearchEdit.getText().toString().trim());
                     setHistoryTvStatus(false);
-                });
+                }));
 
-        showHistoryData(mDataManager.loadAllHistoryData());
+        showHistoryData(mPresenter.loadAllHistoryData());
         mPresenter.getTopSearchData();
-        mPresenter.getUsefulSites();
-    }
-
-    @Override
-    public void showTopSearchData(BaseResponse<List<TopSearchData>> topSearchDataResponse) {
-        if (topSearchDataResponse == null) {
-            showTopSearchDataFail();
-            return;
-        }
-        mTopSearchDataList = topSearchDataResponse.getData();
-        mTopSearchFlowLayout.setAdapter(new TagAdapter<TopSearchData>(mTopSearchDataList) {
-            @Override
-            public View getView(FlowLayout parent, int position, TopSearchData topSearchData) {
-                assert getActivity() != null;
-                TextView tv = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.flow_layout_tv,
-                        parent, false);
-                assert topSearchData != null;
-                String name = topSearchData.getName();
-                tv.setText(name);
-                setItemBackground(tv);
-                mTopSearchFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
-                    mPresenter.addHistoryData(mTopSearchDataList.get(position1).getName().trim());
-                    setHistoryTvStatus(false);
-                    mSearchEdit.setText(mTopSearchDataList.get(position1).getName().trim());
-                    mSearchEdit.setSelection(mSearchEdit.getText().length());
-                    return true;
-                });
-                return tv;
-            }
-        });
-    }
-
-    @Override
-    public void showUsefulSites(BaseResponse<List<UsefulSiteData>> usefulSitesResponse) {
-        if (usefulSitesResponse == null) {
-            showUsefulSitesDataFail();
-            return;
-        }
-        mUsefulSiteDataList = usefulSitesResponse.getData();
-        mUsefulSitesFlowLayout.setAdapter(new TagAdapter<UsefulSiteData>(mUsefulSiteDataList) {
-            @Override
-            public View getView(FlowLayout parent, int position, UsefulSiteData usefulSiteData) {
-                assert getActivity() != null;
-                TextView tv = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.flow_layout_tv,
-                        parent, false);
-                assert usefulSiteData != null;
-                String name = usefulSiteData.getName();
-                tv.setText(name);
-                setItemBackground(tv);
-                mUsefulSitesFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
-                    JudgeUtils.startArticleDetailActivity(getActivity(),
-                            mUsefulSiteDataList.get(position1).getId(),
-                            mUsefulSiteDataList.get(position1).getName().trim(),
-                            mUsefulSiteDataList.get(position1).getLink().trim(),
-                            false,
-                            false,
-                            true);
-                    return true;
-                });
-                return tv;
-            }
-        });
     }
 
     @Override
@@ -238,13 +163,28 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     }
 
     @Override
-    public void showTopSearchDataFail() {
-        CommonUtils.showSnackMessage(getActivity(), getString(R.string.failed_to_obtain_top_data));
-    }
-
-    @Override
-    public void showUsefulSitesDataFail() {
-        CommonUtils.showSnackMessage(getActivity(), getString(R.string.failed_to_obtain_useful_sites_data));
+    public void showTopSearchData(List<TopSearchData> topSearchDataList) {
+        mTopSearchDataList = topSearchDataList;
+        mTopSearchFlowLayout.setAdapter(new TagAdapter<TopSearchData>(mTopSearchDataList) {
+            @Override
+            public View getView(FlowLayout parent, int position, TopSearchData topSearchData) {
+                assert getActivity() != null;
+                TextView tv = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.flow_layout_tv,
+                        parent, false);
+                assert topSearchData != null;
+                String name = topSearchData.getName();
+                tv.setText(name);
+                setItemBackground(tv);
+                mTopSearchFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
+                    mPresenter.addHistoryData(mTopSearchDataList.get(position1).getName().trim());
+                    setHistoryTvStatus(false);
+                    mSearchEdit.setText(mTopSearchDataList.get(position1).getName().trim());
+                    mSearchEdit.setSelection(mSearchEdit.getText().length());
+                    return true;
+                });
+                return tv;
+            }
+        });
     }
 
     @Override
@@ -256,7 +196,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     @Override
     public void onHideAnimationEnd() {
         mSearchEdit.setText("");
-        dismiss();
+        dismissAllowingStateLoss();
     }
 
     @Override
@@ -319,19 +259,20 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     }
 
     private void setHistoryTvStatus(boolean isClearAll) {
+        Drawable drawable;
         mClearAllHistoryTv.setEnabled(!isClearAll);
         if (isClearAll) {
             mHistoryNullTintTv.setVisibility(View.VISIBLE);
-            Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_all_gone);
+            mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.search_grey_gone));
+            drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_all_gone);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             mClearAllHistoryTv.setCompoundDrawables(drawable, null, null, null);
-            mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.grey));
         } else {
             mHistoryNullTintTv.setVisibility(View.GONE);
-            Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_all);
+            mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.search_grey));
+            drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_all);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             mClearAllHistoryTv.setCompoundDrawables(drawable, null, null, null);
-            mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.title_black));
         }
         mClearAllHistoryTv.setCompoundDrawablePadding(CommonUtils.dp2px(6));
     }

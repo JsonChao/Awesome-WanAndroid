@@ -3,12 +3,13 @@ package json.chao.com.wanandroid.ui.hierarchy.activity;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewStub;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.flyco.tablayout.SlidingTabLayout;
@@ -26,7 +27,6 @@ import json.chao.com.wanandroid.base.activity.BaseActivity;
 import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.contract.hierarchy.KnowledgeHierarchyDetailContract;
 import json.chao.com.wanandroid.core.event.KnowledgeJumpTopEvent;
-import json.chao.com.wanandroid.core.event.ReloadDetailEvent;
 import json.chao.com.wanandroid.presenter.hierarchy.KnowledgeHierarchyDetailPresenter;
 import json.chao.com.wanandroid.ui.hierarchy.fragment.KnowledgeHierarchyListFragment;
 import json.chao.com.wanandroid.utils.StatusBarUtil;
@@ -36,7 +36,8 @@ import json.chao.com.wanandroid.utils.StatusBarUtil;
  * @date 2018/2/23
  */
 
-public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHierarchyDetailPresenter> implements KnowledgeHierarchyDetailContract.View {
+public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHierarchyDetailPresenter>
+        implements KnowledgeHierarchyDetailContract.View {
 
     @BindView(R.id.common_toolbar)
     Toolbar mToolbar;
@@ -48,11 +49,9 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
     ViewPager mViewPager;
     @BindView(R.id.knowledge_floating_action_btn)
     FloatingActionButton mFloatingActionButton;
-    @BindView(R.id.detail_view_stub)
-    ViewStub mErrorView;
 
     private List<KnowledgeHierarchyData> knowledgeHierarchyDataList;
-    private ArrayList<BaseFragment> mFragments;
+    private List<BaseFragment> mFragments = new ArrayList<>();
     private String chapterName;
 
     @Override
@@ -68,7 +67,7 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
     @Override
     protected void initEventAndData() {
         initToolbar();
-        mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+        mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 return mFragments.get(position);
@@ -91,13 +90,6 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
         mTabLayout.setViewPager(mViewPager);
     }
 
-    @Override
-    public void showError() {
-        mErrorView.setVisibility(View.VISIBLE);
-        TextView reloadTv = (TextView) findViewById(R.id.error_reload_tv);
-        reloadTv.setOnClickListener(v -> RxBus.getDefault().post(new ReloadDetailEvent()));
-    }
-
     @OnClick({R.id.knowledge_floating_action_btn})
     void onClick(View view) {
         switch (view.getId()) {
@@ -114,10 +106,9 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(false);
-        StatusBarUtil.immersive(this, ContextCompat.getColor(this, R.color.transparent), 0.3f);
+        StatusBarUtil.immersive(this);
         StatusBarUtil.setPaddingSmart(this, mToolbar);
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
-        mFragments = new ArrayList<>();
         if (getIntent().getBooleanExtra(Constants.IS_SINGLE_CHAPTER, false)) {
             String superChapterName = getIntent().getStringExtra(Constants.SUPER_CHAPTER_NAME);
             chapterName = getIntent().getStringExtra(Constants.CHAPTER_NAME);
@@ -138,19 +129,14 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
         }
     }
 
-
     @Override
-    public void showDismissDetailErrorView() {
-        if (mErrorView != null) {
-            mErrorView.setVisibility(View.GONE);
-        }
+    public void showSwitchProject() {
+        onBackPressedSupport();
     }
 
     @Override
-    public void showDetailErrorView() {
-        if (mErrorView != null) {
-            showError();
-        }
+    public void showSwitchNavigation() {
+        onBackPressedSupport();
     }
 
 

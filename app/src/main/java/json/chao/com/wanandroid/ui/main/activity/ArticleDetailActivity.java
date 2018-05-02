@@ -9,6 +9,8 @@ import android.text.Html;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
@@ -17,16 +19,12 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.lang.reflect.Method;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.activity.BaseActivity;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.contract.main.ArticleDetailContract;
-import json.chao.com.wanandroid.core.DataManager;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.core.event.CollectEvent;
 import json.chao.com.wanandroid.presenter.main.ArticleDetailPresenter;
@@ -51,8 +49,6 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
     private String articleLink;
     private String title;
 
-    @Inject
-    DataManager mDataManager;
     private boolean isCollect;
     private boolean isCommonSite;
     private boolean isCollectPage;
@@ -62,7 +58,6 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
     protected void onPause() {
         mAgentWeb.getWebLifeCycle().onPause();
         super.onPause();
-
     }
 
     @Override
@@ -94,11 +89,46 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
         mAgentWeb = AgentWeb.with(this)
                 .setAgentWebParent(mWebContent, new LinearLayout.LayoutParams(-1, -1))
                 .useDefaultIndicator()
-                .defaultProgressBarColor() // 使用默认进度条颜色
                 .setMainFrameErrorView(R.layout.webview_error_view, -1)
                 .createAgentWeb()
                 .ready()
                 .go(articleLink);
+
+        WebView mWebView = mAgentWeb.getWebCreator().getWebView();
+        WebSettings mSettings = mWebView.getSettings();
+        if (mPresenter.getNoImageState()) {
+            mSettings.setBlockNetworkImage(true);
+        } else {
+            mSettings.setBlockNetworkImage(false);
+        }
+        if (mPresenter.getAutoCacheState()) {
+            mSettings.setAppCacheEnabled(true);
+            mSettings.setDomStorageEnabled(true);
+            mSettings.setDatabaseEnabled(true);
+            if (CommonUtils.isNetworkConnected()) {
+                mSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
+            } else {
+                mSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+            }
+        } else {
+            mSettings.setAppCacheEnabled(false);
+            mSettings.setDomStorageEnabled(false);
+            mSettings.setDatabaseEnabled(false);
+            mSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        }
+
+        mSettings.setJavaScriptEnabled(true);
+        mSettings.setSupportZoom(true);
+        mSettings.setBuiltInZoomControls(true);
+        //不显示缩放按钮
+        mSettings.setDisplayZoomControls(false);
+        //设置自适应屏幕，两者合用
+        //将图片调整到适合WebView的大小
+        mSettings.setUseWideViewPort(true);
+        //缩放至屏幕的大小
+        mSettings.setLoadWithOverviewMode(true);
+        //自适应屏幕
+        mSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
     }
 
     @Override
@@ -116,8 +146,10 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
             mCollectItem = menu.findItem(R.id.item_collect);
             if (isCollect) {
                 mCollectItem.setTitle(getString(R.string.cancel_collect));
+                mCollectItem.setIcon(R.mipmap.ic_toolbar_like_p);
             } else {
                 mCollectItem.setTitle(getString(R.string.collect));
+                mCollectItem.setIcon(R.mipmap.ic_toolbar_like_n);
             }
         } else {
             getMenuInflater().inflate(R.menu.menu_article_common, menu);
@@ -180,8 +212,17 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
         CommonUtils.showSnackMessage(this, getString(R.string.write_permission_not_allowed));
     }
 
+    @Override
+    public void onBackPressedSupport() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            pop();
+        } else {
+            supportFinishAfterTransition();
+        }
+    }
+
     private void collectEvent() {
-        if (!mDataManager.getLoginStatus()) {
+        if (!mPresenter.getLoginStatus()) {
             CommonUtils.showMessage(this, getString(R.string.login_tint));
             startActivity(new Intent(this, LoginActivity.class));
         } else {
@@ -221,18 +262,20 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
     }
 
     @Override
-    public void showCollectArticleData(BaseResponse<FeedArticleListData> feedArticleListResponse) {
+    public void showCollectArticleData(FeedArticleListData feedArticleListData) {
         isCollect = true;
         mCollectItem.setTitle(R.string.cancel_collect);
+        mCollectItem.setIcon(R.mipmap.ic_toolbar_like_p);
         CommonUtils.showSnackMessage(this, getString(R.string.collect_success));
     }
 
     @Override
-    public void showCancelCollectArticleData(BaseResponse<FeedArticleListData> feedArticleListResponse) {
+    public void showCancelCollectArticleData(FeedArticleListData feedArticleListData) {
         isCollect = false;
         if (!isCollectPage) {
             mCollectItem.setTitle(R.string.collect);
         }
+        mCollectItem.setIcon(R.mipmap.ic_toolbar_like_n);
         CommonUtils.showSnackMessage(this, getString(R.string.cancel_collect_success));
     }
 

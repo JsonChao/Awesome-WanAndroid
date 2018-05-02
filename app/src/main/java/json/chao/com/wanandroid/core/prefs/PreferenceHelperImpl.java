@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import javax.inject.Inject;
 
 import json.chao.com.wanandroid.app.Constants;
-import json.chao.com.wanandroid.app.GeeksApp;
+import json.chao.com.wanandroid.app.WanAndroidApp;
 
 /**
  * @author quchao
@@ -20,7 +20,7 @@ public class PreferenceHelperImpl implements PreferenceHelper {
 
     @Inject
     PreferenceHelperImpl() {
-        mPreferences = GeeksApp.getInstance().getSharedPreferences(MY_SHARED_PREFERENCE, Context.MODE_PRIVATE);
+        mPreferences = WanAndroidApp.getInstance().getSharedPreferences(MY_SHARED_PREFERENCE, Context.MODE_PRIVATE);
     }
 
     @Override
@@ -54,6 +54,16 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     }
 
     @Override
+    public void setCookie(String domain, String cookie) {
+        mPreferences.edit().putString(domain, cookie).apply();
+    }
+
+    @Override
+    public String getCookie(String domain) {
+        return mPreferences.getString(Constants.COOKIE, "");
+    }
+
+    @Override
     public void setCurrentPage(int position) {
         mPreferences.edit().putInt(Constants.CURRENT_PAGE, position).apply();
     }
@@ -72,6 +82,38 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     public int getProjectCurrentPage() {
         return mPreferences.getInt(Constants.PROJECT_CURRENT_PAGE, 0);
     }
+
+    @Override
+    public boolean getAutoCacheState() {
+        return mPreferences.getBoolean(Constants.AUTO_CACHE_STATE, true);
+    }
+
+    @Override
+    public boolean getNoImageState() {
+        return mPreferences.getBoolean(Constants.NO_IMAGE_STATE, false);
+    }
+
+    @Override
+    public boolean getNightModeState() {
+        return mPreferences.getBoolean(Constants.NIGHT_MODE_STATE, false);
+    }
+
+    @Override
+    public void setNightModeState(boolean b) {
+        mPreferences.edit().putBoolean(Constants.NIGHT_MODE_STATE, b).apply();
+    }
+
+    @Override
+    public void setNoImageState(boolean b) {
+        mPreferences.edit().putBoolean(Constants.NO_IMAGE_STATE, b).apply();
+    }
+
+    @Override
+    public void setAutoCacheState(boolean b) {
+        mPreferences.edit().putBoolean(Constants.AUTO_CACHE_STATE, b).apply();
+    }
+
+
 
 
 }

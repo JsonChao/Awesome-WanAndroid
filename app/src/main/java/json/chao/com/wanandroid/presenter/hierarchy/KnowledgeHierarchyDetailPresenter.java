@@ -6,8 +6,8 @@ import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.contract.hierarchy.KnowledgeHierarchyDetailContract;
-import json.chao.com.wanandroid.core.event.DismissDetailErrorView;
-import json.chao.com.wanandroid.core.event.ShowDetailErrorView;
+import json.chao.com.wanandroid.core.event.SwitchNavigationEvent;
+import json.chao.com.wanandroid.core.event.SwitchProjectEvent;
 
 /**
  * @author quchao
@@ -21,6 +21,7 @@ public class KnowledgeHierarchyDetailPresenter extends BasePresenter<KnowledgeHi
 
     @Inject
     KnowledgeHierarchyDetailPresenter(DataManager dataManager) {
+        super(dataManager);
         this.mDataManager = dataManager;
     }
 
@@ -31,11 +32,11 @@ public class KnowledgeHierarchyDetailPresenter extends BasePresenter<KnowledgeHi
     }
 
     private void registerEvent() {
-        addSubscribe(RxBus.getDefault().toFlowable(DismissDetailErrorView.class)
-                .subscribe(dismissDetailErrorView -> mView.showDismissDetailErrorView()));
+        addSubscribe(RxBus.getDefault().toFlowable(SwitchProjectEvent.class)
+                .subscribe(switchProjectEvent -> mView.showSwitchProject()));
 
-        addSubscribe(RxBus.getDefault().toFlowable(ShowDetailErrorView.class)
-                .subscribe(showDetailErrorView -> mView.showDetailErrorView()));
+        addSubscribe(RxBus.getDefault().toFlowable(SwitchNavigationEvent.class)
+                .subscribe(switchNavigationEvent -> mView.showSwitchNavigation()));
     }
 
 

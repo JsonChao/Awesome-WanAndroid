@@ -16,6 +16,7 @@ public class CircularRevealAnim {
     private static final long DURATION = 200;
 
     private AnimListener mListener = null;
+    private Animator anim;
 
     public interface AnimListener {
 
@@ -30,11 +31,13 @@ public class CircularRevealAnim {
             if (isShow) {
                 animView.setVisibility(View.VISIBLE);
                 if (mListener != null) {
+                    anim.cancel();
                     mListener.onShowAnimationEnd();
                 }
             } else {
                 animView.setVisibility(View.GONE);
                 if (mListener != null) {
+                    anim.cancel();
                     mListener.onHideAnimationEnd();
                 }
             }
@@ -83,7 +86,7 @@ public class CircularRevealAnim {
             endRadius = 0f;
         }
 
-        Animator anim = ViewAnimationUtils.createCircularReveal(animView, tvX, tvY, startRadius, endRadius);
+        anim = ViewAnimationUtils.createCircularReveal(animView, tvX, tvY, startRadius, endRadius);
         animView.setVisibility(View.VISIBLE);
         anim.setDuration(DURATION);
         anim.setInterpolator(new DecelerateInterpolator());

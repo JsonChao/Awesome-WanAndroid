@@ -8,7 +8,7 @@ import java.io.Serializable;
 import okhttp3.Cookie;
 
 /**
- * @author lw
+ * @author JsonChao
  * @date 2018/1/25
  */
 

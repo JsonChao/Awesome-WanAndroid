@@ -56,16 +56,27 @@ public class StatusBarUtil {
         immersive(window, color, 1f);
     }
 
+    public static void setStatusDarkColor(Window window) {
+        if (Build.VERSION.SDK_INT >= 23) {
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
+    }
+
+    public static void setStatusColor(Window window, int color, @FloatRange(from = 0.0, to = 1.0) float alpha) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(mixtureColor(color, alpha));
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+        }
+    }
+
     public static void immersive(Window window, int color, @FloatRange(from = 0.0, to = 1.0) float alpha) {
         if (Build.VERSION.SDK_INT >= 21) {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(mixtureColor(color, alpha));
-
-            int systemUiVisibility = window.getDecorView().getSystemUiVisibility();
-            systemUiVisibility |= View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-            systemUiVisibility |= View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-            window.getDecorView().setSystemUiVisibility(systemUiVisibility);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         } else if (Build.VERSION.SDK_INT >= 19) {
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             setTranslucentView((ViewGroup) window.getDecorView(), color, alpha);

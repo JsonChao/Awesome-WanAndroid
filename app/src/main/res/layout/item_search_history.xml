@@ -7,6 +7,7 @@
     android:gravity="center_vertical|end"
     android:background="@drawable/touch_bg"
     tools:text="Android 进阶"
+    android:textColor="@color/comment_text"
     android:drawableStart="@drawable/ic_search_history"
     android:drawablePadding="@dimen/dp_10"
-    android:padding="10dp" />
+    android:padding="@dimen/dp_10" />

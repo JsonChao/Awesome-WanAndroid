@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0F1010</color>
+    <color name="colorPrimaryDark">#0F1010</color>
+    <color name="colorAccent">#181921</color>
+    <color name="colorBackground">#0F1010</color>
+    <color name="colorCard">#202124</color>
+    <color name="colorText">#6B6D72</color>
+
+    <color name="fab_bg">#6b6d72</color>
+    <color name="drawer_item_bg_p">#6b6d72</color>
+    <color name="drawer_item_bg_n">#3e3d3d</color>
+    <color name="news_unread">#999999</color>
+    <color name="news_read">#6b6d72</color>
+
+    <color name="comment_text">#dfd8d8</color>
+    <color name="setting_text">#ffffff</color>
+    <color name="comment_reply">#606266</color>
+    <color name="comment_btn">#606266</color>
+    <color name="comment_line">#202124</color>
+    <color name="comment_at">#3289b3</color>
+    <color name="gold_title">#6B6D72</color>
+    <color name="colorPrimaryOverlay">#ffffff</color>
+    <color name="delete_text">#62646b</color>
+    <color name="deep_grey">#37383b</color>
+    <color name="dialog_background">#0F1010</color>
+    <color name="yellow">#f2efef</color>
+    <color name="search_grey_gone">#cccccc</color>
+    <color name="search_grey">#ffffff</color>
+    <color name="main_status_bar_blue">#333333</color>
+    <color name="search_status_bar_white">#333333</color>
+
+
+</resources>

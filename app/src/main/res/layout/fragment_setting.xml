@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/colorBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/setting_usage_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_8"
+        android:text="@string/setting_normal"
+        android:textColor="@color/comment_text" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/setting_usage_card"
+        android:layout_margin="@dimen/dp_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="@dimen/dp_2"
+        app:cardCornerRadius="@dimen/dp_3">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/drawer_item_bg_n">
+
+            <LinearLayout
+                android:id="@+id/setting_auto_cache_group"
+                android:orientation="horizontal"
+                android:padding="@dimen/dp_12"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_auto_cache"
+                    android:contentDescription="@null" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:text="@string/setting_cache"
+                    android:textColor="@color/setting_text" />
+
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/cb_setting_cache"
+                    android:button="@drawable/abc_btn_check_material"
+                    android:buttonTint="@color/colorAccent"
+                    android:checked="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:ignore="PrivateResource" />
+            </LinearLayout>
+
+            <include layout="@layout/divider_line_05" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:padding="@dimen/dp_12"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_no_image"
+                    android:contentDescription="@null" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:text="@string/setting_image"
+                    android:textColor="@color/setting_text" />
+
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/cb_setting_image"
+                    android:button="@drawable/abc_btn_check_material"
+                    android:buttonTint="@color/colorAccent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:ignore="PrivateResource" />
+            </LinearLayout>
+
+            <include layout="@layout/divider_line_05"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:padding="@dimen/dp_12"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_night_mode"
+                    android:contentDescription="@null" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:text="@string/setting_night"
+                    android:textColor="@color/setting_text" />
+
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/cb_setting_night"
+                    android:button="@drawable/abc_btn_check_material"
+                    android:buttonTint="@color/colorAccent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:ignore="PrivateResource" />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/setting_other_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_8"
+        android:text="@string/setting_other"
+        android:textColor="@color/comment_text" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/setting_other_group"
+        android:layout_margin="@dimen/dp_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="@dimen/dp_2"
+        app:cardCornerRadius="@dimen/dp_3"
+        android:background="@color/colorCard">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/drawer_item_bg_n">
+
+            <TextView
+                android:id="@+id/ll_setting_feedback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_12"
+                android:text="@string/setting_feedback"
+                android:textColor="@color/setting_text"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:drawableStart="@drawable/ic_feedback"
+                android:drawablePadding="@dimen/dp_12"/>
+
+            <include layout="@layout/divider_line_05"/>
+
+            <LinearLayout
+                android:id="@+id/ll_setting_clear"
+                android:orientation="horizontal"
+                android:padding="@dimen/dp_12"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_cache_clean"
+                    android:contentDescription="@null" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:text="@string/setting_clear"
+                    android:textColor="@color/setting_text" />
+
+                <TextView
+                    android:id="@+id/tv_setting_clear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/comment_text" />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

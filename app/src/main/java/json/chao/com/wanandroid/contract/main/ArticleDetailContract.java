@@ -19,16 +19,16 @@ public interface ArticleDetailContract {
         /**
          * Show collect article data
          *
-         * @param feedArticleListResponse BaseResponse<FeedArticleListData>
+         * @param feedArticleListData FeedArticleListData
          */
-        void showCollectArticleData(BaseResponse<FeedArticleListData> feedArticleListResponse);
+        void showCollectArticleData(FeedArticleListData feedArticleListData);
 
         /**
          * Show cancel collect article data
          *
-         * @param feedArticleListResponse BaseResponse<FeedArticleListData>
+         * @param feedArticleListData feedArticleListData
          */
-        void showCancelCollectArticleData(BaseResponse<FeedArticleListData> feedArticleListResponse);
+        void showCancelCollectArticleData(FeedArticleListData feedArticleListData);
 
         /**
          * Share event
@@ -43,6 +43,20 @@ public interface ArticleDetailContract {
     }
 
     interface Presenter extends AbstractPresenter<View> {
+
+        /**
+         * Get auto cache state
+         *
+         * @return if auto cache state
+         */
+        boolean getAutoCacheState();
+
+        /**
+         * Get no image state
+         *
+         * @return if has image state
+         */
+        boolean getNoImageState();
 
         /**
          * Add collect article

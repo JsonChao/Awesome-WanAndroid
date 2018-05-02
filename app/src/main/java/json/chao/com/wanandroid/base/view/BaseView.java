@@ -11,11 +11,23 @@ package json.chao.com.wanandroid.base.view;
 public interface BaseView {
 
     /**
+     * Use night mode
+     *
+     * @param isNightMode if is night mode
+     */
+    void useNightMode(boolean isNightMode);
+
+    /**
      * Show error message
      *
      * @param errorMsg error message
      */
     void showErrorMsg(String errorMsg);
+
+    /**
+     * showNormal
+     */
+    void showNormal();
 
     /**
      * Show error
@@ -26,6 +38,11 @@ public interface BaseView {
      * Show loading
      */
     void showLoading();
+
+    /**
+     * Reload
+     */
+    void reload();
 
     /**
      * Show login view

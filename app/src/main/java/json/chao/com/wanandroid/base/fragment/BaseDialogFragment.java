@@ -5,7 +5,7 @@ import android.os.Bundle;
 import javax.inject.Inject;
 
 import json.chao.com.wanandroid.R;
-import json.chao.com.wanandroid.app.GeeksApp;
+import json.chao.com.wanandroid.app.WanAndroidApp;
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
 import json.chao.com.wanandroid.base.view.BaseView;
 import json.chao.com.wanandroid.di.component.DaggerFragmentComponent;
@@ -24,6 +24,7 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
 
     @Inject
     protected T mPresenter;
+    private FragmentComponent mBuild;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,10 +44,13 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
     }
 
     public FragmentComponent getFragmentComponent() {
-        return DaggerFragmentComponent.builder()
-                .appComponent(GeeksApp.getAppComponent())
-                .fragmentModule(new FragmentModule(this))
-                .build();
+        if (mBuild == null) {
+            mBuild = DaggerFragmentComponent.builder()
+                    .appComponent(WanAndroidApp.getAppComponent())
+                    .fragmentModule(new FragmentModule(this))
+                    .build();
+        }
+       return mBuild;
     }
 
     @Override
@@ -57,12 +61,26 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
     }
 
     @Override
+    public void useNightMode(boolean isNightMode) {
+    }
+
+    @Override
+    public void showNormal() {
+
+    }
+
+    @Override
     public void showError() {
 
     }
 
     @Override
     public void showLoading() {
+
+    }
+
+    @Override
+    public void reload() {
 
     }
 

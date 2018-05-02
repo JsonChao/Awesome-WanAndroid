@@ -1,7 +1,7 @@
 <h1 align="center">Awesome-WanAndroid</h1>
 
 <div align="center">
-<img src="https://img.shields.io/badge/Version-V1.0-brightgreen.svg">
+<img src="https://img.shields.io/badge/Version-V1.2.0-brightgreen.svg">
 <img src="https://img.shields.io/badge/build-passing-brightgreen.svg">
 <a href="https://developer.android.com/about/versions/android-5.0.html">
     <img src="https://img.shields.io/badge/API-21+-blue.svg" alt="Min Sdk Version">
@@ -16,13 +16,21 @@
 <img src="https://diycode.b0.upaiyun.com/user/avatar/2468.jpg">
 </div>
 
-### 致力于打造一款极致体验的WanAndroid客户端，知识和美是可以并存的哦QAQn(*≧▽≦*)n ，更好的 Awesome-WanAndroid V1.1.0正式版发布，相比初始版本，项目的稳定性和界面的美化程度已提升了几个档次，如果您觉得还不错的话，就点个Star吧~(持续打磨中~，敬请关注)
+### 致力于打造一款极致体验的WanAndroid客户端，知识和美是可以并存的哦QAQn(*≧▽≦*)n ，更好的 Awesome-WanAndroid V1.2.0正式版发布，相比初始版本，项目的稳定性和界面的美化程度已提升了几个档次，如果您觉得还不错的话，就点个Star吧~(持续打磨中~，敬请关注)
 
 ## Introduction
 
 Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagger2 + GreenDao + Glide
 
 这是一款会让您觉得很nice的技术学习APP，所用技术基本涵盖了当前Android开发中常用的主流技术框架，阅读内容主要面向想在Android开发领域成为专家的朋友们。
+
+## WanAndroid Architecture
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/AppArchitectrue.png">
+</div>
+
+#### 借鉴于[设计MVP架构的最佳实践](https://blog.mindorks.com/essential-guide-for-designing-your-android-app-architecture-mvp-part-1-74efaf1cda40#.3lyk8t57x)
 
 #### Tips：
 
@@ -47,34 +55,44 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 </div>
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG1.png" width=40%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG2.png" width=40%>
+<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG1.png" width=20%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG2.png" width=20%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG3.png" width=20%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG4.png" width=20%>
 </div>
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG3.png" width=40%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG4.png" width=40%>
+<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG5.png" width=20%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG6.png" width=20%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG7.png" width=20%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG8.png" width=20%>
+    
 </div>
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG5.png" width=40%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG6.png" width=40%>
+<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG9.png" width=20%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG10.png" width=20%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG11.png" width=20%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG12.png" width=20%>
 </div>
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG7.png" width=40%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG8.png" width=40%>
+<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG13.png" width=20%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG14.png" width=20%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG15.png" width=20%>
 </div>
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG11.png" width=40%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG9.png" width=40%>
+<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG16.png" width=20%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG17.png" width=20%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG18.png" width=20%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG19.png" width=20%>
 </div>
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG10.png" width=40%>
+<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG20.png" width=20%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG21.png" width=20%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG22.png" width=20%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG23.png" width=20%>
+</div>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG24.png" width=20%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG25.png" width=20%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG26.png" width=20%><img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG27.png" width=20%>
+</div>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/PNG28.png" width=20%>
 </div>
 
 
 
 
 
-## Apk download（Android 5.0 or above it）（更好的Awesome-WanAndroid V1.1.0 来了）
+
+## Apk download（Android 5.0 or above it）（更好的Awesome-WanAndroid V1.2.0 来了）
 
 <center>
 
@@ -109,7 +127,21 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 ## Version
 
-### :zap:v1.1.0
+### :zap:v1.2.0
+
+1.增加设置模块
+
+2.分离出常用网站界面
+
+3.增加item多标签
+
+4.美化详情界面菜单
+
+5.添加ActivityOption跳转动画
+
+6.解决90%以上的内存泄露
+
+### v1.1.0
 
 1.增加RxBus订阅管理，解决RxBus内存泄露的问题
 

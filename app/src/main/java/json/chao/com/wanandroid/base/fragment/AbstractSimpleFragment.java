@@ -11,7 +11,7 @@ import com.squareup.leakcanary.RefWatcher;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.reactivex.disposables.CompositeDisposable;
-import json.chao.com.wanandroid.app.GeeksApp;
+import json.chao.com.wanandroid.app.WanAndroidApp;
 import me.yokeyword.fragmentation.SupportFragment;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.utils.CommonUtils;
@@ -27,15 +27,13 @@ public abstract class AbstractSimpleFragment extends SupportFragment {
 
     private Unbinder unBinder;
     private long clickTime;
-    private CompositeDisposable mCompositeDisposable;
     public boolean isInnerFragment;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(getLayout(), container, false);
+        View view = inflater.inflate(getLayoutId(), container, false);
         unBinder = ButterKnife.bind(this, view);
-        mCompositeDisposable = new CompositeDisposable();
 
         return view;
     }
@@ -43,9 +41,6 @@ public abstract class AbstractSimpleFragment extends SupportFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (mCompositeDisposable != null) {
-            mCompositeDisposable.clear();
-        }
         unBinder.unbind();
     }
 
@@ -53,7 +48,7 @@ public abstract class AbstractSimpleFragment extends SupportFragment {
     public void onDestroy() {
         super.onDestroy();
         //LeakCanary
-        RefWatcher refWatcher = GeeksApp.getRefWatcher(_mActivity);
+        RefWatcher refWatcher = WanAndroidApp.getRefWatcher(_mActivity);
         refWatcher.watch(this);
     }
 
@@ -92,7 +87,7 @@ public abstract class AbstractSimpleFragment extends SupportFragment {
      *
      * @return 布局id
      */
-    protected abstract int getLayout();
+    protected abstract int getLayoutId();
 
     /**
      * 初始化数据

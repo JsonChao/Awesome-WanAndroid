@@ -2,7 +2,8 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -16,25 +17,30 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
-            android:background="@color/grey_divider" />
+            android:background="@color/comment_line" />
     </android.support.design.widget.AppBarLayout>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/search_list_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:srlPrimaryColor="@color/colorPrimary"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <com.scwang.smartrefresh.header.BezierCircleHeader
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/search_list_recycler_view"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none"
-            android:background="@color/colorBackground" />
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/normal_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none" />
+        </FrameLayout>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
     <android.support.design.widget.FloatingActionButton

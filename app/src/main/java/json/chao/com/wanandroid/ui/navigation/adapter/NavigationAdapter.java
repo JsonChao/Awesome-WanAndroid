@@ -1,6 +1,6 @@
 package json.chao.com.wanandroid.ui.navigation.adapter;
 
-
+import android.app.ActivityOptions;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -54,7 +54,13 @@ public class NavigationAdapter extends BaseQuickAdapter<NavigationListData, Navi
                 tv.setText(name);
                 tv.setTextColor(CommonUtils.randomColor());
                 mTagFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
+                    ActivityOptions options = ActivityOptions.makeScaleUpAnimation(view,
+                            view.getWidth() / 2,
+                            view.getHeight() / 2,
+                            0 ,
+                            0);
                     JudgeUtils.startArticleDetailActivity(parent.getContext(),
+                            options,
                             mArticles.get(position1).getId(),
                             mArticles.get(position1).getTitle(),
                             mArticles.get(position1).getLink(),

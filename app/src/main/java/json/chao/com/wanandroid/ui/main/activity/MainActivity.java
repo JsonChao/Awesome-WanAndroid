@@ -1,6 +1,8 @@
 package json.chao.com.wanandroid.ui.main.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -15,12 +17,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewStub;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -30,11 +30,11 @@ import json.chao.com.wanandroid.base.activity.BaseActivity;
 import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.contract.main.MainContract;
-import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.event.LoginEvent;
 import json.chao.com.wanandroid.core.http.cookies.CookiesManager;
 import json.chao.com.wanandroid.presenter.main.MainPresenter;
 import json.chao.com.wanandroid.ui.hierarchy.fragment.KnowledgeHierarchyFragment;
+import json.chao.com.wanandroid.ui.main.fragment.UsageDialogFragment;
 import json.chao.com.wanandroid.ui.mainpager.fragment.MainPagerFragment;
 import json.chao.com.wanandroid.ui.navigation.fragment.NavigationFragment;
 import json.chao.com.wanandroid.ui.project.fragment.ProjectFragment;
@@ -61,14 +61,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @BindView(R.id.main_floating_action_btn)
     FloatingActionButton mFloatingActionButton;
     @BindView(R.id.bottom_navigation_view)
-    BottomNavigationView bottomNavigationBar;
-    @BindView(R.id.main_view_stub)
-    ViewStub mErrorView;
+    BottomNavigationView mBottomNavigationView;
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
-
-    @Inject
-    DataManager mDataManager;
+    @BindView(R.id.fragment_group)
+    FrameLayout mFrameGroup;
 
     private ArrayList<BaseFragment> mFragments;
     private TextView mUsTv;
@@ -77,6 +74,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private NavigationFragment mNavigationFragment;
     private ProjectFragment mProjectFragment;
     private int mLastFgIndex;
+    private UsageDialogFragment usageDialogFragment;
+    private SearchDialogFragment searchDialogFragment;
 
     @Override
     protected void onDestroy() {
@@ -97,36 +96,130 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void initEventAndData() {
         initToolbar();
-        initData();
-        initNavigationView();
+    }
 
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationBar);
-        mDataManager.setCurrentPage(Constants.FIRST);
-        bottomNavigationBar.setOnNavigationItemSelectedListener(item -> {
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mFragments = new ArrayList<>();
+        if (savedInstanceState == null) {
+            mPresenter.setNightModeState(false);
+            mMainPagerFragment = MainPagerFragment.getInstance(false, null);
+            mFragments.add(mMainPagerFragment);
+            initData();
+            init();
+            switchFragment(Constants.TYPE_MAIN_PAGER);
+        } else {
+            mBottomNavigationView.setSelectedItemId(R.id.tab_main_pager);
+            mMainPagerFragment = MainPagerFragment.getInstance(true, null);
+            mFragments.add(mMainPagerFragment);
+            initData();
+            init();
+            switchFragment(Constants.TYPE_SETTING);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_activity_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_usage:
+                if (usageDialogFragment == null) {
+                    usageDialogFragment = new UsageDialogFragment();
+                }
+                usageDialogFragment.show(getSupportFragmentManager(), "UsageDialogFragment");
+                break;
+            case R.id.action_search:
+                if (searchDialogFragment == null) {
+                    searchDialogFragment = new SearchDialogFragment();
+                }
+                searchDialogFragment.show(getSupportFragmentManager(), "SearchDialogFragment");
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressedSupport() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            pop();
+        } else {
+            ActivityCompat.finishAfterTransition(this);
+        }
+    }
+
+    @OnClick({R.id.main_floating_action_btn})
+    void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.main_floating_action_btn:
+                jumpToTheTop();
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void showSwitchProject() {
+        mBottomNavigationView.setSelectedItemId(R.id.tab_project);
+    }
+
+    @Override
+    public void showSwitchNavigation() {
+        mBottomNavigationView.setSelectedItemId(R.id.tab_navigation);
+    }
+
+    @Override
+    public void showLoginView() {
+        if (mNavigationView == null) {
+            return;
+        }
+        mUsTv = mNavigationView.getHeaderView(0).findViewById(R.id.nav_header_login_tv);
+        mUsTv.setText(mPresenter.getLoginAccount());
+        mUsTv.setOnClickListener(null);
+        mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(true);
+    }
+
+    @Override
+    public void showLogoutView() {
+        mUsTv.setText(R.string.login_in);
+        mUsTv.setOnClickListener(v -> startActivity(new Intent(this, LoginActivity.class)));
+        if (mNavigationView == null) {
+            return;
+        }
+        mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(false);
+    }
+
+    private void init() {
+        initNavigationView();
+        BottomNavigationViewHelper.disableShiftMode(mBottomNavigationView);
+        mPresenter.setCurrentPage(Constants.TYPE_MAIN_PAGER);
+        mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.tab_main_pager:
                     mTitleTv.setText(getString(R.string.home_pager));
                     switchFragment(0);
-                    mMainPagerFragment.reLoad();
-                    mDataManager.setCurrentPage(Constants.FIRST);
+                    mMainPagerFragment.reload();
+                    mPresenter.setCurrentPage(Constants.TYPE_MAIN_PAGER);
                     break;
                 case R.id.tab_knowledge_hierarchy:
                     mTitleTv.setText(getString(R.string.knowledge_hierarchy));
                     switchFragment(1);
-                    mKnowledgeHierarchyFragment.reLoad();
-                    mDataManager.setCurrentPage(Constants.SECOND);
+                    mKnowledgeHierarchyFragment.reload();
+                    mPresenter.setCurrentPage(Constants.TYPE_KNOWLEDGE);
                     break;
                 case R.id.tab_navigation:
-                    mTitleTv.setText(getString(R.string.navigation));
-                    switchFragment(2);
-                    mNavigationFragment.reLoad();
-                    mDataManager.setCurrentPage(Constants.THIRD);
+                    switchNavigation();
                     break;
                 case R.id.tab_project:
-                    mTitleTv.setText(getString(R.string.project));
-                    switchFragment(3);
-                    mProjectFragment.reLoad();
-                    mDataManager.setCurrentPage(Constants.FOURTH);
+                    switchProject();
                     break;
                 default:
                     break;
@@ -165,106 +258,24 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mDrawerLayout.addDrawerListener(toggle);
     }
 
-    @Override
-    public void showError() {
-        mErrorView.setVisibility(View.VISIBLE);
-        TextView reloadTv = (TextView) findViewById(R.id.error_reload_tv);
-        reloadTv.setOnClickListener(v -> {
-            mMainPagerFragment.reLoad();
-            mKnowledgeHierarchyFragment.reLoad();
-            mNavigationFragment.reLoad();
-            mProjectFragment.reLoad();
-        });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_activity_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_search) {
-            SearchDialogFragment searchDialogFragment = new SearchDialogFragment();
-            searchDialogFragment.show(getFragmentManager(), "SearchDialogFragment");
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressedSupport() {
-        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
-            pop();
-        } else {
-            ActivityCompat.finishAfterTransition(this);
-        }
-    }
-
-    @OnClick({R.id.main_floating_action_btn})
-    void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.main_floating_action_btn:
-                jumpToTheTop();
-                break;
-            default:
-                break;
-        }
-    }
-
-    @Override
-    public void showDismissErrorView() {
-        if (mErrorView != null) {
-            mErrorView.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
-    public void showErrorView() {
-        if (mErrorView != null) {
-            showError();
-        }
-    }
-
-    @Override
-    public void showLoginView() {
-        if (mNavigationView == null) {
-            return;
-        }
-        mUsTv = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.nav_header_login_tv);
-        mUsTv.setText(mDataManager.getLoginAccount());
-        mUsTv.setOnClickListener(null);
-        mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(true);
-    }
-
-    @Override
-    public void showLogoutView() {
-        mUsTv.setText(R.string.login_in);
-        mUsTv.setOnClickListener(v -> startActivity(new Intent(this, LoginActivity.class)));
-        if (mNavigationView == null) {
-            return;
-        }
-        mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(false);
-    }
-
     private void jumpToTheTop() {
-        switch (mDataManager.getCurrentPage()) {
-            case Constants.FIRST:
+        switch (mPresenter.getCurrentPage()) {
+            case Constants.TYPE_MAIN_PAGER:
                 if (mMainPagerFragment != null) {
                     mMainPagerFragment.jumpToTheTop();
                 }
                 break;
-            case Constants.SECOND:
+            case Constants.TYPE_KNOWLEDGE:
                 if (mKnowledgeHierarchyFragment != null) {
                     mKnowledgeHierarchyFragment.jumpToTheTop();
                 }
                 break;
-            case Constants.THIRD:
+            case Constants.TYPE_NAVIGATION:
                 if (mNavigationFragment != null) {
                     mNavigationFragment.jumpToTheTop();
                 }
                 break;
-            case Constants.FOURTH:
+            case Constants.TYPE_PROJECT:
                 if (mProjectFragment != null) {
                     mProjectFragment.jumpToTheTop();
                 }
@@ -280,21 +291,36 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(false);
         mTitleTv.setText(getString(R.string.home_pager));
-        StatusBarUtil.immersive(this, ContextCompat.getColor(this, R.color.transparent), 0.3f);
+        StatusBarUtil.setStatusColor(getWindow(), ContextCompat.getColor(this, R.color.main_status_bar_blue), 1f);
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
     }
 
     private void initData() {
-        mFragments = new ArrayList<>();
-        mMainPagerFragment = MainPagerFragment.getInstance(null, null);
         mKnowledgeHierarchyFragment = KnowledgeHierarchyFragment.getInstance(null, null);
         mNavigationFragment = NavigationFragment.getInstance(null, null);
         mProjectFragment = ProjectFragment.getInstance(null, null);
-        mFragments.add(mMainPagerFragment);
+        CollectFragment collectFragment = CollectFragment.getInstance(null, null);
+        SettingFragment settingFragment = SettingFragment.getInstance(null, null);
+
         mFragments.add(mKnowledgeHierarchyFragment);
         mFragments.add(mNavigationFragment);
         mFragments.add(mProjectFragment);
-        switchFragment(0);
+        mFragments.add(collectFragment);
+        mFragments.add(settingFragment);
+    }
+
+    private void switchProject() {
+        mTitleTv.setText(getString(R.string.project));
+        switchFragment(3);
+        mProjectFragment.reload();
+        mPresenter.setCurrentPage(Constants.TYPE_PROJECT);
+    }
+
+    private void switchNavigation() {
+        mTitleTv.setText(getString(R.string.navigation));
+        switchFragment(2);
+        mNavigationFragment.reload();
+        mPresenter.setCurrentPage(Constants.TYPE_NAVIGATION);
     }
 
     /**
@@ -303,6 +329,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
      * @param position 要显示的fragment的下标
      */
     private void switchFragment(int position) {
+        if (position >= Constants.TYPE_COLLECT) {
+            mFloatingActionButton.setVisibility(View.INVISIBLE);
+            mBottomNavigationView.setVisibility(View.INVISIBLE);
+        } else {
+            mFloatingActionButton.setVisibility(View.VISIBLE);
+            mBottomNavigationView.setVisibility(View.VISIBLE);
+        }
         if (position >= mFragments.size()) {
             return;
         }
@@ -312,6 +345,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mLastFgIndex = position;
         ft.hide(lastFg);
         if (!targetFg.isAdded()) {
+            getSupportFragmentManager().beginTransaction().remove(targetFg).commit();
             ft.add(R.id.fragment_group, targetFg);
         }
         ft.show(targetFg);
@@ -319,17 +353,22 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     private void initNavigationView() {
-        mUsTv = ((TextView) mNavigationView.getHeaderView(0).findViewById(R.id.nav_header_login_tv));
-        if (mDataManager.getLoginStatus()) {
+        mUsTv = mNavigationView.getHeaderView(0).findViewById(R.id.nav_header_login_tv);
+        if (mPresenter.getLoginStatus()) {
             showLoginView();
         } else {
             showLogoutView();
         }
 
+        mNavigationView.getMenu().findItem(R.id.nav_item_wan_android)
+                .setOnMenuItemClickListener(item -> {
+                    startMainPager();
+                    return true;
+                });
         mNavigationView.getMenu().findItem(R.id.nav_item_my_collect)
                 .setOnMenuItemClickListener(item -> {
-                    if (mDataManager.getLoginStatus()) {
-                        startActivity(new Intent(this, CollectActivity.class));
+                    if (mPresenter.getLoginStatus()) {
+                        startCollectFragment();
                         return true;
                     } else {
                         startActivity(new Intent(this, LoginActivity.class));
@@ -347,6 +386,30 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     logout();
                     return true;
                 });
+        mNavigationView.getMenu().findItem(R.id.nav_item_setting)
+                .setOnMenuItemClickListener(item -> {
+                    startSettingFragment();
+                    return true;
+                });
+    }
+
+    private void startSettingFragment() {
+        mTitleTv.setText(getString(R.string.setting));
+        switchFragment(Constants.TYPE_SETTING);
+        mDrawerLayout.closeDrawers();
+    }
+
+    private void startMainPager() {
+        mTitleTv.setText(getString(R.string.home_pager));
+        mBottomNavigationView.setVisibility(View.VISIBLE);
+        mBottomNavigationView.setSelectedItemId(R.id.tab_main_pager);
+        mDrawerLayout.closeDrawers();
+    }
+
+    private void startCollectFragment() {
+        mTitleTv.setText(getString(R.string.my_collect));
+        switchFragment(Constants.TYPE_COLLECT);
+        mDrawerLayout.closeDrawers();
     }
 
     private void logout() {
@@ -357,7 +420,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 v -> {
                     CommonAlertDialog.newInstance().cancelDialog(true);
                     mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(false);
-                    mDataManager.setLoginStatus(false);
+                    mPresenter.setLoginStatus(false);
                     CookiesManager.clearAllCookies();
                     RxBus.getDefault().post(new LoginEvent(false));
                     startActivity(new Intent(this, LoginActivity.class));
