@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/register_bac">
+
+    <include layout="@layout/common_toolbar_no_scroll" />
+
+    <EditText
+        android:id="@+id/register_password_edit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:background="@drawable/bg_conner_grey"
+        android:layout_marginStart="@dimen/dp_48"
+        android:layout_marginEnd="@dimen/dp_48"
+        android:inputType="textPassword"
+        android:hint="@string/register_password_hint"
+        android:textColorHint="@color/light_white"
+        android:layout_centerInParent="true"
+        android:padding="@dimen/dp_12"
+        android:drawableStart="@drawable/ic_register_password"
+        android:drawablePadding="@dimen/dp_20" />
+
+    <EditText
+        android:id="@+id/register_account_edit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:background="@drawable/bg_conner_grey"
+        android:layout_marginStart="@dimen/dp_48"
+        android:layout_marginEnd="@dimen/dp_48"
+        android:inputType="number"
+        android:hint="@string/register_account_hint"
+        android:textColorHint="@color/light_white"
+        android:layout_above="@id/register_password_edit"
+        android:layout_marginBottom="@dimen/dp_36"
+        android:padding="@dimen/dp_12"
+        android:drawableStart="@drawable/ic_email"
+        android:drawablePadding="@dimen/dp_20"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
+    <EditText
+        android:id="@+id/register_confirm_password_edit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:background="@drawable/bg_conner_grey"
+        android:layout_marginStart="@dimen/dp_48"
+        android:layout_marginEnd="@dimen/dp_48"
+        android:inputType="textPassword"
+        android:hint="@string/register_confirm_password_hint"
+        android:textColorHint="@color/light_white"
+        android:layout_below="@id/register_password_edit"
+        android:layout_marginTop="@dimen/dp_6"
+        android:padding="@dimen/dp_12"
+        android:drawableStart="@drawable/ic_register_password"
+        android:drawablePadding="@dimen/dp_20" />
+    
+    <Button
+        android:id="@+id/register_btn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:background="@drawable/bg_conner_green"
+        android:layout_marginStart="@dimen/dp_48"
+        android:layout_marginEnd="@dimen/dp_48"
+        android:text="@string/register"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_21"
+        android:layout_below="@id/register_confirm_password_edit"
+        android:layout_marginTop="@dimen/dp_60"/>
+    
+</RelativeLayout>

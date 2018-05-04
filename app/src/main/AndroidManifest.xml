@@ -39,6 +39,12 @@
             android:launchMode="singleTask"
             android:exported="false" />
 
+        <activity android:name="json.chao.com.wanandroid.ui.main.activity.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:exported="false"
+            android:windowSoftInputMode="stateVisible" />
+
         <activity android:name=".ui.main.activity.SearchListActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"

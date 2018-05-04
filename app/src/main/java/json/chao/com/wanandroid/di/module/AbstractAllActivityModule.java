@@ -8,6 +8,7 @@ import json.chao.com.wanandroid.ui.main.activity.AboutUsActivity;
 import json.chao.com.wanandroid.ui.main.activity.ArticleDetailActivity;
 import json.chao.com.wanandroid.ui.main.activity.LoginActivity;
 import json.chao.com.wanandroid.ui.main.activity.MainActivity;
+import json.chao.com.wanandroid.ui.main.activity.RegisterActivity;
 import json.chao.com.wanandroid.ui.main.activity.SearchListActivity;
 import json.chao.com.wanandroid.ui.main.activity.SplashActivity;
 
@@ -33,6 +34,9 @@ public abstract class AbstractAllActivityModule {
 
     @ContributesAndroidInjector(modules = LoginActivityModule.class)
     abstract LoginActivity contributesLoginActivityInjector();
+
+    @ContributesAndroidInjector(modules = RegisterActivityModule.class)
+    abstract RegisterActivity contributesRegisterActivityInjector();
 
     @ContributesAndroidInjector(modules = AboutUsActivityModule.class)
     abstract AboutUsActivity contributesAboutUsActivityInjector();

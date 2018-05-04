@@ -97,6 +97,10 @@
     <string name="setting">Setting</string>
     <string name="send_email">Select the email client:</string>
     <string name="load_more_no_data">There\'s no extra data</string>
+    <string name="register_account_hint">Email/Phone number</string>
+    <string name="register_password_hint">Enter password</string>
+    <string name="register_confirm_password_hint">Confirm password</string>
+    <string name="register_success">Register success</string>
 
 
 </resources>

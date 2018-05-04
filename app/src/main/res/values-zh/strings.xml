@@ -97,6 +97,10 @@
     <string name="setting">设置</string>
     <string name="send_email">选择邮件客户端:</string>
     <string name="load_more_no_data">没有多余的干货了(*≧Д≦*)</string>
+    <string name="register_account_hint">邮箱/手机号</string>
+    <string name="register_password_hint">输入密码</string>
+    <string name="register_confirm_password_hint">确认密码</string>
+    <string name="register_success">注册成功</string>
 
 
 </resources>

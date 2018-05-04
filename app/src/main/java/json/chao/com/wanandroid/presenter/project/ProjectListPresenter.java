@@ -42,7 +42,6 @@ public class ProjectListPresenter extends BasePresenter<ProjectListContract.View
                 .subscribe(jumpToTheTopEvent -> mView.showJumpToTheTop()));
     }
 
-
     @Override
     public void getProjectListData(int page, int cid) {
         addSubscribe(mDataManager.getProjectListData(page, cid)

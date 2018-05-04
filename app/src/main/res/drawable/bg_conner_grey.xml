@@ -7,5 +7,5 @@
         android:topLeftRadius="@dimen/dp_6"
         android:topRightRadius="@dimen/dp_6" />
 
-    <solid android:color="@color/colorAccent" />
+    <solid android:color="@color/grey_search" />
 </shape>
