@@ -11,7 +11,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.navigation.NavigationListData;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
@@ -53,11 +52,6 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
         args.putString(Constants.ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    protected void initInject() {
-        getFragmentComponent().inject(this);
     }
 
     @Override

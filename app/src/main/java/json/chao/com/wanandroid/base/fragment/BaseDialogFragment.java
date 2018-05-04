@@ -1,16 +1,15 @@
 package json.chao.com.wanandroid.base.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import javax.inject.Inject;
 
+import dagger.android.AndroidInjection;
+import dagger.android.support.AndroidSupportInjection;
 import json.chao.com.wanandroid.R;
-import json.chao.com.wanandroid.app.WanAndroidApp;
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
 import json.chao.com.wanandroid.base.view.BaseView;
-import json.chao.com.wanandroid.di.component.DaggerFragmentComponent;
-import json.chao.com.wanandroid.di.component.FragmentComponent;
-import json.chao.com.wanandroid.di.module.FragmentModule;
 import json.chao.com.wanandroid.utils.CommonUtils;
 
 /**
@@ -24,12 +23,16 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
 
     @Inject
     protected T mPresenter;
-    private FragmentComponent mBuild;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        AndroidSupportInjection.inject(this);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initInject();
         if (mPresenter != null) {
             mPresenter.attachView(this);
         }
@@ -41,16 +44,6 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
             mPresenter.detachView();
         }
         super.onDestroyView();
-    }
-
-    public FragmentComponent getFragmentComponent() {
-        if (mBuild == null) {
-            mBuild = DaggerFragmentComponent.builder()
-                    .appComponent(WanAndroidApp.getAppComponent())
-                    .fragmentModule(new FragmentModule(this))
-                    .build();
-        }
-       return mBuild;
     }
 
     @Override
@@ -117,10 +110,5 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
     public void showLogoutView() {
 
     }
-
-    /**
-     * 注入当前Fragment所需的依赖
-     */
-    protected abstract void initInject();
 
 }

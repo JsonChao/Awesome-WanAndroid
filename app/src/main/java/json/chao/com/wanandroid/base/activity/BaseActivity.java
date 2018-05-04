@@ -1,16 +1,20 @@
 package json.chao.com.wanandroid.base.activity;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatDelegate;
 
 import javax.inject.Inject;
 
+import dagger.android.AndroidInjection;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasFragmentInjector;
+import dagger.android.support.HasSupportFragmentInjector;
 import json.chao.com.wanandroid.R;
-import json.chao.com.wanandroid.app.WanAndroidApp;
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
 import json.chao.com.wanandroid.base.view.BaseView;
-import json.chao.com.wanandroid.di.component.ActivityComponent;
-import json.chao.com.wanandroid.di.component.DaggerActivityComponent;
-import json.chao.com.wanandroid.di.module.ActivityModule;
 import json.chao.com.wanandroid.utils.CommonUtils;
 
 /**
@@ -20,11 +24,20 @@ import json.chao.com.wanandroid.utils.CommonUtils;
  * @date 2017/11/28
  */
 
-public abstract class BaseActivity<T extends AbstractPresenter> extends AbstractSimpleActivity implements BaseView {
+public abstract class BaseActivity<T extends AbstractPresenter> extends AbstractSimpleActivity implements
+        HasSupportFragmentInjector,
+        BaseView {
 
     @Inject
+    DispatchingAndroidInjector<Fragment> mFragmentDispatchingAndroidInjector;
+    @Inject
     protected T mPresenter;
-    private ActivityComponent mBuild;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     protected void onDestroy() {
@@ -34,23 +47,17 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
         super.onDestroy();
     }
 
-    protected ActivityComponent getActivityComponent() {
-        if (mBuild == null) {
-            mBuild = DaggerActivityComponent.builder()
-                    .appComponent(WanAndroidApp.getAppComponent())
-                    .activityModule(new ActivityModule(this))
-                    .build();
-        }
-        return mBuild;
-    }
-
     @Override
     protected void onViewCreated() {
         super.onViewCreated();
-        initInject();
         if (mPresenter != null) {
             mPresenter.attachView(this);
         }
+    }
+
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return mFragmentDispatchingAndroidInjector;
     }
 
     @Override
@@ -119,10 +126,5 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
     public void showLogoutView() {
 
     }
-
-    /**
-     * 注入当前Activity所需的依赖
-     */
-    protected abstract void initInject();
 
 }

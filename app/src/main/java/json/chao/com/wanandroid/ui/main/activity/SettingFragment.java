@@ -97,11 +97,6 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements
         }
     }
 
-    @Override
-    protected void initInject() {
-        getFragmentComponent().inject(this);
-    }
-
     public static SettingFragment getInstance(String param1, String param2) {
         SettingFragment fragment = new SettingFragment();
         Bundle args = new Bundle();

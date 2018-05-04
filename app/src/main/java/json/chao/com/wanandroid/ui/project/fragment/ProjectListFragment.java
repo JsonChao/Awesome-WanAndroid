@@ -14,7 +14,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.core.bean.project.ProjectListData;
@@ -43,11 +42,6 @@ public class ProjectListFragment extends AbstractRootFragment<ProjectListPresent
     private boolean isRefresh = true;
     private int mCurrentPage;
     private int cid;
-
-    @Override
-    protected void initInject() {
-        getFragmentComponent().inject(this);
-    }
 
     @Override
     protected int getLayoutId() {

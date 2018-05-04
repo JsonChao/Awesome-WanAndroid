@@ -47,11 +47,6 @@ public class CollectFragment extends AbstractRootFragment<CollectPresenter> impl
     private ActivityOptions mOptions;
 
     @Override
-    protected void initInject() {
-        getFragmentComponent().inject(this);
-    }
-
-    @Override
     protected int getLayoutId() {
         return R.layout.fragment_collect;
     }

@@ -72,11 +72,6 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
     }
 
     @Override
-    protected void initInject() {
-        getActivityComponent().inject(this);
-    }
-
-    @Override
     protected int getLayoutId() {
         return R.layout.activity_article_detail;
     }

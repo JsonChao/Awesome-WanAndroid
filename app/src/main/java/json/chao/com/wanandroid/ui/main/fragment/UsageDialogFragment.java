@@ -25,7 +25,6 @@ import butterknife.BindView;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.base.fragment.BaseDialogFragment;
 import json.chao.com.wanandroid.contract.main.UsageDialogContract;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.search.UsefulSiteData;
 import json.chao.com.wanandroid.presenter.main.UsageDialogPresenter;
 import json.chao.com.wanandroid.utils.CommonUtils;
@@ -62,11 +61,6 @@ public class UsageDialogFragment extends BaseDialogFragment<UsageDialogPresenter
     public void onStart() {
         super.onStart();
         initDialog();
-    }
-
-    @Override
-    protected void initInject() {
-        getFragmentComponent().inject(this);
     }
 
     @Override

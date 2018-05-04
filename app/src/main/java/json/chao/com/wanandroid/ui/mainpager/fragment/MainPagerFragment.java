@@ -22,7 +22,6 @@ import java.util.List;
 import butterknife.BindView;
 import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
 import json.chao.com.wanandroid.component.RxBus;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.banner.BannerData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.R;
@@ -91,11 +90,6 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
         args.putString(Constants.ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    protected void initInject() {
-        getFragmentComponent().inject(this);
     }
 
     @Override

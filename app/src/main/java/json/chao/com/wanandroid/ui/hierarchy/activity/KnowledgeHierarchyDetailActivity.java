@@ -55,11 +55,6 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
     private String chapterName;
 
     @Override
-    protected void initInject() {
-        getActivityComponent().inject(this);
-    }
-
-    @Override
     protected int getLayoutId() {
         return R.layout.activity_knowledge_hierarchy_detail;
     }

@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.reactivex.disposables.CompositeDisposable;
-
 
 /**
  * Common simple dialog fragment

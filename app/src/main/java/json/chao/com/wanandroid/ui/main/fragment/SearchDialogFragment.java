@@ -38,7 +38,6 @@ import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.fragment.BaseDialogFragment;
 import json.chao.com.wanandroid.contract.main.SearchContract;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.search.TopSearchData;
 import json.chao.com.wanandroid.core.dao.HistoryData;
 import json.chao.com.wanandroid.presenter.main.SearchPresenter;
@@ -94,11 +93,6 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     public void onStart() {
         super.onStart();
         initDialog();
-    }
-
-    @Override
-    protected void initInject() {
-        getFragmentComponent().inject(this);
     }
 
     @Override

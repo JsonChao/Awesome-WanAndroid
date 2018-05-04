@@ -3,10 +3,8 @@ package json.chao.com.wanandroid.ui.project.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.flyco.tablayout.SlidingTabLayout;
 
@@ -71,11 +69,6 @@ public class ProjectFragment extends AbstractRootFragment<ProjectPresenter> impl
         if (CommonUtils.isNetworkConnected()) {
             showLoading();
         }
-    }
-
-    @Override
-    protected void initInject() {
-        getFragmentComponent().inject(this);
     }
 
     @Override

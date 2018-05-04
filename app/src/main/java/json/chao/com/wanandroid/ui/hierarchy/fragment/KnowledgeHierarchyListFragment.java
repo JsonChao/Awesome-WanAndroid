@@ -49,11 +49,6 @@ public class KnowledgeHierarchyListFragment extends AbstractRootFragment<Knowled
     private ActivityOptions mOptions;
 
     @Override
-    protected void initInject() {
-        getFragmentComponent().inject(this);
-    }
-
-    @Override
     protected int getLayoutId() {
         return R.layout.fragment_knowledge_hierarchy_list;
     }

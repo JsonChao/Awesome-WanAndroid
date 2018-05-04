@@ -49,11 +49,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     private RegisterPopupWindow mPopupWindow;
 
     @Override
-    protected void initInject() {
-        getActivityComponent().inject(this);
-    }
-
-    @Override
     protected int getLayoutId() {
         return R.layout.activity_login;
     }

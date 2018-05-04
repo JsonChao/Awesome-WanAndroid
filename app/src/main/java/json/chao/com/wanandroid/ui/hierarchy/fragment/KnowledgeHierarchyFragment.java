@@ -14,7 +14,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.hierarchy.KnowledgeHierarchyData;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
@@ -79,11 +78,6 @@ public class KnowledgeHierarchyFragment extends AbstractRootFragment<KnowledgeHi
         if (CommonUtils.isNetworkConnected()) {
             showLoading();
         }
-    }
-
-    @Override
-    protected void initInject() {
-        getFragmentComponent().inject(this);
     }
 
     @Override

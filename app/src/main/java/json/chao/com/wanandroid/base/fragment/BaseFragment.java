@@ -1,18 +1,16 @@
 package json.chao.com.wanandroid.base.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
 import javax.inject.Inject;
 
+import dagger.android.support.AndroidSupportInjection;
 import json.chao.com.wanandroid.R;
-import json.chao.com.wanandroid.app.WanAndroidApp;
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
 import json.chao.com.wanandroid.base.view.BaseView;
-import json.chao.com.wanandroid.di.component.DaggerFragmentComponent;
-import json.chao.com.wanandroid.di.component.FragmentComponent;
-import json.chao.com.wanandroid.di.module.FragmentModule;
 import json.chao.com.wanandroid.utils.CommonUtils;
 
 /**
@@ -28,8 +26,13 @@ public abstract class BaseFragment<T extends AbstractPresenter> extends Abstract
     protected T mPresenter;
 
     @Override
+    public void onAttach(Activity activity) {
+        AndroidSupportInjection.inject(this);
+        super.onAttach(activity);
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        initInject();
         if (mPresenter != null) {
             mPresenter.attachView(this);
         }
@@ -42,13 +45,6 @@ public abstract class BaseFragment<T extends AbstractPresenter> extends Abstract
             mPresenter.detachView();
         }
         super.onDestroyView();
-    }
-
-    public FragmentComponent getFragmentComponent() {
-        return DaggerFragmentComponent.builder()
-                .appComponent(WanAndroidApp.getAppComponent())
-                .fragmentModule(new FragmentModule(this))
-                .build();
     }
 
     @Override
@@ -111,10 +107,4 @@ public abstract class BaseFragment<T extends AbstractPresenter> extends Abstract
     public void showLogoutView() {
 
     }
-
-    /**
-     * 注入当前Fragment所需的依赖
-     */
-    protected abstract void initInject();
-
 }

@@ -131,11 +131,6 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
     }
 
     @Override
-    protected void initInject() {
-        getActivityComponent().inject(this);
-    }
-
-    @Override
     public void reload() {
         if (mPresenter != null) {
             mPresenter.getSearchList(0, searchText);

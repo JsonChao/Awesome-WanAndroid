@@ -1,5 +1,6 @@
 package json.chao.com.wanandroid.app;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,6 +21,11 @@ import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.crashreport.CrashReport;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.core.dao.DaoMaster;
 import json.chao.com.wanandroid.core.dao.DaoSession;
@@ -35,7 +41,10 @@ import json.chao.com.wanandroid.utils.logger.TxtFormatStrategy;
  * @date 2017/11/27
  */
 
-public class WanAndroidApp extends Application {
+public class WanAndroidApp extends Application implements HasActivityInjector {
+
+    @Inject
+    DispatchingAndroidInjector<Activity> mAndroidInjector;
 
     private static WanAndroidApp instance;
     private RefWatcher refWatcher;
@@ -78,6 +87,10 @@ public class WanAndroidApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        DaggerAppComponent.builder()
+                .appModule(new AppModule(instance))
+                .httpModule(new HttpModule())
+                .build().inject(this);
         instance = this;
 
         initGreenDao();
@@ -148,4 +161,8 @@ public class WanAndroidApp extends Application {
         return appComponent;
     }
 
+    @Override
+    public AndroidInjector<Activity> activityInjector() {
+        return mAndroidInjector;
+    }
 }
