@@ -24,7 +24,7 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 这是一款会让您觉得很nice的技术学习APP，所用技术基本涵盖了当前Android开发中常用的主流技术框架，阅读内容主要面向想在Android开发领域成为专家的朋友们。
 
-## WanAndroid Architecture
+## Awesome-WanAndroid Architecture
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/AppArchitectrue.png">
@@ -108,7 +108,7 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 - 使用Rxjava2的操作符对事件流进行进行转换、延时、过滤等操作，其中使用Compose操作符结合RxUtils工具类简化线程切换调用的代码数量。
 
-- 使用Dagger2无耦合地将Model注入Presenter、Presenter注入View，更高效地实现了MVP模式。
+- 使用Dagger2结合Dagger.Android无耦合地将Model注入Presenter、Presenter注入View，更高效地实现了MVP模式。
 
 - 使用BasePresenter对事件流订阅的生命周期做了集成管理。
 
@@ -216,6 +216,8 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 [Rxjava](https://github.com/ReactiveX/RxJava)
 
 [RxAndroid](https://github.com/ReactiveX/RxAndroid)
+
+[RxBinding](https://github.com/JakeWharton/RxBinding)
 
 #### Network
 
