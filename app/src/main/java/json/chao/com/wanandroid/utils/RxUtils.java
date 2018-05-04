@@ -57,7 +57,7 @@ public class RxUtils {
     }
 
     /**
-     * 统一返回结果处理
+     * 收藏返回结果处理
      * @param <T> 指定的泛型类型
      * @return ObservableTransformer
      */
