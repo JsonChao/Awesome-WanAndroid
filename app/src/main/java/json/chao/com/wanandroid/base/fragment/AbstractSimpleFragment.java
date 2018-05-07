@@ -47,7 +47,6 @@ public abstract class AbstractSimpleFragment extends SupportFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //LeakCanary
         RefWatcher refWatcher = WanAndroidApp.getRefWatcher(_mActivity);
         refWatcher.watch(this);
     }

@@ -32,12 +32,14 @@ public class CircularRevealAnim {
                 animView.setVisibility(View.VISIBLE);
                 if (mListener != null) {
                     anim.cancel();
+                    anim = null;
                     mListener.onShowAnimationEnd();
                 }
             } else {
                 animView.setVisibility(View.GONE);
                 if (mListener != null) {
                     anim.cancel();
+                    anim = null;
                     mListener.onHideAnimationEnd();
                 }
             }
