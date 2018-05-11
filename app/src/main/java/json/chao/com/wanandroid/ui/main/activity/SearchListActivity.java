@@ -24,7 +24,6 @@ import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.activity.AbstractRootActivity;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.contract.main.SearchListContract;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.core.event.SwitchNavigationEvent;
@@ -69,7 +68,7 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
     protected void initEventAndData() {
         super.initEventAndData();
         initToolbar();
-        mPresenter.getSearchList(mCurrentPage, searchText);
+        mPresenter.getSearchList(mCurrentPage, searchText, true);
         mArticleList = new ArrayList<>();
         mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mArticleList);
         mAdapter.isSearchPage();
@@ -124,6 +123,7 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
         });
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setHasFixedSize(true);
         setRefresh();
         if (CommonUtils.isNetworkConnected()) {
             showLoading();
@@ -133,7 +133,7 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
     @Override
     public void reload() {
         if (mPresenter != null) {
-            mPresenter.getSearchList(0, searchText);
+            mPresenter.getSearchList(0, searchText, false);
         }
     }
 
@@ -235,13 +235,13 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
         mRefreshLayout.setOnRefreshListener(refreshLayout -> {
             mCurrentPage = 0;
             isAddData = false;
-            mPresenter.getSearchList(mCurrentPage, searchText);
+            mPresenter.getSearchList(mCurrentPage, searchText, false);
             refreshLayout.finishRefresh(1000);
         });
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
             mCurrentPage++;
             isAddData = true;
-            mPresenter.getSearchList(mCurrentPage, searchText);
+            mPresenter.getSearchList(mCurrentPage, searchText, false);
             refreshLayout.finishLoadMore(1000);
         });
     }

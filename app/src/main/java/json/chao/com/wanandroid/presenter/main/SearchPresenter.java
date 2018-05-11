@@ -11,7 +11,6 @@ import json.chao.com.wanandroid.app.WanAndroidApp;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.contract.main.SearchContract;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.search.TopSearchData;
 import json.chao.com.wanandroid.core.dao.HistoryData;
 import json.chao.com.wanandroid.utils.RxUtils;

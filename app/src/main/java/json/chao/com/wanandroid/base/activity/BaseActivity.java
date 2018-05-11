@@ -10,7 +10,6 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
-import dagger.android.HasFragmentInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
@@ -43,6 +42,7 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
     protected void onDestroy() {
         if (mPresenter != null) {
             mPresenter.detachView();
+            mPresenter = null;
         }
         super.onDestroy();
     }
@@ -95,16 +95,6 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
     @Override
     public void reload() {
 
-    }
-
-    @Override
-    public void showCollectFail() {
-        CommonUtils.showSnackMessage(this, getString(R.string.collect_fail));
-    }
-
-    @Override
-    public void showCancelCollectFail() {
-        CommonUtils.showSnackMessage(this, getString(R.string.cancel_collect_fail));
     }
 
     @Override

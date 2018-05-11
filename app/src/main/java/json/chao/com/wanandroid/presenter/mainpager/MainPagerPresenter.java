@@ -123,28 +123,45 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
     }
 
     @Override
-    public void autoRefresh() {
+    public void autoRefresh(boolean isShowError) {
         isRefresh = true;
         mCurrentPage = 0;
-        getBannerData();
-        getFeedArticleList();
+        getBannerData(isShowError);
+        getFeedArticleList(isShowError);
     }
 
     @Override
     public void loadMore() {
         isRefresh = false;
         mCurrentPage++;
-        getFeedArticleList();
+        loadMoreData();
     }
 
     @Override
-    public void getFeedArticleList() {
+    public void getFeedArticleList(boolean isShowError) {
         addSubscribe(mDataManager.getFeedArticleList(mCurrentPage)
                 .compose(RxUtils.rxSchedulerHelper())
                 .compose(RxUtils.handleResult())
                 .filter(feedArticleListResponse -> mView != null)
                 .subscribeWith(new BaseObserver<FeedArticleListData>(mView,
-                        WanAndroidApp.getInstance().getString(R.string.failed_to_obtain_article_list)) {
+                        WanAndroidApp.getInstance().getString(R.string.failed_to_obtain_article_list),
+                        isShowError) {
+                    @Override
+                    public void onNext(FeedArticleListData feedArticleListData) {
+                        mView.showArticleList(feedArticleListData, isRefresh);
+                    }
+                }));
+    }
+
+    @Override
+    public void loadMoreData() {
+        addSubscribe(mDataManager.getFeedArticleList(mCurrentPage)
+                .compose(RxUtils.rxSchedulerHelper())
+                .compose(RxUtils.handleResult())
+                .filter(feedArticleListResponse -> mView != null)
+                .subscribeWith(new BaseObserver<FeedArticleListData>(mView,
+                        WanAndroidApp.getInstance().getString(R.string.failed_to_obtain_article_list),
+                        false) {
                     @Override
                     public void onNext(FeedArticleListData feedArticleListData) {
                         mView.showArticleList(feedArticleListData, isRefresh);
@@ -183,12 +200,13 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
     }
 
     @Override
-    public void getBannerData() {
+    public void getBannerData(boolean isShowError) {
         addSubscribe(mDataManager.getBannerData()
                 .compose(RxUtils.rxSchedulerHelper())
                 .compose(RxUtils.handleResult())
                 .subscribeWith(new BaseObserver<List<BannerData>>(mView,
-                        WanAndroidApp.getInstance().getString(R.string.failed_to_obtain_banner_data)) {
+                        WanAndroidApp.getInstance().getString(R.string.failed_to_obtain_banner_data),
+                        isShowError) {
                     @Override
                     public void onNext(List<BannerData> bannerDataList) {
                         mView.showBannerData(bannerDataList);

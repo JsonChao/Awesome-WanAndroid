@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import javax.inject.Inject;
 
-import dagger.android.AndroidInjection;
 import dagger.android.support.AndroidSupportInjection;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
@@ -19,7 +18,8 @@ import json.chao.com.wanandroid.utils.CommonUtils;
  * @date 2017/11/28
  */
 
-public abstract class BaseDialogFragment<T extends AbstractPresenter> extends AbstractSimpleDialogFragment implements BaseView {
+public abstract class BaseDialogFragment<T extends AbstractPresenter> extends AbstractSimpleDialogFragment
+        implements BaseView {
 
     @Inject
     protected T mPresenter;
@@ -42,6 +42,7 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
     public void onDestroyView() {
         if (mPresenter != null) {
             mPresenter.detachView();
+            mPresenter = null;
         }
         super.onDestroyView();
     }
@@ -75,20 +76,6 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
     @Override
     public void reload() {
 
-    }
-
-    @Override
-    public void showCollectFail() {
-        if (getActivity() != null) {
-            CommonUtils.showSnackMessage(getActivity(), getString(R.string.collect_fail));
-        }
-    }
-
-    @Override
-    public void showCancelCollectFail() {
-        if (getActivity() != null) {
-            CommonUtils.showSnackMessage(getActivity(), getString(R.string.cancel_collect_fail));
-        }
     }
 
     @Override

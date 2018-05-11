@@ -74,7 +74,8 @@ public class KnowledgeHierarchyFragment extends AbstractRootFragment<KnowledgeHi
         });
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
-        mPresenter.getKnowledgeHierarchyData();
+        mRecyclerView.setHasFixedSize(true);
+        mPresenter.getKnowledgeHierarchyData(true);
         if (CommonUtils.isNetworkConnected()) {
             showLoading();
         }
@@ -107,7 +108,7 @@ public class KnowledgeHierarchyFragment extends AbstractRootFragment<KnowledgeHi
     @Override
     public void reload() {
         if (mPresenter != null && mRecyclerView.getVisibility() == View.INVISIBLE) {
-            mPresenter.getKnowledgeHierarchyData();
+            mPresenter.getKnowledgeHierarchyData(false);
         }
     }
 
@@ -121,12 +122,12 @@ public class KnowledgeHierarchyFragment extends AbstractRootFragment<KnowledgeHi
         mRefreshLayout.setPrimaryColorsId(Constants.BLUE_THEME, R.color.white);
         mRefreshLayout.setOnRefreshListener(refreshLayout -> {
             isRefresh = true;
-            mPresenter.getKnowledgeHierarchyData();
+            mPresenter.getKnowledgeHierarchyData(false);
             refreshLayout.finishRefresh(1000);
         });
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
             isRefresh = false;
-            mPresenter.getKnowledgeHierarchyData();
+            mPresenter.getKnowledgeHierarchyData(false);
             refreshLayout.finishLoadMore(1000);
         });
     }

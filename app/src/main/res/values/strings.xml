@@ -51,7 +51,7 @@
     <string name="install">install</string>
     <string name="logout_tint">Log out?</string>
     <string name="failed_to_obtain_banner_data">Failed to obtain advertising data</string>
-    <string name="failed_to_obtain_article_list">Gets the article list data</string>
+    <string name="failed_to_obtain_article_list">Failed gets the article list data</string>
 
     //Knowledge hierarchy
     <string name="failed_to_obtain_knowledge_data">Failure to obtain knowledge system data</string>

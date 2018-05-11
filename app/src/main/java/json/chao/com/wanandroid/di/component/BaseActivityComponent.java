@@ -17,7 +17,7 @@ public interface BaseActivityComponent extends AndroidInjector<BaseActivity> {
      * 每一个继承于BaseActivity的Activity都继承于同一个子组件
      */
     @Subcomponent.Builder
-        abstract class BaseBuilder extends AndroidInjector.Builder<BaseActivity>{
+    abstract class BaseBuilder extends AndroidInjector.Builder<BaseActivity>{
 
     }
 }

@@ -1,7 +1,6 @@
 package json.chao.com.wanandroid.contract.hierarchy;
 
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.base.view.BaseView;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
@@ -59,8 +58,9 @@ public interface KnowledgeHierarchyListContract {
          *
          * @param page page num
          * @param cid second page id
+         * @param isShowError If show error
          */
-        void getKnowledgeHierarchyDetailData(int page, int cid);
+        void getKnowledgeHierarchyDetailData(int page, int cid, boolean isShowError);
 
         /**
          * Add collect article

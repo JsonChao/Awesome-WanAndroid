@@ -150,6 +150,8 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
         });
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
+        mRecyclerView.setHasFixedSize(true);
+
         //add head banner
         LinearLayout mHeaderGroup = ((LinearLayout) LayoutInflater.from(_mActivity).inflate(R.layout.head_banner, null));
         mBanner = mHeaderGroup.findViewById(R.id.head_banner);
@@ -163,7 +165,7 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
                 && !isRecreate) {
             mPresenter.loadMainPagerData();
         } else {
-            mPresenter.autoRefresh();
+            mPresenter.autoRefresh(true);
         }
         if (CommonUtils.isNetworkConnected()) {
             showLoading();
@@ -254,12 +256,12 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
 
     @Override
     public void showLoginView() {
-        mPresenter.getFeedArticleList();
+        mPresenter.getFeedArticleList(false);
     }
 
     @Override
     public void showLogoutView() {
-        mPresenter.getFeedArticleList();
+        mPresenter.getFeedArticleList(false);
     }
 
     @Override
@@ -317,7 +319,7 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
 
     private void setRefresh() {
         mRefreshLayout.setOnRefreshListener(refreshLayout -> {
-            mPresenter.autoRefresh();
+            mPresenter.autoRefresh(false);
             refreshLayout.finishRefresh(1000);
         });
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> {

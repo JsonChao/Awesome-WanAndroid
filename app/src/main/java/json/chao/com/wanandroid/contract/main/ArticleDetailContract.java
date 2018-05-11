@@ -4,7 +4,6 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
 import json.chao.com.wanandroid.base.view.BaseView;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 
 /**

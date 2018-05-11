@@ -52,7 +52,7 @@
     <string name="install">安装</string>
     <string name="logout_tint">退出登录?</string>
     <string name="failed_to_obtain_banner_data">获取广告数据失败</string>
-    <string name="failed_to_obtain_article_list">获取文章列表数据</string>
+    <string name="failed_to_obtain_article_list">获取文章列表数据失败</string>
 
     //知识体系
     <string name="failed_to_obtain_knowledge_data">获取知识体系数据列表失败</string>

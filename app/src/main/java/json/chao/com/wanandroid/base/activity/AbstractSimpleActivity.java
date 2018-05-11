@@ -36,7 +36,10 @@ public abstract class AbstractSimpleActivity extends SupportActivity {
     protected void onDestroy() {
         super.onDestroy();
         ActivityCollector.getInstance().removeActivity(this);
-        unBinder.unbind();
+        if (unBinder != null && unBinder != Unbinder.EMPTY) {
+            unBinder.unbind();
+            unBinder = null;
+        }
     }
 
     protected void setToolBar(Toolbar toolBar, CharSequence title) {

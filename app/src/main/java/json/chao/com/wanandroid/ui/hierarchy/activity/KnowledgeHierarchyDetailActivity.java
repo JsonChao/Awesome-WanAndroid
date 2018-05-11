@@ -2,14 +2,12 @@ package json.chao.com.wanandroid.ui.hierarchy.activity;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.flyco.tablayout.SlidingTabLayout;
@@ -101,8 +99,7 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(false);
-        StatusBarUtil.immersive(this);
-        StatusBarUtil.setPaddingSmart(this, mToolbar);
+        StatusBarUtil.setStatusColor(getWindow(), ContextCompat.getColor(this, R.color.main_status_bar_blue), 1f);
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
         if (getIntent().getBooleanExtra(Constants.IS_SINGLE_CHAPTER, false)) {
             String superChapterName = getIntent().getStringExtra(Constants.SUPER_CHAPTER_NAME);

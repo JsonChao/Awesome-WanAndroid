@@ -1,7 +1,6 @@
 package json.chao.com.wanandroid.contract.main;
 
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.login.LoginData;
 import json.chao.com.wanandroid.base.view.BaseView;
 

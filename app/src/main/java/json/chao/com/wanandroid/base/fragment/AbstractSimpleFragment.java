@@ -10,7 +10,6 @@ import com.squareup.leakcanary.RefWatcher;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.reactivex.disposables.CompositeDisposable;
 import json.chao.com.wanandroid.app.WanAndroidApp;
 import me.yokeyword.fragmentation.SupportFragment;
 import json.chao.com.wanandroid.R;
@@ -41,7 +40,10 @@ public abstract class AbstractSimpleFragment extends SupportFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unBinder.unbind();
+        if (unBinder != null && unBinder != Unbinder.EMPTY) {
+            unBinder.unbind();
+            unBinder = null;
+        }
     }
 
     @Override

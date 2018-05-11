@@ -2,7 +2,6 @@ package json.chao.com.wanandroid.contract.mainpager;
 
 import java.util.List;
 
-import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.banner.BannerData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
@@ -79,8 +78,15 @@ public interface MainPagerContract {
 
         /**
          * Get feed article list
+         *
+         * @param isShowError If show error
          */
-        void getFeedArticleList();
+        void getFeedArticleList(boolean isShowError);
+
+        /**
+         * Load more data
+         */
+        void loadMoreData();
 
         /**
          * Add collect article
@@ -100,13 +106,17 @@ public interface MainPagerContract {
 
         /**
          * Get banner data
+         *
+         * @param isShowError If show error
          */
-        void getBannerData();
+        void getBannerData(boolean isShowError);
 
         /**
          * Auto refresh
+         *
+         * @param isShowError If show error
          */
-        void autoRefresh();
+        void autoRefresh(boolean isShowError);
 
         /**
          * Load more

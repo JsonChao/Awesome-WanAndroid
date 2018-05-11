@@ -38,7 +38,10 @@ public abstract class AbstractSimpleDialogFragment extends DialogFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unBinder.unbind();
+        if (unBinder != null && unBinder != Unbinder.EMPTY) {
+            unBinder.unbind();
+            unBinder = null;
+        }
     }
 
     @Override

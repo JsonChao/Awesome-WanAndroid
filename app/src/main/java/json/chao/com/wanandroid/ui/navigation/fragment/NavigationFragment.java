@@ -62,7 +62,7 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
     @Override
     protected void initEventAndData() {
         super.initEventAndData();
-        mPresenter.getNavigationListData();
+        mPresenter.getNavigationListData(true);
         if (CommonUtils.isNetworkConnected()) {
             showLoading();
         }
@@ -113,6 +113,8 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
         mRecyclerView.setAdapter(adapter);
         mManager = new LinearLayoutManager(_mActivity);
         mRecyclerView.setLayoutManager(mManager);
+        mRecyclerView.setHasFixedSize(true);
+
         leftRightLinkage();
         showNormal();
     }
@@ -128,7 +130,7 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
     @Override
     public void reload() {
         if (mPresenter != null && mNavigationGroup.getVisibility() == View.INVISIBLE) {
-            mPresenter.getNavigationListData();
+            mPresenter.getNavigationListData(false);
         }
     }
 

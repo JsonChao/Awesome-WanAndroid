@@ -86,7 +86,9 @@ public class ProjectListFragment extends AbstractRootFragment<ProjectListPresent
         });
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
-        mPresenter.getProjectListData(mCurrentPage, cid);
+        mRecyclerView.setHasFixedSize(true);
+
+        mPresenter.getProjectListData(mCurrentPage, cid, true);
         if (CommonUtils.isNetworkConnected()) {
             showLoading();
         }
@@ -104,7 +106,7 @@ public class ProjectListFragment extends AbstractRootFragment<ProjectListPresent
     @Override
     public void reload() {
         if (mPresenter != null) {
-            mPresenter.getProjectListData(0, cid);
+            mPresenter.getProjectListData(0, cid, false);
         }
     }
 
@@ -147,13 +149,13 @@ public class ProjectListFragment extends AbstractRootFragment<ProjectListPresent
         mRefreshLayout.setOnRefreshListener(refreshLayout -> {
             mCurrentPage = 1;
             isRefresh = true;
-            mPresenter.getProjectListData(mCurrentPage, cid);
+            mPresenter.getProjectListData(mCurrentPage, cid, false);
             refreshLayout.finishRefresh(1000);
         });
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
             mCurrentPage++;
             isRefresh = false;
-            mPresenter.getProjectListData(mCurrentPage, cid);
+            mPresenter.getProjectListData(mCurrentPage, cid, false);
             refreshLayout.finishLoadMore(1000);
         });
     }

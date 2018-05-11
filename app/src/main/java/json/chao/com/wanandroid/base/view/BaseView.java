@@ -55,16 +55,6 @@ public interface BaseView {
     void showLogoutView();
 
     /**
-     * Show collect fail
-     */
-    void showCollectFail();
-
-    /**
-     * Show cancel collect fail
-     */
-    void showCancelCollectFail();
-
-    /**
      * Show collect success
      */
     void showCollectSuccess();

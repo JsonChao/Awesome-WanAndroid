@@ -8,5 +8,5 @@ import dagger.Module;
  */
 
 @Module
-public class SplashActivityModule {
+class SplashActivityModule {
 }
