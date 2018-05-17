@@ -1,0 +1,95 @@
+ext {
+
+    android = [
+            compileSdkVersion       : 27,
+            buildToolsVersion       : "27.0.3",
+            minSdkVersion           : 21,
+            targetSdkVersion        : 27,
+            versionCode             : 4,
+            versionName             : "1.2.0",
+            renderscriptTargetApi   : 21
+    ]
+
+    version = [
+            supportLibraryVersion   : "27.1.1",
+            smartrefreshVersion     : "1.0.5.1",
+            okhttpVersion           : "3.9.0",
+            retrofitVersion         : "2.3.0",
+            glideVersion            : "4.0.0",
+            daggerVersion           : "2.15",
+            butterknifeVersion      : "8.8.1",
+            fragmentationVersion    : "1.1.9",
+            leakcanaryVersion       : "1.5.4"
+    ]
+
+    dependencies = [
+            //base
+            "appcompat-v7"                      : "com.android.support:appcompat-v7:${version["supportLibraryVersion"]}",
+            "cardview-v7"                       : "com.android.support:cardview-v7:${version["supportLibraryVersion"]}",
+            "support-v4"                        : "com.android.support:support-v4:${version["supportLibraryVersion"]}",
+            "design"                            : "com.android.support:design:${version["supportLibraryVersion"]}",
+            "constraint-layout"                 : "com.android.support.constraint:constraint-layout:1.0.2",
+
+            //ui
+            "SmartRefreshLayout"                :"com.scwang.smartrefresh:SmartRefreshLayout:${version["smartrefreshVersion"]}",
+            "SmartRefreshHeader"                : "com.scwang.smartrefresh:SmartRefreshHeader:${version["smartrefreshVersion"]}",
+            "banner"                            : "com.youth.banner:banner:1.4.10",
+            "FlycoTabLayout_Lib"                : "com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar",
+            "VerticalTabLayout"                 : "q.rorbin:VerticalTabLayout:1.2.5",
+            "flowlayout-lib"                    : "com.hyman:flowlayout-lib:1.1.2",
+            "agentweb"                          : "com.just.agentweb:agentweb:4.0.2",
+
+            //net
+            "gson"                              : "com.google.code.gson:gson:2.8.2",
+            "okhttp"                            : "com.squareup.okhttp3:okhttp:${version["okhttpVersion"]}",
+            "logging-interceptor"               : "com.squareup.okhttp3:logging-interceptor:${version["okhttpVersion"]}",
+            "retrofit"                          : "com.squareup.retrofit2:retrofit:${version["retrofitVersion"]}",
+            "converter-gson"                    : "com.squareup.retrofit2:converter-gson:${version["retrofitVersion"]}",
+            "adapter-rxjava2"                   : "com.squareup.retrofit2:adapter-rxjava2:${version["retrofitVersion"]}",
+            "glide"                             : "com.github.bumptech.glide:glide:${version["glideVersion"]}",
+            "glide_compiler"                    : "com.github.bumptech.glide:compiler:${version["glideVersion"]}",
+
+            //dao
+            "greendao"                          : "org.greenrobot:greendao:3.2.2",
+
+            //rx
+            "rxjava"                            : "io.reactivex.rxjava2:rxjava:2.1.5",
+            "rxandroid"                         : "io.reactivex.rxjava2:rxandroid:2.0.1",
+            "rxbinding"                         : "com.jakewharton.rxbinding2:rxbinding:2.1.0",
+            "rxpermissions"                     : "com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar",
+
+            //di
+            "dagger"                            : "com.google.dagger:dagger:${version["daggerVersion"]}",
+            "dagger-compiler"                   : "com.google.dagger:dagger-compiler:${version["daggerVersion"]}",
+            "dagger-android"                    : "com.google.dagger:dagger-android:${version["daggerVersion"]}",
+            "dagger-android-support"            : "com.google.dagger:dagger-android-support:${version["daggerVersion"]}",
+            "dagger-android-processor"          : "com.google.dagger:dagger-android-processor:${version["daggerVersion"]}",
+            "javax_annotation"                  : "org.glassfish:javax.annotation:10.0-b28",
+            "butterknife"                       : "com.jakewharton:butterknife:${version["butterknifeVersion"]}",
+            "butterknife-compiler"              : "com.jakewharton:butterknife-compiler:${version["butterknifeVersion"]}",
+
+            //multidex
+            "multidex"                          : "com.android.support:multidex:1.0.3",
+
+            //other
+            "lottie"                            : "com.airbnb.android:lottie:2.3.0",
+            "BaseRecyclerViewAdapterHelper"     : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34",
+            "fragmentation"                     : "me.yokeyword:fragmentation:${version["fragmentationVersion"]}",
+            "fragmentation-swipeback"           : "me.yokeyword:fragmentation-swipeback:${version["fragmentationVersion"]}",
+            "crashreport_upgrade"               : "com.tencent.bugly:crashreport_upgrade:latest.release",
+            "logger"                            : "com.orhanobut:logger:2.1.1",
+            "ByeBurger"                         : "com.github.githubwing:ByeBurger:1.2.3",
+
+            //kotlin
+            "kotlin-stdlib"                     : "org.jetbrains.kotlin:kotlin-stdlib:1.2.10",
+
+            //unit test
+            "junit"                             : "junit:junit:4.12",
+            "runner"                            : "com.android.support.test:runner:1.0.2",
+            "espresso-core"                     : "com.android.support.test.espresso:espresso-core:3.0.2",
+            "androidJUnitRunner"                : "android.support.test.runner.AndroidJUnitRunner",
+            "leakcanary-android"                : "com.squareup.leakcanary:leakcanary-android:${version["leakcanaryVersion"]}",
+            "leakcanary-android-no-op"          : "com.squareup.leakcanary:leakcanary-android-no-op:${version["leakcanaryVersion"]}"
+    ]
+
+}

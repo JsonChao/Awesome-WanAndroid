@@ -1,5 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
+apply from: "config.gradle"
 buildscript {
     ext.kotlin_version = '1.2.10'
     repositories {
@@ -33,45 +33,4 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-// Define versions in a single place
-ext {
-    // Sdk and tools
-    compileSdkVersion = 27
-    buildToolsVersion = '27.0.3'
-    minSdkVersion = 21
-    targetSdkVersion = 25
-
-    // App dependencies
-    supportLibraryVersion = '27.1.1'
-    loggerVersion = '2.1.1'
-    leakcanaryVersion = '1.5.4'
-    gsonVersion = '2.8.2'
-    okhttpVersion = '3.9.0'
-    retrofitVersion = '2.3.0'
-    glideVersion = '4.0.0'
-    greendaoVersion = '3.2.2'
-    fragmentationVersion = '1.1.9'
-    rxjavaVersion = '2.1.5'
-    rxandroidVersion = '2.0.1'
-    rxbindingVersion = '2.1.0'
-    rxpermissionsVersion = '0.9.5@aar'
-    daggerVersion = '2.15'
-    javaxVersion = '10.0-b28'
-    butterknifeVersion = '8.8.1'
-    multidexVersion = '1.0.3'
-    lottieVersion = '2.3.0'
-    constraintVersion = '1.0.2'
-    ByeBurgerVersion = '1.2.3'
-    aviVersion = '2.1.3'
-    smartrefreshVersion = '1.0.5.1'
-    bannerVersion = '1.4.10'
-    tablayoutVersion = '2.1.2@aar'
-    verticalTabLayoutVersion = '1.2.5'
-    flowlayoutVersion = '1.1.2'
-
-    //Test dependencies
-    junitVersion = '4.12'
-
 }

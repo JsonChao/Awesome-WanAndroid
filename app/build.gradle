@@ -6,8 +6,8 @@ apply plugin: 'org.greenrobot.greendao'
 
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
 //    signingConfigs {
 //        release {
 //            storeFile file(RELEASE_STORE_FILE)
@@ -18,12 +18,12 @@ android {
 //    }
     defaultConfig {
         applicationId "json.chao.com.wanandroid"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 4
-        versionName "1.2.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        renderscriptTargetApi 21
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
+        testInstrumentationRunner rootProject.ext.android["androidJUnitRunner"]
+        renderscriptTargetApi rootProject.ext.android["renderscriptTargetApi"]
         renderscriptSupportModeEnabled true    // Enable RS support
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
@@ -72,70 +72,75 @@ dependencies {
     })
 
     //base
-    implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
-    implementation "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
-    implementation "com.android.support:support-v4:$rootProject.supportLibraryVersion"
-    implementation "com.android.support:design:$rootProject.supportLibraryVersion"
-    implementation "com.android.support.constraint:constraint-layout:$rootProject.constraintVersion"
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["cardview-v7"]
+    implementation rootProject.ext.dependencies["support-v4"]
+    implementation rootProject.ext.dependencies["design"]
+    implementation rootProject.ext.dependencies["constraint-layout"]
 
     //ui
-    implementation "com.scwang.smartrefresh:SmartRefreshLayout:$rootProject.smartrefreshVersion"
-    implementation "com.scwang.smartrefresh:SmartRefreshHeader:$rootProject.smartrefreshVersion"
-    implementation "com.youth.banner:banner:$rootProject.bannerVersion"
-    implementation "com.flyco.tablayout:FlycoTabLayout_Lib:$rootProject.tablayoutVersion"
-    implementation "q.rorbin:VerticalTabLayout:$rootProject.verticalTabLayoutVersion"
-    implementation "com.hyman:flowlayout-lib:$rootProject.flowlayoutVersion"
-    implementation 'com.just.agentweb:agentweb:4.0.2'
+    implementation rootProject.ext.dependencies["SmartRefreshLayout"]
+    implementation rootProject.ext.dependencies["SmartRefreshHeader"]
+    implementation rootProject.ext.dependencies["banner"]
+    implementation rootProject.ext.dependencies["FlycoTabLayout_Lib"]
+    implementation rootProject.ext.dependencies["VerticalTabLayout"]
+    implementation rootProject.ext.dependencies["flowlayout-lib"]
+    implementation rootProject.ext.dependencies["agentweb"]
 
     //net
-    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
-    implementation "com.squareup.okhttp3:okhttp:$rootProject.okhttpVersion"
-    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpVersion"
-    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
-    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
-    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
+    implementation rootProject.ext.dependencies["gson"]
+    implementation rootProject.ext.dependencies["okhttp"]
+    implementation rootProject.ext.dependencies["logging-interceptor"]
+    implementation rootProject.ext.dependencies["retrofit"]
+    implementation rootProject.ext.dependencies["converter-gson"]
+    implementation rootProject.ext.dependencies["adapter-rxjava2"]
+    implementation rootProject.ext.dependencies["glide"]
+    annotationProcessor rootProject.ext.dependencies["glide_compiler"]
 
     //dao
-    implementation "org.greenrobot:greendao:$rootProject.greendaoVersion"
+    implementation rootProject.ext.dependencies["greendao"]
 
     //rx
-    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
-    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
-    implementation "com.jakewharton.rxbinding2:rxbinding:$rootProject.rxbindingVersion"
-    implementation "com.tbruyelle.rxpermissions2:rxpermissions:$rootProject.rxpermissionsVersion"
+    implementation rootProject.ext.dependencies["rxjava"]
+    implementation rootProject.ext.dependencies["rxandroid"]
+    implementation rootProject.ext.dependencies["rxbinding"]
+    implementation rootProject.ext.dependencies["rxpermissions"]
 
     //di
-    implementation "com.google.dagger:dagger:$rootProject.daggerVersion"
-    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
-    implementation 'com.google.dagger:dagger-android:2.15'
-    implementation 'com.google.dagger:dagger-android-support:2.15'
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.15'
-    implementation "org.glassfish:javax.annotation:$rootProject.javaxVersion"
-    implementation "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
-    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
+    implementation rootProject.ext.dependencies["dagger"]
+    annotationProcessor rootProject.ext.dependencies["dagger-compiler"]
+    implementation rootProject.ext.dependencies["dagger-android"]
+    implementation rootProject.ext.dependencies["dagger-android-support"]
+    annotationProcessor rootProject.ext.dependencies["dagger-android-processor"]
+    implementation rootProject.ext.dependencies["javax_annotation"]
+    implementation rootProject.ext.dependencies["butterknife"]
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
 
     //multidex
-    implementation "com.android.support:multidex:$rootProject.multidexVersion"
+    implementation rootProject.ext.dependencies["multidex"]
 
     //other
-    implementation "com.airbnb.android:lottie:$rootProject.lottieVersion"
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
-    implementation "me.yokeyword:fragmentation:$rootProject.fragmentationVersion"
-    implementation "me.yokeyword:fragmentation-swipeback:$rootProject.fragmentationVersion"
-    implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
-    implementation "com.orhanobut:logger:$rootProject.loggerVersion"
-    implementation "com.github.githubwing:ByeBurger:$rootProject.ByeBurgerVersion"
+    implementation rootProject.ext.dependencies["lottie"]
+    implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
+    implementation rootProject.ext.dependencies["fragmentation"]
+    implementation rootProject.ext.dependencies["fragmentation-swipeback"]
+    implementation rootProject.ext.dependencies["crashreport_upgrade"]
+    implementation rootProject.ext.dependencies["logger"]
+    implementation rootProject.ext.dependencies["ByeBurger"]
 
     //canary
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.leakcanaryVersion"
-    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakcanaryVersion"
-    testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakcanaryVersion"
+    debugImplementation rootProject.ext.dependencies["leakcanary-android"]
+    releaseImplementation rootProject.ext.dependencies["leakcanary-android-no-op"]
+    testImplementation rootProject.ext.dependencies["leakcanary-android-no-op"]
+
+
 
     //unit test
-    testImplementation "junit:junit:$rootProject.junitVersion"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testImplementation rootProject.ext.dependencies["junit"]
+    androidTestImplementation rootProject.ext.dependencies["runner"]
+
+    implementation rootProject.ext.dependencies["kotlin-stdlib"]
+
 }
 
 //解决支持库版本不兼容问题
