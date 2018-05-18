@@ -22,12 +22,13 @@
 
 Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagger2 + GreenDao + Glide
 
-这是一款会让您觉得很nice的技术学习APP，所用技术基本涵盖了当前Android开发中常用的主流技术框架，阅读内容主要面向想在Android开发领域成为专家的朋友们。
+这是一款会让您觉得很nice的技术学习APP，所用技术基本涵盖了当前Android开发中常用的主流技术框架，阅读内容主要面向想在Android开发领域成为专家的朋友们。此外，我正在进行一个
+[全新的Android进阶计划](https://github.com/JsonChao/Awesome-Android-Exercise),致力于成为更好的Android开发，有兴趣的朋友可以参考下~
 
 ## Awesome-WanAndroid Architecture
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/AppArchitectrue.png">
+<img src="https://raw.githubusercontent.com/JsonChao/Awesome-WanAndroid/master/screenshots/AppArchitecture.png">
 </div>
 
 #### 借鉴于[设计MVP架构的最佳实践](https://blog.mindorks.com/essential-guide-for-designing-your-android-app-architecture-mvp-part-1-74efaf1cda40#.3lyk8t57x)
@@ -92,7 +93,7 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 
 
-## Apk download（Android 5.0 or above it）（更好的Awesome-WanAndroid V1.2.0 来了）
+## Apk download（Android 5.0 or above it）（更好的Awesome-WanAndroid V1.2.1 来了）
 
 <center>
 
@@ -127,7 +128,30 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 ## Version
 
-### :zap:v1.2.0
+### :zap:v1.2.1
+
+1.增加dagger.android
+
+2.使用config.gradle统一管理gradle依赖
+
+3.封装RxBinding订阅处理
+
+4.增加共享元素适配处理
+
+5.使用Compose增加统一返回结果处理
+
+6.增加Glide memory、bitmapPool、diskCache配置
+
+7.优化加载错误页显示逻辑
+
+8.优化注册界面
+
+9.优化沉浸式状态栏显示效果
+
+10.更新Gradle版本到3.0.1
+
+
+### v1.2.0
 
 1.增加设置模块
 
