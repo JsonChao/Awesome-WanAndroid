@@ -6,9 +6,8 @@ import android.os.Bundle;
 import javax.inject.Inject;
 
 import dagger.android.support.AndroidSupportInjection;
-import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
-import json.chao.com.wanandroid.base.view.BaseView;
+import json.chao.com.wanandroid.base.view.AbstractView;
 import json.chao.com.wanandroid.utils.CommonUtils;
 
 /**
@@ -19,7 +18,7 @@ import json.chao.com.wanandroid.utils.CommonUtils;
  */
 
 public abstract class BaseDialogFragment<T extends AbstractPresenter> extends AbstractSimpleDialogFragment
-        implements BaseView {
+        implements AbstractView {
 
     @Inject
     protected T mPresenter;

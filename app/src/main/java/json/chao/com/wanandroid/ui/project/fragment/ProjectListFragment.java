@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
+import json.chao.com.wanandroid.base.fragment.BaseRootFragment;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.core.bean.project.ProjectListData;
@@ -30,7 +30,7 @@ import json.chao.com.wanandroid.utils.JudgeUtils;
  * @date 2018/2/24
  */
 
-public class ProjectListFragment extends AbstractRootFragment<ProjectListPresenter> implements ProjectListContract.View {
+public class ProjectListFragment extends BaseRootFragment<ProjectListPresenter> implements ProjectListContract.View {
 
     @BindView(R.id.normal_view)
     SmartRefreshLayout mRefreshLayout;

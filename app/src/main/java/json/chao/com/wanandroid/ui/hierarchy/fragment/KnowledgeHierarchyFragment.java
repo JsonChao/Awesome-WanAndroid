@@ -13,7 +13,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import java.util.List;
 
 import butterknife.BindView;
-import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
+import json.chao.com.wanandroid.base.fragment.BaseRootFragment;
 import json.chao.com.wanandroid.core.bean.hierarchy.KnowledgeHierarchyData;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
@@ -28,7 +28,7 @@ import json.chao.com.wanandroid.utils.CommonUtils;
  * @date 2017/11/29
  */
 
-public class KnowledgeHierarchyFragment extends AbstractRootFragment<KnowledgeHierarchyPresenter>
+public class KnowledgeHierarchyFragment extends BaseRootFragment<KnowledgeHierarchyPresenter>
         implements KnowledgeHierarchyContract.View {
 
     @BindView(R.id.normal_view)

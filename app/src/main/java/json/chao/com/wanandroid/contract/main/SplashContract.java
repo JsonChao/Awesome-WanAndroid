@@ -1,7 +1,7 @@
 package json.chao.com.wanandroid.contract.main;
 
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
-import json.chao.com.wanandroid.base.view.BaseView;
+import json.chao.com.wanandroid.base.view.AbstractView;
 
 /**
  * @author quchao
@@ -10,7 +10,7 @@ import json.chao.com.wanandroid.base.view.BaseView;
 
 public interface SplashContract {
 
-    interface View extends BaseView {
+    interface View extends AbstractView {
         /**
          * after some time jump to main page
          */

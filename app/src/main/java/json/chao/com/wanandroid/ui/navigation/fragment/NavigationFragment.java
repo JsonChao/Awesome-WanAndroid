@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import java.util.List;
 
 import butterknife.BindView;
-import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
+import json.chao.com.wanandroid.base.fragment.BaseRootFragment;
 import json.chao.com.wanandroid.core.bean.navigation.NavigationListData;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
@@ -29,7 +29,7 @@ import q.rorbin.verticaltablayout.widget.TabView;
  * @date 2018/2/11
  */
 
-public class NavigationFragment extends AbstractRootFragment<NavigationPresenter> implements NavigationContract.View {
+public class NavigationFragment extends BaseRootFragment<NavigationPresenter> implements NavigationContract.View {
 
     @BindView(R.id.navigation_tab_layout)
     VerticalTabLayout mTabLayout;

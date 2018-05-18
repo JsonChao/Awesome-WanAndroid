@@ -8,7 +8,7 @@ package json.chao.com.wanandroid.base.view;
  * @date 2017/11/27
  */
 
-public interface BaseView {
+public interface AbstractView {
 
     /**
      * Use night mode

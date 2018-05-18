@@ -8,9 +8,8 @@ import android.view.View;
 import javax.inject.Inject;
 
 import dagger.android.support.AndroidSupportInjection;
-import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
-import json.chao.com.wanandroid.base.view.BaseView;
+import json.chao.com.wanandroid.base.view.AbstractView;
 import json.chao.com.wanandroid.utils.CommonUtils;
 
 /**
@@ -21,7 +20,7 @@ import json.chao.com.wanandroid.utils.CommonUtils;
  */
 
 public abstract class BaseFragment<T extends AbstractPresenter> extends AbstractSimpleFragment
-        implements BaseView {
+        implements AbstractView {
 
     @Inject
     protected T mPresenter;

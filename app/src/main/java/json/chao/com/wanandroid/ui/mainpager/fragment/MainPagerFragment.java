@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
+import json.chao.com.wanandroid.base.fragment.BaseRootFragment;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.bean.main.banner.BannerData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
@@ -45,7 +45,7 @@ import json.chao.com.wanandroid.utils.JudgeUtils;
  * @date 2017/11/29
  */
 
-public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> implements MainPagerContract.View {
+public class MainPagerFragment extends BaseRootFragment<MainPagerPresenter> implements MainPagerContract.View {
 
     @BindView(R.id.normal_view)
     SmartRefreshLayout mRefreshLayout;

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
+import json.chao.com.wanandroid.base.fragment.BaseRootFragment;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.bean.project.ProjectClassifyData;
 import json.chao.com.wanandroid.R;
@@ -28,7 +28,7 @@ import json.chao.com.wanandroid.utils.CommonUtils;
  * @date 2018/2/11
  */
 
-public class ProjectFragment extends AbstractRootFragment<ProjectPresenter> implements ProjectContract.View {
+public class ProjectFragment extends BaseRootFragment<ProjectPresenter> implements ProjectContract.View {
 
     @BindView(R.id.project_tab_layout)
     SlidingTabLayout mTabLayout;

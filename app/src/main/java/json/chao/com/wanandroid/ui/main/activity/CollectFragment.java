@@ -16,7 +16,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
-import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
+import json.chao.com.wanandroid.base.fragment.BaseRootFragment;
 import json.chao.com.wanandroid.contract.main.CollectContract;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
@@ -31,7 +31,7 @@ import json.chao.com.wanandroid.utils.JudgeUtils;
  * @date 2018/2/27
  */
 
-public class CollectFragment extends AbstractRootFragment<CollectPresenter> implements CollectContract.View {
+public class CollectFragment extends BaseRootFragment<CollectPresenter> implements CollectContract.View {
 
     @BindView(R.id.normal_view)
     SmartRefreshLayout mRefreshLayout;

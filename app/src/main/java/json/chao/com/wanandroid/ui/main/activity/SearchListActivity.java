@@ -21,7 +21,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
-import json.chao.com.wanandroid.base.activity.AbstractRootActivity;
+import json.chao.com.wanandroid.base.activity.BaseRootActivity;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.contract.main.SearchListContract;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
@@ -39,7 +39,7 @@ import json.chao.com.wanandroid.utils.StatusBarUtil;
  * @date 2018/3/13
  */
 
-public class SearchListActivity extends AbstractRootActivity<SearchListPresenter> implements SearchListContract.View {
+public class SearchListActivity extends BaseRootActivity<SearchListPresenter> implements SearchListContract.View {
 
     @BindView(R.id.common_toolbar)
     Toolbar mToolbar;

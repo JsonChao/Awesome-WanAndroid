@@ -15,7 +15,7 @@ import json.chao.com.wanandroid.base.presenter.BasePresenter;
  * @date 2018/3/30
  */
 
-public abstract class AbstractRootActivity<T extends BasePresenter> extends BaseActivity<T> {
+public abstract class BaseRootActivity<T extends BasePresenter> extends BaseActivity<T> {
 
     private static final int NORMAL_STATE = 0;
     private static final int LOADING_STATE = 1;

@@ -139,6 +139,9 @@ public class AboutUsActivity extends AbstractSimpleActivity {
                 float fraction = 1f * (scrollRange + verticalOffset) / scrollRange;
                 double minFraction = 0.1;
                 double maxFraction = 0.8;
+                if (mScrollView == null || mAboutUsFab == null || mAboutUsFlyView == null) {
+                    return;
+                }
                 if (fraction < minFraction && misAppbarExpand) {
                     misAppbarExpand = false;
                     mAboutUsFab.animate().scaleX(0).scaleY(0);

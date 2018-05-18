@@ -2,10 +2,10 @@ package json.chao.com.wanandroid.contract.mainpager;
 
 import java.util.List;
 
+import json.chao.com.wanandroid.base.view.AbstractView;
 import json.chao.com.wanandroid.core.bean.main.banner.BannerData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
-import json.chao.com.wanandroid.base.view.BaseView;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 
 /**
@@ -15,7 +15,7 @@ import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 
 public interface MainPagerContract {
 
-    interface View extends BaseView {
+    interface View extends AbstractView {
 
         /**
          * Show auto login success

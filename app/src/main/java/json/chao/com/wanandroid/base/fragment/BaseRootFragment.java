@@ -15,7 +15,7 @@ import json.chao.com.wanandroid.base.presenter.BasePresenter;
  * @date 2018/3/30
  */
 
-public abstract class AbstractRootFragment<T extends BasePresenter> extends BaseFragment<T> {
+public abstract class BaseRootFragment<T extends BasePresenter> extends BaseFragment<T> {
 
     private static final int NORMAL_STATE = 0;
     private static final int LOADING_STATE = 1;

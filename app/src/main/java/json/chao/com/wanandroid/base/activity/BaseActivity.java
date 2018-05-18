@@ -11,9 +11,8 @@ import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
-import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
-import json.chao.com.wanandroid.base.view.BaseView;
+import json.chao.com.wanandroid.base.view.AbstractView;
 import json.chao.com.wanandroid.utils.CommonUtils;
 
 /**
@@ -25,7 +24,7 @@ import json.chao.com.wanandroid.utils.CommonUtils;
 
 public abstract class BaseActivity<T extends AbstractPresenter> extends AbstractSimpleActivity implements
         HasSupportFragmentInjector,
-        BaseView {
+        AbstractView {
 
     @Inject
     DispatchingAndroidInjector<Fragment> mFragmentDispatchingAndroidInjector;

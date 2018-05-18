@@ -9,34 +9,34 @@ skinparam activityBorderColor #ef5345
 skinparam activityFontName Impact
 
 rectangle View #lightGreen
-rectangle MvpView #white
-rectangle MvpPresenter #white
+rectangle AbstractView #white
+rectangle AbstractPresenter #white
 rectangle Presenter #lightGreen
-rectangle AppDataManager #lightGreen
-rectangle ApiHelper #white
-rectangle AppApiHelper #lightGreen
+rectangle DataManager #lightGreen
+rectangle HttpHelper #white
+rectangle HttpHelperImpl #lightGreen
 rectangle PreferenceHelper #white
-rectangle AppPreferenceHelper #lightGreen
+rectangle PreferenceHelperImpl #lightGreen
 rectangle DbHelper #white
-rectangle AppDbHelper #lightGreen
+rectangle DBHelperImpl #lightGreen
 
-View -- MvpView
-View -r-> MvpPresenter
-MvpPresenter -l-> View
-MvpPresenter -- Presenter
-Presenter -l-> MvpView
-MvpView -r-> Presenter
-Presenter -r-> AppDataManager
-AppDataManager -l-> Presenter
-AppDataManager -r-> PreferenceHelper
-PreferenceHelper -l-> AppDataManager
-PreferenceHelper -r- AppPreferenceHelper
-AppDataManager -u-> ApiHelper
-ApiHelper -d-> AppDataManager
-ApiHelper -u-> AppApiHelper
-AppDataManager -d-> DbHelper
-DbHelper -u-> AppDataManager
-DbHelper -d-> AppDbHelper
+View -- AbstractView
+View -r-> AbstractPresenter
+AbstractPresenter -l-> View
+AbstractPresenter -- Presenter
+Presenter -l-> AbstractView
+AbstractView -r-> Presenter
+Presenter -r-> DataManager
+DataManager -l-> Presenter
+DataManager -r-> PreferenceHelper
+PreferenceHelper -l-> DataManager
+PreferenceHelper -r- PreferenceHelperImpl
+DataManager -u-> HttpHelper
+HttpHelper -d-> DataManager
+HttpHelper -u- HttpHelperImpl
+DataManager -d-> DbHelper
+DbHelper -u-> DataManager
+DbHelper -d- DBHelperImpl
 
 
 
