@@ -52,11 +52,14 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     @Override
-    protected void initEventAndData() {
+    protected void initToolbar() {
         StatusBarUtil.immersive(this);
         StatusBarUtil.setPaddingSmart(this, mToolbar);
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
+    }
 
+    @Override
+    protected void initEventAndData() {
         mPresenter.addRxBindingSubscribe(RxView.clicks(mLoginBtn)
                 .throttleFirst(Constants.CLICK_TIME_AREA, TimeUnit.MILLISECONDS)
                 .filter(o -> mPresenter != null)

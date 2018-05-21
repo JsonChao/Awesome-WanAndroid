@@ -2,6 +2,8 @@ package json.chao.com.wanandroid.ui.main.fragment;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
@@ -99,7 +101,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     protected int getLayout() {
         return R.layout.fragment_search;
     }
-    
+
     @Override
     protected void initEventAndData() {
         initCircleAnimation();
@@ -253,21 +255,21 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     }
 
     private void setHistoryTvStatus(boolean isClearAll) {
-        Drawable drawable;
         mClearAllHistoryTv.setEnabled(!isClearAll);
         if (isClearAll) {
-            mHistoryNullTintTv.setVisibility(View.VISIBLE);
-            mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.search_grey_gone));
-            drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_all_gone);
-            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-            mClearAllHistoryTv.setCompoundDrawables(drawable, null, null, null);
+            setHistoryTvStatus(View.VISIBLE, R.color.search_grey_gone, R.drawable.ic_clear_all_gone);
         } else {
-            mHistoryNullTintTv.setVisibility(View.GONE);
-            mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.search_grey));
-            drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_all);
-            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-            mClearAllHistoryTv.setCompoundDrawables(drawable, null, null, null);
+            setHistoryTvStatus(View.GONE, R.color.search_grey, R.drawable.ic_clear_all);
         }
+    }
+
+    private void setHistoryTvStatus(int visibility, @ColorRes int textColor, @DrawableRes int clearDrawable) {
+        Drawable drawable;
+        mHistoryNullTintTv.setVisibility(visibility);
+        mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), textColor));
+        drawable = ContextCompat.getDrawable(getActivity(), clearDrawable);
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        mClearAllHistoryTv.setCompoundDrawables(drawable, null, null, null);
         mClearAllHistoryTv.setCompoundDrawablePadding(CommonUtils.dp2px(6));
     }
 

@@ -61,41 +61,33 @@ public abstract class BaseFragment<T extends AbstractPresenter> extends Abstract
 
     @Override
     public void showNormal() {
-
     }
 
     @Override
     public void showError() {
-
     }
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
     public void reload() {
-
     }
 
     @Override
     public void showCollectSuccess() {
-
     }
 
     @Override
     public void showCancelCollectSuccess() {
-
     }
 
     @Override
     public void showLoginView() {
-
     }
 
     @Override
     public void showLogoutView() {
-
     }
 }

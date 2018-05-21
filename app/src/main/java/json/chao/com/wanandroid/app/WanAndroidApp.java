@@ -48,7 +48,7 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
 
     private static WanAndroidApp instance;
     private RefWatcher refWatcher;
-    public static boolean isFirstRun;
+    public static boolean isFirstRun = true;
     private static volatile AppComponent appComponent;
 
     //static 代码段可以防止内存泄露, 全局设置刷新头部及尾部，优先级最低

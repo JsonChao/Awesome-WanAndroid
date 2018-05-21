@@ -76,11 +76,34 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
         return R.layout.activity_article_detail;
     }
 
+    @Override
+    protected void initToolbar() {
+        bundle = getIntent().getExtras();
+        assert bundle != null;
+        title = (String) bundle.get(Constants.ARTICLE_TITLE);
+        mToolbar.setTitle(Html.fromHtml(title));
+        setSupportActionBar(mToolbar);
+        StatusBarUtil.immersive(this);
+        StatusBarUtil.setPaddingSmart(this, mToolbar);
+        mToolbar.setNavigationOnClickListener(v -> {
+            if (isCollect) {
+                RxBus.getDefault().post(new CollectEvent(false));
+            } else {
+                RxBus.getDefault().post(new CollectEvent(true));
+            }
+            onBackPressedSupport();
+        });
+
+        articleLink = (String) bundle.get(Constants.ARTICLE_LINK);
+        articleId = ((int) bundle.get(Constants.ARTICLE_ID));
+        isCommonSite = ((boolean) bundle.get(Constants.IS_COMMON_SITE));
+        isCollect = ((boolean) bundle.get(Constants.IS_COLLECT));
+        isCollectPage = ((boolean) bundle.get(Constants.IS_COLLECT_PAGE));
+    }
+
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void initEventAndData() {
-        initToolBar();
-
         mAgentWeb = AgentWeb.with(this)
                 .setAgentWebParent(mWebContent, new LinearLayout.LayoutParams(-1, -1))
                 .useDefaultIndicator()
@@ -231,29 +254,6 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
                 }
             }
         }
-    }
-
-    private void initToolBar() {
-        bundle = getIntent().getExtras();
-        assert bundle != null;
-        title = (String) bundle.get(Constants.ARTICLE_TITLE);
-        setToolBar(mToolbar, Html.fromHtml(title));
-        StatusBarUtil.immersive(this);
-        StatusBarUtil.setPaddingSmart(this, mToolbar);
-        mToolbar.setNavigationOnClickListener(v -> {
-            if (isCollect) {
-                RxBus.getDefault().post(new CollectEvent(false));
-            } else {
-                RxBus.getDefault().post(new CollectEvent(true));
-            }
-            onBackPressedSupport();
-        });
-
-        articleLink = (String) bundle.get(Constants.ARTICLE_LINK);
-        articleId = ((int) bundle.get(Constants.ARTICLE_ID));
-        isCommonSite = ((boolean) bundle.get(Constants.IS_COMMON_SITE));
-        isCollect = ((boolean) bundle.get(Constants.IS_COLLECT));
-        isCollectPage = ((boolean) bundle.get(Constants.IS_COLLECT_PAGE));
     }
 
     @Override

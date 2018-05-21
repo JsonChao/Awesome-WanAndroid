@@ -74,13 +74,9 @@ public class ProjectFragment extends BaseRootFragment<ProjectPresenter> implemen
     @Override
     public void showProjectClassifyData(List<ProjectClassifyData> projectClassifyDataList) {
         if (mPresenter.getCurrentPage() == Constants.TYPE_PROJECT) {
-            mTabLayout.setVisibility(View.VISIBLE);
-            mDivider.setVisibility(View.VISIBLE);
-            mViewPager.setVisibility(View.VISIBLE);
+            setChildViewVisibility(View.VISIBLE);
         } else {
-            mTabLayout.setVisibility(View.INVISIBLE);
-            mDivider.setVisibility(View.INVISIBLE);
-            mViewPager.setVisibility(View.INVISIBLE);
+            setChildViewVisibility(View.INVISIBLE);
         }
         mData = projectClassifyDataList;
         for (ProjectClassifyData data : mData) {
@@ -126,9 +122,7 @@ public class ProjectFragment extends BaseRootFragment<ProjectPresenter> implemen
 
     @Override
     public void showError() {
-        mTabLayout.setVisibility(View.INVISIBLE);
-        mDivider.setVisibility(View.INVISIBLE);
-        mViewPager.setVisibility(View.INVISIBLE);
+        setChildViewVisibility(View.INVISIBLE);
         super.showError();
     }
 
@@ -137,6 +131,12 @@ public class ProjectFragment extends BaseRootFragment<ProjectPresenter> implemen
         if (mPresenter != null && mTabLayout.getVisibility() == View.INVISIBLE) {
             mPresenter.getProjectClassifyData();
         }
+    }
+
+    private void setChildViewVisibility(int visibility) {
+        mTabLayout.setVisibility(visibility);
+        mDivider.setVisibility(visibility);
+        mViewPager.setVisibility(visibility);
     }
 
     public void jumpToTheTop() {

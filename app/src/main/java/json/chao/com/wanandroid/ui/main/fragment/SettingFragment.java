@@ -1,4 +1,4 @@
-package json.chao.com.wanandroid.ui.main.activity;
+package json.chao.com.wanandroid.ui.main.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatCheckBox;
@@ -82,9 +82,7 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements
         switch (compoundButton.getId()) {
             case R.id.cb_setting_night:
                 mPresenter.setNightModeState(b);
-                NightModeEvent nightModeEvent = new NightModeEvent();
-                nightModeEvent.setNightMode(b);
-                RxBus.getDefault().post(nightModeEvent);
+                RxBus.getDefault().post(new NightModeEvent(b));
                 break;
             case R.id.cb_setting_image:
                 mPresenter.setNoImageState(b);

@@ -19,16 +19,18 @@ import json.chao.com.wanandroid.core.http.api.GeeksApis;
 
 
 /**
+ * 对外隐藏进行网络请求的实现细节
+ *
  * @author quchao
  * @date 2017/11/27
  */
 
-public class RetrofitHelper implements HttpHelper {
+public class HttpHelperImpl implements HttpHelper {
 
     private GeeksApis mGeeksApis;
 
     @Inject
-    RetrofitHelper(GeeksApis geeksApis) {
+    HttpHelperImpl(GeeksApis geeksApis) {
         mGeeksApis = geeksApis;
     }
 

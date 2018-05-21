@@ -48,8 +48,18 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     }
 
     @Override
+    protected void initToolbar() {
+        StatusBarUtil.immersive(this);
+        StatusBarUtil.setPaddingSmart(this, mToolbar);
+        mToolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.register_bac));
+        mTitleTv.setText(R.string.register);
+        mTitleTv.setTextColor(ContextCompat.getColor(this, R.color.white));
+        mTitleTv.setTextSize(20);
+        mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
+    }
+
+    @Override
     protected void initEventAndData() {
-        initToolbar();
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         if (inputMethodManager != null) {
             mAccountEdit.requestFocus();
@@ -77,16 +87,6 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         }
 
         mPresenter.getRegisterData(account, password, rePassword);
-    }
-
-    private void initToolbar() {
-        StatusBarUtil.immersive(this);
-        StatusBarUtil.setPaddingSmart(this, mToolbar);
-        mToolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.register_bac));
-        mTitleTv.setText(R.string.register);
-        mTitleTv.setTextColor(ContextCompat.getColor(this, R.color.white));
-        mTitleTv.setTextSize(20);
-        mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
     }
 
     @Override

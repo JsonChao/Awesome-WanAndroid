@@ -2,7 +2,6 @@ package json.chao.com.wanandroid.base.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -27,8 +26,9 @@ public abstract class AbstractSimpleActivity extends SupportActivity {
         setContentView(getLayoutId());
         unBinder = ButterKnife.bind(this);
         mActivity = this;
-        onViewCreated();
         ActivityCollector.getInstance().addActivity(this);
+        onViewCreated();
+        initToolbar();
         initEventAndData();
     }
 
@@ -42,15 +42,10 @@ public abstract class AbstractSimpleActivity extends SupportActivity {
         }
     }
 
-    protected void setToolBar(Toolbar toolBar, CharSequence title) {
-        toolBar.setTitle(title);
-        setSupportActionBar(toolBar);
-        assert getSupportActionBar() != null;
-    }
-
-    protected void onViewCreated() {
-
-    }
+    /**
+     * 在initEventAndData()之前执行
+     */
+    protected abstract void onViewCreated();
 
     /**
      * 获取当前Activity的UI布局
@@ -58,6 +53,11 @@ public abstract class AbstractSimpleActivity extends SupportActivity {
      * @return 布局id
      */
     protected abstract int getLayoutId();
+
+    /**
+     * 初始化ToolBar
+     */
+    protected abstract void initToolbar();
 
     /**
      * 初始化数据

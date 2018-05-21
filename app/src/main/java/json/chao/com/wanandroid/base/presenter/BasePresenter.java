@@ -20,14 +20,7 @@ public class BasePresenter<T extends AbstractView> implements AbstractPresenter<
     private DataManager mDataManager;
 
     public BasePresenter(DataManager dataManager) {
-        mDataManager = dataManager;
-    }
-
-    protected void addSubscribe(Disposable disposable) {
-        if (compositeDisposable == null) {
-            compositeDisposable = new CompositeDisposable();
-        }
-        compositeDisposable.add(disposable);
+        this.mDataManager = dataManager;
     }
 
     @Override
@@ -73,7 +66,12 @@ public class BasePresenter<T extends AbstractView> implements AbstractPresenter<
         return mDataManager.getCurrentPage();
     }
 
-
+    protected void addSubscribe(Disposable disposable) {
+        if (compositeDisposable == null) {
+            compositeDisposable = new CompositeDisposable();
+        }
+        compositeDisposable.add(disposable);
+    }
 
 
 }

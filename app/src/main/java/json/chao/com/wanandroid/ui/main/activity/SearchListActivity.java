@@ -3,6 +3,8 @@ package json.chao.com.wanandroid.ui.main.activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -65,9 +67,31 @@ public class SearchListActivity extends BaseRootActivity<SearchListPresenter> im
     }
 
     @Override
+    protected void initToolbar() {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle == null) {
+            return;
+        }
+        searchText = ((String) bundle.get(Constants.SEARCH_TEXT));
+        if (!TextUtils.isEmpty(searchText)) {
+            mTitleTv.setText(searchText);
+        }
+
+        StatusBarUtil.setStatusColor(getWindow(), ContextCompat.getColor(this, R.color.search_status_bar_white), 1f);
+        if (mPresenter.getNightModeState()) {
+            mToolbar.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_gradient_bg));
+            setToolbarView(R.color.white, R.drawable.ic_arrow_back_white_24dp);
+        } else {
+            StatusBarUtil.setStatusDarkColor(getWindow());
+            mToolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+            setToolbarView(R.color.title_black, R.drawable.ic_arrow_back_grey_24dp);
+        }
+        mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
+    }
+
+    @Override
     protected void initEventAndData() {
         super.initEventAndData();
-        initToolbar();
         mPresenter.getSearchList(mCurrentPage, searchText, true);
         mArticleList = new ArrayList<>();
         mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mArticleList);
@@ -166,18 +190,13 @@ public class SearchListActivity extends BaseRootActivity<SearchListPresenter> im
 
     @Override
     public void showCollectSuccess() {
-        if (mAdapter.getData().size() > articlePosition) {
-            mAdapter.getData().get(articlePosition).setCollect(true);
-            mAdapter.setData(articlePosition, mAdapter.getData().get(articlePosition));
-        }
+        showCollectResult(true);
+
     }
 
     @Override
     public void showCancelCollectSuccess() {
-        if (mAdapter.getData().size() > articlePosition) {
-            mAdapter.getData().get(articlePosition).setCollect(false);
-            mAdapter.setData(articlePosition, mAdapter.getData().get(articlePosition));
-        }
+        showCollectResult(false);
     }
 
     @OnClick({R.id.search_list_floating_action_btn})
@@ -191,28 +210,16 @@ public class SearchListActivity extends BaseRootActivity<SearchListPresenter> im
         }
     }
 
-    private void initToolbar() {
-        Bundle bundle = getIntent().getExtras();
-        if (bundle == null) {
-            return;
+    private void showCollectResult(boolean collectResult) {
+        if (mAdapter.getData().size() > articlePosition) {
+            mAdapter.getData().get(articlePosition).setCollect(collectResult);
+            mAdapter.setData(articlePosition, mAdapter.getData().get(articlePosition));
         }
-        searchText = ((String) bundle.get(Constants.SEARCH_TEXT));
-        if (!TextUtils.isEmpty(searchText)) {
-            mTitleTv.setText(searchText);
-        }
+    }
 
-        StatusBarUtil.setStatusColor(getWindow(), ContextCompat.getColor(this, R.color.search_status_bar_white), 1f);
-        if (mPresenter.getNightModeState()) {
-            mTitleTv.setTextColor(ContextCompat.getColor(this, R.color.white));
-            mToolbar.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_gradient_bg));
-            mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_white_24dp));
-        } else {
-            StatusBarUtil.setStatusDarkColor(getWindow());
-            mTitleTv.setTextColor(ContextCompat.getColor(this, R.color.title_black));
-            mToolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-            mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_grey_24dp));
-        }
-        mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
+    private void setToolbarView(@ColorRes int textColor, @DrawableRes int navigationIcon) {
+        mTitleTv.setTextColor(ContextCompat.getColor(this, textColor));
+        mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, navigationIcon));
     }
 
     private void likeEvent(int position) {

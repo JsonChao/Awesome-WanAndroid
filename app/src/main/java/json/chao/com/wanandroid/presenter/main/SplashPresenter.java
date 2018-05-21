@@ -19,12 +19,10 @@ import json.chao.com.wanandroid.contract.main.SplashContract;
 
 public class SplashPresenter extends BasePresenter<SplashContract.View> implements SplashContract.Presenter {
 
-    private DataManager dataManager;
 
     @Inject
     SplashPresenter(DataManager dataManager) {
         super(dataManager);
-        this.dataManager = dataManager;
     }
 
     @Override

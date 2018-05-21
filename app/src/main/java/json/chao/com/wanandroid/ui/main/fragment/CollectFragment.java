@@ -1,4 +1,4 @@
-package json.chao.com.wanandroid.ui.main.activity;
+package json.chao.com.wanandroid.ui.main.fragment;
 
 import android.app.ActivityOptions;
 import android.os.Bundle;

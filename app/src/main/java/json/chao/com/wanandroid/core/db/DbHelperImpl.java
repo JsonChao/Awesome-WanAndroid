@@ -11,16 +11,18 @@ import json.chao.com.wanandroid.core.dao.HistoryData;
 import json.chao.com.wanandroid.core.dao.HistoryDataDao;
 
 /**
+ * 对外隐藏操作数据库的实现细节
+ *
  * @author quchao
  * @date 2017/11/27
  */
 
-public class GreenDaoHelper implements DbHelper {
+public class DbHelperImpl implements DbHelper {
 
     private DaoSession daoSession;
 
     @Inject
-    GreenDaoHelper() {
+    DbHelperImpl() {
         daoSession = WanAndroidApp.getInstance().getDaoSession();
     }
 
@@ -57,14 +59,12 @@ public class GreenDaoHelper implements DbHelper {
 
     @Override
     public void clearHistoryData() {
-        HistoryDataDao historyDataDao = daoSession.getHistoryDataDao();
-        historyDataDao.deleteAll();
+        daoSession.getHistoryDataDao().deleteAll();
     }
 
     @Override
     public List<HistoryData> loadAllHistoryData() {
-        HistoryDataDao historyDataDao = daoSession.getHistoryDataDao();
-        return historyDataDao.loadAll();
+       return daoSession.getHistoryDataDao().loadAll();
     }
 
 

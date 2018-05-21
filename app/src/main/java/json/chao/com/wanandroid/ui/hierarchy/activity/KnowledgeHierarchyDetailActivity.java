@@ -58,8 +58,35 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
     }
 
     @Override
+    protected void initToolbar() {
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setDisplayShowTitleEnabled(false);
+        StatusBarUtil.setStatusColor(getWindow(), ContextCompat.getColor(this, R.color.main_status_bar_blue), 1f);
+        mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
+        if (getIntent().getBooleanExtra(Constants.IS_SINGLE_CHAPTER, false)) {
+            String superChapterName = getIntent().getStringExtra(Constants.SUPER_CHAPTER_NAME);
+            chapterName = getIntent().getStringExtra(Constants.CHAPTER_NAME);
+            int chapterId = getIntent().getIntExtra(Constants.CHAPTER_ID, 0);
+            mTitleTv.setText(superChapterName);
+            mFragments.add(KnowledgeHierarchyListFragment.getInstance(chapterId, null));
+        } else {
+            KnowledgeHierarchyData knowledgeHierarchyData = (KnowledgeHierarchyData) getIntent().getSerializableExtra(Constants.ARG_PARAM1);
+            assert knowledgeHierarchyData != null && knowledgeHierarchyData.getName() != null;
+            mTitleTv.setText(knowledgeHierarchyData.getName().trim());
+            knowledgeHierarchyDataList = knowledgeHierarchyData.getChildren();
+            if (knowledgeHierarchyDataList == null) {
+                return;
+            }
+            for (KnowledgeHierarchyData data : knowledgeHierarchyDataList) {
+                mFragments.add(KnowledgeHierarchyListFragment.getInstance(data.getId(), null));
+            }
+        }
+    }
+
+    @Override
     protected void initEventAndData() {
-        initToolbar();
         mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -91,33 +118,6 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
                 break;
             default:
                 break;
-        }
-    }
-
-    private void initToolbar() {
-        setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        assert actionBar != null;
-        actionBar.setDisplayShowTitleEnabled(false);
-        StatusBarUtil.setStatusColor(getWindow(), ContextCompat.getColor(this, R.color.main_status_bar_blue), 1f);
-        mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
-        if (getIntent().getBooleanExtra(Constants.IS_SINGLE_CHAPTER, false)) {
-            String superChapterName = getIntent().getStringExtra(Constants.SUPER_CHAPTER_NAME);
-            chapterName = getIntent().getStringExtra(Constants.CHAPTER_NAME);
-            int chapterId = getIntent().getIntExtra(Constants.CHAPTER_ID, 0);
-            mTitleTv.setText(superChapterName);
-            mFragments.add(KnowledgeHierarchyListFragment.getInstance(chapterId, null));
-        } else {
-            KnowledgeHierarchyData knowledgeHierarchyData = (KnowledgeHierarchyData) getIntent().getSerializableExtra(Constants.ARG_PARAM1);
-            assert knowledgeHierarchyData != null && knowledgeHierarchyData.getName() != null;
-            mTitleTv.setText(knowledgeHierarchyData.getName().trim());
-            knowledgeHierarchyDataList = knowledgeHierarchyData.getChildren();
-            if (knowledgeHierarchyDataList == null) {
-                return;
-            }
-            for (KnowledgeHierarchyData data : knowledgeHierarchyDataList) {
-                mFragments.add(KnowledgeHierarchyListFragment.getInstance(data.getId(), null));
-            }
         }
     }
 

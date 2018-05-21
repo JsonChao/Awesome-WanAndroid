@@ -22,11 +22,10 @@ public abstract class BaseRootActivity<T extends BasePresenter> extends BaseActi
     public static final int ERROR_STATE = 2;
 
     private LottieAnimationView mLoadingAnimation;
+    private View mErrorView;
     private View mLoadingView;
     private ViewGroup mNormalView;
-
     private int currentState = NORMAL_STATE;
-    private View mErrorView;
 
     @Override
     protected void initEventAndData() {

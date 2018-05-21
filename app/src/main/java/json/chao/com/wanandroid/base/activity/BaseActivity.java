@@ -38,20 +38,19 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
     }
 
     @Override
+    protected void onViewCreated() {
+        if (mPresenter != null) {
+            mPresenter.attachView(this);
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         if (mPresenter != null) {
             mPresenter.detachView();
             mPresenter = null;
         }
         super.onDestroy();
-    }
-
-    @Override
-    protected void onViewCreated() {
-        super.onViewCreated();
-        if (mPresenter != null) {
-            mPresenter.attachView(this);
-        }
     }
 
     @Override

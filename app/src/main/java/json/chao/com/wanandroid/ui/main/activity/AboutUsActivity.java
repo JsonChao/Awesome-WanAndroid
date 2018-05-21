@@ -69,17 +69,24 @@ public class AboutUsActivity extends AbstractSimpleActivity {
     }
 
     @Override
+    protected void onViewCreated() {
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.activity_about_us;
     }
 
     @Override
-    protected void initEventAndData() {
+    protected void initToolbar() {
         setSupportActionBar(mToolbar);
         StatusBarUtil.immersive(this);
         StatusBarUtil.setPaddingSmart(this, mToolbar);
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
+    }
 
+    @Override
+    protected void initEventAndData() {
         //设置内容
         mAboutContent.setText(Html.fromHtml(getString(R.string.about_content)));
         mAboutContent.setMovementMethod(LinkMovementMethod.getInstance());

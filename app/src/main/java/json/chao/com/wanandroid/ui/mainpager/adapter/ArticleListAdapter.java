@@ -1,6 +1,7 @@
 package json.chao.com.wanandroid.ui.mainpager.adapter;
 
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.text.Html;
@@ -92,17 +93,11 @@ public class ArticleListAdapter extends BaseQuickAdapter<FeedArticleData, Knowle
             return;
         }
         if (article.getSuperChapterName().contains(mContext.getString(R.string.open_project))) {
-            helper.getView(R.id.item_search_pager_tag_red_tv).setVisibility(View.VISIBLE);
-            helper.setText(R.id.item_search_pager_tag_red_tv, R.string.project);
-            helper.setTextColor(R.id.item_search_pager_tag_red_tv, ContextCompat.getColor(mContext, R.color.light_deep_red));
-            helper.setBackgroundRes(R.id.item_search_pager_tag_red_tv, R.drawable.selector_tag_red_background);
+            setRedTag(helper, R.string.project);
         }
 
         if (article.getSuperChapterName().contains(mContext.getString(R.string.navigation))) {
-            helper.getView(R.id.item_search_pager_tag_red_tv).setVisibility(View.VISIBLE);
-            helper.setText(R.id.item_search_pager_tag_red_tv, R.string.navigation);
-            helper.setTextColor(R.id.item_search_pager_tag_red_tv, ContextCompat.getColor(mContext, R.color.light_deep_red));
-            helper.setBackgroundRes(R.id.item_search_pager_tag_red_tv, R.drawable.selector_tag_red_background);
+           setRedTag(helper, R.string.navigation);
         }
 
         if (article.getNiceDate().contains(mContext.getString(R.string.minute))
@@ -114,4 +109,12 @@ public class ArticleListAdapter extends BaseQuickAdapter<FeedArticleData, Knowle
             helper.setBackgroundRes(R.id.item_search_pager_tag_green_tv, R.drawable.shape_tag_green_background);
         }
     }
+
+    private void setRedTag(KnowledgeHierarchyListViewHolder helper, @StringRes int tagName) {
+        helper.getView(R.id.item_search_pager_tag_red_tv).setVisibility(View.VISIBLE);
+        helper.setText(R.id.item_search_pager_tag_red_tv, tagName);
+        helper.setTextColor(R.id.item_search_pager_tag_red_tv, ContextCompat.getColor(mContext, R.color.light_deep_red));
+        helper.setBackgroundRes(R.id.item_search_pager_tag_red_tv, R.drawable.selector_tag_red_background);
+    }
+
 }

@@ -9,6 +9,10 @@ public class NightModeEvent {
 
     private boolean isNightMode;
 
+    public NightModeEvent(boolean isNightMode) {
+        this.isNightMode = isNightMode;
+    }
+
     public boolean isNightMode() {
         return isNightMode;
     }

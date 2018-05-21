@@ -27,6 +27,7 @@ import butterknife.OnClick;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.activity.BaseActivity;
+import json.chao.com.wanandroid.base.fragment.BaseDialogFragment;
 import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.contract.main.MainContract;
@@ -34,6 +35,8 @@ import json.chao.com.wanandroid.core.event.LoginEvent;
 import json.chao.com.wanandroid.core.http.cookies.CookiesManager;
 import json.chao.com.wanandroid.presenter.main.MainPresenter;
 import json.chao.com.wanandroid.ui.hierarchy.fragment.KnowledgeHierarchyFragment;
+import json.chao.com.wanandroid.ui.main.fragment.CollectFragment;
+import json.chao.com.wanandroid.ui.main.fragment.SettingFragment;
 import json.chao.com.wanandroid.ui.main.fragment.UsageDialogFragment;
 import json.chao.com.wanandroid.ui.mainpager.fragment.MainPagerFragment;
 import json.chao.com.wanandroid.ui.navigation.fragment.NavigationFragment;
@@ -89,8 +92,18 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     @Override
+    protected void initToolbar() {
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setDisplayShowTitleEnabled(false);
+        mTitleTv.setText(getString(R.string.home_pager));
+        StatusBarUtil.setStatusColor(getWindow(), ContextCompat.getColor(this, R.color.main_status_bar_blue), 1f);
+        mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
+    }
+
+    @Override
     protected void initEventAndData() {
-        initToolbar();
     }
 
     @Override
@@ -99,18 +112,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mFragments = new ArrayList<>();
         if (savedInstanceState == null) {
             mPresenter.setNightModeState(false);
-            mMainPagerFragment = MainPagerFragment.getInstance(false, null);
-            mFragments.add(mMainPagerFragment);
-            initData();
-            init();
-            switchFragment(Constants.TYPE_MAIN_PAGER);
+            initPager(false, Constants.TYPE_MAIN_PAGER);
         } else {
             mBottomNavigationView.setSelectedItemId(R.id.tab_main_pager);
-            mMainPagerFragment = MainPagerFragment.getInstance(true, null);
-            mFragments.add(mMainPagerFragment);
-            initData();
-            init();
-            switchFragment(Constants.TYPE_SETTING);
+            initPager(true, Constants.TYPE_SETTING);
         }
     }
 
@@ -192,6 +197,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(false);
     }
 
+    private void initPager(boolean isRecreate, int position) {
+        mMainPagerFragment = MainPagerFragment.getInstance(isRecreate, null);
+        mFragments.add(mMainPagerFragment);
+        initData();
+        init();
+        switchFragment(position);
+    }
+
     private void init() {
         initNavigationView();
         BottomNavigationViewHelper.disableShiftMode(mBottomNavigationView);
@@ -199,22 +212,20 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.tab_main_pager:
-                    mTitleTv.setText(getString(R.string.home_pager));
-                    switchFragment(0);
-                    mMainPagerFragment.reload();
-                    mPresenter.setCurrentPage(Constants.TYPE_MAIN_PAGER);
+                    loadPager(getString(R.string.home_pager), 0,
+                            mMainPagerFragment, Constants.TYPE_MAIN_PAGER);
                     break;
                 case R.id.tab_knowledge_hierarchy:
-                    mTitleTv.setText(getString(R.string.knowledge_hierarchy));
-                    switchFragment(1);
-                    mKnowledgeHierarchyFragment.reload();
-                    mPresenter.setCurrentPage(Constants.TYPE_KNOWLEDGE);
+                    loadPager(getString(R.string.knowledge_hierarchy), 1,
+                            mKnowledgeHierarchyFragment, Constants.TYPE_KNOWLEDGE);
                     break;
                 case R.id.tab_navigation:
-                    switchNavigation();
+                    loadPager(getString(R.string.navigation), 2,
+                            mNavigationFragment, Constants.TYPE_NAVIGATION);
                     break;
                 case R.id.tab_project:
-                    switchProject();
+                    loadPager(getString(R.string.project), 3,
+                            mProjectFragment, Constants.TYPE_PROJECT);
                     break;
                 default:
                     break;
@@ -253,6 +264,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mDrawerLayout.addDrawerListener(toggle);
     }
 
+    private void loadPager(String title, int position, BaseFragment mFragment, int pagerType) {
+        mTitleTv.setText(title);
+        switchFragment(position);
+        mFragment.reload();
+        mPresenter.setCurrentPage(pagerType);
+    }
+
     private void jumpToTheTop() {
         switch (mPresenter.getCurrentPage()) {
             case Constants.TYPE_MAIN_PAGER:
@@ -280,16 +298,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         }
     }
 
-    private void initToolbar() {
-        setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        assert actionBar != null;
-        actionBar.setDisplayShowTitleEnabled(false);
-        mTitleTv.setText(getString(R.string.home_pager));
-        StatusBarUtil.setStatusColor(getWindow(), ContextCompat.getColor(this, R.color.main_status_bar_blue), 1f);
-        mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
-    }
-
     private void initData() {
         mKnowledgeHierarchyFragment = KnowledgeHierarchyFragment.getInstance(null, null);
         mNavigationFragment = NavigationFragment.getInstance(null, null);
@@ -302,20 +310,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mFragments.add(mProjectFragment);
         mFragments.add(collectFragment);
         mFragments.add(settingFragment);
-    }
-
-    private void switchProject() {
-        mTitleTv.setText(getString(R.string.project));
-        switchFragment(3);
-        mProjectFragment.reload();
-        mPresenter.setCurrentPage(Constants.TYPE_PROJECT);
-    }
-
-    private void switchNavigation() {
-        mTitleTv.setText(getString(R.string.navigation));
-        switchFragment(2);
-        mNavigationFragment.reload();
-        mPresenter.setCurrentPage(Constants.TYPE_NAVIGATION);
     }
 
     /**
