@@ -105,12 +105,7 @@ public class NavigationFragment extends BaseRootFragment<NavigationPresenter> im
         } else {
             setChildViewVisibility(View.INVISIBLE);
         }
-        NavigationAdapter adapter = new NavigationAdapter(R.layout.item_navigation, navigationDataList);
-        mRecyclerView.setAdapter(adapter);
-        mManager = new LinearLayoutManager(_mActivity);
-        mRecyclerView.setLayoutManager(mManager);
-        mRecyclerView.setHasFixedSize(true);
-
+        initRecyclerView(navigationDataList);
         leftRightLinkage();
         showNormal();
     }
@@ -128,6 +123,14 @@ public class NavigationFragment extends BaseRootFragment<NavigationPresenter> im
         if (mPresenter != null && mNavigationGroup.getVisibility() == View.INVISIBLE) {
             mPresenter.getNavigationListData(false);
         }
+    }
+
+    private void initRecyclerView(List<NavigationListData> navigationDataList) {
+        NavigationAdapter adapter = new NavigationAdapter(R.layout.item_navigation, navigationDataList);
+        mRecyclerView.setAdapter(adapter);
+        mManager = new LinearLayoutManager(_mActivity);
+        mRecyclerView.setLayoutManager(mManager);
+        mRecyclerView.setHasFixedSize(true);
     }
 
     /**

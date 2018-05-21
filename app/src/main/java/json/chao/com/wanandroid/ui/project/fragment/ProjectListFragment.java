@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -54,53 +55,11 @@ public class ProjectListFragment extends BaseRootFragment<ProjectListPresenter> 
         setRefresh();
         Bundle bundle = getArguments();
         cid = bundle.getInt(Constants.ARG_PARAM1);
-        mDatas = new ArrayList<>();
-        mAdapter = new ProjectListAdapter(R.layout.item_project_list, mDatas);
-        mAdapter.setOnItemClickListener((adapter, view, position) -> {
-                    if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
-                        return;
-                    }
-                    JudgeUtils.startArticleDetailActivity(_mActivity,
-                            null,
-                            mAdapter.getData().get(position).getId(),
-                            mAdapter.getData().get(position).getTitle().trim(),
-                            mAdapter.getData().get(position).getLink().trim(),
-                            mAdapter.getData().get(position).isCollect(),
-                            false,
-                            true);
-                });
-        mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            switch (view.getId()) {
-                case R.id.item_project_list_install_tv:
-                    if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
-                        return;
-                    }
-                    if (TextUtils.isEmpty(mAdapter.getData().get(position).getApkLink())) {
-                        return;
-                    }
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(mAdapter.getData().get(position).getApkLink())));
-                    break;
-                default:
-                    break;
-            }
-        });
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
-        mRecyclerView.setHasFixedSize(true);
-
+        initRecyclerView();
         mPresenter.getProjectListData(mCurrentPage, cid, true);
         if (CommonUtils.isNetworkConnected()) {
             showLoading();
         }
-    }
-
-    public static ProjectListFragment getInstance(int param1, String param2) {
-        ProjectListFragment fragment = new ProjectListFragment();
-        Bundle args = new Bundle();
-        args.putInt(Constants.ARG_PARAM1, param1);
-        args.putString(Constants.ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -142,6 +101,59 @@ public class ProjectListFragment extends BaseRootFragment<ProjectListPresenter> 
         if (mRecyclerView != null) {
             mRecyclerView.smoothScrollToPosition(0);
         }
+    }
+
+    private void initRecyclerView() {
+        mDatas = new ArrayList<>();
+        mAdapter = new ProjectListAdapter(R.layout.item_project_list, mDatas);
+        mAdapter.setOnItemClickListener((adapter, view, position) -> startProjectPager(position));
+        mAdapter.setOnItemChildClickListener((adapter, view, position) -> clickChildEvent(view, position));
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
+        mRecyclerView.setHasFixedSize(true);
+    }
+
+    private void clickChildEvent(View view, int position) {
+        switch (view.getId()) {
+            case R.id.item_project_list_install_tv:
+                startInstallPager(position);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void startInstallPager(int position) {
+        if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+            return;
+        }
+        if (TextUtils.isEmpty(mAdapter.getData().get(position).getApkLink())) {
+            return;
+        }
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(mAdapter.getData().get(position).getApkLink())));
+    }
+
+    private void startProjectPager(int position) {
+        if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+            return;
+        }
+        JudgeUtils.startArticleDetailActivity(_mActivity,
+                null,
+                mAdapter.getData().get(position).getId(),
+                mAdapter.getData().get(position).getTitle().trim(),
+                mAdapter.getData().get(position).getLink().trim(),
+                mAdapter.getData().get(position).isCollect(),
+                false,
+                true);
+    }
+
+    public static ProjectListFragment getInstance(int param1, String param2) {
+        ProjectListFragment fragment = new ProjectListFragment();
+        Bundle args = new Bundle();
+        args.putInt(Constants.ARG_PARAM1, param1);
+        args.putString(Constants.ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     private void setRefresh() {

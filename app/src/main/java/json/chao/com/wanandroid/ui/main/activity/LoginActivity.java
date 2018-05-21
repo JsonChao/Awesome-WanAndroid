@@ -60,18 +60,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     protected void initEventAndData() {
-        mPresenter.addRxBindingSubscribe(RxView.clicks(mLoginBtn)
-                .throttleFirst(Constants.CLICK_TIME_AREA, TimeUnit.MILLISECONDS)
-                .filter(o -> mPresenter != null)
-                .subscribe(o -> {
-                    String account = mAccountEdit.getText().toString().trim();
-                    String password = mPasswordEdit.getText().toString().trim();
-                    if (TextUtils.isEmpty(account) || TextUtils.isEmpty(password)) {
-                        CommonUtils.showSnackMessage(this, getString(R.string.account_password_null_tint));
-                        return;
-                    }
-                    mPresenter.getLoginData(account, password);
-                }));
+        subscribeLoginClickEvent();
     }
 
     @Override
@@ -93,16 +82,35 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     void onClick(View v) {
         switch (v.getId()) {
             case R.id.login_register_btn:
-                ActivityOptions options = ActivityOptions.makeScaleUpAnimation(mRegisterBtn,
-                        mRegisterBtn.getWidth() / 2,
-                        mRegisterBtn.getHeight() / 2,
-                        0 ,
-                        0);
-                startActivity(new Intent(this, RegisterActivity.class), options.toBundle());
+                startRegisterPager();
                 break;
             default:
                 break;
         }
+    }
+
+    private void startRegisterPager() {
+        ActivityOptions options = ActivityOptions.makeScaleUpAnimation(mRegisterBtn,
+                mRegisterBtn.getWidth() / 2,
+                mRegisterBtn.getHeight() / 2,
+                0 ,
+                0);
+        startActivity(new Intent(this, RegisterActivity.class), options.toBundle());
+    }
+
+    private void subscribeLoginClickEvent() {
+        mPresenter.addRxBindingSubscribe(RxView.clicks(mLoginBtn)
+                .throttleFirst(Constants.CLICK_TIME_AREA, TimeUnit.MILLISECONDS)
+                .filter(o -> mPresenter != null)
+                .subscribe(o -> {
+                    String account = mAccountEdit.getText().toString().trim();
+                    String password = mPasswordEdit.getText().toString().trim();
+                    if (TextUtils.isEmpty(account) || TextUtils.isEmpty(password)) {
+                        CommonUtils.showSnackMessage(this, getString(R.string.account_password_null_tint));
+                        return;
+                    }
+                    mPresenter.getLoginData(account, password);
+                }));
     }
 
 }

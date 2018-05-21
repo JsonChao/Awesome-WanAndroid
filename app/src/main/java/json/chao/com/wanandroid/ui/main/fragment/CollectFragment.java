@@ -44,7 +44,6 @@ public class CollectFragment extends BaseRootFragment<CollectPresenter> implemen
     private int mCurrentPage;
     private List<FeedArticleData> mArticles;
     private ArticleListAdapter mAdapter;
-    private ActivityOptions mOptions;
 
     @Override
     protected int getLayoutId() {
@@ -54,7 +53,8 @@ public class CollectFragment extends BaseRootFragment<CollectPresenter> implemen
     @Override
     protected void initEventAndData() {
         super.initEventAndData();
-        initView();
+        initRecyclerView();
+        mPresenter.getCollectList(mCurrentPage, true);
         setRefresh();
         if (CommonUtils.isNetworkConnected()) {
             showLoading();
@@ -70,14 +70,7 @@ public class CollectFragment extends BaseRootFragment<CollectPresenter> implemen
         if (isRefresh) {
             mAdapter.replaceData(mArticles);
         } else {
-            if (mArticles.size() > 0) {
-                mArticles.addAll(feedArticleListData.getDatas());
-                mAdapter.addData(feedArticleListData.getDatas());
-            } else {
-                if (mAdapter.getData().size() != 0) {
-                    CommonUtils.showMessage(_mActivity, getString(R.string.load_more_no_data));
-                }
-            }
+            showLoadMore(feedArticleListData);
         }
         if (mAdapter.getData().size() == 0) {
             CommonUtils.showSnackMessage(_mActivity, getString(R.string.no_collect));
@@ -125,52 +118,71 @@ public class CollectFragment extends BaseRootFragment<CollectPresenter> implemen
         return fragment;
     }
 
-    private void initView() {
+    private void initRecyclerView() {
         mArticles = new ArrayList<>();
         mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mArticles);
         mAdapter.isCollectPage();
-        mAdapter.setOnItemClickListener((adapter, view, position) -> {
-            if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
-                return;
-            }
-            mOptions = ActivityOptions.makeSceneTransitionAnimation(_mActivity, view, getString(R.string.share_view));
-            JudgeUtils.startArticleDetailActivity(_mActivity, mOptions,
-                mAdapter.getData().get(position).getId(),
-                mAdapter.getData().get(position).getTitle(),
-                mAdapter.getData().get(position).getLink(),
-                true,
-                true,
-                false);
-        });
-
-        mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            switch (view.getId()) {
-                case R.id.item_search_pager_chapterName:
-                    if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
-                        return;
-                    }
-                    JudgeUtils.startKnowledgeHierarchyDetailActivity(_mActivity,
-                            true,
-                            mAdapter.getData().get(position).getChapterName(),
-                            mAdapter.getData().get(position).getChapterName(),
-                            mAdapter.getData().get(position).getChapterId());
-                    break;
-                case R.id.item_search_pager_like_iv:
-                    //取消收藏
-                    if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
-                        return;
-                    }
-                    mPresenter.cancelCollectPageArticle(position, mAdapter.getData().get(position));
-                    break;
-                default:
-                    break;
-            }
-
-        });
+        mAdapter.setOnItemClickListener((adapter, view, position) -> startArticleDetailPager(view, position));
+        mAdapter.setOnItemChildClickListener((adapter, view, position) -> clickChildEvent(view, position));
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
         mRecyclerView.setHasFixedSize(true);
-        mPresenter.getCollectList(mCurrentPage, true);
+    }
+
+    private void clickChildEvent(View view, int position) {
+        switch (view.getId()) {
+            case R.id.item_search_pager_chapterName:
+                startSingleChapterKnowledgePager(position);
+                break;
+            case R.id.item_search_pager_like_iv:
+                cancelCollect(position);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void cancelCollect(int position) {
+        if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+            return;
+        }
+        mPresenter.cancelCollectPageArticle(position, mAdapter.getData().get(position));
+    }
+
+    private void startSingleChapterKnowledgePager(int position) {
+        if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+            return;
+        }
+        JudgeUtils.startKnowledgeHierarchyDetailActivity(_mActivity,
+                true,
+                mAdapter.getData().get(position).getChapterName(),
+                mAdapter.getData().get(position).getChapterName(),
+                mAdapter.getData().get(position).getChapterId());
+    }
+
+    private void startArticleDetailPager(View view, int position) {
+        if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+            return;
+        }
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(_mActivity, view, getString(R.string.share_view));
+        JudgeUtils.startArticleDetailActivity(_mActivity, options,
+            mAdapter.getData().get(position).getId(),
+            mAdapter.getData().get(position).getTitle(),
+            mAdapter.getData().get(position).getLink(),
+            true,
+            true,
+            false);
+    }
+
+    private void showLoadMore(FeedArticleListData feedArticleListData) {
+        if (mArticles.size() > 0) {
+            mArticles.addAll(feedArticleListData.getDatas());
+            mAdapter.addData(feedArticleListData.getDatas());
+        } else {
+            if (mAdapter.getData().size() != 0) {
+                CommonUtils.showMessage(_mActivity, getString(R.string.load_more_no_data));
+            }
+        }
     }
 
     private void setRefresh() {

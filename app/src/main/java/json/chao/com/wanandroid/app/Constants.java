@@ -57,6 +57,11 @@ public class Constants {
     public static final String ARG_PARAM2 = "param2";
 
     /**
+     * Phone MANUFACTURER
+     */
+    public static final String SAMSUNG = "samsung";
+
+    /**
      * Tab colors
      */
     public static final int[] TAB_COLORS = new int[]{

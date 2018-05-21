@@ -92,15 +92,7 @@ public class UsageDialogFragment extends BaseDialogFragment<UsageDialogPresenter
                 tv.setText(name);
                 setItemBackground(tv);
                 mUsefulSitesFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), view, getString(R.string.share_view));
-                    JudgeUtils.startArticleDetailActivity(getActivity(),
-                            options,
-                            mUsefulSiteDataList.get(position1).getId(),
-                            mUsefulSiteDataList.get(position1).getName().trim(),
-                            mUsefulSiteDataList.get(position1).getLink().trim(),
-                            false,
-                            false,
-                            true);
+                    startUsefulSitePager(view, position1);
                     return true;
                 });
                 return tv;
@@ -122,6 +114,18 @@ public class UsageDialogFragment extends BaseDialogFragment<UsageDialogPresenter
         mTitleTv.getViewTreeObserver().removeOnPreDrawListener(this);
         mCircularRevealAnim.show(mTitleTv, mRootView);
         return true;
+    }
+
+    private void startUsefulSitePager(View view, int position1) {
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), view, getString(R.string.share_view));
+        JudgeUtils.startArticleDetailActivity(getActivity(),
+                options,
+                mUsefulSiteDataList.get(position1).getId(),
+                mUsefulSiteDataList.get(position1).getName().trim(),
+                mUsefulSiteDataList.get(position1).getLink().trim(),
+                false,
+                false,
+                true);
     }
 
     private void setItemBackground(TextView tv) {

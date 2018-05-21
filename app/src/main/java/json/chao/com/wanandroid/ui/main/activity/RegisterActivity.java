@@ -27,6 +27,7 @@ import json.chao.com.wanandroid.utils.StatusBarUtil;
  * @author quchao
  * @date 2018/5/4
  */
+
 public class RegisterActivity extends BaseActivity<RegisterPresenter> implements RegisterContract.View {
 
     @BindView(R.id.common_toolbar)
@@ -71,6 +72,12 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
                 .subscribe(o -> register()));
     }
 
+    @Override
+    public void showRegisterData(LoginData loginData) {
+        CommonUtils.showSnackMessage(this, getString(R.string.register_success));
+        onBackPressedSupport();
+    }
+
     private void register() {
         String account = mAccountEdit.getText().toString().trim();
         String password = mPasswordEdit.getText().toString().trim();
@@ -87,12 +94,6 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         }
 
         mPresenter.getRegisterData(account, password, rePassword);
-    }
-
-    @Override
-    public void showRegisterData(LoginData loginData) {
-        CommonUtils.showSnackMessage(this, getString(R.string.register_success));
-        onBackPressedSupport();
     }
 
 }

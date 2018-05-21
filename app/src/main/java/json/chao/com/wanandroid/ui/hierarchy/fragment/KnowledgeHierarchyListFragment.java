@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -66,47 +67,7 @@ public class KnowledgeHierarchyListFragment extends BaseRootFragment<KnowledgeHi
         //重置当前页数，防止页面切换后当前页数为较大而加载后面的数据或没有数据
         mCurrentPage = 0;
         mPresenter.getKnowledgeHierarchyDetailData(mCurrentPage, id, true);
-        mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mArticles);
-        mAdapter.setOnItemClickListener((adapter, view, position) -> {
-            if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
-                return;
-            }
-            articlePosition = position;
-            mOptions = ActivityOptions.makeSceneTransitionAnimation(_mActivity, view, getString(R.string.share_view));
-            JudgeUtils.startArticleDetailActivity(_mActivity,
-                    mOptions,
-                    mAdapter.getData().get(position).getId(),
-                    mAdapter.getData().get(position).getTitle().trim(),
-                    mAdapter.getData().get(position).getLink().trim(),
-                    mAdapter.getData().get(position).isCollect(),
-                    false,
-                    false);
-        });
-        mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            switch (view.getId()) {
-                case R.id.item_search_pager_chapterName:
-                    break;
-                case R.id.item_search_pager_like_iv:
-                    likeEvent(position);
-                    break;
-                case R.id.item_search_pager_tag_red_tv:
-                    if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
-                        return;
-                    }
-                    String superChapterName = mAdapter.getData().get(position).getSuperChapterName();
-                    if (superChapterName.contains(getString(R.string.open_project))) {
-                        RxBus.getDefault().post(new SwitchProjectEvent());
-                    } else if (superChapterName.contains(getString(R.string.navigation))) {
-                        RxBus.getDefault().post(new SwitchNavigationEvent());
-                    }
-                    break;
-                default:
-                    break;
-            }
-        });
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
-        mRecyclerView.setHasFixedSize(true);
+        initRecyclerView();
         if (CommonUtils.isNetworkConnected()) {
             showLoading();
         }
@@ -185,6 +146,58 @@ public class KnowledgeHierarchyListFragment extends BaseRootFragment<KnowledgeHi
         args.putString(Constants.ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    private void initRecyclerView() {
+        mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mArticles);
+        mAdapter.setOnItemClickListener((adapter, view, position) -> startArticleDetailPager(view, position));
+        mAdapter.setOnItemChildClickListener((adapter, view, position) -> clickChildEvent(view, position));
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
+        mRecyclerView.setHasFixedSize(true);
+    }
+
+    private void clickChildEvent(View view, int position) {
+        switch (view.getId()) {
+            case R.id.item_search_pager_chapterName:
+                break;
+            case R.id.item_search_pager_like_iv:
+                likeEvent(position);
+                break;
+            case R.id.item_search_pager_tag_red_tv:
+                clickTag(position);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void clickTag(int position) {
+        if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+            return;
+        }
+        String superChapterName = mAdapter.getData().get(position).getSuperChapterName();
+        if (superChapterName.contains(getString(R.string.open_project))) {
+            RxBus.getDefault().post(new SwitchProjectEvent());
+        } else if (superChapterName.contains(getString(R.string.navigation))) {
+            RxBus.getDefault().post(new SwitchNavigationEvent());
+        }
+    }
+
+    private void startArticleDetailPager(View view, int position) {
+        if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+            return;
+        }
+        articlePosition = position;
+        mOptions = ActivityOptions.makeSceneTransitionAnimation(_mActivity, view, getString(R.string.share_view));
+        JudgeUtils.startArticleDetailActivity(_mActivity,
+                mOptions,
+                mAdapter.getData().get(position).getId(),
+                mAdapter.getData().get(position).getTitle().trim(),
+                mAdapter.getData().get(position).getLink().trim(),
+                mAdapter.getData().get(position).isCollect(),
+                false,
+                false);
     }
 
     private void likeEvent(int position) {

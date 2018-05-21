@@ -87,46 +87,8 @@ public class AboutUsActivity extends AbstractSimpleActivity {
 
     @Override
     protected void initEventAndData() {
-        //设置内容
-        mAboutContent.setText(Html.fromHtml(getString(R.string.about_content)));
-        mAboutContent.setMovementMethod(LinkMovementMethod.getInstance());
-        try {
-            String versionStr = getString(R.string.awesome_wan_android)
-                    + " V" + getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-            mAboutVersion.setText(versionStr);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        //绑定场景和纸飞机
-        mFlyRefreshHeader.setUp(mAboutUsMountain, mAboutUsFlyView);
-        mAboutUsRefreshLayout.setReboundInterpolator(new ElasticOutInterpolator());
-        mAboutUsRefreshLayout.setReboundDuration(800);
-        mAboutUsRefreshLayout.setOnRefreshListener(refreshLayout -> {
-            updateTheme();
-            refreshLayout.finishRefresh(1000);
-        });
-
-        //设置让Toolbar和AppBarLayout的滚动同步
-        mAboutUsRefreshLayout.setOnMultiPurposeListener(new SimpleMultiPurposeListener() {
-            @Override
-            public void onHeaderPulling(RefreshHeader header, float percent, int offset, int headerHeight, int extendHeight) {
-                if (mAboutUsAppBar == null || mToolbar == null) {
-                    return;
-                }
-                mAboutUsAppBar.setTranslationY(offset);
-                mToolbar.setTranslationY(-offset);
-            }
-
-            @Override
-            public void onHeaderReleasing(RefreshHeader header, float percent, int offset, int footerHeight, int extendHeight) {
-                if (mAboutUsAppBar == null || mToolbar == null) {
-                    return;
-                }
-                mAboutUsAppBar.setTranslationY(offset);
-                mToolbar.setTranslationY(-offset);
-            }
-        });
+        showAboutContent();
+        setSmartRefreshLayout();
 
         //进入界面时自动刷新
         mAboutUsRefreshLayout.autoRefresh();
@@ -134,9 +96,7 @@ public class AboutUsActivity extends AbstractSimpleActivity {
         //点击悬浮按钮时自动刷新
         mAboutUsFab.setOnClickListener(v -> mAboutUsRefreshLayout.autoRefresh());
 
-        /*
-         * 监听 AppBarLayout 的关闭和开启 给 FlyView（纸飞机） 和 ActionButton 设置关闭隐藏动画
-         */
+        //监听 AppBarLayout 的关闭和开启 给 FlyView（纸飞机） 和 ActionButton 设置关闭隐藏动画
         mAboutUsAppBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean misAppbarExpand = true;
 
@@ -171,6 +131,50 @@ public class AboutUsActivity extends AbstractSimpleActivity {
                 }
             }
         });
+    }
+
+    private void setSmartRefreshLayout() {
+        //绑定场景和纸飞机
+        mFlyRefreshHeader.setUp(mAboutUsMountain, mAboutUsFlyView);
+        mAboutUsRefreshLayout.setReboundInterpolator(new ElasticOutInterpolator());
+        mAboutUsRefreshLayout.setReboundDuration(800);
+        mAboutUsRefreshLayout.setOnRefreshListener(refreshLayout -> {
+            updateTheme();
+            refreshLayout.finishRefresh(1000);
+        });
+
+        //设置让Toolbar和AppBarLayout的滚动同步
+        mAboutUsRefreshLayout.setOnMultiPurposeListener(new SimpleMultiPurposeListener() {
+            @Override
+            public void onHeaderPulling(RefreshHeader header, float percent, int offset, int headerHeight, int extendHeight) {
+                if (mAboutUsAppBar == null || mToolbar == null) {
+                    return;
+                }
+                mAboutUsAppBar.setTranslationY(offset);
+                mToolbar.setTranslationY(-offset);
+            }
+
+            @Override
+            public void onHeaderReleasing(RefreshHeader header, float percent, int offset, int footerHeight, int extendHeight) {
+                if (mAboutUsAppBar == null || mToolbar == null) {
+                    return;
+                }
+                mAboutUsAppBar.setTranslationY(offset);
+                mToolbar.setTranslationY(-offset);
+            }
+        });
+    }
+
+    private void showAboutContent() {
+        mAboutContent.setText(Html.fromHtml(getString(R.string.about_content)));
+        mAboutContent.setMovementMethod(LinkMovementMethod.getInstance());
+        try {
+            String versionStr = getString(R.string.awesome_wan_android)
+                    + " V" + getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+            mAboutVersion.setText(versionStr);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

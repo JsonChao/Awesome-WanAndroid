@@ -79,6 +79,24 @@ public class ProjectFragment extends BaseRootFragment<ProjectPresenter> implemen
             setChildViewVisibility(View.INVISIBLE);
         }
         mData = projectClassifyDataList;
+        initViewPagerAndTabLayout();
+        showNormal();
+    }
+
+    @Override
+    public void showError() {
+        setChildViewVisibility(View.INVISIBLE);
+        super.showError();
+    }
+
+    @Override
+    public void reload() {
+        if (mPresenter != null && mTabLayout.getVisibility() == View.INVISIBLE) {
+            mPresenter.getProjectClassifyData();
+        }
+    }
+
+    private void initViewPagerAndTabLayout() {
         for (ProjectClassifyData data : mData) {
             ProjectListFragment projectListFragment = ProjectListFragment.getInstance(data.getId(), null);
             mFragments.add(projectListFragment);
@@ -117,20 +135,6 @@ public class ProjectFragment extends BaseRootFragment<ProjectPresenter> implemen
         });
         mTabLayout.setViewPager(mViewPager);
         mViewPager.setCurrentItem(Constants.TAB_ONE);
-        showNormal();
-    }
-
-    @Override
-    public void showError() {
-        setChildViewVisibility(View.INVISIBLE);
-        super.showError();
-    }
-
-    @Override
-    public void reload() {
-        if (mPresenter != null && mTabLayout.getVisibility() == View.INVISIBLE) {
-            mPresenter.getProjectClassifyData();
-        }
     }
 
     private void setChildViewVisibility(int visibility) {

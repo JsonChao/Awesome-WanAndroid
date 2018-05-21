@@ -58,23 +58,7 @@ public class KnowledgeHierarchyFragment extends BaseRootFragment<KnowledgeHierar
     protected void initEventAndData() {
         super.initEventAndData();
         setRefresh();
-        mAdapter = new KnowledgeHierarchyAdapter(R.layout.item_knowledge_hierarchy, mKnowledgeHierarchyDataList);
-        mAdapter.setOnItemClickListener((adapter, view, position) -> {
-            if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
-                return;
-            }
-            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(_mActivity, view, getString(R.string.share_view));
-            Intent intent = new Intent(_mActivity, KnowledgeHierarchyDetailActivity.class);
-            intent.putExtra(Constants.ARG_PARAM1, mAdapter.getData().get(position));
-            if (!Build.MANUFACTURER.contains("samsung") && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                startActivity(intent, options.toBundle());
-            } else {
-                startActivity(intent);
-            }
-        });
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
-        mRecyclerView.setHasFixedSize(true);
+        initRecyclerView();
         mPresenter.getKnowledgeHierarchyData(true);
         if (CommonUtils.isNetworkConnected()) {
             showLoading();
@@ -116,6 +100,37 @@ public class KnowledgeHierarchyFragment extends BaseRootFragment<KnowledgeHierar
         if (mRecyclerView != null) {
             mRecyclerView.smoothScrollToPosition(0);
         }
+    }
+
+    private void initRecyclerView() {
+        mAdapter = new KnowledgeHierarchyAdapter(R.layout.item_knowledge_hierarchy, mKnowledgeHierarchyDataList);
+        mAdapter.setOnItemClickListener((adapter, view, position) -> startDetailPager(view, position));
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
+        mRecyclerView.setHasFixedSize(true);
+    }
+
+    private void startDetailPager(View view, int position) {
+        if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+            return;
+        }
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(_mActivity, view, getString(R.string.share_view));
+        Intent intent = new Intent(_mActivity, KnowledgeHierarchyDetailActivity.class);
+        intent.putExtra(Constants.ARG_PARAM1, mAdapter.getData().get(position));
+        if (modelFiltering()) {
+            startActivity(intent, options.toBundle());
+        } else {
+            startActivity(intent);
+        }
+    }
+
+    /**
+     * 机型适配
+     *
+     * @return 返回true表示非三星机型且Android 6.0以上
+     */
+    private boolean modelFiltering() {
+        return !Build.MANUFACTURER.contains(Constants.SAMSUNG) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
     private void setRefresh() {

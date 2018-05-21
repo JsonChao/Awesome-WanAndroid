@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -146,16 +147,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
         }
         setHistoryTvStatus(false);
         Collections.reverse(historyDataList);
-        historySearchAdapter = new HistorySearchAdapter(R.layout.item_search_history, historyDataList);
-        historySearchAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            HistoryData historyData = (HistoryData) adapter.getData().get(position);
-            mPresenter.addHistoryData(historyData.getData());
-            mSearchEdit.setText(historyData.getData());
-            mSearchEdit.setSelection(mSearchEdit.getText().length());
-            setHistoryTvStatus(false);
-        });
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(historySearchAdapter);
+        initRecyclerView(historyDataList);
     }
 
     @Override
@@ -172,10 +164,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
                 tv.setText(name);
                 setItemBackground(tv);
                 mTopSearchFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
-                    mPresenter.addHistoryData(mTopSearchDataList.get(position1).getName().trim());
-                    setHistoryTvStatus(false);
-                    mSearchEdit.setText(mTopSearchDataList.get(position1).getName().trim());
-                    mSearchEdit.setSelection(mSearchEdit.getText().length());
+                    showTopSearchView(position1);
                     return true;
                 });
                 return tv;
@@ -217,13 +206,39 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
                 mSearchScrollView.smoothScrollTo(0, 0);
                 break;
             case R.id.search_history_clear_all_tv:
-                mPresenter.clearHistoryData();
-                historySearchAdapter.replaceData(new ArrayList<>());
-                setHistoryTvStatus(true);
+                clearHistoryData();
                 break;
             default:
                 break;
         }
+    }
+
+    private void clearHistoryData() {
+        mPresenter.clearHistoryData();
+        historySearchAdapter.replaceData(new ArrayList<>());
+        setHistoryTvStatus(true);
+    }
+
+    private void showTopSearchView(int position1) {
+        mPresenter.addHistoryData(mTopSearchDataList.get(position1).getName().trim());
+        setHistoryTvStatus(false);
+        mSearchEdit.setText(mTopSearchDataList.get(position1).getName().trim());
+        mSearchEdit.setSelection(mSearchEdit.getText().length());
+    }
+
+    private void initRecyclerView(List<HistoryData> historyDataList) {
+        historySearchAdapter = new HistorySearchAdapter(R.layout.item_search_history, historyDataList);
+        historySearchAdapter.setOnItemChildClickListener((adapter, view, position) -> searchHistoryData(adapter, position));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setAdapter(historySearchAdapter);
+    }
+
+    private void searchHistoryData(BaseQuickAdapter adapter, int position) {
+        HistoryData historyData = (HistoryData) adapter.getData().get(position);
+        mPresenter.addHistoryData(historyData.getData());
+        mSearchEdit.setText(historyData.getData());
+        mSearchEdit.setSelection(mSearchEdit.getText().length());
+        setHistoryTvStatus(false);
     }
 
     private void setItemBackground(TextView tv) {

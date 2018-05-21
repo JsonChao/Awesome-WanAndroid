@@ -93,61 +93,7 @@ public class SearchListActivity extends BaseRootActivity<SearchListPresenter> im
     protected void initEventAndData() {
         super.initEventAndData();
         mPresenter.getSearchList(mCurrentPage, searchText, true);
-        mArticleList = new ArrayList<>();
-        mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mArticleList);
-        mAdapter.isSearchPage();
-        mAdapter.isNightMode(mPresenter.getNightModeState());
-        mAdapter.setOnItemClickListener((adapter, view, position) -> {
-            if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
-                return;
-            }
-            articlePosition = position;
-            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, view, getString(R.string.share_view));
-            JudgeUtils.startArticleDetailActivity(this,
-                    options,
-                    mAdapter.getData().get(position).getId(),
-                    mAdapter.getData().get(position).getTitle(),
-                    mAdapter.getData().get(position).getLink(),
-                    mAdapter.getData().get(position).isCollect(),
-                    false,
-                    false);
-        });
-
-        mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            switch (view.getId()) {
-                case R.id.item_search_pager_chapterName:
-                    if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
-                        return;
-                    }
-                    JudgeUtils.startKnowledgeHierarchyDetailActivity(this,
-                            true,
-                            mAdapter.getData().get(position).getSuperChapterName(),
-                            mAdapter.getData().get(position).getChapterName(),
-                            mAdapter.getData().get(position).getChapterId());
-                    break;
-                case R.id.item_search_pager_like_iv:
-                    likeEvent(position);
-                    break;
-                case R.id.item_search_pager_tag_red_tv:
-                    if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
-                        return;
-                    }
-                    String superChapterName = mAdapter.getData().get(position).getSuperChapterName();
-                    if (superChapterName.contains(getString(R.string.open_project))) {
-                        onBackPressedSupport();
-                        RxBus.getDefault().post(new SwitchProjectEvent());
-                    } else if (superChapterName.contains(getString(R.string.navigation))) {
-                        onBackPressedSupport();
-                        RxBus.getDefault().post(new SwitchNavigationEvent());
-                    }
-                    break;
-                default:
-                    break;
-            }
-        });
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setHasFixedSize(true);
+        initRecyclerView();
         setRefresh();
         if (CommonUtils.isNetworkConnected()) {
             showLoading();
@@ -208,6 +154,75 @@ public class SearchListActivity extends BaseRootActivity<SearchListPresenter> im
             default:
                 break;
         }
+    }
+
+    private void initRecyclerView() {
+        mArticleList = new ArrayList<>();
+        mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mArticleList);
+        mAdapter.isSearchPage();
+        mAdapter.isNightMode(mPresenter.getNightModeState());
+        mAdapter.setOnItemClickListener((adapter, view, position) -> startArticleDetailPager(view, position));
+        mAdapter.setOnItemChildClickListener((adapter, view, position) -> clickChildrenEvent(view, position));
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setHasFixedSize(true);
+    }
+
+    private void clickChildrenEvent(View view, int position) {
+        switch (view.getId()) {
+            case R.id.item_search_pager_chapterName:
+                startSingleChapterPager(position);
+                break;
+            case R.id.item_search_pager_like_iv:
+                likeEvent(position);
+                break;
+            case R.id.item_search_pager_tag_red_tv:
+                clickTag(position);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void clickTag(int position) {
+        if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+            return;
+        }
+        String superChapterName = mAdapter.getData().get(position).getSuperChapterName();
+        if (superChapterName.contains(getString(R.string.open_project))) {
+            onBackPressedSupport();
+            RxBus.getDefault().post(new SwitchProjectEvent());
+        } else if (superChapterName.contains(getString(R.string.navigation))) {
+            onBackPressedSupport();
+            RxBus.getDefault().post(new SwitchNavigationEvent());
+        }
+    }
+
+    private void startSingleChapterPager(int position) {
+        if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+            return;
+        }
+        JudgeUtils.startKnowledgeHierarchyDetailActivity(this,
+                true,
+                mAdapter.getData().get(position).getSuperChapterName(),
+                mAdapter.getData().get(position).getChapterName(),
+                mAdapter.getData().get(position).getChapterId());
+    }
+
+    private void startArticleDetailPager(View view, int position) {
+        if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+            return;
+        }
+        articlePosition = position;
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, view, getString(R.string.share_view));
+        JudgeUtils.startArticleDetailActivity(this,
+                options,
+                mAdapter.getData().get(position).getId(),
+                mAdapter.getData().get(position).getTitle(),
+                mAdapter.getData().get(position).getLink(),
+                mAdapter.getData().get(position).isCollect(),
+                false,
+                false);
     }
 
     private void showCollectResult(boolean collectResult) {

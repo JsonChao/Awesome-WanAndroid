@@ -1,5 +1,7 @@
 package json.chao.com.wanandroid.presenter.mainpager;
 
+import android.support.annotation.NonNull;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -77,30 +79,17 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
 
     @Override
     public void loadMainPagerData() {
-        String account = mDataManager.getLoginAccount();
-        String password = mDataManager.getLoginPassword();
-        Observable<BaseResponse<LoginData>> mLoginObservable = mDataManager.getLoginData(account, password);
+        Observable<BaseResponse<LoginData>> mLoginObservable = mDataManager.getLoginData(getLoginAccount(), getLoginPassword());
         Observable<BaseResponse<List<BannerData>>> mBannerObservable = mDataManager.getBannerData();
         Observable<BaseResponse<FeedArticleListData>> mArticleObservable = mDataManager.getFeedArticleList(0);
-        addSubscribe(Observable.zip(mLoginObservable, mBannerObservable, mArticleObservable,
-                (loginResponse, bannerResponse, feedArticleListResponse) -> {
-                    HashMap<String, Object> map = new HashMap<>(3);
-                    map.put(Constants.LOGIN_DATA, loginResponse);
-                    map.put(Constants.BANNER_DATA, bannerResponse);
-                    map.put(Constants.ARTICLE_DATA, feedArticleListResponse);
-                    return map;
-                })
+        addSubscribe(Observable.zip(mLoginObservable, mBannerObservable, mArticleObservable, this::createResponseMap)
                 .compose(RxUtils.rxSchedulerHelper())
                 .subscribeWith(new BaseObserver<HashMap<String, Object>>(mView) {
                     @Override
                     public void onNext(HashMap<String, Object> map) {
                         BaseResponse<LoginData> loginResponse = CommonUtils.cast(map.get(Constants.LOGIN_DATA));
                         if (loginResponse.getErrorCode() == BaseResponse.SUCCESS) {
-                            LoginData loginData = loginResponse.getData();
-                            mDataManager.setLoginAccount(loginData.getUsername());
-                            mDataManager.setLoginPassword(loginData.getPassword());
-                            mDataManager.setLoginStatus(true);
-                            mView.showAutoLoginSuccess();
+                            loginSuccess(loginResponse);
                         } else {
                             mView.showAutoLoginFail();
                         }
@@ -212,6 +201,25 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
                         mView.showBannerData(bannerDataList);
                     }
                 }));
+    }
+
+    private void loginSuccess(BaseResponse<LoginData> loginResponse) {
+        LoginData loginData = loginResponse.getData();
+        mDataManager.setLoginAccount(loginData.getUsername());
+        mDataManager.setLoginPassword(loginData.getPassword());
+        mDataManager.setLoginStatus(true);
+        mView.showAutoLoginSuccess();
+    }
+
+    @NonNull
+    private HashMap<String, Object> createResponseMap(BaseResponse<LoginData> loginResponse,
+                                                      BaseResponse<List<BannerData>> bannerResponse,
+                                                      BaseResponse<FeedArticleListData> feedArticleListResponse) {
+        HashMap<String, Object> map = new HashMap<>(3);
+        map.put(Constants.LOGIN_DATA, loginResponse);
+        map.put(Constants.BANNER_DATA, bannerResponse);
+        map.put(Constants.ARTICLE_DATA, feedArticleListResponse);
+        return map;
     }
 
 

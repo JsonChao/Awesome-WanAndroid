@@ -100,69 +100,9 @@ public class MainPagerFragment extends BaseRootFragment<MainPagerPresenter> impl
     @Override
     protected void initEventAndData() {
         super.initEventAndData();
-        mFeedArticleDataList = new ArrayList<>();
-        mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mFeedArticleDataList);
-        mAdapter.setOnItemClickListener((adapter, view, position) -> {
-            if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() < position) {
-                return;
-            }
-            //记录点击的文章位置，便于在文章内点击收藏返回到此界面时能展示正确的收藏状态
-            articlePosition = position;
-            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(_mActivity, view, getString(R.string.share_view));
-            JudgeUtils.startArticleDetailActivity(_mActivity,
-                    options,
-                    mAdapter.getData().get(position).getId(),
-                    mAdapter.getData().get(position).getTitle(),
-                    mAdapter.getData().get(position).getLink(),
-                    mAdapter.getData().get(position).isCollect(),
-                    false,
-                    false);
-        });
-        mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            switch (view.getId()) {
-                case R.id.item_search_pager_chapterName:
-                    if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
-                        return;
-                    }
-                    JudgeUtils.startKnowledgeHierarchyDetailActivity(_mActivity,
-                            true,
-                            mAdapter.getData().get(position).getSuperChapterName(),
-                            mAdapter.getData().get(position).getChapterName(),
-                            mAdapter.getData().get(position).getChapterId());
-                    break;
-                case R.id.item_search_pager_like_iv:
-                    likeEvent(position);
-                    break;
-                case R.id.item_search_pager_tag_red_tv:
-                    if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
-                        return;
-                    }
-                    String superChapterName = mAdapter.getData().get(position).getSuperChapterName();
-                    if (superChapterName.contains(getString(R.string.open_project))) {
-                        RxBus.getDefault().post(new SwitchProjectEvent());
-                    } else if (superChapterName.contains(getString(R.string.navigation))) {
-                        RxBus.getDefault().post(new SwitchNavigationEvent());
-                    }
-                    break;
-                default:
-                    break;
-            }
-        });
-
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
-        mRecyclerView.setHasFixedSize(true);
-
-        //add head banner
-        LinearLayout mHeaderGroup = ((LinearLayout) LayoutInflater.from(_mActivity).inflate(R.layout.head_banner, null));
-        mBanner = mHeaderGroup.findViewById(R.id.head_banner);
-        mHeaderGroup.removeView(mBanner);
-        mAdapter.addHeaderView(mBanner);
-        mRecyclerView.setAdapter(mAdapter);
-
+        initRecyclerView();
         setRefresh();
-        if (!TextUtils.isEmpty(mPresenter.getLoginAccount())
-                && !TextUtils.isEmpty(mPresenter.getLoginPassword())
-                && !isRecreate) {
+        if (loggedAndNotRebuilt()) {
             mPresenter.loadMainPagerData();
         } else {
             mPresenter.autoRefresh(true);
@@ -170,6 +110,83 @@ public class MainPagerFragment extends BaseRootFragment<MainPagerPresenter> impl
         if (CommonUtils.isNetworkConnected()) {
             showLoading();
         }
+    }
+
+    private boolean loggedAndNotRebuilt() {
+        return !TextUtils.isEmpty(mPresenter.getLoginAccount())
+                && !TextUtils.isEmpty(mPresenter.getLoginPassword())
+                && !isRecreate;
+    }
+
+    private void initRecyclerView() {
+        mFeedArticleDataList = new ArrayList<>();
+        mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mFeedArticleDataList);
+        mAdapter.setOnItemClickListener((adapter, view, position) -> startArticleDetailPager(view, position));
+        mAdapter.setOnItemChildClickListener((adapter, view, position) -> clickChildEvent(view, position));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
+        mRecyclerView.setHasFixedSize(true);
+        //add head banner
+        LinearLayout mHeaderGroup = ((LinearLayout) LayoutInflater.from(_mActivity).inflate(R.layout.head_banner, null));
+        mBanner = mHeaderGroup.findViewById(R.id.head_banner);
+        mHeaderGroup.removeView(mBanner);
+        mAdapter.addHeaderView(mBanner);
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    private void clickChildEvent(View view, int position) {
+        switch (view.getId()) {
+            case R.id.item_search_pager_chapterName:
+                startSingleChapterKnowledgePager(position);
+                break;
+            case R.id.item_search_pager_like_iv:
+                likeEvent(position);
+                break;
+            case R.id.item_search_pager_tag_red_tv:
+                clickTag(position);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void clickTag(int position) {
+        if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+            return;
+        }
+        String superChapterName = mAdapter.getData().get(position).getSuperChapterName();
+        if (superChapterName.contains(getString(R.string.open_project))) {
+            RxBus.getDefault().post(new SwitchProjectEvent());
+        } else if (superChapterName.contains(getString(R.string.navigation))) {
+            RxBus.getDefault().post(new SwitchNavigationEvent());
+        }
+    }
+
+    private void startSingleChapterKnowledgePager(int position) {
+        if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+            return;
+        }
+        JudgeUtils.startKnowledgeHierarchyDetailActivity(_mActivity,
+                true,
+                mAdapter.getData().get(position).getSuperChapterName(),
+                mAdapter.getData().get(position).getChapterName(),
+                mAdapter.getData().get(position).getChapterId());
+    }
+
+    private void startArticleDetailPager(View view, int position) {
+        if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() < position) {
+            return;
+        }
+        //记录点击的文章位置，便于在文章内点击收藏返回到此界面时能展示正确的收藏状态
+        articlePosition = position;
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(_mActivity, view, getString(R.string.share_view));
+        JudgeUtils.startArticleDetailActivity(_mActivity,
+                options,
+                mAdapter.getData().get(position).getId(),
+                mAdapter.getData().get(position).getTitle(),
+                mAdapter.getData().get(position).getLink(),
+                mAdapter.getData().get(position).isCollect(),
+                false,
+                false);
     }
 
     @Override
@@ -192,7 +209,6 @@ public class MainPagerFragment extends BaseRootFragment<MainPagerPresenter> impl
         if (mPresenter.getCurrentPage() == Constants.TYPE_MAIN_PAGER) {
             mRecyclerView.setVisibility(View.VISIBLE);
         } else {
-
             mRecyclerView.setVisibility(View.INVISIBLE);
         }
         if (mAdapter == null) {

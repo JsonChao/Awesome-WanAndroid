@@ -69,8 +69,7 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements
                 ShareUtil.sendEmail(_mActivity, getString(R.string.send_email));
                 break;
             case R.id.ll_setting_clear:
-                ACache.deleteDir(cacheFile);
-                mTvSettingClear.setText(ACache.getCacheSize(cacheFile));
+                clearCache();
                 break;
             default:
                 break;
@@ -103,5 +102,11 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements
         fragment.setArguments(args);
         return fragment;
     }
+
+    private void clearCache() {
+        ACache.deleteDir(cacheFile);
+        mTvSettingClear.setText(ACache.getCacheSize(cacheFile));
+    }
+
 
 }

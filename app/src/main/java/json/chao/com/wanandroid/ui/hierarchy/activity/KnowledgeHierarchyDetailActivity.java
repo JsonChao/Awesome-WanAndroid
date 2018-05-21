@@ -66,27 +66,39 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
         StatusBarUtil.setStatusColor(getWindow(), ContextCompat.getColor(this, R.color.main_status_bar_blue), 1f);
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
         if (getIntent().getBooleanExtra(Constants.IS_SINGLE_CHAPTER, false)) {
-            String superChapterName = getIntent().getStringExtra(Constants.SUPER_CHAPTER_NAME);
-            chapterName = getIntent().getStringExtra(Constants.CHAPTER_NAME);
-            int chapterId = getIntent().getIntExtra(Constants.CHAPTER_ID, 0);
-            mTitleTv.setText(superChapterName);
-            mFragments.add(KnowledgeHierarchyListFragment.getInstance(chapterId, null));
+            startSingleChapterPager();
         } else {
-            KnowledgeHierarchyData knowledgeHierarchyData = (KnowledgeHierarchyData) getIntent().getSerializableExtra(Constants.ARG_PARAM1);
-            assert knowledgeHierarchyData != null && knowledgeHierarchyData.getName() != null;
-            mTitleTv.setText(knowledgeHierarchyData.getName().trim());
-            knowledgeHierarchyDataList = knowledgeHierarchyData.getChildren();
-            if (knowledgeHierarchyDataList == null) {
-                return;
-            }
-            for (KnowledgeHierarchyData data : knowledgeHierarchyDataList) {
-                mFragments.add(KnowledgeHierarchyListFragment.getInstance(data.getId(), null));
-            }
+            startNormalKnowledgeListPager();
         }
     }
 
     @Override
     protected void initEventAndData() {
+        initViewPagerAndTabLayout();
+    }
+
+    @OnClick({R.id.knowledge_floating_action_btn})
+    void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.knowledge_floating_action_btn:
+                RxBus.getDefault().post(new KnowledgeJumpTopEvent());
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void showSwitchProject() {
+        onBackPressedSupport();
+    }
+
+    @Override
+    public void showSwitchNavigation() {
+        onBackPressedSupport();
+    }
+
+    private void initViewPagerAndTabLayout() {
         mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -110,25 +122,33 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
         mTabLayout.setViewPager(mViewPager);
     }
 
-    @OnClick({R.id.knowledge_floating_action_btn})
-    void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.knowledge_floating_action_btn:
-                RxBus.getDefault().post(new KnowledgeJumpTopEvent());
-                break;
-            default:
-                break;
+    /**
+     * 装载多个列表的知识体系页面（knowledge进入）
+     */
+    private void startNormalKnowledgeListPager() {
+        KnowledgeHierarchyData knowledgeHierarchyData = (KnowledgeHierarchyData) getIntent().getSerializableExtra(Constants.ARG_PARAM1);
+        if (knowledgeHierarchyData == null || knowledgeHierarchyData.getName() == null) {
+            return;
+        }
+        mTitleTv.setText(knowledgeHierarchyData.getName().trim());
+        knowledgeHierarchyDataList = knowledgeHierarchyData.getChildren();
+        if (knowledgeHierarchyDataList == null) {
+            return;
+        }
+        for (KnowledgeHierarchyData data : knowledgeHierarchyDataList) {
+            mFragments.add(KnowledgeHierarchyListFragment.getInstance(data.getId(), null));
         }
     }
 
-    @Override
-    public void showSwitchProject() {
-        onBackPressedSupport();
-    }
-
-    @Override
-    public void showSwitchNavigation() {
-        onBackPressedSupport();
+    /**
+     * 装载单个列表的知识体系页面（tag进入）
+     */
+    private void startSingleChapterPager() {
+        String superChapterName = getIntent().getStringExtra(Constants.SUPER_CHAPTER_NAME);
+        chapterName = getIntent().getStringExtra(Constants.CHAPTER_NAME);
+        int chapterId = getIntent().getIntExtra(Constants.CHAPTER_ID, 0);
+        mTitleTv.setText(superChapterName);
+        mFragments.add(KnowledgeHierarchyListFragment.getInstance(chapterId, null));
     }
 
 
