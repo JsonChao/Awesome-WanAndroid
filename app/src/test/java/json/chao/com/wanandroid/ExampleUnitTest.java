@@ -2,6 +2,8 @@ package json.chao.com.wanandroid;
 
 import org.junit.Test;
 
+import java.util.regex.Matcher;
+
 import static org.junit.Assert.*;
 
 /**
