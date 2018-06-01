@@ -137,6 +137,11 @@ dependencies {
 
     //unit test
     testImplementation rootProject.ext.dependencies["junit"]
+    testImplementation rootProject.ext.dependencies["mockito"]
+    testImplementation "org.powermock:powermock-module-junit4:1.7.4"
+    testImplementation "org.powermock:powermock-module-junit4-rule:1.7.4"
+    testImplementation "org.powermock:powermock-api-mockito2:1.7.4" //注意这里是mockito2
+    testImplementation "org.powermock:powermock-classloading-xstream:1.7.4"
     androidTestImplementation rootProject.ext.dependencies["runner"]
 
     implementation rootProject.ext.dependencies["kotlin-stdlib"]

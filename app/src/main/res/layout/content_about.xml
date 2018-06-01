@@ -22,7 +22,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/dp_16"
             android:drawablePadding="@dimen/dp_8"
-            android:drawableTop="@mipmap/icon_wan_android_round"
+            android:drawableTop="@mipmap/ic_launcher"
             android:gravity="center"
             android:text="@string/awesome_wan_android"
             android:textAllCaps="false"
