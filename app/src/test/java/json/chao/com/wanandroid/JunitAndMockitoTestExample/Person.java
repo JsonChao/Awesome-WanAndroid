@@ -1,4 +1,4 @@
-package json.chao.com.wanandroid;
+package json.chao.com.wanandroid.JunitAndMockitoTestExample;
 
 /**
  * @author quchao
@@ -9,4 +9,8 @@ public interface Person {
     int getAge();
 
     int setAge(String age);
+
+    int setSex(String sex);
+
+    int getSex();
 }

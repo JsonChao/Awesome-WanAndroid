@@ -40,113 +40,120 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+    testOptions {
+        unitTests {
+            // Fix unit test resources not included with AS3
+            includeAndroidResources = true
+        }
     }
 
-    flavorDimensions "code"
-    productFlavors {
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+
+        flavorDimensions "code"
+        productFlavors {
+        }
+
+        packagingOptions {
+            exclude 'META-INF/services/javax.annotation.processing.Processor'
+        }
+
+        dexOptions {
+            jumboMode true
+            javaMaxHeapSize "4g"
+        }
     }
 
-    packagingOptions {
-        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    greendao {
+        schemaVersion 1
+        targetGenDir 'src/main/java'
+        daoPackage 'json.chao.com.wanandroid.core.dao'
     }
 
-    dexOptions {
-        jumboMode true
-        javaMaxHeapSize "4g"
+    dependencies {
+        implementation fileTree(include: ['*.jar'], dir: 'libs')
+        androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+            exclude group: 'com.android.support', module: 'support-annotations'
+        })
+
+        //base
+        implementation rootProject.ext.dependencies["appcompat-v7"]
+        implementation rootProject.ext.dependencies["cardview-v7"]
+        implementation rootProject.ext.dependencies["support-v4"]
+        implementation rootProject.ext.dependencies["design"]
+        implementation rootProject.ext.dependencies["constraint-layout"]
+
+        //ui
+        implementation rootProject.ext.dependencies["SmartRefreshLayout"]
+        implementation rootProject.ext.dependencies["SmartRefreshHeader"]
+        implementation rootProject.ext.dependencies["banner"]
+        implementation rootProject.ext.dependencies["FlycoTabLayout_Lib"]
+        implementation rootProject.ext.dependencies["VerticalTabLayout"]
+        implementation rootProject.ext.dependencies["flowlayout-lib"]
+        implementation rootProject.ext.dependencies["agentweb"]
+
+        //net
+        implementation rootProject.ext.dependencies["gson"]
+        implementation rootProject.ext.dependencies["okhttp"]
+        implementation rootProject.ext.dependencies["logging-interceptor"]
+        implementation rootProject.ext.dependencies["retrofit"]
+        implementation rootProject.ext.dependencies["converter-gson"]
+        implementation rootProject.ext.dependencies["adapter-rxjava2"]
+        implementation rootProject.ext.dependencies["glide"]
+        annotationProcessor rootProject.ext.dependencies["glide_compiler"]
+
+        //dao
+        implementation rootProject.ext.dependencies["greendao"]
+
+        //rx
+        implementation rootProject.ext.dependencies["rxjava"]
+        implementation rootProject.ext.dependencies["rxandroid"]
+        implementation rootProject.ext.dependencies["rxbinding"]
+        implementation rootProject.ext.dependencies["rxpermissions"]
+
+        //di
+        implementation rootProject.ext.dependencies["dagger"]
+        annotationProcessor rootProject.ext.dependencies["dagger-compiler"]
+        implementation rootProject.ext.dependencies["dagger-android"]
+        implementation rootProject.ext.dependencies["dagger-android-support"]
+        annotationProcessor rootProject.ext.dependencies["dagger-android-processor"]
+        implementation rootProject.ext.dependencies["javax_annotation"]
+        implementation rootProject.ext.dependencies["butterknife"]
+        annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+
+        //multidex
+        implementation rootProject.ext.dependencies["multidex"]
+
+        //other
+        implementation rootProject.ext.dependencies["lottie"]
+        implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
+        implementation rootProject.ext.dependencies["fragmentation"]
+        implementation rootProject.ext.dependencies["fragmentation-swipeback"]
+        implementation rootProject.ext.dependencies["crashreport_upgrade"]
+        implementation rootProject.ext.dependencies["logger"]
+        implementation rootProject.ext.dependencies["ByeBurger"]
+
+        //canary
+        debugImplementation rootProject.ext.dependencies["leakcanary-android"]
+        releaseImplementation rootProject.ext.dependencies["leakcanary-android-no-op"]
+        testImplementation rootProject.ext.dependencies["leakcanary-android-no-op"]
+
+        //unit test
+        testImplementation rootProject.ext.dependencies["junit"]
+        testImplementation rootProject.ext.dependencies["mockito"]
+        testImplementation "org.powermock:powermock-module-junit4:1.7.4"
+        testImplementation "org.powermock:powermock-module-junit4-rule:1.7.4"
+        testImplementation "org.powermock:powermock-api-mockito2:1.7.4" //注意这里是mockito2
+        testImplementation "org.powermock:powermock-classloading-xstream:1.7.4"
+        testImplementation "org.robolectric:robolectric:3.8"
+        testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
+        androidTestImplementation rootProject.ext.dependencies["runner"]
+
+        implementation rootProject.ext.dependencies["kotlin-stdlib"]
+
     }
-}
-
-greendao {
-    schemaVersion 1
-    targetGenDir 'src/main/java'
-    daoPackage 'json.chao.com.wanandroid.core.dao'
-}
-
-dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-
-    //base
-    implementation rootProject.ext.dependencies["appcompat-v7"]
-    implementation rootProject.ext.dependencies["cardview-v7"]
-    implementation rootProject.ext.dependencies["support-v4"]
-    implementation rootProject.ext.dependencies["design"]
-    implementation rootProject.ext.dependencies["constraint-layout"]
-
-    //ui
-    implementation rootProject.ext.dependencies["SmartRefreshLayout"]
-    implementation rootProject.ext.dependencies["SmartRefreshHeader"]
-    implementation rootProject.ext.dependencies["banner"]
-    implementation rootProject.ext.dependencies["FlycoTabLayout_Lib"]
-    implementation rootProject.ext.dependencies["VerticalTabLayout"]
-    implementation rootProject.ext.dependencies["flowlayout-lib"]
-    implementation rootProject.ext.dependencies["agentweb"]
-
-    //net
-    implementation rootProject.ext.dependencies["gson"]
-    implementation rootProject.ext.dependencies["okhttp"]
-    implementation rootProject.ext.dependencies["logging-interceptor"]
-    implementation rootProject.ext.dependencies["retrofit"]
-    implementation rootProject.ext.dependencies["converter-gson"]
-    implementation rootProject.ext.dependencies["adapter-rxjava2"]
-    implementation rootProject.ext.dependencies["glide"]
-    annotationProcessor rootProject.ext.dependencies["glide_compiler"]
-
-    //dao
-    implementation rootProject.ext.dependencies["greendao"]
-
-    //rx
-    implementation rootProject.ext.dependencies["rxjava"]
-    implementation rootProject.ext.dependencies["rxandroid"]
-    implementation rootProject.ext.dependencies["rxbinding"]
-    implementation rootProject.ext.dependencies["rxpermissions"]
-
-    //di
-    implementation rootProject.ext.dependencies["dagger"]
-    annotationProcessor rootProject.ext.dependencies["dagger-compiler"]
-    implementation rootProject.ext.dependencies["dagger-android"]
-    implementation rootProject.ext.dependencies["dagger-android-support"]
-    annotationProcessor rootProject.ext.dependencies["dagger-android-processor"]
-    implementation rootProject.ext.dependencies["javax_annotation"]
-    implementation rootProject.ext.dependencies["butterknife"]
-    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
-
-    //multidex
-    implementation rootProject.ext.dependencies["multidex"]
-
-    //other
-    implementation rootProject.ext.dependencies["lottie"]
-    implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
-    implementation rootProject.ext.dependencies["fragmentation"]
-    implementation rootProject.ext.dependencies["fragmentation-swipeback"]
-    implementation rootProject.ext.dependencies["crashreport_upgrade"]
-    implementation rootProject.ext.dependencies["logger"]
-    implementation rootProject.ext.dependencies["ByeBurger"]
-
-    //canary
-    debugImplementation rootProject.ext.dependencies["leakcanary-android"]
-    releaseImplementation rootProject.ext.dependencies["leakcanary-android-no-op"]
-    testImplementation rootProject.ext.dependencies["leakcanary-android-no-op"]
-
-
-
-    //unit test
-    testImplementation rootProject.ext.dependencies["junit"]
-    testImplementation rootProject.ext.dependencies["mockito"]
-    testImplementation "org.powermock:powermock-module-junit4:1.7.4"
-    testImplementation "org.powermock:powermock-module-junit4-rule:1.7.4"
-    testImplementation "org.powermock:powermock-api-mockito2:1.7.4" //注意这里是mockito2
-    testImplementation "org.powermock:powermock-classloading-xstream:1.7.4"
-    androidTestImplementation rootProject.ext.dependencies["runner"]
-
-    implementation rootProject.ext.dependencies["kotlin-stdlib"]
-
-}
 
 //解决支持库版本不兼容问题
 configurations.all {

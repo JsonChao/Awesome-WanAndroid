@@ -1,9 +1,10 @@
-package json.chao.com.wanandroid;
+package json.chao.com.wanandroid.PowerMockTestExample;
 
 /**
  * @author quchao
- * @date 2018/5/31
+ * @date 2018/6/5
  */
+
 abstract class Fruit {
 
     private String fruit = "水果";

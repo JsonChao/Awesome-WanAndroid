@@ -83,9 +83,9 @@ ext {
             //kotlin
             "kotlin-stdlib"                     : "org.jetbrains.kotlin:kotlin-stdlib:1.2.10",
 
-            //unit test
+            //unit test , 为了整合mockito和PowerMockito，mockito暂时最高只支持2.8.9
             "junit"                             : "junit:junit:4.12",
-            "mockito"                           : "org.mockito:mockito-core:2.11.0",
+            "mockito"                           : "org.mockito:mockito-core:2.8.9",
             "runner"                            : "com.android.support.test:runner:1.0.2",
             "espresso-core"                     : "com.android.support.test.espresso:espresso-core:3.0.2",
             "androidJUnitRunner"                : "android.support.test.runner.AndroidJUnitRunner",

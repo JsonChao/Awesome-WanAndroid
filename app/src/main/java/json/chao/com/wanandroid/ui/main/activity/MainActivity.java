@@ -131,13 +131,23 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 if (usageDialogFragment == null) {
                     usageDialogFragment = new UsageDialogFragment();
                 }
-                usageDialogFragment.show(getSupportFragmentManager(), "UsageDialogFragment");
+                if (usageDialogFragment.isAdded()) {
+                    usageDialogFragment.dismiss();
+                    usageDialogFragment.show(getSupportFragmentManager(), "UsageDialogFragment");
+                } else {
+                    usageDialogFragment.show(getSupportFragmentManager(), "UsageDialogFragment");
+                }
                 break;
             case R.id.action_search:
                 if (searchDialogFragment == null) {
                     searchDialogFragment = new SearchDialogFragment();
                 }
-                searchDialogFragment.show(getSupportFragmentManager(), "SearchDialogFragment");
+                if (searchDialogFragment.isAdded()) {
+                    searchDialogFragment.dismiss();
+                    searchDialogFragment.show(getSupportFragmentManager(), "SearchDialogFragment");
+                } else {
+                    searchDialogFragment.show(getSupportFragmentManager(), "SearchDialogFragment");
+                }
                 break;
             default:
                 break;
@@ -167,12 +177,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void showSwitchProject() {
-        mBottomNavigationView.setSelectedItemId(R.id.tab_project);
+        if (mBottomNavigationView != null) {
+            mBottomNavigationView.setSelectedItemId(R.id.tab_project);
+        }
     }
 
     @Override
     public void showSwitchNavigation() {
-        mBottomNavigationView.setSelectedItemId(R.id.tab_navigation);
+        if (mBottomNavigationView != null) {
+            mBottomNavigationView.setSelectedItemId(R.id.tab_navigation);
+        }
     }
 
     @Override

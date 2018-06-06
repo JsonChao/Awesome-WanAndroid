@@ -18,6 +18,7 @@ public class MyRuler implements TestRule {
                 String methodName = description.getMethodName();
                 System.out.println(methodName + "测试开始~");
 
+                //执行单元测试操作
                 base.evaluate();
 
                 System.out.println(methodName + "测试结束");

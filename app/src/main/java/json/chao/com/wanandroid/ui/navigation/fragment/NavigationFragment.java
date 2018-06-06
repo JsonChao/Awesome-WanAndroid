@@ -219,6 +219,9 @@ public class NavigationFragment extends BaseRootFragment<NavigationPresenter> im
         if (isClickTab) {
             isClickTab = false;
         } else {
+            if (mTabLayout == null) {
+                return;
+            }
             mTabLayout.setTabSelected(index);
         }
         index = position;
