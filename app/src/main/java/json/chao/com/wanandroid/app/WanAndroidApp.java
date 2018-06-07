@@ -81,7 +81,7 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-//        MultiDex.install(this);
+        MultiDex.install(this);
     }
 
     @Override

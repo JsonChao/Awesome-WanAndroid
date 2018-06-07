@@ -69,6 +69,8 @@ public class JunitAndMockitoTest {
     public void verifyTest() {
         when(mPerson.getAge()).thenReturn(25);
 
+        System.out.println(mPerson.getAge());
+
         verify(mPerson, after(1000)).getAge();
 
         System.out.println(mPerson.getAge());
@@ -170,8 +172,8 @@ public class JunitAndMockitoTest {
     @Test
     public void continuousInvocation() {
         when(mPerson1.getAge())
-                .thenReturn(1, 2, 3)
-                .thenThrow(new NullPointerException());
+                .thenReturn(1, 2, 3);
+//                .thenThrow(new NullPointerException());
 
         System.out.println(mPerson1.getAge());
 

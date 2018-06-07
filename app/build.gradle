@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'org.greenrobot.greendao'
+apply from: 'jacoco.gradle'
 
 
 android {
@@ -149,6 +150,7 @@ android {
         testImplementation "org.powermock:powermock-classloading-xstream:1.7.4"
         testImplementation "org.robolectric:robolectric:3.8"
         testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
+        testImplementation "org.robolectric:shadows-multidex:3.+" //支持Multidex功能
         androidTestImplementation rootProject.ext.dependencies["runner"]
 
         implementation rootProject.ext.dependencies["kotlin-stdlib"]

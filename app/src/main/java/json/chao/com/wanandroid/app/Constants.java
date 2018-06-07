@@ -16,6 +16,8 @@ public class Constants {
 
     static final String  BUGLY_ID = "a29fb52485";
 
+    public static final String MY_SHARED_PREFERENCE = "my_shared_preference";
+
     /**
      * url
      */

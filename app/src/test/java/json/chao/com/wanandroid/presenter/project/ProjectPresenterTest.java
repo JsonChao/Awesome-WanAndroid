@@ -48,16 +48,6 @@ public class ProjectPresenterTest {
 
     @Test
     public void getProjectClassifyData() {
-        mDataManager.getProjectClassifyData()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(RxUtils.handleResult())
-                .subscribeWith(new BaseObserver<List<ProjectClassifyData>>(mView,
-                        WanAndroidApp.getInstance().getString(R.string.failed_to_obtain_project_classify_data)) {
-                    @Override
-                    public void onNext(List<ProjectClassifyData> projectClassifyDataList) {
-                        System.out.println(projectClassifyDataList);
-                    }
-                });
+
     }
 }

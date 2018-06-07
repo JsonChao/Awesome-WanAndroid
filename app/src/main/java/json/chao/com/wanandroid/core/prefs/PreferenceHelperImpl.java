@@ -15,12 +15,11 @@ import json.chao.com.wanandroid.app.WanAndroidApp;
 
 public class PreferenceHelperImpl implements PreferenceHelper {
 
-    private static final String MY_SHARED_PREFERENCE = "my_shared_preference";
     private final SharedPreferences mPreferences;
 
     @Inject
     PreferenceHelperImpl() {
-        mPreferences = WanAndroidApp.getInstance().getSharedPreferences(MY_SHARED_PREFERENCE, Context.MODE_PRIVATE);
+        mPreferences = WanAndroidApp.getInstance().getSharedPreferences(Constants.MY_SHARED_PREFERENCE, Context.MODE_PRIVATE);
     }
 
     @Override
