@@ -21,6 +21,11 @@ public interface MainContract {
          * Show switch navigation
          */
         void showSwitchNavigation();
+
+        /**
+         * Show auto login view
+         */
+        void showAutoLoginView();
     }
 
     interface Presenter extends AbstractPresenter<View> {

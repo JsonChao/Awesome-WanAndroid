@@ -6,7 +6,7 @@ jacoco {
 }
 
 //依赖于testDebugUnitTest任务
-task jacocoTestReport(type: JacocoReport, dependsOn: 'testReleaseUnitTest') {
+task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
     group = "reporting" //指定task的分组
     reports {
         xml.enabled = true //开启xml报告
@@ -20,5 +20,5 @@ task jacocoTestReport(type: JacocoReport, dependsOn: 'testReleaseUnitTest') {
 
     sourceDirectories = files([mainSrc])
     classDirectories = files([debugTree])
-    executionData = files("${buildDir}/jacoco/testReleaseUnitTest.exec")//指定报告数据的路径
+    executionData = files("${buildDir}/jacoco/testDebugUnitTest.exec")//指定报告数据的路径
 }

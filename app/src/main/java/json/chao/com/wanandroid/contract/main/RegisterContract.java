@@ -14,10 +14,8 @@ public interface RegisterContract {
 
         /**
          * Show register data
-         *
-         * @param loginData LoginData
          */
-        void showRegisterData(LoginData loginData);
+        void showRegisterSuccess();
     }
 
     interface Presenter extends AbstractPresenter<RegisterContract.View> {

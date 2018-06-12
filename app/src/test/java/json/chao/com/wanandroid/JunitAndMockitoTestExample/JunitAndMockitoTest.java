@@ -13,7 +13,7 @@ import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
-import json.chao.com.wanandroid.MyRuler;
+import json.chao.com.wanandroid.rule.MyRuler;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;

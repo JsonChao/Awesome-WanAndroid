@@ -46,11 +46,6 @@ public class SearchListPresenter extends BasePresenter<SearchListContract.View> 
     }
 
     @Override
-    public boolean getNightModeState() {
-        return mDataManager.getNightModeState();
-    }
-
-    @Override
     public void getSearchList(int page, String k, boolean isShowError) {
         addSubscribe(mDataManager.getSearchList(page, k)
                 .compose(RxUtils.rxSchedulerHelper())
@@ -94,4 +89,10 @@ public class SearchListPresenter extends BasePresenter<SearchListContract.View> 
                     }
                 }));
     }
+
+    @Override
+    public boolean getNightModeState() {
+        return mDataManager.getNightModeState();
+    }
+
 }

@@ -97,4 +97,20 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
 
     }
 
+    @Override
+    public void showToast(String message) {
+        if (getActivity() == null) {
+            return;
+        }
+        CommonUtils.showMessage(getActivity(), message);
+    }
+
+    @Override
+    public void showSnackBar(String message) {
+        if (getActivity() == null) {
+            return;
+        }
+        CommonUtils.showSnackMessage(getActivity(), message);
+    }
+
 }

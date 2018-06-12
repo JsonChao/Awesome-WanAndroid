@@ -127,6 +127,21 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
     }
 
     @Override
+    public void getBannerData(boolean isShowError) {
+        addSubscribe(mDataManager.getBannerData()
+                .compose(RxUtils.rxSchedulerHelper())
+                .compose(RxUtils.handleResult())
+                .subscribeWith(new BaseObserver<List<BannerData>>(mView,
+                        WanAndroidApp.getInstance().getString(R.string.failed_to_obtain_banner_data),
+                        isShowError) {
+                    @Override
+                    public void onNext(List<BannerData> bannerDataList) {
+                        mView.showBannerData(bannerDataList);
+                    }
+                }));
+    }
+
+    @Override
     public void getFeedArticleList(boolean isShowError) {
         addSubscribe(mDataManager.getFeedArticleList(mCurrentPage)
                 .compose(RxUtils.rxSchedulerHelper())
@@ -184,21 +199,6 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
                     public void onNext(FeedArticleListData feedArticleListData) {
                         feedArticleData.setCollect(false);
                         mView.showCancelCollectArticleData(position, feedArticleData, feedArticleListData);
-                    }
-                }));
-    }
-
-    @Override
-    public void getBannerData(boolean isShowError) {
-        addSubscribe(mDataManager.getBannerData()
-                .compose(RxUtils.rxSchedulerHelper())
-                .compose(RxUtils.handleResult())
-                .subscribeWith(new BaseObserver<List<BannerData>>(mView,
-                        WanAndroidApp.getInstance().getString(R.string.failed_to_obtain_banner_data),
-                        isShowError) {
-                    @Override
-                    public void onNext(List<BannerData> bannerDataList) {
-                        mView.showBannerData(bannerDataList);
                     }
                 }));
     }

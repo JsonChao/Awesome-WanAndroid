@@ -65,7 +65,7 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
                 .subscribe(logoutEvent -> mView.showLogoutView()));
 
         addSubscribe(RxBus.getDefault().toFlowable(AutoLoginEvent.class)
-                .subscribe(autoLoginEvent -> mView.showLoginView()));
+                .subscribe(autoLoginEvent -> mView.showAutoLoginView()));
 
         addSubscribe(RxBus.getDefault().toFlowable(SwitchProjectEvent.class)
                 .subscribe(switchProjectEvent -> mView.showSwitchProject()));

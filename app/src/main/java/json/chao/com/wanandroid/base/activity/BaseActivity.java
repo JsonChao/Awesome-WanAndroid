@@ -115,4 +115,14 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
 
     }
 
+    @Override
+    public void showToast(String message) {
+        CommonUtils.showMessage(this, message);
+    }
+
+    @Override
+    public void showSnackBar(String message) {
+        CommonUtils.showSnackMessage(this, message);
+    }
+
 }

@@ -20,25 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".TestActivity"
-            android:screenOrientation="portrait">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <receiver android:name=".MyReceiver"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="test_broadcast_receiver" />
-            </intent-filter>
-        </receiver>
-
-        <!--<activity-->
-            <!--android:name="json.chao.com.wanandroid.ui.main.activity.SplashActivity"-->
+        <!--<activity android:name=".test.TestActivity"-->
             <!--android:screenOrientation="portrait">-->
 
             <!--<intent-filter>-->
@@ -46,6 +28,24 @@
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         <!--</activity>-->
+
+        <!--<receiver android:name=".test.MyReceiver"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="false">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="test_broadcast_receiver" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+
+        <activity
+            android:name="json.chao.com.wanandroid.ui.main.activity.SplashActivity"
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name="json.chao.com.wanandroid.ui.main.activity.MainActivity"

@@ -49,8 +49,8 @@ public class CollectPresenter extends BasePresenter<CollectContract.View> implem
                         WanAndroidApp.getInstance().getString(R.string.failed_to_obtain_collection_data),
                         isShowError) {
                     @Override
-                    public void onNext(FeedArticleListData feedArticleListResponse) {
-                        mView.showCollectList(feedArticleListResponse);
+                    public void onNext(FeedArticleListData feedArticleListData) {
+                        mView.showCollectList(feedArticleListData);
                     }
                 }));
     }

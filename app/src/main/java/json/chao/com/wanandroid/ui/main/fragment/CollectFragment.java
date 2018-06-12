@@ -62,6 +62,12 @@ public class CollectFragment extends BaseRootFragment<CollectPresenter> implemen
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        showRefreshEvent();
+    }
+
+    @Override
     public void showCollectList(FeedArticleListData feedArticleListData) {
         if (mAdapter == null) {
             return;

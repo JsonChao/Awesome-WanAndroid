@@ -90,4 +90,15 @@ public abstract class BaseFragment<T extends AbstractPresenter> extends Abstract
     @Override
     public void showLogoutView() {
     }
+
+    @Override
+    public void showToast(String message) {
+        CommonUtils.showMessage(_mActivity, message);
+    }
+
+    @Override
+    public void showSnackBar(String message) {
+        CommonUtils.showSnackMessage(_mActivity, message);
+    }
+
 }

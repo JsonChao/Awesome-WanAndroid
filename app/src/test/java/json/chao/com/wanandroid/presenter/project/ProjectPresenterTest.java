@@ -1,53 +1,43 @@
 package json.chao.com.wanandroid.presenter.project;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.Mockito;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
-import java.util.List;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-import json.chao.com.wanandroid.R;
-import json.chao.com.wanandroid.RxJavaRuler;
-import json.chao.com.wanandroid.app.WanAndroidApp;
+import json.chao.com.wanandroid.BasePresenterTest;
+import json.chao.com.wanandroid.BuildConfig;
 import json.chao.com.wanandroid.contract.project.ProjectContract;
-import json.chao.com.wanandroid.core.DataManager;
-import json.chao.com.wanandroid.core.bean.project.ProjectClassifyData;
-import json.chao.com.wanandroid.utils.RxUtils;
-import json.chao.com.wanandroid.widget.BaseObserver;
+
 
 /**
  * @author quchao
- * @date 2018/6/5
+ * @date 2018/6/12
  */
+@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class, sdk = 23)
+public class ProjectPresenterTest extends BasePresenterTest {
 
-public class ProjectPresenterTest {
+    @Mock
+    private ProjectContract.View mView;
 
     private ProjectPresenter mProjectPresenter;
 
-    @Mock
-    DataManager mDataManager;
-
-    @Mock
-    ProjectContract.View mView;
-
-    @Rule
-    public MockitoRule mMockitoRule = MockitoJUnit.rule();
-
-    @Rule
-    public RxJavaRuler mRxJavaRuler = new RxJavaRuler();
-
     @Before
     public void setUp() {
-
+        super.setUp();
+        mProjectPresenter = new ProjectPresenter(mDataManager);
+        mProjectPresenter.attachView(mView);
     }
 
     @Test
     public void getProjectClassifyData() {
-
+        mProjectPresenter.getProjectClassifyData();
+        Mockito.verify(mView).showProjectClassifyData(ArgumentMatchers.any());
     }
+
 }

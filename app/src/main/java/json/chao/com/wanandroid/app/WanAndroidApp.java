@@ -99,11 +99,11 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
 
 //        initLogger();
 
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return;
-        }
-
-        refWatcher = LeakCanary.install(this);
+//        if (LeakCanary.isInAnalyzerProcess(this)) {
+//            return;
+//        }
+//
+//        refWatcher = LeakCanary.install(this);
 
     }
 

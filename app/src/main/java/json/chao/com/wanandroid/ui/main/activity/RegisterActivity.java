@@ -73,27 +73,15 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     }
 
     @Override
-    public void showRegisterData(LoginData loginData) {
+    public void showRegisterSuccess() {
         CommonUtils.showSnackMessage(this, getString(R.string.register_success));
         onBackPressedSupport();
     }
 
     private void register() {
-        String account = mAccountEdit.getText().toString().trim();
-        String password = mPasswordEdit.getText().toString().trim();
-        String rePassword = mConfirmPasswordEdit.getText().toString().trim();
-
-        if (TextUtils.isEmpty(account) || TextUtils.isEmpty(password) || TextUtils.isEmpty(rePassword)) {
-            CommonUtils.showSnackMessage(this, getString(R.string.account_password_null_tint));
-            return;
-        }
-
-        if (!password.equals(rePassword)) {
-            CommonUtils.showSnackMessage(this, getString(R.string.password_not_same));
-            return;
-        }
-
-        mPresenter.getRegisterData(account, password, rePassword);
+        mPresenter.getRegisterData(mAccountEdit.getText().toString().trim(),
+                mPasswordEdit.getText().toString().trim(),
+                mConfirmPasswordEdit.getText().toString().trim());
     }
 
 }

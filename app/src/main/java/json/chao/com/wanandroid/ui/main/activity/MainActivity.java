@@ -190,6 +190,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     @Override
+    public void showAutoLoginView() {
+        showLoginView();
+    }
+
+    @Override
     public void showLoginView() {
         if (mNavigationView == null) {
             return;

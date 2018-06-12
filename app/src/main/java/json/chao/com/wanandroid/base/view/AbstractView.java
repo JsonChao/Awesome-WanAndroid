@@ -64,4 +64,18 @@ public interface AbstractView {
      */
     void showCancelCollectSuccess();
 
+    /**
+     * Show toast
+     *
+     * @param message Message
+     */
+    void showToast(String message);
+
+    /**
+     * Show snackBar
+     *
+     * @param message Message
+     */
+    void showSnackBar(String message);
+
 }
