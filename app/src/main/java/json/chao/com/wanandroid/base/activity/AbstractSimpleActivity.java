@@ -2,11 +2,15 @@ package json.chao.com.wanandroid.base.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import json.chao.com.wanandroid.test.EspressoIdlingResource;
 import me.yokeyword.fragmentation.SupportActivity;
 import json.chao.com.wanandroid.component.ActivityCollector;
+import android.support.test.espresso.IdlingResource;
+
 
 /**
  * Common simple Activity
@@ -40,6 +44,11 @@ public abstract class AbstractSimpleActivity extends SupportActivity {
             unBinder.unbind();
             unBinder = null;
         }
+    }
+
+    @VisibleForTesting
+    public IdlingResource getCountingIdlingResource() {
+        return EspressoIdlingResource.getIdlingResource();
     }
 
     /**

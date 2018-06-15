@@ -1,17 +1,17 @@
 ext {
 
     android = [
-            compileSdkVersion       : 27,
-            buildToolsVersion       : "27.0.3",
+            compileSdkVersion       : 26,
+            buildToolsVersion       : "26.0.3",
             minSdkVersion           : 21,
-            targetSdkVersion        : 27,
+            targetSdkVersion        : 26,
             versionCode             : 5,
             versionName             : "1.2.1",
             renderscriptTargetApi   : 21
     ]
 
     version = [
-            supportLibraryVersion   : "27.1.1",
+            supportLibraryVersion   : "26.1.1",
             smartrefreshVersion     : "1.0.5.1",
             okhttpVersion           : "3.9.0",
             retrofitVersion         : "2.3.0",
@@ -88,7 +88,6 @@ ext {
             "mockito"                           : "org.mockito:mockito-core:2.8.9",
             "runner"                            : "com.android.support.test:runner:1.0.2",
             "espresso-core"                     : "com.android.support.test.espresso:espresso-core:3.0.2",
-            "androidJUnitRunner"                : "android.support.test.runner.AndroidJUnitRunner",
             "leakcanary-android"                : "com.squareup.leakcanary:leakcanary-android:${version["leakcanaryVersion"]}",
             "leakcanary-android-no-op"          : "com.squareup.leakcanary:leakcanary-android-no-op:${version["leakcanaryVersion"]}"
     ]

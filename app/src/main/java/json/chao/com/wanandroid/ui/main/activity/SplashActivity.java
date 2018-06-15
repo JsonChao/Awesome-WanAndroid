@@ -12,6 +12,7 @@ import json.chao.com.wanandroid.contract.main.SplashContract;
 import json.chao.com.wanandroid.presenter.main.SplashPresenter;
 import json.chao.com.wanandroid.utils.StatusBarUtil;
 
+
 /**
  * @author quchao
  * @date 2017/11/29
@@ -91,6 +92,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
       cancelAnimation(mSixAnimation);
       cancelAnimation(mSevenAnimation);
       cancelAnimation(mEightAnimation);
+
       cancelAnimation(mNineAnimation);
       cancelAnimation(mTenAnimation);
     }
@@ -99,7 +101,6 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
         mLottieAnimationView.setAnimation(animationName);
         mLottieAnimationView.playAnimation();
     }
-
     private void cancelAnimation(LottieAnimationView mLottieAnimationView) {
         if (mLottieAnimationView != null) {
             mLottieAnimationView.cancelAnimation();

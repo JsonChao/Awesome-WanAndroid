@@ -23,7 +23,8 @@ android {
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode rootProject.ext.android["versionCode"]
         versionName rootProject.ext.android["versionName"]
-        testInstrumentationRunner rootProject.ext.android["androidJUnitRunner"]
+        //AndroidJunitRunner必须要显示指定在defaultConfig中，使用Gradle依赖管理无法使其生效
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
         renderscriptTargetApi rootProject.ext.android["renderscriptTargetApi"]
         renderscriptSupportModeEnabled true    // Enable RS support
         multiDexEnabled true
@@ -75,9 +76,6 @@ android {
 
     dependencies {
         implementation fileTree(include: ['*.jar'], dir: 'libs')
-        androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-            exclude group: 'com.android.support', module: 'support-annotations'
-        })
 
         //base
         implementation rootProject.ext.dependencies["appcompat-v7"]
@@ -141,6 +139,22 @@ android {
         releaseImplementation rootProject.ext.dependencies["leakcanary-android-no-op"]
         testImplementation rootProject.ext.dependencies["leakcanary-android-no-op"]
 
+        //Espresso的IdlingResource异步接口依赖：
+        implementation("com.android.support.test.espresso:espresso-idling-resource:3.0.2") {
+            exclude module: 'support-annotations'
+        }
+        androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2', {
+            exclude group: 'com.android.support', module: 'support-annotations'
+        })
+        androidTestImplementation("com.android.support.test.espresso:espresso-idling-resource:3.0.2") {
+            exclude module: 'support-annotations'
+        }
+        androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
+        androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
+        androidTestImplementation 'com.android.support.test.espresso:espresso-accessibility:3.0.2'
+        androidTestImplementation 'com.android.support.test.espresso:espresso-web:3.0.2'
+        androidTestImplementation 'com.android.support.test.espresso.idling:idling-concurrent:3.0.2'
+
         //unit test
         testImplementation rootProject.ext.dependencies["junit"]
         testImplementation rootProject.ext.dependencies["mockito"]
@@ -152,6 +166,7 @@ android {
         testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
         testImplementation "org.robolectric:shadows-multidex:3.+" //支持Multidex功能
         androidTestImplementation rootProject.ext.dependencies["runner"]
+        androidTestImplementation 'com.android.support.test:rules:1.0.2'
 
         implementation rootProject.ext.dependencies["kotlin-stdlib"]
 

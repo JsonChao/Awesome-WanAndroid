@@ -95,15 +95,15 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
 
         initGreenDao();
 
-//        initBugly();
+        initBugly();
 
-//        initLogger();
+        initLogger();
 
-//        if (LeakCanary.isInAnalyzerProcess(this)) {
-//            return;
-//        }
-//
-//        refWatcher = LeakCanary.install(this);
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+
+        refWatcher = LeakCanary.install(this);
 
     }
 

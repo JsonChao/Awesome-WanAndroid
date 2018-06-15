@@ -2,6 +2,7 @@ package json.chao.com.wanandroid.test;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -43,6 +44,14 @@ public class MyService extends Service {
     public void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy");
+    }
+
+    public class LocalBinder extends Binder {
+
+        public MyService getService() {
+            return MyService.this;
+        }
+
     }
 
 }
