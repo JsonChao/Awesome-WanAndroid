@@ -133,6 +133,8 @@ android {
         implementation rootProject.ext.dependencies["crashreport_upgrade"]
         implementation rootProject.ext.dependencies["logger"]
         implementation rootProject.ext.dependencies["ByeBurger"]
+        implementation 'com.facebook.stetho:stetho:1.5.0'
+        implementation 'com.facebook.stetho:stetho-okhttp3:1.4.2'
 
         //canary
         debugImplementation rootProject.ext.dependencies["leakcanary-android"]
