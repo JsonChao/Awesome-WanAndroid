@@ -16,7 +16,7 @@
 <img src="https://diycode.b0.upaiyun.com/user/avatar/2468.jpg">
 </div>
 
-### 致力于打造一款极致体验的WanAndroid客户端，知识和美是可以并存的哦QAQn(*≧▽≦*)n ，更好的 Awesome-WanAndroid V1.2.0正式版发布，相比初始版本，项目的稳定性和界面的美化程度已提升了几个档次，如果您觉得还不错的话，就点个Star吧~(持续打磨中~，敬请关注)
+### 致力于打造一款极致体验的WanAndroid客户端，知识和美是可以并存的哦QAQn(*≧▽≦*)n ，更好的 Awesome-WanAndroid V1.2.1正式版发布，相比初始版本，项目的稳定性和界面的美化程度已提升了几个档次，如果您觉得还不错的话，就点个Star吧~(持续打磨中~，敬请关注)
 
 ## Introduction
 
@@ -122,6 +122,8 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 - 使用了腾讯Bugly，以便对项目进行Bug修复和CI。
 
 - 项目中多处使用了炫目的动画及特效。
+
+- 高覆盖率的单元测试和UI测试。
 
 - 更多请Clone本项目进行查看。。。
 
