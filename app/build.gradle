@@ -141,7 +141,7 @@ android {
         releaseImplementation rootProject.ext.dependencies["leakcanary-android-no-op"]
         testImplementation rootProject.ext.dependencies["leakcanary-android-no-op"]
 
-        //Espresso的IdlingResource异步接口依赖：
+        //UI测试
         implementation("com.android.support.test.espresso:espresso-idling-resource:3.0.2") {
             exclude module: 'support-annotations'
         }

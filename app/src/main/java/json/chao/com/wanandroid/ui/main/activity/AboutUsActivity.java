@@ -115,8 +115,11 @@ public class AboutUsActivity extends AbstractSimpleActivity {
                     mAboutUsFlyView.animate().scaleX(0).scaleY(0);
                     ValueAnimator animator = ValueAnimator.ofInt(mScrollView.getPaddingTop(), 0);
                     animator.setDuration(300);
-                    animator.addUpdateListener(animation ->
-                            mScrollView.setPadding(0, (int) animation.getAnimatedValue(), 0, 0));
+                    animator.addUpdateListener(animation -> {
+                        if (mScrollView != null) {
+                            mScrollView.setPadding(0, (int) animation.getAnimatedValue(), 0, 0);
+                        }
+                    });
                     animator.start();
                 }
                 if (fraction > maxFraction && !misAppbarExpand) {
@@ -125,8 +128,11 @@ public class AboutUsActivity extends AbstractSimpleActivity {
                     mAboutUsFlyView.animate().scaleX(1).scaleY(1);
                     ValueAnimator animator = ValueAnimator.ofInt(mScrollView.getPaddingTop(), DensityUtil.dp2px(25));
                     animator.setDuration(300);
-                    animator.addUpdateListener(animation ->
-                            mScrollView.setPadding(0, (int) animation.getAnimatedValue(), 0, 0));
+                    animator.addUpdateListener(animation -> {
+                        if (mScrollView != null) {
+                            mScrollView.setPadding(0, (int) animation.getAnimatedValue(), 0, 0);
+                        }
+                    });
                     animator.start();
                 }
             }

@@ -133,10 +133,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 }
                 if (usageDialogFragment.isAdded()) {
                     usageDialogFragment.dismiss();
-                    usageDialogFragment.show(getSupportFragmentManager(), "UsageDialogFragment");
-                } else {
-                    usageDialogFragment.show(getSupportFragmentManager(), "UsageDialogFragment");
                 }
+                usageDialogFragment.show(getSupportFragmentManager(), "UsageDialogFragment");
                 break;
             case R.id.action_search:
                 if (searchDialogFragment == null) {
@@ -144,10 +142,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 }
                 if (searchDialogFragment.isAdded()) {
                     searchDialogFragment.dismiss();
-                    searchDialogFragment.show(getSupportFragmentManager(), "SearchDialogFragment");
-                } else {
-                    searchDialogFragment.show(getSupportFragmentManager(), "SearchDialogFragment");
                 }
+                searchDialogFragment.show(getSupportFragmentManager(), "SearchDialogFragment");
                 break;
             default:
                 break;
@@ -213,6 +209,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             return;
         }
         mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(false);
+    }
+
+    public MainPagerFragment getMainPagerFragment() {
+        return mMainPagerFragment;
     }
 
     private void initPager(boolean isRecreate, int position) {

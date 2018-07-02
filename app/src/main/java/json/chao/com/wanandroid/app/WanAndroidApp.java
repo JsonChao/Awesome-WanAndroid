@@ -51,6 +51,7 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
     private RefWatcher refWatcher;
     public static boolean isFirstRun = true;
     private static volatile AppComponent appComponent;
+    private DaoSession mDaoSession;
 
     //static 代码段可以防止内存泄露, 全局设置刷新头部及尾部，优先级最低
     static {
@@ -68,7 +69,6 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
         });
     }
 
-    private DaoSession mDaoSession;
 
     public static synchronized WanAndroidApp getInstance() {
         return instance;

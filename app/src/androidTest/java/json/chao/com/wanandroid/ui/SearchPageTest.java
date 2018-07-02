@@ -133,45 +133,10 @@ public class SearchPageTest extends BasePageTest {
     }
 
     @Test
-    public void clickSearchListItem() {
-        inputInfoAndClickSearch();
-
-        clickRecyclerViewItem(R.id.normal_view, 0);
-
-        onView(withId(R.id.article_detail_web_view))
-                .check(matches(isDisplayed()));
-    }
-
-    @Test
-    public void clickSearchListItemTag() {
-        inputInfoAndClickSearch();
-
-        IdlingRegistry.getInstance().register(mCountingIdlingResource);
-
-        clickRecyclerViewItemChildView(R.id.normal_view, 
-                0, 
-                R.id.item_search_pager_chapterName);
-
-        onView(withId(R.id.knowledge_hierarchy_detail_viewpager))
-                .check(matches(isDisplayed()));
-    }
-
-    @Test
     public void clickSearchListBack() {
         inputInfoAndClickSearch();
 
         pressBack();
-    }
-
-    @Test
-    public void clickSearchListLikeIv() {
-        inputInfoAndClickSearch();
-
-        IdlingRegistry.getInstance().register(mCountingIdlingResource);
-        
-        clickRecyclerViewItemChildView(R.id.normal_view, 
-                0,
-                R.id.item_search_pager_like_iv);
     }
 
     @Test
@@ -206,14 +171,49 @@ public class SearchPageTest extends BasePageTest {
     }
 
     @Test
-    public void clickSearchListItemTagBack() {
+    public void clickSearchListItem() {
+        inputInfoAndClickSearch();
+
+        clickRecyclerViewItem(R.id.normal_view, 0);
+
+        onView(withId(R.id.article_detail_web_view))
+                .check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void clickSearchListLikeIv() {
+        inputInfoAndClickSearch();
+
+        IdlingRegistry.getInstance().register(mCountingIdlingResource);
+
+        clickRecyclerViewItemChildView(R.id.normal_view,
+                0,
+                R.id.item_search_pager_like_iv);
+    }
+
+    @Test
+    public void clickSearchListItemTag() {
+        inputInfoAndClickSearch();
+
+        IdlingRegistry.getInstance().register(mCountingIdlingResource);
+
+        clickRecyclerViewItemChildView(R.id.normal_view,
+                0,
+                R.id.item_search_pager_chapterName);
+
+        onView(withId(R.id.knowledge_hierarchy_detail_viewpager))
+                .check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void clickListItemTagBack() {
         clickSearchListItemTag();
 
         pressBack();
     }
 
     @Test
-    public void clickSearchListItemTagPageItemLike() {
+    public void clickListItemTagPageItemLike() {
         clickSearchListItemTag();
 
         IdlingRegistry.getInstance().register(mCountingIdlingResource);
@@ -224,52 +224,52 @@ public class SearchPageTest extends BasePageTest {
     }
 
     @Test
-    public void pullToRefreshSearchListItemTagPageList() throws InterruptedException {
+    public void pullToRefreshListItemTagPageList() throws InterruptedException {
         clickSearchListItemTag();
 
         IdlingRegistry.getInstance().register(mCountingIdlingResource);
 
-        pullToSmartRefresh(R.id.normal_view);
+        pullToSmartRefresh(R.id.knowledge_hierarchy_list_recycler_view);
 
         Thread.sleep(DELAY_TIME);
     }
 
     @Test
-    public void scrollSearchListItemTagPageList() {
+    public void scrollListItemTagPageList() {
         clickSearchListItemTag();
 
         IdlingRegistry.getInstance().register(mCountingIdlingResource);
 
-        scrollRecyclerViewToPosition(R.id.knowledge_hierarchy_list_recycler_view, 10);
+        scrollRecyclerViewToPosition(R.id.knowledge_hierarchy_list_recycler_view, 5);
     }
 
     @Test
-    public void storeScrollSearchListItemTagPageList() throws InterruptedException {
-        scrollSearchListItemTagPageList();
+    public void storeScrollListItemTagPageList() throws InterruptedException {
+        scrollListItemTagPageList();
 
-        swipeDownRecyclerViewToPosition(R.id.knowledge_hierarchy_list_recycler_view, 6);
+        swipeDownRecyclerViewToPosition(R.id.knowledge_hierarchy_list_recycler_view, 3);
 
-        clickView(R.id.knowledge_hierarchy_detail_tab_layout);
+        clickView(R.id.knowledge_floating_action_btn);
 
         Thread.sleep(DELAY_TIME);
     }
 
     @Test
-    public void clickSearchListItemBack() {
+    public void clickListItemBack() {
         clickSearchListItem();
 
         pressBack();
     }
 
     @Test
-    public void clickSearchListItemPageLike() {
+    public void clickListItemPageLike() {
         clickSearchListItem();
 
         clickView(R.id.item_collect);
     }
 
     @Test
-    public void clickSearchListItemPageShare() {
+    public void clickListItemPageShare() {
         clickSearchListItem();
 
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
@@ -278,7 +278,7 @@ public class SearchPageTest extends BasePageTest {
     }
 
     @Test
-    public void clickSearchListItemPageBrowser() {
+    public void clickListItemPageBrowser() {
         clickSearchListItem();
 
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());

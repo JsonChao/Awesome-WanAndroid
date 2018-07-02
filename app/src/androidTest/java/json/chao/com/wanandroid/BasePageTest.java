@@ -1,6 +1,7 @@
 package json.chao.com.wanandroid;
 
 import android.support.annotation.IdRes;
+import android.support.test.espresso.matcher.ViewMatchers;
 
 import json.chao.com.wanandroid.uitls.TestUtils;
 
@@ -11,9 +12,13 @@ import static android.support.test.espresso.action.ViewActions.swipeUp;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.contrib.RecyclerViewActions.scrollToPosition;
+import static android.support.test.espresso.matcher.ViewMatchers.Visibility.VISIBLE;
+import static android.support.test.espresso.matcher.ViewMatchers.hasFocus;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.allOf;
 
 /**
  * @author quchao
@@ -62,7 +67,7 @@ public class BasePageTest {
      * @param itemPosition RecyclerView item position
      */
     protected void clickRecyclerViewItem(@IdRes int recyclerViewId, int itemPosition) {
-        onView(withId(recyclerViewId))
+        onView(allOf(withId(recyclerViewId), hasFocus()))
                 .check(matches(isDisplayed()))
                 .perform(actionOnItemAtPosition(itemPosition, click()));
     }
@@ -85,10 +90,10 @@ public class BasePageTest {
     /**
      * Pull to refresh layout
      *
-     * @param refreshLayoutId IdRes to refresh layout
+     * @param refreshLayoutId IdRes to refresh layout / recyclerView
      */
     protected void pullToSmartRefresh(@IdRes int refreshLayoutId) {
-        onView(withId(refreshLayoutId))
+        onView(allOf(withId(refreshLayoutId), hasFocus()))
                 .check(matches(isDisplayed()))
                 .perform(swipeDown());
     }
@@ -100,7 +105,7 @@ public class BasePageTest {
      * @param position specify position
      */
     protected void scrollRecyclerViewToPosition(@IdRes int recyclerViewId, int position) {
-        onView(withId(recyclerViewId))
+        onView(allOf(withId(recyclerViewId), hasFocus()))
                 .check(matches(isDisplayed()))
                 .perform(scrollToPosition(position));
     }
@@ -112,7 +117,7 @@ public class BasePageTest {
      * @param position specify position
      */
     protected void swipeUpRecyclerViewToPosition(@IdRes int recyclerViewId, int position) {
-        onView(withId(recyclerViewId))
+        onView(allOf(withId(recyclerViewId), hasFocus()))
                 .check(matches(isDisplayed()))
                 .perform(scrollToPosition(position))
                 .perform(swipeUp());
@@ -125,7 +130,7 @@ public class BasePageTest {
      * @param position specify position
      */
     protected void swipeDownRecyclerViewToPosition(@IdRes int recyclerViewId, int position) {
-        onView(withId(recyclerViewId))
+        onView(allOf(withId(recyclerViewId), hasFocus()))
                 .check(matches(isDisplayed()))
                 .perform(scrollToPosition(position))
                 .perform(swipeDown());

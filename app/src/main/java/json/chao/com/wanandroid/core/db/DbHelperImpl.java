@@ -17,7 +17,6 @@ import json.chao.com.wanandroid.core.dao.HistoryDataDao;
  * @author quchao
  * @date 2017/11/27
  */
-
 public class DbHelperImpl implements DbHelper {
 
     private static final int HISTORY_LIST_SIZE = 10;
@@ -59,7 +58,7 @@ public class DbHelperImpl implements DbHelper {
 
     @Override
     public List<HistoryData> loadAllHistoryData() {
-       return daoSession.getHistoryDataDao().loadAll();
+        return daoSession.getHistoryDataDao().loadAll();
     }
 
     /**

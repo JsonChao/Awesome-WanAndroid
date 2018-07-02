@@ -33,7 +33,6 @@ import json.chao.com.wanandroid.utils.StatusBarUtil;
  * @author quchao
  * @date 2018/2/23
  */
-
 public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHierarchyDetailPresenter>
         implements KnowledgeHierarchyDetailContract.View {
 

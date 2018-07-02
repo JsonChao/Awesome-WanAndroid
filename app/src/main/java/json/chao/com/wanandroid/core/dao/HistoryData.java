@@ -2,6 +2,7 @@ package json.chao.com.wanandroid.core.dao;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
 
 /**
  * @author quchao
@@ -11,11 +12,16 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class HistoryData {
 
+    @Id(autoincrement = true)
+    private long id;
+
     private long date;
+
     private String data;
 
-    @Generated(hash = 1452354993)
-    public HistoryData(long date, String data) {
+    @Generated(hash = 1371291284)
+    public HistoryData(long id, long date, String data) {
+        this.id = id;
         this.date = date;
         this.data = data;
     }
@@ -38,5 +44,13 @@ public class HistoryData {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }
