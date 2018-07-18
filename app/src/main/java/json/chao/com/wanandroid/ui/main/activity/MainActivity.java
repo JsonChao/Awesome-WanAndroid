@@ -131,7 +131,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 if (usageDialogFragment == null) {
                     usageDialogFragment = new UsageDialogFragment();
                 }
-                if (usageDialogFragment.isAdded()) {
+                if (!isDestroyed() && usageDialogFragment.isAdded()) {
                     usageDialogFragment.dismiss();
                 }
                 usageDialogFragment.show(getSupportFragmentManager(), "UsageDialogFragment");
@@ -140,7 +140,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 if (searchDialogFragment == null) {
                     searchDialogFragment = new SearchDialogFragment();
                 }
-                if (searchDialogFragment.isAdded()) {
+                if (!isDestroyed() && searchDialogFragment.isAdded()) {
                     searchDialogFragment.dismiss();
                 }
                 searchDialogFragment.show(getSupportFragmentManager(), "SearchDialogFragment");

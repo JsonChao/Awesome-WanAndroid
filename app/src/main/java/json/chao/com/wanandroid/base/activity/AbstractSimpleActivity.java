@@ -6,7 +6,7 @@ import android.support.annotation.VisibleForTesting;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import json.chao.com.wanandroid.uiTestStudyExample.EspressoIdlingResource;
+import json.chao.com.wanandroid.test.EspressoIdlingResource;
 import me.yokeyword.fragmentation.SupportActivity;
 import json.chao.com.wanandroid.component.ActivityCollector;
 import android.support.test.espresso.IdlingResource;

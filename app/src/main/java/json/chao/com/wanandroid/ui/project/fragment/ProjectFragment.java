@@ -43,7 +43,9 @@ public class ProjectFragment extends BaseRootFragment<ProjectPresenter> implemen
 
     @Override
     public void onDestroyView() {
-        mPresenter.setProjectCurrentPage(currentPage);
+        if (mPresenter != null) {
+            mPresenter.setProjectCurrentPage(currentPage);
+        }
         super.onDestroyView();
     }
 

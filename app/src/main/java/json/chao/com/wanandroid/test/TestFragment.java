@@ -1,4 +1,4 @@
-package json.chao.com.wanandroid.uiTestStudyExample;
+package json.chao.com.wanandroid.test;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

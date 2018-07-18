@@ -12,7 +12,7 @@ import org.robolectric.shadow.api.Shadow;
 import org.robolectric.shadows.ShadowLog;
 
 import json.chao.com.wanandroid.BuildConfig;
-import json.chao.com.wanandroid.uiTestStudyExample.Person;
+import json.chao.com.wanandroid.test.Person;
 
 /**
  * @author quchao

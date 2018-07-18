@@ -8,8 +8,8 @@ import org.robolectric.shadows.ShadowLog;
 
 import json.chao.com.wanandroid.BasePresenterTest;
 import json.chao.com.wanandroid.BuildConfig;
-import json.chao.com.wanandroid.uiTestStudyExample.GithubService;
-import json.chao.com.wanandroid.uiTestStudyExample.User;
+import json.chao.com.wanandroid.test.GithubService;
+import json.chao.com.wanandroid.test.User;
 import json.chao.com.wanandroid.utils.RxUtils;
 
 /**

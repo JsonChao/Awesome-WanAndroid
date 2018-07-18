@@ -1,4 +1,4 @@
-package json.chao.com.wanandroid.uiTestStudyExample;
+package json.chao.com.wanandroid.test;
 
 import android.app.AlertDialog;
 import android.content.Intent;

@@ -12,7 +12,6 @@ import java.util.Collection;
  * @author quchao
  * @date 2018/6/5
  */
-
 @RunWith(Parameterized.class)
 public class ParameterizedTest {
 
@@ -24,6 +23,8 @@ public class ParameterizedTest {
         this.truth = truth;
     }
 
+    //被此注解注解的方法将把返回的列表数据中的元素对应注入到测试类
+    //的构造函数ParameterizedTest(int num, boolean truth)中
     @Parameterized.Parameters
     public static Collection providerTruth() {
         return Arrays.asList(new Object[][]{
@@ -35,6 +36,13 @@ public class ParameterizedTest {
                 {5, false}
         });
     }
+
+//    //也可不使用构造函数注入的方式，使用注解注入public变量的方式
+//    @Parameterized.Parameter
+//    public int num;
+//    //value = 1指定括号里的第二个Boolean值
+//    @Parameterized.Parameter(value = 1)
+//    public boolean truth;
 
     @Test
     public void printTest() {

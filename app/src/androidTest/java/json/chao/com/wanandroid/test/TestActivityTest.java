@@ -1,4 +1,4 @@
-package json.chao.com.wanandroid.uiTestStudyExample;
+package json.chao.com.wanandroid.test;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.Espresso;
@@ -15,7 +15,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import json.chao.com.wanandroid.R;
-import json.chao.com.wanandroid.uiTestStudyExample.TestActivity;
 
 
 /**

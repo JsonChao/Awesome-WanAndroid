@@ -3,6 +3,8 @@ package json.chao.com.wanandroid.base.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +51,17 @@ public abstract class AbstractSimpleDialogFragment extends DialogFragment {
         super.onDestroy();
         RefWatcher refWatcher = WanAndroidApp.getRefWatcher(getActivity());
         refWatcher.watch(this);
+    }
+
+    @Override
+    public void show(FragmentManager manager, String tag) {
+        try {
+            //防止连续点击add多个fragment
+            manager.beginTransaction().remove(this).commit();
+            super.show(manager, tag);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

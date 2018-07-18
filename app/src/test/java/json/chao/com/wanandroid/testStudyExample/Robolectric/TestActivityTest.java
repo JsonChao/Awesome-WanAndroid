@@ -22,10 +22,12 @@ import org.robolectric.shadows.ShadowAlertDialog;
 import org.robolectric.shadows.ShadowLog;
 import org.robolectric.shadows.ShadowToast;
 
+import java.util.regex.Pattern;
+
 import json.chao.com.wanandroid.BuildConfig;
 import json.chao.com.wanandroid.R;
-import json.chao.com.wanandroid.uiTestStudyExample.TestActivity;
-import json.chao.com.wanandroid.uiTestStudyExample.TestFragment;
+import json.chao.com.wanandroid.test.TestActivity;
+import json.chao.com.wanandroid.test.TestFragment;
 import json.chao.com.wanandroid.ui.main.activity.AboutUsActivity;
 
 /**
@@ -48,6 +50,13 @@ public class TestActivityTest {
     @Test
     public void testActivity() {
         Assert.assertNotNull(mTestActivity);
+    }
+
+    @Test
+    public void testRegex() {
+        String regex = "{\"duration\":5,\"type\":2},{\"duration\":17,\"type\":1},{\"duration\":43,\"type\":2},{\"duration\":16,\"type\":1},{\"duration\":66,\"type\":2},{\"duration\":18,\"type\":1},{\"duration\":13,\"type\":2},{\"duration\":21,\"type\":1},{\"duration\":107,\"type\":2},{\"duration\":2,\"type\":3},{\"duration\":3,\"type\":2},";
+        Pattern compile = Pattern.compile("},");
+        String[] strings = compile.split(regex);
     }
 
     @Test

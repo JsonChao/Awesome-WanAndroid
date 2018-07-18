@@ -1,4 +1,4 @@
-package json.chao.com.wanandroid.uiTestStudyExample;
+package json.chao.com.wanandroid.test;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

@@ -10,7 +10,7 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
 import json.chao.com.wanandroid.BuildConfig;
-import json.chao.com.wanandroid.uiTestStudyExample.MyService;
+import json.chao.com.wanandroid.test.MyService;
 
 /**
  * @author quchao

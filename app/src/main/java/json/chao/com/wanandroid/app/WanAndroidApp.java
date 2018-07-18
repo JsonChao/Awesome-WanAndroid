@@ -41,7 +41,6 @@ import json.chao.com.wanandroid.utils.logger.TxtFormatStrategy;
  * @author quchao
  * @date 2017/11/27
  */
-
 public class WanAndroidApp extends Application implements HasActivityInjector {
 
     @Inject
