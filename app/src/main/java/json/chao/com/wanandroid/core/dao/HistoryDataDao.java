@@ -22,7 +22,7 @@ public class HistoryDataDao extends AbstractDao<HistoryData, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, long.class, "id", true, "_id");
+        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Date = new Property(1, long.class, "date", false, "DATE");
         public final static Property Data = new Property(2, String.class, "data", false, "DATA");
     }
@@ -40,7 +40,7 @@ public class HistoryDataDao extends AbstractDao<HistoryData, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"HISTORY_DATA\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ," + // 0: id
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"DATE\" INTEGER NOT NULL ," + // 1: date
                 "\"DATA\" TEXT);"); // 2: data
     }
@@ -54,7 +54,11 @@ public class HistoryDataDao extends AbstractDao<HistoryData, Long> {
     @Override
     protected final void bindValues(DatabaseStatement stmt, HistoryData entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
         stmt.bindLong(2, entity.getDate());
  
         String data = entity.getData();
@@ -66,7 +70,11 @@ public class HistoryDataDao extends AbstractDao<HistoryData, Long> {
     @Override
     protected final void bindValues(SQLiteStatement stmt, HistoryData entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
         stmt.bindLong(2, entity.getDate());
  
         String data = entity.getData();
@@ -77,13 +85,13 @@ public class HistoryDataDao extends AbstractDao<HistoryData, Long> {
 
     @Override
     public Long readKey(Cursor cursor, int offset) {
-        return cursor.getLong(offset + 0);
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     @Override
     public HistoryData readEntity(Cursor cursor, int offset) {
         HistoryData entity = new HistoryData( //
-            cursor.getLong(offset + 0), // id
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getLong(offset + 1), // date
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // data
         );
@@ -92,7 +100,7 @@ public class HistoryDataDao extends AbstractDao<HistoryData, Long> {
      
     @Override
     public void readEntity(Cursor cursor, HistoryData entity, int offset) {
-        entity.setId(cursor.getLong(offset + 0));
+        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setDate(cursor.getLong(offset + 1));
         entity.setData(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
      }
@@ -114,7 +122,7 @@ public class HistoryDataDao extends AbstractDao<HistoryData, Long> {
 
     @Override
     public boolean hasKey(HistoryData entity) {
-        throw new UnsupportedOperationException("Unsupported for entities with a non-null key");
+        return entity.getId() != null;
     }
 
     @Override

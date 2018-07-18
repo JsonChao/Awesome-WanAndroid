@@ -71,6 +71,13 @@ ext {
             //multidex
             "multidex"                          : "com.android.support:multidex:1.0.3",
 
+            //leakcanary
+            "leakcanary-android"                : "com.squareup.leakcanary:leakcanary-android:${version["leakcanaryVersion"]}",
+            "leakcanary-android-no-op"          : "com.squareup.leakcanary:leakcanary-android-no-op:${version["leakcanaryVersion"]}",
+
+            //kotlin
+            "kotlin-stdlib"                     : "org.jetbrains.kotlin:kotlin-stdlib:1.2.10",
+
             //other
             "lottie"                            : "com.airbnb.android:lottie:2.3.0",
             "BaseRecyclerViewAdapterHelper"     : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34",
@@ -79,17 +86,30 @@ ext {
             "crashreport_upgrade"               : "com.tencent.bugly:crashreport_upgrade:latest.release",
             "logger"                            : "com.orhanobut:logger:2.1.1",
             "ByeBurger"                         : "com.github.githubwing:ByeBurger:1.2.3",
+            "stetho"                            : "com.facebook.stetho:stetho:1.5.0",
+            "stetho-okhttp3"                    : "com.facebook.stetho:stetho-okhttp3:1.4.2",
 
-            //kotlin
-            "kotlin-stdlib"                     : "org.jetbrains.kotlin:kotlin-stdlib:1.2.10",
+            //ui test
+            "espresso-core"                     : "com.android.support.test.espresso:espresso-core:3.0.2",
+            "espresso-idling-resource"          : "com.android.support.test.espresso:espresso-idling-resource:3.0.2",
+            "espresso-contrib"                  : "com.android.support.test.espresso:espresso-contrib:3.0.2",
+            "espresso-intents"                  : "com.android.support.test.espresso:espresso-intents:3.0.2",
+            "espresso-accessibility"            : "com.android.support.test.espresso:espresso-accessibility:3.0.2",
+            "espresso-web"                      : "com.android.support.test.espresso:espresso-web:3.0.2",
+            "idling-concurrent"                 : "com.android.support.test.espresso.idling:idling-concurrent:3.0.2",
 
             //unit test , 为了整合mockito和PowerMockito，mockito暂时最高只支持2.8.9
             "junit"                             : "junit:junit:4.12",
             "mockito"                           : "org.mockito:mockito-core:2.8.9",
+            "powermock-module-junit4"           : "org.powermock:powermock-module-junit4:1.7.4",
+            "powermock-module-junit4-rule"      : "org.powermock:powermock-module-junit4-rule:1.7.4",
+            "powermock-api-mockito2"            : "org.powermock:powermock-api-mockito2:1.7.4",
+            "powermock-classloading-xstream"    : "org.powermock:powermock-classloading-xstream:1.7.4",
+            "robolectric"                       : "org.robolectric:robolectric:3.8",
+            "shadows-support-v4"                : "org.robolectric:shadows-support-v4:3.4-rc2",
+            "shadows-multidex"                  : "org.robolectric:shadows-multidex:3.+",
             "runner"                            : "com.android.support.test:runner:1.0.2",
-            "espresso-core"                     : "com.android.support.test.espresso:espresso-core:3.0.2",
-            "leakcanary-android"                : "com.squareup.leakcanary:leakcanary-android:${version["leakcanaryVersion"]}",
-            "leakcanary-android-no-op"          : "com.squareup.leakcanary:leakcanary-android-no-op:${version["leakcanaryVersion"]}"
+
     ]
 
 }

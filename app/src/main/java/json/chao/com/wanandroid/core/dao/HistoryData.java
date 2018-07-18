@@ -13,14 +13,14 @@ import org.greenrobot.greendao.annotation.Id;
 public class HistoryData {
 
     @Id(autoincrement = true)
-    private long id;
+    private Long id;
 
     private long date;
 
     private String data;
 
-    @Generated(hash = 1371291284)
-    public HistoryData(long id, long date, String data) {
+    @Generated(hash = 1371145256)
+    public HistoryData(Long id, long date, String data) {
         this.id = id;
         this.date = date;
         this.data = data;
@@ -29,9 +29,17 @@ public class HistoryData {
     @Generated(hash = 422767273)
     public HistoryData() {
     }
-    
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public long getDate() {
-        return date;
+        return this.date;
     }
 
     public void setDate(long date) {
@@ -39,18 +47,12 @@ public class HistoryData {
     }
 
     public String getData() {
-        return data;
+        return this.data;
     }
 
     public void setData(String data) {
         this.data = data;
     }
 
-    public long getId() {
-        return this.id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 }

@@ -125,6 +125,14 @@ android {
         //multidex
         implementation rootProject.ext.dependencies["multidex"]
 
+        //canary
+        debugImplementation rootProject.ext.dependencies["leakcanary-android"]
+        releaseImplementation rootProject.ext.dependencies["leakcanary-android-no-op"]
+        testImplementation rootProject.ext.dependencies["leakcanary-android-no-op"]
+
+        //kotlin
+        implementation rootProject.ext.dependencies["kotlin-stdlib"]
+
         //other
         implementation rootProject.ext.dependencies["lottie"]
         implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
@@ -133,44 +141,33 @@ android {
         implementation rootProject.ext.dependencies["crashreport_upgrade"]
         implementation rootProject.ext.dependencies["logger"]
         implementation rootProject.ext.dependencies["ByeBurger"]
-        implementation 'com.facebook.stetho:stetho:1.5.0'
-        implementation 'com.facebook.stetho:stetho-okhttp3:1.4.2'
-
-        //canary
-        debugImplementation rootProject.ext.dependencies["leakcanary-android"]
-        releaseImplementation rootProject.ext.dependencies["leakcanary-android-no-op"]
-        testImplementation rootProject.ext.dependencies["leakcanary-android-no-op"]
+        implementation rootProject.ext.dependencies["stetho"]
+        implementation rootProject.ext.dependencies["stetho-okhttp3"]
 
         //UI测试
-        implementation("com.android.support.test.espresso:espresso-idling-resource:3.0.2") {
-            exclude module: 'support-annotations'
-        }
-        androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2', {
+        androidTestImplementation (rootProject.ext.dependencies["espresso-core"]) {
             exclude group: 'com.android.support', module: 'support-annotations'
-        })
-        androidTestImplementation("com.android.support.test.espresso:espresso-idling-resource:3.0.2") {
+        }
+        implementation (rootProject.ext.dependencies["espresso-idling-resource"]) {
             exclude module: 'support-annotations'
         }
-        androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
-        androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
-        androidTestImplementation 'com.android.support.test.espresso:espresso-accessibility:3.0.2'
-        androidTestImplementation 'com.android.support.test.espresso:espresso-web:3.0.2'
-        androidTestImplementation 'com.android.support.test.espresso.idling:idling-concurrent:3.0.2'
+        androidTestImplementation rootProject.ext.dependencies["espresso-contrib"]
+        androidTestImplementation rootProject.ext.dependencies["espresso-intents"]
+        androidTestImplementation rootProject.ext.dependencies["espresso-accessibility"]
+        androidTestImplementation rootProject.ext.dependencies["espresso-web"]
+        androidTestImplementation rootProject.ext.dependencies["idling-concurrent"]
 
         //unit test
         testImplementation rootProject.ext.dependencies["junit"]
         testImplementation rootProject.ext.dependencies["mockito"]
-        testImplementation "org.powermock:powermock-module-junit4:1.7.4"
-        testImplementation "org.powermock:powermock-module-junit4-rule:1.7.4"
-        testImplementation "org.powermock:powermock-api-mockito2:1.7.4" //注意这里是mockito2
-        testImplementation "org.powermock:powermock-classloading-xstream:1.7.4"
-        testImplementation "org.robolectric:robolectric:3.8"
-        testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
-        testImplementation "org.robolectric:shadows-multidex:3.+" //支持Multidex功能
+        testImplementation rootProject.ext.dependencies["powermock-module-junit4"]
+        testImplementation rootProject.ext.dependencies["powermock-module-junit4-rule"]
+        testImplementation rootProject.ext.dependencies["powermock-api-mockito2"] //注意这里是mockito2
+        testImplementation rootProject.ext.dependencies["powermock-classloading-xstream"]
+        testImplementation rootProject.ext.dependencies["robolectric"]
+        testImplementation rootProject.ext.dependencies["shadows-support-v4"]
+        testImplementation rootProject.ext.dependencies["shadows-multidex"] //支持Multidex功能
         androidTestImplementation rootProject.ext.dependencies["runner"]
-        androidTestImplementation 'com.android.support.test:rules:1.0.2'
-
-        implementation rootProject.ext.dependencies["kotlin-stdlib"]
 
     }
 
