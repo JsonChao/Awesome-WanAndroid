@@ -61,7 +61,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void showLoginSuccess() {
-        CommonUtils.showSnackMessage(this, getString(R.string.login_success));
+        CommonUtils.showMessage(this, getString(R.string.login_success));
         onBackPressedSupport();
     }
 
