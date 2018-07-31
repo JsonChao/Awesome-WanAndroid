@@ -143,6 +143,7 @@ android {
         implementation rootProject.ext.dependencies["ByeBurger"]
         implementation rootProject.ext.dependencies["stetho"]
         implementation rootProject.ext.dependencies["stetho-okhttp3"]
+        implementation rootProject.ext.dependencies["PersistentCookieJar"]
 
         //UI测试
         androidTestImplementation (rootProject.ext.dependencies["espresso-core"]) {

@@ -88,6 +88,7 @@ ext {
             "ByeBurger"                         : "com.github.githubwing:ByeBurger:1.2.3",
             "stetho"                            : "com.facebook.stetho:stetho:1.5.0",
             "stetho-okhttp3"                    : "com.facebook.stetho:stetho-okhttp3:1.4.2",
+            "PersistentCookieJar"               : "com.github.franmontiel:PersistentCookieJar:v1.0.1",
 
             //ui test
             "espresso-core"                     : "com.android.support.test.espresso:espresso-core:3.0.2",
