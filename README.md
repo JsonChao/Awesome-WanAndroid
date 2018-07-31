@@ -126,7 +126,18 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 ## Version
 
-### :zap:v1.2.1
+### :zap:v1.2.2
+
+1.增加了Presenter层单元测试和部分View层的自动化UI测试
+
+2.解决登陆状态过一段时间会失效的bug
+
+3.进行了适当的小规模重构
+
+4.解决Bugly的兼容性bug
+
+
+### v1.2.1
 
 1.增加dagger.android
 
@@ -163,6 +174,7 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 6.解决90%以上的内存泄露
 
+
 ### v1.1.0
 
 1.增加RxBus订阅管理，解决RxBus内存泄露的问题
@@ -178,6 +190,7 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 6.搜索页面增加删除搜索记录，UI界面更加美观
 
 7.项目整体UI美化
+
 
 ### v1.0.1
 
