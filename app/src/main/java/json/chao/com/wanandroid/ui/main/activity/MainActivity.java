@@ -211,10 +211,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(false);
     }
 
-    public MainPagerFragment getMainPagerFragment() {
-        return mMainPagerFragment;
-    }
-
     private void initPager(boolean isRecreate, int position) {
         mMainPagerFragment = MainPagerFragment.getInstance(isRecreate, null);
         mFragments.add(mMainPagerFragment);
