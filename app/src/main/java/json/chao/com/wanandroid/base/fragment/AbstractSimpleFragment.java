@@ -34,7 +34,7 @@ public abstract class AbstractSimpleFragment extends SupportFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutId(), container, false);
         unBinder = ButterKnife.bind(this, view);
-
+        initView();
         return view;
     }
 
@@ -81,6 +81,14 @@ public abstract class AbstractSimpleFragment extends SupportFragment {
             }
         }
         return true;
+    }
+
+    /**
+     * 有些初始化必须在onCreateView中，例如setAdapter,
+     * 否则，会弹出 No adapter attached; skipping layout
+     */
+    protected void initView() {
+
     }
 
     /**

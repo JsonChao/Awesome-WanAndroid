@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -58,7 +59,6 @@ public class KnowledgeHierarchyFragment extends BaseRootFragment<KnowledgeHierar
     protected void initEventAndData() {
         super.initEventAndData();
         setRefresh();
-        initRecyclerView();
         mPresenter.getKnowledgeHierarchyData(true);
         if (CommonUtils.isNetworkConnected()) {
             showLoading();
@@ -102,12 +102,19 @@ public class KnowledgeHierarchyFragment extends BaseRootFragment<KnowledgeHierar
         }
     }
 
+    @Override
+    protected void initView() {
+        super.initView();
+        initRecyclerView();
+    }
+
     private void initRecyclerView() {
+        mKnowledgeHierarchyDataList = new ArrayList<>();
         mAdapter = new KnowledgeHierarchyAdapter(R.layout.item_knowledge_hierarchy, mKnowledgeHierarchyDataList);
         mAdapter.setOnItemClickListener((adapter, view, position) -> startDetailPager(view, position));
-        mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
         mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     private void startDetailPager(View view, int position) {

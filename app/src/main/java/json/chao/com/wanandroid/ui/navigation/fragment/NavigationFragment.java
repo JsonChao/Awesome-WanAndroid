@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -44,6 +45,7 @@ public class NavigationFragment extends BaseRootFragment<NavigationPresenter> im
     private boolean needScroll;
     private int index;
     private boolean isClickTab;
+    private NavigationAdapter mNavigationAdapter;
 
     public static NavigationFragment getInstance(String param1, String param2) {
         NavigationFragment fragment = new NavigationFragment();
@@ -105,7 +107,7 @@ public class NavigationFragment extends BaseRootFragment<NavigationPresenter> im
         } else {
             setChildViewVisibility(View.INVISIBLE);
         }
-        initRecyclerView(navigationDataList);
+        mNavigationAdapter.replaceData(navigationDataList);
         leftRightLinkage();
         showNormal();
     }
@@ -125,12 +127,19 @@ public class NavigationFragment extends BaseRootFragment<NavigationPresenter> im
         }
     }
 
-    private void initRecyclerView(List<NavigationListData> navigationDataList) {
-        NavigationAdapter adapter = new NavigationAdapter(R.layout.item_navigation, navigationDataList);
-        mRecyclerView.setAdapter(adapter);
+    @Override
+    protected void initView() {
+        super.initView();
+        initRecyclerView();
+    }
+
+    private void initRecyclerView() {
+        List<NavigationListData> navigationDataList = new ArrayList<>();
+        mNavigationAdapter = new NavigationAdapter(R.layout.item_navigation, navigationDataList);
         mManager = new LinearLayoutManager(_mActivity);
         mRecyclerView.setLayoutManager(mManager);
         mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(mNavigationAdapter);
     }
 
     /**

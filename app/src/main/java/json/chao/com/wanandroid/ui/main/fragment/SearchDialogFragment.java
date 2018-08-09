@@ -106,6 +106,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     @Override
     protected void initEventAndData() {
         initCircleAnimation();
+        initRecyclerView();
         mTopSearchDataList = new ArrayList<>();
         mSearchEdit.addTextChangedListener(new TextWatcher() {
             @Override
@@ -147,7 +148,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
         }
         setHistoryTvStatus(false);
         Collections.reverse(historyDataList);
-        initRecyclerView(historyDataList);
+        historySearchAdapter.replaceData(historyDataList);
     }
 
     @Override
@@ -226,8 +227,8 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
         mSearchEdit.setSelection(mSearchEdit.getText().length());
     }
 
-    private void initRecyclerView(List<HistoryData> historyDataList) {
-        historySearchAdapter = new HistorySearchAdapter(R.layout.item_search_history, historyDataList);
+    private void initRecyclerView() {
+        historySearchAdapter = new HistorySearchAdapter(R.layout.item_search_history, null);
         historySearchAdapter.setOnItemChildClickListener((adapter, view, position) -> searchHistoryData(adapter, position));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(historySearchAdapter);

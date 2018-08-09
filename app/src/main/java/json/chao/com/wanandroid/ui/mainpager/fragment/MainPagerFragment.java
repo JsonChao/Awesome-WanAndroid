@@ -98,9 +98,14 @@ public class MainPagerFragment extends BaseRootFragment<MainPagerPresenter>
     }
 
     @Override
+    protected void initView() {
+        super.initView();
+        initRecyclerView();
+    }
+
+    @Override
     protected void initEventAndData() {
         super.initEventAndData();
-        initRecyclerView();
         setRefresh();
         if (loggedAndNotRebuilt()) {
             mPresenter.loadMainPagerData();

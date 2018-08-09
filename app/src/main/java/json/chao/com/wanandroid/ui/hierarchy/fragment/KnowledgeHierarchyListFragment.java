@@ -9,8 +9,6 @@ import android.view.View;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
-import java.util.List;
-
 import butterknife.BindView;
 import json.chao.com.wanandroid.base.fragment.BaseRootFragment;
 import json.chao.com.wanandroid.component.RxBus;
@@ -32,7 +30,6 @@ import json.chao.com.wanandroid.utils.JudgeUtils;
  * @author quchao
  * @date 2018/2/23
  */
-
 public class KnowledgeHierarchyListFragment extends BaseRootFragment<KnowledgeHierarchyListPresenter>
         implements KnowledgeHierarchyListContract.View {
 
@@ -43,15 +40,19 @@ public class KnowledgeHierarchyListFragment extends BaseRootFragment<KnowledgeHi
 
     private int id;
     private int mCurrentPage;
-    private List<FeedArticleData> mArticles;
     private ArticleListAdapter mAdapter;
     private boolean isRefresh = true;
     private int articlePosition;
-    private ActivityOptions mOptions;
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_knowledge_hierarchy_list;
+    }
+
+    @Override
+    protected void initView() {
+        super.initView();
+        initRecyclerView();
     }
 
     @Override
@@ -67,7 +68,6 @@ public class KnowledgeHierarchyListFragment extends BaseRootFragment<KnowledgeHi
         //重置当前页数，防止页面切换后当前页数为较大而加载后面的数据或没有数据
         mCurrentPage = 0;
         mPresenter.getKnowledgeHierarchyDetailData(mCurrentPage, id, true);
-        initRecyclerView();
         if (CommonUtils.isNetworkConnected()) {
             showLoading();
         }
@@ -75,12 +75,11 @@ public class KnowledgeHierarchyListFragment extends BaseRootFragment<KnowledgeHi
 
     @Override
     public void showKnowledgeHierarchyDetailData(FeedArticleListData feedArticleListData) {
-        mArticles = feedArticleListData.getDatas();
         if (isRefresh) {
-            mAdapter.replaceData(mArticles);
+            mAdapter.replaceData(feedArticleListData.getDatas());
         } else {
-            if (mArticles.size() > 0) {
-                mAdapter.addData(mArticles);
+            if (feedArticleListData.getDatas().size() > 0) {
+                mAdapter.addData(feedArticleListData.getDatas());
             } else {
                 CommonUtils.showMessage(_mActivity, getString(R.string.load_more_no_data));
             }
@@ -149,12 +148,12 @@ public class KnowledgeHierarchyListFragment extends BaseRootFragment<KnowledgeHi
     }
 
     private void initRecyclerView() {
-        mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mArticles);
+        mAdapter = new ArticleListAdapter(R.layout.item_search_pager, null);
         mAdapter.setOnItemClickListener((adapter, view, position) -> startArticleDetailPager(view, position));
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> clickChildEvent(view, position));
-        mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
         mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     private void clickChildEvent(View view, int position) {
@@ -189,9 +188,9 @@ public class KnowledgeHierarchyListFragment extends BaseRootFragment<KnowledgeHi
             return;
         }
         articlePosition = position;
-        mOptions = ActivityOptions.makeSceneTransitionAnimation(_mActivity, view, getString(R.string.share_view));
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(_mActivity, view, getString(R.string.share_view));
         JudgeUtils.startArticleDetailActivity(_mActivity,
-                mOptions,
+                options,
                 mAdapter.getData().get(position).getId(),
                 mAdapter.getData().get(position).getTitle().trim(),
                 mAdapter.getData().get(position).getLink().trim(),
