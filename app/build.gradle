@@ -80,7 +80,6 @@ android {
         //base
         implementation rootProject.ext.dependencies["appcompat-v7"]
         implementation rootProject.ext.dependencies["cardview-v7"]
-        implementation rootProject.ext.dependencies["support-v4"]
         implementation rootProject.ext.dependencies["design"]
         implementation rootProject.ext.dependencies["constraint-layout"]
 

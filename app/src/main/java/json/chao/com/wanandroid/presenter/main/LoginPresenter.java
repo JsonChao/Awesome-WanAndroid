@@ -31,16 +31,6 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
     }
 
     @Override
-    public void setLoginAccount(String account) {
-        mDataManager.setLoginAccount(account);
-    }
-
-    @Override
-    public void setLoginPassword(String password) {
-        mDataManager.setLoginPassword(password);
-    }
-
-    @Override
     public void getLoginData(String username, String password) {
         if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
             mView.showSnackBar(WanAndroidApp.getInstance().getString(R.string.account_password_null_tint));

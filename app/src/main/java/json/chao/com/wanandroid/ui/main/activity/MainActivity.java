@@ -51,7 +51,6 @@ import json.chao.com.wanandroid.utils.StatusBarUtil;
  * @author quchao
  * @date 2017/11/28
  */
-
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {
 
     @BindView(R.id.drawer_layout)
@@ -435,6 +434,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         CommonAlertDialog.newInstance().cancelDialog(true);
         mNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(false);
         mPresenter.setLoginStatus(false);
+        mPresenter.setLoginAccount("");
+        mPresenter.setLoginPassword("");
         CookiesManager.clearAllCookies();
         RxBus.getDefault().post(new LoginEvent(false));
         startActivity(new Intent(this, LoginActivity.class));

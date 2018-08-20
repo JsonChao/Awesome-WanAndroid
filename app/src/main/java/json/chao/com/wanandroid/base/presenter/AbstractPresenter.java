@@ -60,6 +60,20 @@ public interface AbstractPresenter<T extends AbstractView> {
     String getLoginAccount();
 
     /**
+     * Set login status
+     *
+     * @param account account
+     */
+    void setLoginAccount(String account);
+
+    /**
+     * Set login password
+     *
+     * @param password password
+     */
+    void setLoginPassword(String password);
+
+    /**
      * Get current page
      *
      * @return current page
