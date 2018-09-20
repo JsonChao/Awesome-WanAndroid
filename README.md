@@ -133,7 +133,7 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 2.解决Bugly上的bug
 
 
-### :zap:v1.2.2
+### v1.2.2
 
 1.增加了Presenter层单元测试和部分View层的自动化UI测试
 
