@@ -3,13 +3,10 @@ package json.chao.com.wanandroid.ui.project.fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -33,7 +30,6 @@ import json.chao.com.wanandroid.utils.JudgeUtils;
  * @author quchao
  * @date 2018/2/24
  */
-
 public class ProjectListFragment extends BaseRootFragment<ProjectListPresenter> implements ProjectListContract.View {
 
     @BindView(R.id.normal_view)
@@ -164,6 +160,9 @@ public class ProjectListFragment extends BaseRootFragment<ProjectListPresenter> 
 
     private void setRefresh() {
         mCurrentPage = 1;
+        if (mRefreshLayout == null) {
+            return;
+        }
         mRefreshLayout.setOnRefreshListener(refreshLayout -> {
             mCurrentPage = 1;
             isRefresh = true;

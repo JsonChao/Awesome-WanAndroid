@@ -30,7 +30,6 @@ import json.chao.com.wanandroid.widget.BaseObserver;
  * @author quchao
  * @date 2017/12/7
  */
-
 public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> implements MainPagerContract.Presenter {
 
     private DataManager mDataManager;

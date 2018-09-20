@@ -9,9 +9,13 @@
         android:id="@+id/normal_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srlPrimaryColor="@color/colorPrimary">
+        app:srlDragRate="0.7"
+        app:srlHeaderMaxDragRate="1.3"
+        app:srlPrimaryColor="@color/colorPrimary"
+        app:srlEnableHeaderTranslationContent="true"
+        app:srlEnableLoadMore="false">
 
-        <com.scwang.smartrefresh.header.DropboxHeader
+        <com.scwang.smartrefresh.header.FunGameBattleCityHeader
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

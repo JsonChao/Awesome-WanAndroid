@@ -4,6 +4,7 @@ import android.animation.ValueAnimator;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -20,6 +21,7 @@ import com.scwang.smartrefresh.header.flyrefresh.FlyView;
 import com.scwang.smartrefresh.header.flyrefresh.MountainSceneView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
 import com.scwang.smartrefresh.layout.util.DensityUtil;
 
@@ -152,16 +154,20 @@ public class AboutUsActivity extends AbstractSimpleActivity {
         //设置让Toolbar和AppBarLayout的滚动同步
         mAboutUsRefreshLayout.setOnMultiPurposeListener(new SimpleMultiPurposeListener() {
             @Override
-            public void onHeaderPulling(RefreshHeader header, float percent, int offset, int headerHeight, int extendHeight) {
-                if (mAboutUsAppBar == null || mToolbar == null) {
-                    return;
-                }
-                mAboutUsAppBar.setTranslationY(offset);
-                mToolbar.setTranslationY(-offset);
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                super.onRefresh(refreshLayout);
+                refreshLayout.finishRefresh(2000);
             }
 
             @Override
-            public void onHeaderReleasing(RefreshHeader header, float percent, int offset, int footerHeight, int extendHeight) {
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                super.onLoadMore(refreshLayout);
+                refreshLayout.finishLoadMore(3000);
+            }
+
+            @Override
+            public void onHeaderMoving(RefreshHeader header, boolean isDragging, float percent, int offset, int headerHeight, int maxDragHeight) {
+                super.onHeaderMoving(header, isDragging, percent, offset, headerHeight, maxDragHeight);
                 if (mAboutUsAppBar == null || mToolbar == null) {
                     return;
                 }

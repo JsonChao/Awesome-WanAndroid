@@ -354,7 +354,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mLastFgIndex = position;
         ft.hide(lastFg);
         if (!targetFg.isAdded()) {
-            getSupportFragmentManager().beginTransaction().remove(targetFg).commit();
+            getSupportFragmentManager().beginTransaction().remove(targetFg).commitAllowingStateLoss();
             ft.add(R.id.fragment_group, targetFg);
         }
         ft.show(targetFg);

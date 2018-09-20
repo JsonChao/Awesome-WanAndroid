@@ -65,7 +65,7 @@ public abstract class BaseRootFragment<T extends BasePresenter> extends BaseFrag
 
     @Override
     public void showLoading() {
-        if (currentState == LOADING_STATE) {
+        if (currentState == LOADING_STATE || mLoadingView == null) {
             return;
         }
         hideCurrentView();

@@ -12,7 +12,7 @@ ext {
 
     version = [
             supportLibraryVersion   : "26.1.1",
-            smartrefreshVersion     : "1.0.5.1",
+            smartrefreshVersion     : "1.1.0-alpha-14",
             okhttpVersion           : "3.9.0",
             retrofitVersion         : "2.3.0",
             glideVersion            : "4.0.0",

@@ -56,13 +56,13 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
     static {
         AppCompatDelegate.setDefaultNightMode(
                 AppCompatDelegate.MODE_NIGHT_NO);
-        SmartRefreshLayout.setDefaultRefreshHeaderCreater((context, refreshLayout) -> {
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator((context, layout) -> {
             //全局设置主题颜色
-            refreshLayout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white);
+            layout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white);
             //指定为Delivery Header，默认是贝塞尔雷达Header
             return new DeliveryHeader(context);
         });
-        SmartRefreshLayout.setDefaultRefreshFooterCreater((context, layout) -> {
+        SmartRefreshLayout.setDefaultRefreshFooterCreator((context, layout) -> {
             //默认是 BallPulseFooter
             return new BallPulseFooter(context).setAnimatingColor(ContextCompat.getColor(context, R.color.colorPrimary));
         });
