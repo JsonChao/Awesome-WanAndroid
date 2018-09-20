@@ -1,7 +1,7 @@
 <h1 align="center">Awesome-WanAndroid</h1>
 
 <div align="center">
-<img src="https://img.shields.io/badge/Version-V1.2.2-brightgreen.svg">
+<img src="https://img.shields.io/badge/Version-V1.2.3-brightgreen.svg">
 <img src="https://img.shields.io/badge/build-passing-brightgreen.svg">
 <a href="https://developer.android.com/about/versions/android-5.0.html">
     <img src="https://img.shields.io/badge/API-21+-blue.svg" alt="Min Sdk Version">
@@ -16,14 +16,14 @@
 <img src="https://diycode.b0.upaiyun.com/user/avatar/2468.jpg">
 </div>
 
-### 致力于打造一款极致体验的WanAndroid客户端，知识和美是可以并存的哦QAQn(*≧▽≦*)n ，更好的 Awesome-WanAndroid V1.2.2正式版发布，相比初始版本，项目的稳定性和界面的美化程度已提升了几个档次，如果您觉得还不错的话，就点个Star吧~(持续打磨中~，敬请关注)
+### 致力于打造一款极致体验的WanAndroid客户端，知识和美是可以并存的哦QAQn(*≧▽≦*)n ，更好的 Awesome-WanAndroid V1.2.3正式版发布，相比初始版本，项目的稳定性和界面的美化程度已提升了几个档次，如果您觉得还不错的话，就点个Star吧~(持续打磨中~，敬请关注)
 
 ## Introduction
 
 Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagger2 + GreenDao + Glide
 
 这是一款会让您觉得很nice的技术学习APP，所用技术基本涵盖了当前Android开发中常用的主流技术框架，阅读内容主要面向想在Android开发领域成为专家的朋友们。此外，我正在进行一个
-[全新的Android进阶计划](https://github.com/JsonChao/Awesome-Android-Exercise),致力于成为更好的Android开发，有兴趣的朋友可以参考下~
+[全新的Android进阶计划](https://github.com/JsonChao/Awesome-Android-Exercise), 致力于成为更好的Android开发，有兴趣的朋友可以参考下~
 
 ## Awesome-WanAndroid Architecture
 
@@ -89,7 +89,7 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 </div>
 
 
-## Apk download（Android 5.0 or above it）（更好的Awesome-WanAndroid V1.2.2 来了）
+## Apk download（Android 5.0 or above it）（更好的Awesome-WanAndroid V1.2.3 来了）
 
 <center>
 
@@ -125,6 +125,13 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 
 ## Version
+
+### :zap:v1.2.3
+
+1.适配Android P版本
+
+2.解决Bugly上的bug
+
 
 ### :zap:v1.2.2
 
