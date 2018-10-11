@@ -4,7 +4,6 @@ package json.chao.com.wanandroid.core.bean;
  * @author quchao
  * @date 2018/2/12
  */
-
 public class BaseResponse<T> {
 
     public static final int SUCCESS = 0;
