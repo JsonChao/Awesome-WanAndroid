@@ -1,7 +1,7 @@
 <h1 align="center">Awesome-WanAndroid</h1>
 
 <div align="center">
-<img src="https://img.shields.io/badge/Version-V1.2.3-brightgreen.svg">
+<img src="https://img.shields.io/badge/Version-V1.2.4-brightgreen.svg">
 <img src="https://img.shields.io/badge/build-passing-brightgreen.svg">
 <a href="https://developer.android.com/about/versions/android-5.0.html">
     <img src="https://img.shields.io/badge/API-21+-blue.svg" alt="Min Sdk Version">
@@ -16,7 +16,7 @@
 <img src="https://diycode.b0.upaiyun.com/user/avatar/2468.jpg">
 </div>
 
-### 致力于打造一款极致体验的WanAndroid客户端，知识和美是可以并存的哦QAQn(*≧▽≦*)n ，更好的 Awesome-WanAndroid V1.2.3正式版发布，相比初始版本，项目的稳定性和界面的美化程度已提升了几个档次，如果您觉得还不错的话，就点个Star吧~(持续打磨中~，敬请关注)
+### 致力于打造一款极致体验的WanAndroid客户端，知识和美是可以并存的哦QAQn(*≧▽≦*)n ，更好的 Awesome-WanAndroid V1.2.4正式版发布，相比初始版本，项目的稳定性和界面的美化程度已提升了几个档次，如果您觉得还不错的话，就点个Star吧~(持续打磨中~，敬请关注)
 
 ## Introduction
 
@@ -89,7 +89,7 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 </div>
 
 
-## Apk download（Android 5.0 or above it）（更好的Awesome-WanAndroid V1.2.3 来了）
+## Apk download（Android 5.0 or above it）（更好的Awesome-WanAndroid V1.2.4 来了）
 
 <center>
 
@@ -126,9 +126,16 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 ## Version
 
-### :zap:v1.2.3
+### :zap:v1.2.4
 
-1.适配Android P版本
+1.新增公众号栏目，支持公众号内搜索
+
+2.解决Bugly上的bug
+
+
+### v1.2.3
+
+1.适配Android O版本
 
 2.解决Bugly上的bug
 
