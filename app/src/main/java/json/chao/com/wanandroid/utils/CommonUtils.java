@@ -65,7 +65,7 @@ public class CommonUtils {
         ((TextView) view.findViewById(R.id.snackbar_text)).setTextColor(ContextCompat.getColor(activity, R.color.white));
         snackbar.setAction("知道了", v -> {
             snackbar.dismiss();
-            //隐藏SnackBar时记得恢复隐藏虚拟按键栏,不然屏幕底部会多出一块空白布局出来,和难看
+            //隐藏SnackBar时记得恢复隐藏虚拟按键栏,不然屏幕底部会多出一块空白布局出来,很难看
             activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
         }).show();
         snackbar.addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {

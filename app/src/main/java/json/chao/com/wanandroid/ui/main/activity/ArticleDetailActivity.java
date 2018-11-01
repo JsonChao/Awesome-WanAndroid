@@ -35,7 +35,6 @@ import json.chao.com.wanandroid.utils.StatusBarUtil;
  * @author quchao
  * @date 2018/2/13
  */
-
 public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> implements ArticleDetailContract.View {
 
     @BindView(R.id.article_detail_toolbar)
@@ -211,7 +210,7 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
 
     @Override
     public void shareError() {
-        CommonUtils.showSnackMessage(this, getString(R.string.write_permission_not_allowed));
+        CommonUtils.showMessage(this, getString(R.string.write_permission_not_allowed));
     }
 
     @Override
@@ -228,7 +227,7 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
         isCollect = true;
         mCollectItem.setTitle(R.string.cancel_collect);
         mCollectItem.setIcon(R.mipmap.ic_toolbar_like_p);
-        CommonUtils.showSnackMessage(this, getString(R.string.collect_success));
+        CommonUtils.showMessage(this, getString(R.string.collect_success));
     }
 
     @Override
@@ -238,7 +237,7 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
             mCollectItem.setTitle(R.string.collect);
         }
         mCollectItem.setIcon(R.mipmap.ic_toolbar_like_n);
-        CommonUtils.showSnackMessage(this, getString(R.string.cancel_collect_success));
+        CommonUtils.showMessage(this, getString(R.string.cancel_collect_success));
     }
 
     private void unCommonSiteEvent(Menu menu) {

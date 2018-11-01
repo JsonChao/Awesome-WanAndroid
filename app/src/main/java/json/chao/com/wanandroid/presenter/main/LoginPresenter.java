@@ -19,7 +19,6 @@ import json.chao.com.wanandroid.widget.BaseObserver;
  * @author quchao
  * @date 2018/2/26
  */
-
 public class LoginPresenter extends BasePresenter<LoginContract.View> implements LoginContract.Presenter {
 
     private DataManager mDataManager;

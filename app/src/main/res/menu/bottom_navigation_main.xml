@@ -17,6 +17,13 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/tab_wx_article"
+        android:enabled="true"
+        android:icon="@drawable/ic_wx_article"
+        android:title="@string/wx_article"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/tab_navigation"
         android:enabled="true"
         android:icon="@drawable/icon_navigation_not_selected"

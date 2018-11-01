@@ -15,6 +15,7 @@ import json.chao.com.wanandroid.core.bean.main.search.UsefulSiteData;
 import json.chao.com.wanandroid.core.bean.navigation.NavigationListData;
 import json.chao.com.wanandroid.core.bean.project.ProjectClassifyData;
 import json.chao.com.wanandroid.core.bean.project.ProjectListData;
+import json.chao.com.wanandroid.core.bean.wx.WxAuthor;
 import json.chao.com.wanandroid.core.http.api.GeeksApis;
 
 
@@ -80,6 +81,21 @@ public class HttpHelperImpl implements HttpHelper {
     }
 
     @Override
+    public Observable<BaseResponse<List<WxAuthor>>> getWxAuthorListData() {
+        return mGeeksApis.getWxAuthorListData();
+    }
+
+    @Override
+    public Observable<BaseResponse<FeedArticleListData>> getWxSumData(int id, int page) {
+        return mGeeksApis.getWxSumData(id, page);
+    }
+
+    @Override
+    public Observable<BaseResponse<FeedArticleListData>> getWxSearchSumData(int id, int page, String k) {
+        return mGeeksApis.getWxSearchSumData(id, page, k);
+    }
+
+    @Override
     public Observable<BaseResponse<LoginData>> getLoginData(String username, String password) {
         return mGeeksApis.getLoginData(username, password);
     }
@@ -87,6 +103,11 @@ public class HttpHelperImpl implements HttpHelper {
     @Override
     public Observable<BaseResponse<LoginData>> getRegisterData(String username, String password, String repassword) {
         return mGeeksApis.getRegisterData(username, password, repassword);
+    }
+
+    @Override
+    public Observable<BaseResponse<LoginData>> logout() {
+        return mGeeksApis.logout();
     }
 
     @Override

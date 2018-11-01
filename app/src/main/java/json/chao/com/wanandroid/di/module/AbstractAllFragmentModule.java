@@ -11,6 +11,8 @@ import json.chao.com.wanandroid.ui.mainpager.fragment.MainPagerFragment;
 import json.chao.com.wanandroid.ui.navigation.fragment.NavigationFragment;
 import json.chao.com.wanandroid.ui.project.fragment.ProjectFragment;
 import json.chao.com.wanandroid.ui.project.fragment.ProjectListFragment;
+import json.chao.com.wanandroid.ui.wx.fragment.WxArticleFragment;
+import json.chao.com.wanandroid.ui.wx.fragment.WxDetailArticleFragment;
 
 /**
  * @author quchao
@@ -34,6 +36,12 @@ public abstract class AbstractAllFragmentModule {
 
     @ContributesAndroidInjector(modules = NavigationFragmentModule.class)
     abstract NavigationFragment contributesNavigationFragmentInject();
+
+    @ContributesAndroidInjector(modules = WxArticleFragmentModule.class)
+    abstract WxArticleFragment contributesWxArticleFragmentInject();
+
+    @ContributesAndroidInjector(modules = WxDetailArticleFragmentModule.class)
+    abstract WxDetailArticleFragment WxDetailArticleFragmentInject();
 
     @ContributesAndroidInjector(modules = ProjectFragmentModule.class)
     abstract ProjectFragment contributesProjectFragmentInject();

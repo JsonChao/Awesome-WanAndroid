@@ -26,6 +26,11 @@ public interface MainContract {
          * Show auto login view
          */
         void showAutoLoginView();
+
+        /**
+         * Show logout success
+         */
+        void showLogoutSuccess();
     }
 
     interface Presenter extends AbstractPresenter<View> {
@@ -43,6 +48,11 @@ public interface MainContract {
          * @param b current night mode state
          */
         void setNightModeState(boolean b);
+
+        /**
+         * logout
+         */
+        void logout();
     }
 
 }
