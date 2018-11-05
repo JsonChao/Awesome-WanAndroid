@@ -87,13 +87,13 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
     @Override
     public void onCreate() {
         super.onCreate();
+        initGreenDao();
+
         DaggerAppComponent.builder()
                 .appModule(new AppModule(instance))
                 .httpModule(new HttpModule())
                 .build().inject(this);
         instance = this;
-
-        initGreenDao();
 
         initBugly();
 
