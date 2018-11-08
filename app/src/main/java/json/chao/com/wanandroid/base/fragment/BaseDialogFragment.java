@@ -47,6 +47,14 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        if (mPresenter != null) {
+            mPresenter = null;
+        }
+    }
+
+    @Override
     public void showErrorMsg(String errorMsg) {
         if (getActivity() != null) {
             CommonUtils.showSnackMessage(getActivity(), errorMsg);

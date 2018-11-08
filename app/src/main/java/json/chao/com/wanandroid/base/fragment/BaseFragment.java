@@ -43,9 +43,16 @@ public abstract class BaseFragment<T extends AbstractPresenter> extends Abstract
     public void onDestroyView() {
         if (mPresenter != null) {
             mPresenter.detachView();
-            mPresenter = null;
         }
         super.onDestroyView();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (mPresenter != null) {
+            mPresenter = null;
+        }
     }
 
     @Override
