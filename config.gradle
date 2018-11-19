@@ -64,8 +64,8 @@ ext {
             "dagger-android-support"            : "com.google.dagger:dagger-android-support:${version["daggerVersion"]}",
             "dagger-android-processor"          : "com.google.dagger:dagger-android-processor:${version["daggerVersion"]}",
             "javax_annotation"                  : "org.glassfish:javax.annotation:10.0-b28",
-            "butterknife"                       : "com.jakewharton:butterknife:${version["butterknifeVersion"]}",
-            "butterknife-compiler"              : "com.jakewharton:butterknife-compiler:${version["butterknifeVersion"]}",
+            "butterknife"                       : "com.jakewharton:butterknife:8.8.1",
+            "butterknife-compiler"              : "com.jakewharton:butterknife-compiler:8.8.1",
 
             //multidex
             "multidex"                          : "com.android.support:multidex:1.0.3",
@@ -75,7 +75,7 @@ ext {
             "leakcanary-android-no-op"          : "com.squareup.leakcanary:leakcanary-android-no-op:${version["leakcanaryVersion"]}",
 
             //kotlin
-            "kotlin-stdlib"                     : "org.jetbrains.kotlin:kotlin-stdlib:1.2.10",
+            "kotlin-stdlib"                     : "org.jetbrains.kotlin:kotlin-stdlib:1.2.71",
 
             //other
             "lottie"                            : "com.airbnb.android:lottie:2.3.0",
