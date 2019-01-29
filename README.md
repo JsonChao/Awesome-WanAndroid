@@ -123,6 +123,10 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 - 更多请Clone本项目进行查看。。。
 
+## 笔者对项目所使用主流框架的源码分析
+
+详情[Awesome-Third-Library-Source-Analysis](https://github.com/JsonChao/Awesome-Third-Library-Source-Analysis)
+
 
 ## Version
 
