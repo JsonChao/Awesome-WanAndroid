@@ -1,5 +1,10 @@
 package json.chao.com.wanandroid.di.module;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
@@ -7,6 +12,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import json.chao.com.wanandroid.app.WanAndroidApp;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
@@ -17,7 +23,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import json.chao.com.wanandroid.core.http.api.GeeksApis;
 import json.chao.com.wanandroid.BuildConfig;
 import json.chao.com.wanandroid.app.Constants;
-import json.chao.com.wanandroid.core.http.cookies.CookiesManager;
 import json.chao.com.wanandroid.di.qualifier.WanAndroidUrl;
 import json.chao.com.wanandroid.utils.CommonUtils;
 import retrofit2.Retrofit;
@@ -64,6 +69,7 @@ public class HttpModule {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
             builder.addInterceptor(loggingInterceptor);
+            builder.addNetworkInterceptor(new StethoInterceptor());
         }
         File cacheFile = new File(Constants.PATH_CACHE);
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 50);
@@ -103,7 +109,8 @@ public class HttpModule {
         //错误重连
         builder.retryOnConnectionFailure(true);
         //cookie认证
-        builder.cookieJar(new CookiesManager());
+        builder.cookieJar(new PersistentCookieJar(new SetCookieCache(),
+                new SharedPrefsCookiePersistor(WanAndroidApp.getInstance())));
         return builder.build();
     }
 

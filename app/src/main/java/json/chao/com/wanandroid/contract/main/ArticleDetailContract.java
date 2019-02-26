@@ -3,8 +3,7 @@ package json.chao.com.wanandroid.contract.main;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
-import json.chao.com.wanandroid.base.view.BaseView;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
+import json.chao.com.wanandroid.base.view.AbstractView;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 
 /**
@@ -14,7 +13,7 @@ import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 
 public interface ArticleDetailContract {
 
-    interface View extends BaseView {
+    interface View extends AbstractView {
 
         /**
          * Show collect article data

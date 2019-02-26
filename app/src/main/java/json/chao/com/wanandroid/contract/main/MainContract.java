@@ -1,7 +1,7 @@
 package json.chao.com.wanandroid.contract.main;
 
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
-import json.chao.com.wanandroid.base.view.BaseView;
+import json.chao.com.wanandroid.base.view.AbstractView;
 
 /**
  * @author quchao
@@ -10,7 +10,7 @@ import json.chao.com.wanandroid.base.view.BaseView;
 
 public interface MainContract {
 
-    interface View extends BaseView {
+    interface View extends AbstractView {
 
         /**
          * Show switch project
@@ -21,6 +21,16 @@ public interface MainContract {
          * Show switch navigation
          */
         void showSwitchNavigation();
+
+        /**
+         * Show auto login view
+         */
+        void showAutoLoginView();
+
+        /**
+         * Show logout success
+         */
+        void showLogoutSuccess();
     }
 
     interface Presenter extends AbstractPresenter<View> {
@@ -38,6 +48,11 @@ public interface MainContract {
          * @param b current night mode state
          */
         void setNightModeState(boolean b);
+
+        /**
+         * logout
+         */
+        void logout();
     }
 
 }

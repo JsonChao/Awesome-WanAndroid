@@ -1,14 +1,15 @@
 package json.chao.com.wanandroid.app;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.multidex.MultiDex;
-import android.support.v4.BuildConfig;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatDelegate;
 
 import com.bumptech.glide.Glide;
+import com.facebook.stetho.Stetho;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.DiskLogAdapter;
 import com.orhanobut.logger.Logger;
@@ -20,6 +21,12 @@ import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.crashreport.CrashReport;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
+import json.chao.com.wanandroid.BuildConfig;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.core.dao.DaoMaster;
 import json.chao.com.wanandroid.core.dao.DaoSession;
@@ -34,31 +41,33 @@ import json.chao.com.wanandroid.utils.logger.TxtFormatStrategy;
  * @author quchao
  * @date 2017/11/27
  */
+public class WanAndroidApp extends Application implements HasActivityInjector {
 
-public class WanAndroidApp extends Application {
+    @Inject
+    DispatchingAndroidInjector<Activity> mAndroidInjector;
 
     private static WanAndroidApp instance;
     private RefWatcher refWatcher;
-    public static boolean isFirstRun;
+    public static boolean isFirstRun = true;
     private static volatile AppComponent appComponent;
+    private DaoSession mDaoSession;
 
     //static 代码段可以防止内存泄露, 全局设置刷新头部及尾部，优先级最低
     static {
         AppCompatDelegate.setDefaultNightMode(
                 AppCompatDelegate.MODE_NIGHT_NO);
-        SmartRefreshLayout.setDefaultRefreshHeaderCreater((context, refreshLayout) -> {
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator((context, layout) -> {
             //全局设置主题颜色
-            refreshLayout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white);
+            layout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white);
             //指定为Delivery Header，默认是贝塞尔雷达Header
             return new DeliveryHeader(context);
         });
-        SmartRefreshLayout.setDefaultRefreshFooterCreater((context, layout) -> {
+        SmartRefreshLayout.setDefaultRefreshFooterCreator((context, layout) -> {
             //默认是 BallPulseFooter
             return new BallPulseFooter(context).setAnimatingColor(ContextCompat.getColor(context, R.color.colorPrimary));
         });
     }
 
-    private DaoSession mDaoSession;
 
     public static synchronized WanAndroidApp getInstance() {
         return instance;
@@ -78,15 +87,27 @@ public class WanAndroidApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        instance = this;
-
         initGreenDao();
 
-        refWatcher = LeakCanary.install(this);
+        DaggerAppComponent.builder()
+                .appModule(new AppModule(instance))
+                .httpModule(new HttpModule())
+                .build().inject(this);
+        instance = this;
 
         initBugly();
 
         initLogger();
+
+        if (BuildConfig.DEBUG) {
+            Stetho.initializeWithDefaults(this);
+        }
+
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+
+        refWatcher = LeakCanary.install(this);
 
     }
 
@@ -148,4 +169,8 @@ public class WanAndroidApp extends Application {
         return appComponent;
     }
 
+    @Override
+    public AndroidInjector<Activity> activityInjector() {
+        return mAndroidInjector;
+    }
 }

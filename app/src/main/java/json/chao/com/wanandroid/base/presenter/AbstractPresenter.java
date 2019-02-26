@@ -1,7 +1,7 @@
 package json.chao.com.wanandroid.base.presenter;
 
 import io.reactivex.disposables.Disposable;
-import json.chao.com.wanandroid.base.view.BaseView;
+import json.chao.com.wanandroid.base.view.AbstractView;
 
 /**
  * Presenter 基类
@@ -10,7 +10,7 @@ import json.chao.com.wanandroid.base.view.BaseView;
  * @date 2017/11/27
  */
 
-public interface AbstractPresenter<T extends BaseView> {
+public interface AbstractPresenter<T extends AbstractView> {
 
     /**
      * 注入View
@@ -58,6 +58,20 @@ public interface AbstractPresenter<T extends BaseView> {
      * @return login account
      */
     String getLoginAccount();
+
+    /**
+     * Set login status
+     *
+     * @param account account
+     */
+    void setLoginAccount(String account);
+
+    /**
+     * Set login password
+     *
+     * @param password password
+     */
+    void setLoginPassword(String password);
 
     /**
      * Get current page

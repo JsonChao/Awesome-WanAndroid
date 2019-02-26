@@ -92,31 +92,37 @@
         android:layout_marginStart="@dimen/dp_64"
         android:layout_marginEnd="@dimen/dp_64" />
 
-    <Button
-        android:id="@+id/login_register_btn"
-        style="@style/style_circle_btn"
-        android:background="@drawable/bg_conner_bottom_blue"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/dp_64"
-        android:layout_marginTop="@dimen/dp_12"
-        android:text="@string/register" />
-
-    <TextView
-        android:id="@+id/login_or_tv"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/or"
-        android:textColor="@color/comment_text"
-        android:textSize="@dimen/sp_16"
-        android:layout_above="@id/login_register_btn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_12" />
+        android:orientation="vertical"
+        android:layout_below="@id/register_divider"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp_32"
+        android:gravity="center_vertical">
 
-    <Button
-        android:id="@+id/login_btn"
-        style="@style/style_circle_btn"
-        android:background="@drawable/bg_conner_bottom_red"
-        android:layout_above="@+id/login_or_tv"
-        android:layout_marginTop="@dimen/dp_32"
-        android:text="@string/login_in" />
+        <Button
+            android:id="@+id/login_btn"
+            style="@style/style_circle_btn"
+            android:background="@drawable/bg_conner_bottom_red"
+            android:layout_marginTop="@dimen/dp_32"
+            android:text="@string/login_in" />
+
+        <TextView
+            android:id="@+id/login_or_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/or"
+            android:textColor="@color/comment_text"
+            android:textSize="@dimen/sp_16"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_12" />
+
+        <Button
+            android:id="@+id/login_register_btn"
+            style="@style/style_circle_btn"
+            android:background="@drawable/bg_conner_bottom_blue"
+            android:layout_marginTop="@dimen/dp_12"
+            android:text="@string/register" />
+    </LinearLayout>
 </RelativeLayout>

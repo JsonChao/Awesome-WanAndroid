@@ -41,15 +41,16 @@ public class CollectPresenter extends BasePresenter<CollectContract.View> implem
     }
 
     @Override
-    public void getCollectList(int page) {
+    public void getCollectList(int page, boolean isShowError) {
         addSubscribe(mDataManager.getCollectList(page)
                 .compose(RxUtils.rxSchedulerHelper())
                 .compose(RxUtils.handleResult())
                 .subscribeWith(new BaseObserver<FeedArticleListData>(mView,
-                        WanAndroidApp.getInstance().getString(R.string.failed_to_obtain_collection_data)) {
+                        WanAndroidApp.getInstance().getString(R.string.failed_to_obtain_collection_data),
+                        isShowError) {
                     @Override
-                    public void onNext(FeedArticleListData feedArticleListResponse) {
-                        mView.showCollectList(feedArticleListResponse);
+                    public void onNext(FeedArticleListData feedArticleListData) {
+                        mView.showCollectList(feedArticleListData);
                     }
                 }));
     }

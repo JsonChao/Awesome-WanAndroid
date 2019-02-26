@@ -1,7 +1,9 @@
 package json.chao.com.wanandroid.core.http.exception;
 
 /**
- * Created by codeest on 2016/8/4.
+ * @author quchao
+ * @date 2017/11/27
  */
+
 public class OtherException extends Exception {
 }

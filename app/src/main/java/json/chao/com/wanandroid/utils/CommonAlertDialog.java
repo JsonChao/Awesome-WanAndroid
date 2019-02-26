@@ -13,10 +13,9 @@ import json.chao.com.wanandroid.R;
 /**
  * Common AlertDialog Package
  *
- * @author chao.qu
+ * @author JsonChao
  * @date 2017/11/15
  */
-
 public class CommonAlertDialog {
 
     private AlertDialog alertDialog;

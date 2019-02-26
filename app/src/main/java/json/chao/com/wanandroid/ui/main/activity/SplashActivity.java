@@ -12,6 +12,7 @@ import json.chao.com.wanandroid.contract.main.SplashContract;
 import json.chao.com.wanandroid.presenter.main.SplashPresenter;
 import json.chao.com.wanandroid.utils.StatusBarUtil;
 
+
 /**
  * @author quchao
  * @date 2017/11/29
@@ -47,43 +48,32 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     }
 
     @Override
-    protected void initInject() {
-        getActivityComponent().inject(this);
-    }
-
-    @Override
     protected int getLayoutId() {
         return R.layout.activity_splash;
     }
 
     @Override
-    protected void initEventAndData() {
-        if (WanAndroidApp.isFirstRun) {
+    protected void initToolbar() {
+        if (!WanAndroidApp.isFirstRun) {
             jumpToMain();
             return;
         }
+        WanAndroidApp.isFirstRun = false;
         StatusBarUtil.immersive(this);
-        WanAndroidApp.isFirstRun = true;
-        mOneAnimation.setAnimation("W.json");
-        mOneAnimation.playAnimation();
-        mTwoAnimation.setAnimation("A.json");
-        mTwoAnimation.playAnimation();
-        mThreeAnimation.setAnimation("N.json");
-        mThreeAnimation.playAnimation();
-        mFourAnimation.setAnimation("A.json");
-        mFourAnimation.playAnimation();
-        mFiveAnimation.setAnimation("N.json");
-        mFiveAnimation.playAnimation();
-        mSixAnimation.setAnimation("D.json");
-        mSixAnimation.playAnimation();
-        mSevenAnimation.setAnimation("R.json");
-        mSevenAnimation.playAnimation();
-        mEightAnimation.setAnimation("I.json");
-        mEightAnimation.playAnimation();
-        mNineAnimation.setAnimation("O.json");
-        mNineAnimation.playAnimation();
-        mTenAnimation.setAnimation("D.json");
-        mTenAnimation.playAnimation();
+    }
+
+    @Override
+    protected void initEventAndData() {
+        startAnimation(mOneAnimation, "W.json");
+        startAnimation(mTwoAnimation, "A.json");
+        startAnimation(mThreeAnimation, "N.json");
+        startAnimation(mFourAnimation, "A.json");
+        startAnimation(mFiveAnimation, "N.json");
+        startAnimation(mSixAnimation, "D.json");
+        startAnimation(mSevenAnimation, "R.json");
+        startAnimation(mEightAnimation, "I.json");
+        startAnimation(mNineAnimation, "O.json");
+        startAnimation(mTenAnimation, "D.json");
     }
 
     @Override
@@ -94,35 +84,26 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     }
 
     private void cancelAnimation() {
-        if (mOneAnimation != null) {
-            mOneAnimation.cancelAnimation();
-        }
-        if (mTwoAnimation != null) {
-            mTwoAnimation.cancelAnimation();
-        }
-        if (mThreeAnimation != null) {
-            mThreeAnimation.cancelAnimation();
-        }
-        if (mFourAnimation != null) {
-            mFourAnimation.cancelAnimation();
-        }
-        if (mFiveAnimation != null) {
-            mFiveAnimation.cancelAnimation();
-        }
-        if (mSixAnimation != null) {
-            mSixAnimation.cancelAnimation();
-        }
-        if (mSevenAnimation != null) {
-            mSevenAnimation.cancelAnimation();
-        }
-        if (mEightAnimation != null) {
-            mEightAnimation.cancelAnimation();
-        }
-        if (mNineAnimation != null) {
-            mNineAnimation.cancelAnimation();
-        }
-        if (mTenAnimation != null) {
-            mTenAnimation.cancelAnimation();
+      cancelAnimation(mOneAnimation);
+      cancelAnimation(mTwoAnimation);
+      cancelAnimation(mThreeAnimation);
+      cancelAnimation(mFourAnimation);
+      cancelAnimation(mFiveAnimation);
+      cancelAnimation(mSixAnimation);
+      cancelAnimation(mSevenAnimation);
+      cancelAnimation(mEightAnimation);
+
+      cancelAnimation(mNineAnimation);
+      cancelAnimation(mTenAnimation);
+    }
+
+    private void startAnimation(LottieAnimationView mLottieAnimationView, String animationName) {
+        mLottieAnimationView.setAnimation(animationName);
+        mLottieAnimationView.playAnimation();
+    }
+    private void cancelAnimation(LottieAnimationView mLottieAnimationView) {
+        if (mLottieAnimationView != null) {
+            mLottieAnimationView.cancelAnimation();
         }
     }
 

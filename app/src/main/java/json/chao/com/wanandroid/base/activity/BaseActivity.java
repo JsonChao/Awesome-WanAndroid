@@ -1,16 +1,18 @@
 package json.chao.com.wanandroid.base.activity;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatDelegate;
 
 import javax.inject.Inject;
 
-import json.chao.com.wanandroid.R;
-import json.chao.com.wanandroid.app.WanAndroidApp;
+import dagger.android.AndroidInjection;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
-import json.chao.com.wanandroid.base.view.BaseView;
-import json.chao.com.wanandroid.di.component.ActivityComponent;
-import json.chao.com.wanandroid.di.component.DaggerActivityComponent;
-import json.chao.com.wanandroid.di.module.ActivityModule;
+import json.chao.com.wanandroid.base.view.AbstractView;
 import json.chao.com.wanandroid.utils.CommonUtils;
 
 /**
@@ -20,37 +22,40 @@ import json.chao.com.wanandroid.utils.CommonUtils;
  * @date 2017/11/28
  */
 
-public abstract class BaseActivity<T extends AbstractPresenter> extends AbstractSimpleActivity implements BaseView {
+public abstract class BaseActivity<T extends AbstractPresenter> extends AbstractSimpleActivity implements
+        HasSupportFragmentInjector,
+        AbstractView {
 
     @Inject
+    DispatchingAndroidInjector<Fragment> mFragmentDispatchingAndroidInjector;
+    @Inject
     protected T mPresenter;
-    private ActivityComponent mBuild;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onViewCreated() {
+        if (mPresenter != null) {
+            mPresenter.attachView(this);
+        }
+    }
 
     @Override
     protected void onDestroy() {
         if (mPresenter != null) {
             mPresenter.detachView();
+            mPresenter = null;
         }
         super.onDestroy();
     }
 
-    protected ActivityComponent getActivityComponent() {
-        if (mBuild == null) {
-            mBuild = DaggerActivityComponent.builder()
-                    .appComponent(WanAndroidApp.getAppComponent())
-                    .activityModule(new ActivityModule(this))
-                    .build();
-        }
-        return mBuild;
-    }
-
     @Override
-    protected void onViewCreated() {
-        super.onViewCreated();
-        initInject();
-        if (mPresenter != null) {
-            mPresenter.attachView(this);
-        }
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return mFragmentDispatchingAndroidInjector;
     }
 
     @Override
@@ -91,16 +96,6 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
     }
 
     @Override
-    public void showCollectFail() {
-        CommonUtils.showSnackMessage(this, getString(R.string.collect_fail));
-    }
-
-    @Override
-    public void showCancelCollectFail() {
-        CommonUtils.showSnackMessage(this, getString(R.string.cancel_collect_fail));
-    }
-
-    @Override
     public void showCollectSuccess() {
 
     }
@@ -120,9 +115,14 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
 
     }
 
-    /**
-     * 注入当前Activity所需的依赖
-     */
-    protected abstract void initInject();
+    @Override
+    public void showToast(String message) {
+        CommonUtils.showMessage(this, message);
+    }
+
+    @Override
+    public void showSnackBar(String message) {
+        CommonUtils.showSnackMessage(this, message);
+    }
 
 }

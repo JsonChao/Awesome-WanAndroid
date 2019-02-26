@@ -1,5 +1,7 @@
 package json.chao.com.wanandroid.presenter.mainpager;
 
+import android.support.annotation.NonNull;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,7 +30,6 @@ import json.chao.com.wanandroid.widget.BaseObserver;
  * @author quchao
  * @date 2017/12/7
  */
-
 public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> implements MainPagerContract.Presenter {
 
     private DataManager mDataManager;
@@ -77,30 +78,17 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
 
     @Override
     public void loadMainPagerData() {
-        String account = mDataManager.getLoginAccount();
-        String password = mDataManager.getLoginPassword();
-        Observable<BaseResponse<LoginData>> mLoginObservable = mDataManager.getLoginData(account, password);
+        Observable<BaseResponse<LoginData>> mLoginObservable = mDataManager.getLoginData(getLoginAccount(), getLoginPassword());
         Observable<BaseResponse<List<BannerData>>> mBannerObservable = mDataManager.getBannerData();
         Observable<BaseResponse<FeedArticleListData>> mArticleObservable = mDataManager.getFeedArticleList(0);
-        addSubscribe(Observable.zip(mLoginObservable, mBannerObservable, mArticleObservable,
-                (loginResponse, bannerResponse, feedArticleListResponse) -> {
-                    HashMap<String, Object> map = new HashMap<>(3);
-                    map.put(Constants.LOGIN_DATA, loginResponse);
-                    map.put(Constants.BANNER_DATA, bannerResponse);
-                    map.put(Constants.ARTICLE_DATA, feedArticleListResponse);
-                    return map;
-                })
+        addSubscribe(Observable.zip(mLoginObservable, mBannerObservable, mArticleObservable, this::createResponseMap)
                 .compose(RxUtils.rxSchedulerHelper())
                 .subscribeWith(new BaseObserver<HashMap<String, Object>>(mView) {
                     @Override
                     public void onNext(HashMap<String, Object> map) {
                         BaseResponse<LoginData> loginResponse = CommonUtils.cast(map.get(Constants.LOGIN_DATA));
                         if (loginResponse.getErrorCode() == BaseResponse.SUCCESS) {
-                            LoginData loginData = loginResponse.getData();
-                            mDataManager.setLoginAccount(loginData.getUsername());
-                            mDataManager.setLoginPassword(loginData.getPassword());
-                            mDataManager.setLoginStatus(true);
-                            mView.showAutoLoginSuccess();
+                            loginSuccess(loginResponse);
                         } else {
                             mView.showAutoLoginFail();
                         }
@@ -123,28 +111,60 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
     }
 
     @Override
-    public void autoRefresh() {
+    public void autoRefresh(boolean isShowError) {
         isRefresh = true;
         mCurrentPage = 0;
-        getBannerData();
-        getFeedArticleList();
+        getBannerData(isShowError);
+        getFeedArticleList(isShowError);
     }
 
     @Override
     public void loadMore() {
         isRefresh = false;
         mCurrentPage++;
-        getFeedArticleList();
+        loadMoreData();
     }
 
     @Override
-    public void getFeedArticleList() {
+    public void getBannerData(boolean isShowError) {
+        addSubscribe(mDataManager.getBannerData()
+                .compose(RxUtils.rxSchedulerHelper())
+                .compose(RxUtils.handleResult())
+                .subscribeWith(new BaseObserver<List<BannerData>>(mView,
+                        WanAndroidApp.getInstance().getString(R.string.failed_to_obtain_banner_data),
+                        isShowError) {
+                    @Override
+                    public void onNext(List<BannerData> bannerDataList) {
+                        mView.showBannerData(bannerDataList);
+                    }
+                }));
+    }
+
+    @Override
+    public void getFeedArticleList(boolean isShowError) {
         addSubscribe(mDataManager.getFeedArticleList(mCurrentPage)
                 .compose(RxUtils.rxSchedulerHelper())
                 .compose(RxUtils.handleResult())
                 .filter(feedArticleListResponse -> mView != null)
                 .subscribeWith(new BaseObserver<FeedArticleListData>(mView,
-                        WanAndroidApp.getInstance().getString(R.string.failed_to_obtain_article_list)) {
+                        WanAndroidApp.getInstance().getString(R.string.failed_to_obtain_article_list),
+                        isShowError) {
+                    @Override
+                    public void onNext(FeedArticleListData feedArticleListData) {
+                        mView.showArticleList(feedArticleListData, isRefresh);
+                    }
+                }));
+    }
+
+    @Override
+    public void loadMoreData() {
+        addSubscribe(mDataManager.getFeedArticleList(mCurrentPage)
+                .compose(RxUtils.rxSchedulerHelper())
+                .compose(RxUtils.handleResult())
+                .filter(feedArticleListResponse -> mView != null)
+                .subscribeWith(new BaseObserver<FeedArticleListData>(mView,
+                        WanAndroidApp.getInstance().getString(R.string.failed_to_obtain_article_list),
+                        false) {
                     @Override
                     public void onNext(FeedArticleListData feedArticleListData) {
                         mView.showArticleList(feedArticleListData, isRefresh);
@@ -182,18 +202,23 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
                 }));
     }
 
-    @Override
-    public void getBannerData() {
-        addSubscribe(mDataManager.getBannerData()
-                .compose(RxUtils.rxSchedulerHelper())
-                .compose(RxUtils.handleResult())
-                .subscribeWith(new BaseObserver<List<BannerData>>(mView,
-                        WanAndroidApp.getInstance().getString(R.string.failed_to_obtain_banner_data)) {
-                    @Override
-                    public void onNext(List<BannerData> bannerDataList) {
-                        mView.showBannerData(bannerDataList);
-                    }
-                }));
+    private void loginSuccess(BaseResponse<LoginData> loginResponse) {
+        LoginData loginData = loginResponse.getData();
+        mDataManager.setLoginAccount(loginData.getUsername());
+        mDataManager.setLoginPassword(loginData.getPassword());
+        mDataManager.setLoginStatus(true);
+        mView.showAutoLoginSuccess();
+    }
+
+    @NonNull
+    private HashMap<String, Object> createResponseMap(BaseResponse<LoginData> loginResponse,
+                                                      BaseResponse<List<BannerData>> bannerResponse,
+                                                      BaseResponse<FeedArticleListData> feedArticleListResponse) {
+        HashMap<String, Object> map = new HashMap<>(3);
+        map.put(Constants.LOGIN_DATA, loginResponse);
+        map.put(Constants.BANNER_DATA, bannerResponse);
+        map.put(Constants.ARTICLE_DATA, feedArticleListResponse);
+        return map;
     }
 
 

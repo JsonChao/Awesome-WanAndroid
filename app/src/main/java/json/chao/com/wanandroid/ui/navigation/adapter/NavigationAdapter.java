@@ -54,23 +54,28 @@ public class NavigationAdapter extends BaseQuickAdapter<NavigationListData, Navi
                 tv.setText(name);
                 tv.setTextColor(CommonUtils.randomColor());
                 mTagFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
-                    ActivityOptions options = ActivityOptions.makeScaleUpAnimation(view,
-                            view.getWidth() / 2,
-                            view.getHeight() / 2,
-                            0 ,
-                            0);
-                    JudgeUtils.startArticleDetailActivity(parent.getContext(),
-                            options,
-                            mArticles.get(position1).getId(),
-                            mArticles.get(position1).getTitle(),
-                            mArticles.get(position1).getLink(),
-                            mArticles.get(position1).isCollect(),
-                            false,
-                            false);
+                    startNavigationPager(view, position1, parent, mArticles);
                     return true;
                 });
                 return tv;
             }
         });
     }
+
+    private void startNavigationPager(View view, int position1, FlowLayout parent2, List<FeedArticleData> mArticles) {
+        ActivityOptions options = ActivityOptions.makeScaleUpAnimation(view,
+                view.getWidth() / 2,
+                view.getHeight() / 2,
+                0 ,
+                0);
+        JudgeUtils.startArticleDetailActivity(parent2.getContext(),
+                options,
+                mArticles.get(position1).getId(),
+                mArticles.get(position1).getTitle(),
+                mArticles.get(position1).getLink(),
+                mArticles.get(position1).isCollect(),
+                false,
+                false);
+    }
+
 }

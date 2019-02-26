@@ -2,6 +2,8 @@ package json.chao.com.wanandroid.ui.main.fragment;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
@@ -22,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -38,7 +41,6 @@ import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
 import json.chao.com.wanandroid.base.fragment.BaseDialogFragment;
 import json.chao.com.wanandroid.contract.main.SearchContract;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.search.TopSearchData;
 import json.chao.com.wanandroid.core.dao.HistoryData;
 import json.chao.com.wanandroid.presenter.main.SearchPresenter;
@@ -97,18 +99,14 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     }
 
     @Override
-    protected void initInject() {
-        getFragmentComponent().inject(this);
-    }
-
-    @Override
     protected int getLayout() {
         return R.layout.fragment_search;
     }
-    
+
     @Override
     protected void initEventAndData() {
         initCircleAnimation();
+        initRecyclerView();
         mTopSearchDataList = new ArrayList<>();
         mSearchEdit.addTextChangedListener(new TextWatcher() {
             @Override
@@ -150,16 +148,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
         }
         setHistoryTvStatus(false);
         Collections.reverse(historyDataList);
-        historySearchAdapter = new HistorySearchAdapter(R.layout.item_search_history, historyDataList);
-        historySearchAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            HistoryData historyData = (HistoryData) adapter.getData().get(position);
-            mPresenter.addHistoryData(historyData.getData());
-            mSearchEdit.setText(historyData.getData());
-            mSearchEdit.setSelection(mSearchEdit.getText().length());
-            setHistoryTvStatus(false);
-        });
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(historySearchAdapter);
+        historySearchAdapter.replaceData(historyDataList);
     }
 
     @Override
@@ -176,10 +165,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
                 tv.setText(name);
                 setItemBackground(tv);
                 mTopSearchFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
-                    mPresenter.addHistoryData(mTopSearchDataList.get(position1).getName().trim());
-                    setHistoryTvStatus(false);
-                    mSearchEdit.setText(mTopSearchDataList.get(position1).getName().trim());
-                    mSearchEdit.setSelection(mSearchEdit.getText().length());
+                    showTopSearchView(position1);
                     return true;
                 });
                 return tv;
@@ -221,13 +207,39 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
                 mSearchScrollView.smoothScrollTo(0, 0);
                 break;
             case R.id.search_history_clear_all_tv:
-                mPresenter.clearHistoryData();
-                historySearchAdapter.replaceData(new ArrayList<>());
-                setHistoryTvStatus(true);
+                clearHistoryData();
                 break;
             default:
                 break;
         }
+    }
+
+    private void clearHistoryData() {
+        mPresenter.clearHistoryData();
+        historySearchAdapter.replaceData(new ArrayList<>());
+        setHistoryTvStatus(true);
+    }
+
+    private void showTopSearchView(int position1) {
+        mPresenter.addHistoryData(mTopSearchDataList.get(position1).getName().trim());
+        setHistoryTvStatus(false);
+        mSearchEdit.setText(mTopSearchDataList.get(position1).getName().trim());
+        mSearchEdit.setSelection(mSearchEdit.getText().length());
+    }
+
+    private void initRecyclerView() {
+        historySearchAdapter = new HistorySearchAdapter(R.layout.item_search_history, null);
+        historySearchAdapter.setOnItemChildClickListener((adapter, view, position) -> searchHistoryData(adapter, position));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setAdapter(historySearchAdapter);
+    }
+
+    private void searchHistoryData(BaseQuickAdapter adapter, int position) {
+        HistoryData historyData = (HistoryData) adapter.getData().get(position);
+        mPresenter.addHistoryData(historyData.getData());
+        mSearchEdit.setText(historyData.getData());
+        mSearchEdit.setSelection(mSearchEdit.getText().length());
+        setHistoryTvStatus(false);
     }
 
     private void setItemBackground(TextView tv) {
@@ -259,21 +271,21 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     }
 
     private void setHistoryTvStatus(boolean isClearAll) {
-        Drawable drawable;
         mClearAllHistoryTv.setEnabled(!isClearAll);
         if (isClearAll) {
-            mHistoryNullTintTv.setVisibility(View.VISIBLE);
-            mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.search_grey_gone));
-            drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_all_gone);
-            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-            mClearAllHistoryTv.setCompoundDrawables(drawable, null, null, null);
+            setHistoryTvStatus(View.VISIBLE, R.color.search_grey_gone, R.drawable.ic_clear_all_gone);
         } else {
-            mHistoryNullTintTv.setVisibility(View.GONE);
-            mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), R.color.search_grey));
-            drawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_all);
-            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-            mClearAllHistoryTv.setCompoundDrawables(drawable, null, null, null);
+            setHistoryTvStatus(View.GONE, R.color.search_grey, R.drawable.ic_clear_all);
         }
+    }
+
+    private void setHistoryTvStatus(int visibility, @ColorRes int textColor, @DrawableRes int clearDrawable) {
+        Drawable drawable;
+        mHistoryNullTintTv.setVisibility(visibility);
+        mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), textColor));
+        drawable = ContextCompat.getDrawable(getActivity(), clearDrawable);
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        mClearAllHistoryTv.setCompoundDrawables(drawable, null, null, null);
         mClearAllHistoryTv.setCompoundDrawablePadding(CommonUtils.dp2px(6));
     }
 

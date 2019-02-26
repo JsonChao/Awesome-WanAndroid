@@ -1,8 +1,7 @@
 package json.chao.com.wanandroid.contract.main;
 
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
-import json.chao.com.wanandroid.base.view.BaseView;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
+import json.chao.com.wanandroid.base.view.AbstractView;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 
@@ -13,7 +12,7 @@ import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 
 public interface CollectContract {
 
-    interface View extends BaseView {
+    interface View extends AbstractView {
 
         /**
          * Show collect list
@@ -44,8 +43,9 @@ public interface CollectContract {
          * Get collect list
          *
          * @param page page number
+         * @param isShowError If show error
          */
-        void getCollectList(int page);
+        void getCollectList(int page, boolean isShowError);
 
         /**
          * Cancel collect article

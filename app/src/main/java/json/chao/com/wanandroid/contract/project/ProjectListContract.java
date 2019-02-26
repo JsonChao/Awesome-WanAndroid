@@ -1,11 +1,10 @@
 package json.chao.com.wanandroid.contract.project;
 
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
+import json.chao.com.wanandroid.base.view.AbstractView;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.core.bean.project.ProjectListData;
-import json.chao.com.wanandroid.base.view.BaseView;
 
 /**
  * @author quchao
@@ -14,7 +13,7 @@ import json.chao.com.wanandroid.base.view.BaseView;
 
 public interface ProjectListContract {
 
-    interface View extends BaseView {
+    interface View extends AbstractView {
 
         /**
          * Show project list data
@@ -55,8 +54,9 @@ public interface ProjectListContract {
          *
          * @param page page num
          * @param cid second page id
+         * @param isShowError If show error
          */
-        void getProjectListData(int page, int cid);
+        void getProjectListData(int page, int cid, boolean isShowError);
 
         /**
          * Add collect outside article

@@ -7,6 +7,7 @@
     <string name="unKnown_error">unKnown error</string>
     <string name="me">Me</string>
     <string name="knowledge_hierarchy">Knowledge hierarchy</string>
+    <string name="wx_article">WX article</string>
     <string name="home_pager">Home pager</string>
     <string name="navigation">Navigation</string>
     <string name="project">Project</string>
@@ -37,6 +38,7 @@
     <string name="login_success">Login Success</string>
     <string name="account_password_null_tint">The user name or password cannot be empty</string>
     <string name="login_fail">Login fail</string>
+    <string name="logout_fail">Logout fail</string>
     <string name="register_fail">Register fail</string>
     <string name="password_not_same">Passwords don\'t match</string>
     <string name="auto_login_success">Auto login success</string>
@@ -51,10 +53,13 @@
     <string name="install">install</string>
     <string name="logout_tint">Log out?</string>
     <string name="failed_to_obtain_banner_data">Failed to obtain advertising data</string>
-    <string name="failed_to_obtain_article_list">Gets the article list data</string>
+    <string name="failed_to_obtain_article_list">Failed gets the article list data</string>
 
     //Knowledge hierarchy
     <string name="failed_to_obtain_knowledge_data">Failure to obtain knowledge system data</string>
+
+    //wx
+    <string name="failed_to_obtain_wx_data">Failure to obtain WeChat data</string>
 
     //Navigation
     <string name="navigation_tint">%1$s navigation resources continue to be updated</string>
@@ -97,6 +102,11 @@
     <string name="setting">Setting</string>
     <string name="send_email">Select the email client:</string>
     <string name="load_more_no_data">There\'s no extra data</string>
+    <string name="register_account_hint">Email/Phone number</string>
+    <string name="register_password_hint">Enter password</string>
+    <string name="register_confirm_password_hint">Confirm password</string>
+    <string name="register_success">Register success</string>
+    <string name="fail_to_obtain_wx_author">Failed to get WeChat author list</string>
 
 
 </resources>

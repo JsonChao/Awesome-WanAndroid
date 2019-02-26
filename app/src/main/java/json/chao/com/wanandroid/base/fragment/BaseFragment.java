@@ -1,18 +1,15 @@
 package json.chao.com.wanandroid.base.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
 import javax.inject.Inject;
 
-import json.chao.com.wanandroid.R;
-import json.chao.com.wanandroid.app.WanAndroidApp;
+import dagger.android.support.AndroidSupportInjection;
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
-import json.chao.com.wanandroid.base.view.BaseView;
-import json.chao.com.wanandroid.di.component.DaggerFragmentComponent;
-import json.chao.com.wanandroid.di.component.FragmentComponent;
-import json.chao.com.wanandroid.di.module.FragmentModule;
+import json.chao.com.wanandroid.base.view.AbstractView;
 import json.chao.com.wanandroid.utils.CommonUtils;
 
 /**
@@ -22,18 +19,24 @@ import json.chao.com.wanandroid.utils.CommonUtils;
  * @date 2017/11/28
  */
 
-public abstract class BaseFragment<T extends AbstractPresenter> extends AbstractSimpleFragment implements BaseView {
+public abstract class BaseFragment<T extends AbstractPresenter> extends AbstractSimpleFragment
+        implements AbstractView {
 
     @Inject
     protected T mPresenter;
 
     @Override
+    public void onAttach(Activity activity) {
+        AndroidSupportInjection.inject(this);
+        super.onAttach(activity);
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        initInject();
+        super.onViewCreated(view, savedInstanceState);
         if (mPresenter != null) {
             mPresenter.attachView(this);
         }
-        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
@@ -44,11 +47,12 @@ public abstract class BaseFragment<T extends AbstractPresenter> extends Abstract
         super.onDestroyView();
     }
 
-    public FragmentComponent getFragmentComponent() {
-        return DaggerFragmentComponent.builder()
-                .appComponent(WanAndroidApp.getAppComponent())
-                .fragmentModule(new FragmentModule(this))
-                .build();
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (mPresenter != null) {
+            mPresenter = null;
+        }
     }
 
     @Override
@@ -64,57 +68,44 @@ public abstract class BaseFragment<T extends AbstractPresenter> extends Abstract
 
     @Override
     public void showNormal() {
-
     }
 
     @Override
     public void showError() {
-
     }
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
     public void reload() {
-
-    }
-
-    @Override
-    public void showCollectFail() {
-        CommonUtils.showSnackMessage(_mActivity, getString(R.string.collect_fail));
-    }
-
-    @Override
-    public void showCancelCollectFail() {
-        CommonUtils.showSnackMessage(_mActivity, getString(R.string.cancel_collect_fail));
     }
 
     @Override
     public void showCollectSuccess() {
-
     }
 
     @Override
     public void showCancelCollectSuccess() {
-
     }
 
     @Override
     public void showLoginView() {
-
     }
 
     @Override
     public void showLogoutView() {
-
     }
 
-    /**
-     * 注入当前Fragment所需的依赖
-     */
-    protected abstract void initInject();
+    @Override
+    public void showToast(String message) {
+        CommonUtils.showMessage(_mActivity, message);
+    }
+
+    @Override
+    public void showSnackBar(String message) {
+        CommonUtils.showSnackMessage(_mActivity, message);
+    }
 
 }

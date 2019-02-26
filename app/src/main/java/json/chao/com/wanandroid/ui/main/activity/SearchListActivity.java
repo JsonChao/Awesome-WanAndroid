@@ -3,6 +3,8 @@ package json.chao.com.wanandroid.ui.main.activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,10 +23,9 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
-import json.chao.com.wanandroid.base.activity.AbstractRootActivity;
+import json.chao.com.wanandroid.base.activity.BaseRootActivity;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.contract.main.SearchListContract;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.core.event.SwitchNavigationEvent;
@@ -40,7 +41,7 @@ import json.chao.com.wanandroid.utils.StatusBarUtil;
  * @date 2018/3/13
  */
 
-public class SearchListActivity extends AbstractRootActivity<SearchListPresenter> implements SearchListContract.View {
+public class SearchListActivity extends BaseRootActivity<SearchListPresenter> implements SearchListContract.View {
 
     @BindView(R.id.common_toolbar)
     Toolbar mToolbar;
@@ -66,64 +67,33 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
     }
 
     @Override
+    protected void initToolbar() {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle == null) {
+            return;
+        }
+        searchText = ((String) bundle.get(Constants.SEARCH_TEXT));
+        if (!TextUtils.isEmpty(searchText)) {
+            mTitleTv.setText(searchText);
+        }
+
+        StatusBarUtil.setStatusColor(getWindow(), ContextCompat.getColor(this, R.color.search_status_bar_white), 1f);
+        if (mPresenter.getNightModeState()) {
+            mToolbar.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_gradient_bg));
+            setToolbarView(R.color.white, R.drawable.ic_arrow_back_white_24dp);
+        } else {
+            StatusBarUtil.setStatusDarkColor(getWindow());
+            mToolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+            setToolbarView(R.color.title_black, R.drawable.ic_arrow_back_grey_24dp);
+        }
+        mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
+    }
+
+    @Override
     protected void initEventAndData() {
         super.initEventAndData();
-        initToolbar();
-        mPresenter.getSearchList(mCurrentPage, searchText);
-        mArticleList = new ArrayList<>();
-        mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mArticleList);
-        mAdapter.isSearchPage();
-        mAdapter.isNightMode(mPresenter.getNightModeState());
-        mAdapter.setOnItemClickListener((adapter, view, position) -> {
-            if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
-                return;
-            }
-            articlePosition = position;
-            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, view, getString(R.string.share_view));
-            JudgeUtils.startArticleDetailActivity(this,
-                    options,
-                    mAdapter.getData().get(position).getId(),
-                    mAdapter.getData().get(position).getTitle(),
-                    mAdapter.getData().get(position).getLink(),
-                    mAdapter.getData().get(position).isCollect(),
-                    false,
-                    false);
-        });
-
-        mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            switch (view.getId()) {
-                case R.id.item_search_pager_chapterName:
-                    if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
-                        return;
-                    }
-                    JudgeUtils.startKnowledgeHierarchyDetailActivity(this,
-                            true,
-                            mAdapter.getData().get(position).getSuperChapterName(),
-                            mAdapter.getData().get(position).getChapterName(),
-                            mAdapter.getData().get(position).getChapterId());
-                    break;
-                case R.id.item_search_pager_like_iv:
-                    likeEvent(position);
-                    break;
-                case R.id.item_search_pager_tag_red_tv:
-                    if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
-                        return;
-                    }
-                    String superChapterName = mAdapter.getData().get(position).getSuperChapterName();
-                    if (superChapterName.contains(getString(R.string.open_project))) {
-                        onBackPressedSupport();
-                        RxBus.getDefault().post(new SwitchProjectEvent());
-                    } else if (superChapterName.contains(getString(R.string.navigation))) {
-                        onBackPressedSupport();
-                        RxBus.getDefault().post(new SwitchNavigationEvent());
-                    }
-                    break;
-                default:
-                    break;
-            }
-        });
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mPresenter.getSearchList(mCurrentPage, searchText, true);
+        initRecyclerView();
         setRefresh();
         if (CommonUtils.isNetworkConnected()) {
             showLoading();
@@ -131,14 +101,9 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
     }
 
     @Override
-    protected void initInject() {
-        getActivityComponent().inject(this);
-    }
-
-    @Override
     public void reload() {
         if (mPresenter != null) {
-            mPresenter.getSearchList(0, searchText);
+            mPresenter.getSearchList(0, searchText, false);
         }
     }
 
@@ -171,18 +136,13 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
 
     @Override
     public void showCollectSuccess() {
-        if (mAdapter.getData().size() > articlePosition) {
-            mAdapter.getData().get(articlePosition).setCollect(true);
-            mAdapter.setData(articlePosition, mAdapter.getData().get(articlePosition));
-        }
+        showCollectResult(true);
+
     }
 
     @Override
     public void showCancelCollectSuccess() {
-        if (mAdapter.getData().size() > articlePosition) {
-            mAdapter.getData().get(articlePosition).setCollect(false);
-            mAdapter.setData(articlePosition, mAdapter.getData().get(articlePosition));
-        }
+        showCollectResult(false);
     }
 
     @OnClick({R.id.search_list_floating_action_btn})
@@ -196,28 +156,85 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
         }
     }
 
-    private void initToolbar() {
-        Bundle bundle = getIntent().getExtras();
-        if (bundle == null) {
+    private void initRecyclerView() {
+        mArticleList = new ArrayList<>();
+        mAdapter = new ArticleListAdapter(R.layout.item_search_pager, mArticleList);
+        mAdapter.isSearchPage();
+        mAdapter.isNightMode(mPresenter.getNightModeState());
+        mAdapter.setOnItemClickListener((adapter, view, position) -> startArticleDetailPager(view, position));
+        mAdapter.setOnItemChildClickListener((adapter, view, position) -> clickChildrenEvent(view, position));
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setHasFixedSize(true);
+    }
+
+    private void clickChildrenEvent(View view, int position) {
+        switch (view.getId()) {
+            case R.id.item_search_pager_chapterName:
+                startSingleChapterPager(position);
+                break;
+            case R.id.item_search_pager_like_iv:
+                likeEvent(position);
+                break;
+            case R.id.item_search_pager_tag_red_tv:
+                clickTag(position);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void clickTag(int position) {
+        if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
             return;
         }
-        searchText = ((String) bundle.get(Constants.SEARCH_TEXT));
-        if (!TextUtils.isEmpty(searchText)) {
-            mTitleTv.setText(searchText);
+        String superChapterName = mAdapter.getData().get(position).getSuperChapterName();
+        if (superChapterName.contains(getString(R.string.open_project))) {
+            onBackPressedSupport();
+            RxBus.getDefault().post(new SwitchProjectEvent());
+        } else if (superChapterName.contains(getString(R.string.navigation))) {
+            onBackPressedSupport();
+            RxBus.getDefault().post(new SwitchNavigationEvent());
         }
+    }
 
-        StatusBarUtil.setStatusColor(getWindow(), ContextCompat.getColor(this, R.color.search_status_bar_white), 1f);
-        if (mPresenter.getNightModeState()) {
-            mTitleTv.setTextColor(ContextCompat.getColor(this, R.color.white));
-            mToolbar.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_gradient_bg));
-            mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_white_24dp));
-        } else {
-            StatusBarUtil.setStatusDarkColor(getWindow());
-            mTitleTv.setTextColor(ContextCompat.getColor(this, R.color.title_black));
-            mToolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-            mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_grey_24dp));
+    private void startSingleChapterPager(int position) {
+        if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+            return;
         }
-        mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
+        JudgeUtils.startKnowledgeHierarchyDetailActivity(this,
+                true,
+                mAdapter.getData().get(position).getSuperChapterName(),
+                mAdapter.getData().get(position).getChapterName(),
+                mAdapter.getData().get(position).getChapterId());
+    }
+
+    private void startArticleDetailPager(View view, int position) {
+        if (mAdapter.getData().size() <= 0 || mAdapter.getData().size() <= position) {
+            return;
+        }
+        articlePosition = position;
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, view, getString(R.string.share_view));
+        JudgeUtils.startArticleDetailActivity(this,
+                options,
+                mAdapter.getData().get(position).getId(),
+                mAdapter.getData().get(position).getTitle(),
+                mAdapter.getData().get(position).getLink(),
+                mAdapter.getData().get(position).isCollect(),
+                false,
+                false);
+    }
+
+    private void showCollectResult(boolean collectResult) {
+        if (mAdapter.getData().size() > articlePosition) {
+            mAdapter.getData().get(articlePosition).setCollect(collectResult);
+            mAdapter.setData(articlePosition, mAdapter.getData().get(articlePosition));
+        }
+    }
+
+    private void setToolbarView(@ColorRes int textColor, @DrawableRes int navigationIcon) {
+        mTitleTv.setTextColor(ContextCompat.getColor(this, textColor));
+        mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, navigationIcon));
     }
 
     private void likeEvent(int position) {
@@ -240,13 +257,13 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
         mRefreshLayout.setOnRefreshListener(refreshLayout -> {
             mCurrentPage = 0;
             isAddData = false;
-            mPresenter.getSearchList(mCurrentPage, searchText);
+            mPresenter.getSearchList(mCurrentPage, searchText, false);
             refreshLayout.finishRefresh(1000);
         });
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
             mCurrentPage++;
             isAddData = true;
-            mPresenter.getSearchList(mCurrentPage, searchText);
+            mPresenter.getSearchList(mCurrentPage, searchText, false);
             refreshLayout.finishLoadMore(1000);
         });
     }

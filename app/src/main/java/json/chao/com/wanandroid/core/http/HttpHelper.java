@@ -13,6 +13,8 @@ import json.chao.com.wanandroid.core.bean.main.search.UsefulSiteData;
 import json.chao.com.wanandroid.core.bean.navigation.NavigationListData;
 import json.chao.com.wanandroid.core.bean.project.ProjectClassifyData;
 import json.chao.com.wanandroid.core.bean.project.ProjectListData;
+import json.chao.com.wanandroid.core.bean.wx.WxAuthor;
+import retrofit2.http.GET;
 
 /**
  * @author quchao
@@ -99,6 +101,34 @@ public interface HttpHelper {
     Observable<BaseResponse<ProjectListData>> getProjectListData(int page, int cid);
 
     /**
+     * 获取公众号列表
+     * http://wanandroid.com/wxarticle/chapters/json
+     *
+     * @return 公众号列表数据
+     */
+    Observable<BaseResponse<List<WxAuthor>>> getWxAuthorListData();
+
+    /**
+     * http://wanandroid.com/wxarticle/list/405/1/json
+     *
+     * @param id
+     * @param page
+     * @return 获取当前公众号某页的数据
+     */
+    Observable<BaseResponse<FeedArticleListData>> getWxSumData(int id, int page);
+
+    /**
+     * 指定搜索内容，搜索当前公众号的某页的此类数据
+     * http://wanandroid.com/wxarticle/list/405/1/json?k=Java
+     *
+     * @param id
+     * @param page
+     * @param k
+     * @return 指定搜索内容，搜索当前公众号的某页的此类数据
+     */
+    Observable<BaseResponse<FeedArticleListData>> getWxSearchSumData(int id, int page, String k);
+
+    /**
      * 登陆
      * http://www.wanandroid.com/user/login
      *
@@ -118,6 +148,13 @@ public interface HttpHelper {
      * @return 登陆数据
      */
     Observable<BaseResponse<LoginData>> getRegisterData(String username, String password, String rePassword);
+
+    /**
+     * 退出登录
+     * http://www.wanandroid.com/user/logout/json
+     */
+    @GET("user/logout/json")
+    Observable<BaseResponse<LoginData>> logout();
 
     /**
      * 收藏站内文章

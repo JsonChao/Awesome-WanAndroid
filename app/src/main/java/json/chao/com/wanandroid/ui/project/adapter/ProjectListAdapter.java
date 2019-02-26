@@ -17,7 +17,6 @@ import json.chao.com.wanandroid.ui.project.viewholder.ProjectListViewHolder;
  * @author quchao
  * @date 2018/2/24
  */
-
 public class ProjectListAdapter extends BaseQuickAdapter<FeedArticleData, ProjectListViewHolder> {
 
     public ProjectListAdapter(int layoutResId, @Nullable List<FeedArticleData> data) {

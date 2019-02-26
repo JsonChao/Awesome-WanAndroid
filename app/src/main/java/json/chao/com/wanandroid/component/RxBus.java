@@ -31,7 +31,6 @@ public class RxBus {
         private static final RxBus INSTANCE = new RxBus();
     }
 
-
     /**
      * 提供了一个新的事件
      *

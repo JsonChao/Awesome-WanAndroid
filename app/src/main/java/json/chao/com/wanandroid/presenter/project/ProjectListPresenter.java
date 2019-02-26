@@ -8,7 +8,6 @@ import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.contract.project.ProjectListContract;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.core.bean.project.ProjectListData;
@@ -42,14 +41,14 @@ public class ProjectListPresenter extends BasePresenter<ProjectListContract.View
                 .subscribe(jumpToTheTopEvent -> mView.showJumpToTheTop()));
     }
 
-
     @Override
-    public void getProjectListData(int page, int cid) {
+    public void getProjectListData(int page, int cid, boolean isShowError) {
         addSubscribe(mDataManager.getProjectListData(page, cid)
                 .compose(RxUtils.rxSchedulerHelper())
                 .compose(RxUtils.handleResult())
                 .subscribeWith(new BaseObserver<ProjectListData>(mView,
-                        WanAndroidApp.getInstance().getString(R.string.failed_to_obtain_project_list)) {
+                        WanAndroidApp.getInstance().getString(R.string.failed_to_obtain_project_list),
+                        isShowError) {
                             @Override
                             public void onNext(ProjectListData projectListData) {
                                 mView.showProjectListData(projectListData);

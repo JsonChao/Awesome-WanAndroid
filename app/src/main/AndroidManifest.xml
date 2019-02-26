@@ -18,7 +18,26 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+
+        <!--<activity android:name=".test.TestActivity"-->
+            <!--android:screenOrientation="portrait">-->
+
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+
+        <!--<receiver android:name=".test.MyReceiver"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="false">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="test_broadcast_receiver" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+
         <activity
             android:name="json.chao.com.wanandroid.ui.main.activity.SplashActivity"
             android:screenOrientation="portrait">
@@ -38,6 +57,12 @@
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:exported="false" />
+
+        <activity android:name="json.chao.com.wanandroid.ui.main.activity.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:exported="false"
+            android:windowSoftInputMode="stateVisible" />
 
         <activity android:name=".ui.main.activity.SearchListActivity"
             android:screenOrientation="portrait"

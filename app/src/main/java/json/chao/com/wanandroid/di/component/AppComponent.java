@@ -4,11 +4,13 @@ package json.chao.com.wanandroid.di.component;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import dagger.android.AndroidInjectionModule;
+import dagger.android.support.AndroidSupportInjectionModule;
 import json.chao.com.wanandroid.core.DataManager;
-import json.chao.com.wanandroid.core.db.GreenDaoHelper;
-import json.chao.com.wanandroid.core.http.RetrofitHelper;
-import json.chao.com.wanandroid.core.prefs.PreferenceHelperImpl;
 import json.chao.com.wanandroid.app.WanAndroidApp;
+import json.chao.com.wanandroid.di.module.AbstractAllActivityModule;
+import json.chao.com.wanandroid.di.module.AbstractAllDialogFragmentModule;
+import json.chao.com.wanandroid.di.module.AbstractAllFragmentModule;
 import json.chao.com.wanandroid.di.module.AppModule;
 import json.chao.com.wanandroid.di.module.HttpModule;
 
@@ -18,8 +20,21 @@ import json.chao.com.wanandroid.di.module.HttpModule;
  */
 
 @Singleton
-@Component(modules = {AppModule.class, HttpModule.class})
+@Component(modules = {AndroidInjectionModule.class,
+        AndroidSupportInjectionModule.class,
+        AbstractAllActivityModule.class,
+        AbstractAllFragmentModule.class,
+        AbstractAllDialogFragmentModule.class,
+        AppModule.class,
+        HttpModule.class})
 public interface AppComponent {
+
+    /**
+     * 注入WanAndroidApp实例
+     *
+     * @param wanAndroidApp WanAndroidApp
+     */
+    void inject(WanAndroidApp wanAndroidApp);
 
     /**
      * 提供App的Context

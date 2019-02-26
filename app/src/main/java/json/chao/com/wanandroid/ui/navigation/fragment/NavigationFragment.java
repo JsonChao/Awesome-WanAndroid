@@ -7,11 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import json.chao.com.wanandroid.base.fragment.AbstractRootFragment;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
+import json.chao.com.wanandroid.base.fragment.BaseRootFragment;
 import json.chao.com.wanandroid.core.bean.navigation.NavigationListData;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
@@ -30,7 +30,7 @@ import q.rorbin.verticaltablayout.widget.TabView;
  * @date 2018/2/11
  */
 
-public class NavigationFragment extends AbstractRootFragment<NavigationPresenter> implements NavigationContract.View {
+public class NavigationFragment extends BaseRootFragment<NavigationPresenter> implements NavigationContract.View {
 
     @BindView(R.id.navigation_tab_layout)
     VerticalTabLayout mTabLayout;
@@ -45,6 +45,7 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
     private boolean needScroll;
     private int index;
     private boolean isClickTab;
+    private NavigationAdapter mNavigationAdapter;
 
     public static NavigationFragment getInstance(String param1, String param2) {
         NavigationFragment fragment = new NavigationFragment();
@@ -56,11 +57,6 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
     }
 
     @Override
-    protected void initInject() {
-        getFragmentComponent().inject(this);
-    }
-
-    @Override
     protected int getLayoutId() {
         return R.layout.fragment_navigation;
     }
@@ -68,7 +64,7 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
     @Override
     protected void initEventAndData() {
         super.initEventAndData();
-        mPresenter.getNavigationListData();
+        mPresenter.getNavigationListData(true);
         if (CommonUtils.isNetworkConnected()) {
             showLoading();
         }
@@ -107,18 +103,11 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
             }
         });
         if (mPresenter.getCurrentPage() == Constants.TYPE_NAVIGATION) {
-            mNavigationGroup.setVisibility(View.VISIBLE);
-            mTabLayout.setVisibility(View.VISIBLE);
-            mDivider.setVisibility(View.VISIBLE);
+            setChildViewVisibility(View.VISIBLE);
         } else {
-            mNavigationGroup.setVisibility(View.INVISIBLE);
-            mTabLayout.setVisibility(View.INVISIBLE);
-            mDivider.setVisibility(View.INVISIBLE);
+            setChildViewVisibility(View.INVISIBLE);
         }
-        NavigationAdapter adapter = new NavigationAdapter(R.layout.item_navigation, navigationDataList);
-        mRecyclerView.setAdapter(adapter);
-        mManager = new LinearLayoutManager(_mActivity);
-        mRecyclerView.setLayoutManager(mManager);
+        mNavigationAdapter.replaceData(navigationDataList);
         leftRightLinkage();
         showNormal();
     }
@@ -134,8 +123,23 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
     @Override
     public void reload() {
         if (mPresenter != null && mNavigationGroup.getVisibility() == View.INVISIBLE) {
-            mPresenter.getNavigationListData();
+            mPresenter.getNavigationListData(false);
         }
+    }
+
+    @Override
+    protected void initView() {
+        super.initView();
+        initRecyclerView();
+    }
+
+    private void initRecyclerView() {
+        List<NavigationListData> navigationDataList = new ArrayList<>();
+        mNavigationAdapter = new NavigationAdapter(R.layout.item_navigation, navigationDataList);
+        mManager = new LinearLayoutManager(_mActivity);
+        mRecyclerView.setLayoutManager(mManager);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(mNavigationAdapter);
     }
 
     /**
@@ -147,12 +151,7 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (needScroll && (newState == RecyclerView.SCROLL_STATE_IDLE)) {
-                    needScroll = false;
-                    int indexDistance = index - mManager.findFirstVisibleItemPosition();
-                    if (indexDistance >= 0 && indexDistance < mRecyclerView.getChildCount()) {
-                        int top = mRecyclerView.getChildAt(indexDistance).getTop();
-                        mRecyclerView.smoothScrollBy(0, top);
-                    }
+                    scrollRecyclerView();
                 }
                 rightLinkageLeft(newState);
             }
@@ -161,12 +160,7 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (needScroll) {
-                    needScroll = false;
-                    int indexDistance = index - mManager.findFirstVisibleItemPosition();
-                    if (indexDistance >= 0 && indexDistance < mRecyclerView.getChildCount()) {
-                        int top = mRecyclerView.getChildAt(indexDistance).getTop();
-                        mRecyclerView.smoothScrollBy(0, top);
-                    }
+                    scrollRecyclerView();
                 }
             }
         });
@@ -182,6 +176,21 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
             public void onTabReselected(TabView tabView, int i) {
             }
         });
+    }
+
+    private void scrollRecyclerView() {
+        needScroll = false;
+        int indexDistance = index - mManager.findFirstVisibleItemPosition();
+        if (indexDistance >= 0 && indexDistance < mRecyclerView.getChildCount()) {
+            int top = mRecyclerView.getChildAt(indexDistance).getTop();
+            mRecyclerView.smoothScrollBy(0, top);
+        }
+    }
+
+    private void setChildViewVisibility(int visibility) {
+        mNavigationGroup.setVisibility(visibility);
+        mTabLayout.setVisibility(visibility);
+        mDivider.setVisibility(visibility);
     }
 
     /**
@@ -219,6 +228,9 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
         if (isClickTab) {
             isClickTab = false;
         } else {
+            if (mTabLayout == null) {
+                return;
+            }
             mTabLayout.setTabSelected(index);
         }
         index = position;

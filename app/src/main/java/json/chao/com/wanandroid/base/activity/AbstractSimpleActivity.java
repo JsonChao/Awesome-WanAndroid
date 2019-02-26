@@ -2,12 +2,15 @@ package json.chao.com.wanandroid.base.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
+import android.support.annotation.VisibleForTesting;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import json.chao.com.wanandroid.test.EspressoIdlingResource;
 import me.yokeyword.fragmentation.SupportActivity;
 import json.chao.com.wanandroid.component.ActivityCollector;
+import android.support.test.espresso.IdlingResource;
+
 
 /**
  * Common simple Activity
@@ -27,8 +30,9 @@ public abstract class AbstractSimpleActivity extends SupportActivity {
         setContentView(getLayoutId());
         unBinder = ButterKnife.bind(this);
         mActivity = this;
-        onViewCreated();
         ActivityCollector.getInstance().addActivity(this);
+        onViewCreated();
+        initToolbar();
         initEventAndData();
     }
 
@@ -36,18 +40,21 @@ public abstract class AbstractSimpleActivity extends SupportActivity {
     protected void onDestroy() {
         super.onDestroy();
         ActivityCollector.getInstance().removeActivity(this);
-        unBinder.unbind();
+        if (unBinder != null && unBinder != Unbinder.EMPTY) {
+            unBinder.unbind();
+            unBinder = null;
+        }
     }
 
-    protected void setToolBar(Toolbar toolBar, CharSequence title) {
-        toolBar.setTitle(title);
-        setSupportActionBar(toolBar);
-        assert getSupportActionBar() != null;
+    @VisibleForTesting
+    public IdlingResource getCountingIdlingResource() {
+        return EspressoIdlingResource.getIdlingResource();
     }
 
-    protected void onViewCreated() {
-
-    }
+    /**
+     * 在initEventAndData()之前执行
+     */
+    protected abstract void onViewCreated();
 
     /**
      * 获取当前Activity的UI布局
@@ -55,6 +62,11 @@ public abstract class AbstractSimpleActivity extends SupportActivity {
      * @return 布局id
      */
     protected abstract int getLayoutId();
+
+    /**
+     * 初始化ToolBar
+     */
+    protected abstract void initToolbar();
 
     /**
      * 初始化数据

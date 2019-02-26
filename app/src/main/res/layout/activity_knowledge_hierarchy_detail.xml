@@ -10,9 +10,16 @@
         android:fitsSystemWindows="false"
         android:theme="@style/AppTheme.AppBarOverlay"
         android:transitionName="@string/share_view"
-        app:elevation="@dimen/dp_6">
+        app:elevation="@dimen/dp_0">
 
-        <include layout="@layout/common_toolbar_no_scroll" />
+        <include layout="@layout/common_toolbar" />
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <com.flyco.tablayout.SlidingTabLayout
             android:id="@+id/knowledge_hierarchy_detail_tab_layout"
@@ -22,14 +29,13 @@
             app:tl_textAllCaps="false"
             app:tl_textBold="BOTH"
             app:tl_textsize="@dimen/sp_14" />
-    </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/knowledge_hierarchy_detail_viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/knowledge_hierarchy_detail_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/knowledge_floating_action_btn"

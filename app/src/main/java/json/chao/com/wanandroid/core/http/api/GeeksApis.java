@@ -14,6 +14,7 @@ import json.chao.com.wanandroid.core.bean.main.search.UsefulSiteData;
 import json.chao.com.wanandroid.core.bean.navigation.NavigationListData;
 import json.chao.com.wanandroid.core.bean.project.ProjectClassifyData;
 import json.chao.com.wanandroid.core.bean.project.ProjectListData;
+import json.chao.com.wanandroid.core.bean.wx.WxAuthor;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -129,6 +130,38 @@ public interface GeeksApis {
     Observable<BaseResponse<ProjectListData>> getProjectListData(@Path("page") int page, @Query("cid") int cid);
 
     /**
+     * 获取公众号列表
+     * http://wanandroid.com/wxarticle/chapters/json
+     *
+     * @return 公众号列表数据
+     */
+    @GET("wxarticle/chapters/json")
+    Observable<BaseResponse<List<WxAuthor>>> getWxAuthorListData();
+
+    /**
+     * 获取当前公众号某页的数据
+     * http://wanandroid.com/wxarticle/list/405/1/json
+     *
+     * @param id
+     * @param page
+     * @return 获取当前公众号某页的数据
+     */
+    @GET("wxarticle/list/{id}/{page}/json")
+    Observable<BaseResponse<FeedArticleListData>> getWxSumData(@Path("id") int id, @Path("page") int page);
+
+    /**
+     * 指定搜索内容，搜索当前公众号的某页的此类数据
+     * http://wanandroid.com/wxarticle/list/405/1/json?k=Java
+     *
+     * @param id
+     * @param page
+     * @param k
+     * @return 指定搜索内容，搜索当前公众号的某页的此类数据
+     */
+    @GET("wxarticle/list/{id}/{page}/json")
+    Observable<BaseResponse<FeedArticleListData>> getWxSearchSumData(@Path("id") int id, @Path("page") int page, @Query("k") String k);
+
+    /**
      * 登陆
      * http://www.wanandroid.com/user/login
      *
@@ -152,6 +185,15 @@ public interface GeeksApis {
     @POST("user/register")
     @FormUrlEncoded
     Observable<BaseResponse<LoginData>> getRegisterData(@Field("username") String username, @Field("password") String password, @Field("repassword") String repassword);
+
+    /**
+     * 退出登录
+     * http://www.wanandroid.com/user/logout/json
+     *
+     * @return 登陆数据
+     */
+    @GET("user/logout/json")
+    Observable<BaseResponse<LoginData>> logout();
 
     /**
      * 收藏站内文章

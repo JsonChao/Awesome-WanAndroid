@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import io.reactivex.subscribers.ResourceSubscriber;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.WanAndroidApp;
-import json.chao.com.wanandroid.base.view.BaseView;
+import json.chao.com.wanandroid.base.view.AbstractView;
 import json.chao.com.wanandroid.core.http.exception.ServerException;
 import json.chao.com.wanandroid.utils.LogHelper;
 import retrofit2.HttpException;
@@ -17,25 +17,25 @@ import retrofit2.HttpException;
 
 public abstract class BaseSubscribe <T> extends ResourceSubscriber<T> {
 
-    private BaseView mView;
+    private AbstractView mView;
     private String mErrorMsg;
     private boolean isShowError = true;
 
-    protected BaseSubscribe(BaseView view){
+    protected BaseSubscribe(AbstractView view){
         this.mView = view;
     }
 
-    protected BaseSubscribe(BaseView view, String errorMsg){
+    protected BaseSubscribe(AbstractView view, String errorMsg){
         this.mView = view;
         this.mErrorMsg = errorMsg;
     }
 
-    protected BaseSubscribe(BaseView view, boolean isShowError){
+    protected BaseSubscribe(AbstractView view, boolean isShowError){
         this.mView = view;
         this.isShowError = isShowError;
     }
 
-    protected BaseSubscribe(BaseView view, String errorMsg, boolean isShowError){
+    protected BaseSubscribe(AbstractView view, String errorMsg, boolean isShowError){
         this.mView = view;
         this.mErrorMsg = errorMsg;
         this.isShowError = isShowError;

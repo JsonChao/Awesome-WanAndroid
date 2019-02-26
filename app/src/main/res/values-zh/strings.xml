@@ -8,6 +8,7 @@
     <string name="unKnown_error">未知错误</string>
     <string name="me">我的</string>
     <string name="knowledge_hierarchy">知识体系</string>
+    <string name="wx_article">公众号</string>
     <string name="home_pager">首页</string>
     <string name="navigation">导航</string>
     <string name="project">项目</string>
@@ -38,6 +39,7 @@
     <string name="login_success">登录成功n(*≧▽≦*)n</string>
     <string name="account_password_null_tint">用户名或密码不能为空</string>
     <string name="login_fail">登录失败ヽ(≧Д≦)ノ</string>
+    <string name="logout_fail">退出登录失败</string>
     <string name="register_fail">注册失败ヽ(≧Д≦)ノ</string>
     <string name="password_not_same">密码不匹配</string>
     <string name="auto_login_success">自动登录成功</string>
@@ -52,10 +54,13 @@
     <string name="install">安装</string>
     <string name="logout_tint">退出登录?</string>
     <string name="failed_to_obtain_banner_data">获取广告数据失败</string>
-    <string name="failed_to_obtain_article_list">获取文章列表数据</string>
+    <string name="failed_to_obtain_article_list">获取文章列表数据失败</string>
 
     //知识体系
     <string name="failed_to_obtain_knowledge_data">获取知识体系数据列表失败</string>
+
+    //公众号
+    <string name="failed_to_obtain_wx_data">获取公众号数据列表失败</string>
 
     //导航
     <string name="navigation_tint">%1$s 导航资源持续更新中</string>
@@ -97,6 +102,11 @@
     <string name="setting">设置</string>
     <string name="send_email">选择邮件客户端:</string>
     <string name="load_more_no_data">没有多余的干货了(*≧Д≦*)</string>
+    <string name="register_account_hint">邮箱/手机号</string>
+    <string name="register_password_hint">输入密码</string>
+    <string name="register_confirm_password_hint">确认密码</string>
+    <string name="register_success">注册成功</string>
+    <string name="fail_to_obtain_wx_author">获取微信公众号列表失败</string>
 
 
 </resources>

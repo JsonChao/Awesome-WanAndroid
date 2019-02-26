@@ -11,8 +11,9 @@
         <item name="android:itemBackground">@color/white</item>
         <item name="android:textColor">@color/title_black</item>
 
-        //沉浸状态栏
-        <item name="android:windowIsTranslucent">true</item>
+        //沉浸状态栏 只有不透明的全屏activity可以自主设置界面方向,
+        //因此将windowIsTranslucent改为windowDisablePreview
+        <item name="android:windowDisablePreview">true</item>
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 

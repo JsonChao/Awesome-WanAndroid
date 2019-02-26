@@ -2,10 +2,9 @@ package json.chao.com.wanandroid.contract.navigation;
 
 import java.util.List;
 
-import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.navigation.NavigationListData;
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
-import json.chao.com.wanandroid.base.view.BaseView;
+import json.chao.com.wanandroid.base.view.AbstractView;
 
 /**
  * @author quchao
@@ -14,7 +13,7 @@ import json.chao.com.wanandroid.base.view.BaseView;
 
 public interface NavigationContract {
 
-    interface View extends BaseView {
+    interface View extends AbstractView {
 
         /**
          * Show navigation list data
@@ -29,8 +28,10 @@ public interface NavigationContract {
 
         /**
          * Get navigation list data
+         *
+         * @param isShowError If show error
          */
-        void getNavigationListData();
+        void getNavigationListData(boolean isShowError);
     }
 
 }

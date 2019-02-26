@@ -3,8 +3,7 @@ package json.chao.com.wanandroid.contract.main;
 import java.util.List;
 
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
-import json.chao.com.wanandroid.base.view.BaseView;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
+import json.chao.com.wanandroid.base.view.AbstractView;
 import json.chao.com.wanandroid.core.bean.main.search.UsefulSiteData;
 
 
@@ -15,7 +14,7 @@ import json.chao.com.wanandroid.core.bean.main.search.UsefulSiteData;
 
 public interface UsageDialogContract {
 
-    interface View extends BaseView {
+    interface View extends AbstractView {
 
         /**
          * Show useful sites

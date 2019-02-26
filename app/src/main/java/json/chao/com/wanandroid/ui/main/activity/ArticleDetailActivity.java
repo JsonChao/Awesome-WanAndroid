@@ -35,7 +35,6 @@ import json.chao.com.wanandroid.utils.StatusBarUtil;
  * @author quchao
  * @date 2018/2/13
  */
-
 public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> implements ArticleDetailContract.View {
 
     @BindView(R.id.article_detail_toolbar)
@@ -72,20 +71,30 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
     }
 
     @Override
-    protected void initInject() {
-        getActivityComponent().inject(this);
+    protected int getLayoutId() {
+        return R.layout.activity_article_detail;
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.activity_article_detail;
+    protected void initToolbar() {
+        getBundleData();
+        mToolbar.setTitle(Html.fromHtml(title));
+        setSupportActionBar(mToolbar);
+        StatusBarUtil.immersive(this);
+        StatusBarUtil.setPaddingSmart(this, mToolbar);
+        mToolbar.setNavigationOnClickListener(v -> {
+            if (isCollect) {
+                RxBus.getDefault().post(new CollectEvent(false));
+            } else {
+                RxBus.getDefault().post(new CollectEvent(true));
+            }
+            onBackPressedSupport();
+        });
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void initEventAndData() {
-        initToolBar();
-
         mAgentWeb = AgentWeb.with(this)
                 .setAgentWebParent(mWebContent, new LinearLayout.LayoutParams(-1, -1))
                 .useDefaultIndicator()
@@ -142,15 +151,7 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
         assert bundle != null;
         isCommonSite = (boolean) bundle.get(Constants.IS_COMMON_SITE);
         if (!isCommonSite) {
-            getMenuInflater().inflate(R.menu.menu_acticle, menu);
-            mCollectItem = menu.findItem(R.id.item_collect);
-            if (isCollect) {
-                mCollectItem.setTitle(getString(R.string.cancel_collect));
-                mCollectItem.setIcon(R.mipmap.ic_toolbar_like_p);
-            } else {
-                mCollectItem.setTitle(getString(R.string.collect));
-                mCollectItem.setIcon(R.mipmap.ic_toolbar_like_n);
-            }
+            unCommonSiteEvent(menu);
         } else {
             getMenuInflater().inflate(R.menu.menu_article_common, menu);
         }
@@ -209,7 +210,7 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
 
     @Override
     public void shareError() {
-        CommonUtils.showSnackMessage(this, getString(R.string.write_permission_not_allowed));
+        CommonUtils.showMessage(this, getString(R.string.write_permission_not_allowed));
     }
 
     @Override
@@ -218,6 +219,36 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
             pop();
         } else {
             supportFinishAfterTransition();
+        }
+    }
+
+    @Override
+    public void showCollectArticleData(FeedArticleListData feedArticleListData) {
+        isCollect = true;
+        mCollectItem.setTitle(R.string.cancel_collect);
+        mCollectItem.setIcon(R.mipmap.ic_toolbar_like_p);
+        CommonUtils.showMessage(this, getString(R.string.collect_success));
+    }
+
+    @Override
+    public void showCancelCollectArticleData(FeedArticleListData feedArticleListData) {
+        isCollect = false;
+        if (!isCollectPage) {
+            mCollectItem.setTitle(R.string.collect);
+        }
+        mCollectItem.setIcon(R.mipmap.ic_toolbar_like_n);
+        CommonUtils.showMessage(this, getString(R.string.cancel_collect_success));
+    }
+
+    private void unCommonSiteEvent(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_acticle, menu);
+        mCollectItem = menu.findItem(R.id.item_collect);
+        if (isCollect) {
+            mCollectItem.setTitle(getString(R.string.cancel_collect));
+            mCollectItem.setIcon(R.mipmap.ic_toolbar_like_p);
+        } else {
+            mCollectItem.setTitle(getString(R.string.collect));
+            mCollectItem.setIcon(R.mipmap.ic_toolbar_like_n);
         }
     }
 
@@ -238,22 +269,10 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
         }
     }
 
-    private void initToolBar() {
+    private void getBundleData() {
         bundle = getIntent().getExtras();
         assert bundle != null;
         title = (String) bundle.get(Constants.ARTICLE_TITLE);
-        setToolBar(mToolbar, Html.fromHtml(title));
-        StatusBarUtil.immersive(this);
-        StatusBarUtil.setPaddingSmart(this, mToolbar);
-        mToolbar.setNavigationOnClickListener(v -> {
-            if (isCollect) {
-                RxBus.getDefault().post(new CollectEvent(false));
-            } else {
-                RxBus.getDefault().post(new CollectEvent(true));
-            }
-            onBackPressedSupport();
-        });
-
         articleLink = (String) bundle.get(Constants.ARTICLE_LINK);
         articleId = ((int) bundle.get(Constants.ARTICLE_ID));
         isCommonSite = ((boolean) bundle.get(Constants.IS_COMMON_SITE));
@@ -261,22 +280,5 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
         isCollectPage = ((boolean) bundle.get(Constants.IS_COLLECT_PAGE));
     }
 
-    @Override
-    public void showCollectArticleData(FeedArticleListData feedArticleListData) {
-        isCollect = true;
-        mCollectItem.setTitle(R.string.cancel_collect);
-        mCollectItem.setIcon(R.mipmap.ic_toolbar_like_p);
-        CommonUtils.showSnackMessage(this, getString(R.string.collect_success));
-    }
-
-    @Override
-    public void showCancelCollectArticleData(FeedArticleListData feedArticleListData) {
-        isCollect = false;
-        if (!isCollectPage) {
-            mCollectItem.setTitle(R.string.collect);
-        }
-        mCollectItem.setIcon(R.mipmap.ic_toolbar_like_n);
-        CommonUtils.showSnackMessage(this, getString(R.string.cancel_collect_success));
-    }
 
 }

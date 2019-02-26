@@ -8,7 +8,6 @@ import json.chao.com.wanandroid.base.presenter.BasePresenter;
 import json.chao.com.wanandroid.component.RxBus;
 import json.chao.com.wanandroid.contract.main.SearchListContract;
 import json.chao.com.wanandroid.core.DataManager;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 import json.chao.com.wanandroid.core.event.CollectEvent;
@@ -47,17 +46,13 @@ public class SearchListPresenter extends BasePresenter<SearchListContract.View> 
     }
 
     @Override
-    public boolean getNightModeState() {
-        return mDataManager.getNightModeState();
-    }
-
-    @Override
-    public void getSearchList(int page, String k) {
+    public void getSearchList(int page, String k, boolean isShowError) {
         addSubscribe(mDataManager.getSearchList(page, k)
                 .compose(RxUtils.rxSchedulerHelper())
                 .compose(RxUtils.handleResult())
                 .subscribeWith(new BaseObserver<FeedArticleListData>(mView,
-                        WanAndroidApp.getInstance().getString(R.string.failed_to_obtain_search_data_list)) {
+                        WanAndroidApp.getInstance().getString(R.string.failed_to_obtain_search_data_list),
+                        isShowError) {
                     @Override
                     public void onNext(FeedArticleListData feedArticleListData) {
                         mView.showSearchList(feedArticleListData);
@@ -94,4 +89,10 @@ public class SearchListPresenter extends BasePresenter<SearchListContract.View> 
                     }
                 }));
     }
+
+    @Override
+    public boolean getNightModeState() {
+        return mDataManager.getNightModeState();
+    }
+
 }

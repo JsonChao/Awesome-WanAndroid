@@ -2,8 +2,7 @@ package json.chao.com.wanandroid.contract.main;
 
 
 import json.chao.com.wanandroid.base.presenter.AbstractPresenter;
-import json.chao.com.wanandroid.base.view.BaseView;
-import json.chao.com.wanandroid.core.bean.BaseResponse;
+import json.chao.com.wanandroid.base.view.AbstractView;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 
@@ -14,7 +13,7 @@ import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleListData;
 
 public interface SearchListContract {
 
-    interface View extends BaseView {
+    interface View extends AbstractView {
 
         /**
          * Show search list
@@ -49,8 +48,9 @@ public interface SearchListContract {
          * 搜索
          * @param page page
          * @param k POST search key
+         * @param isShowError If show error
          */
-        void getSearchList(int page, String k);
+        void getSearchList(int page, String k, boolean isShowError);
 
         /**
          * Add collect article

@@ -17,12 +17,9 @@ import json.chao.com.wanandroid.core.event.SwitchProjectEvent;
 public class KnowledgeHierarchyDetailPresenter extends BasePresenter<KnowledgeHierarchyDetailContract.View>
         implements KnowledgeHierarchyDetailContract.Presenter {
 
-    private DataManager mDataManager;
-
     @Inject
     KnowledgeHierarchyDetailPresenter(DataManager dataManager) {
         super(dataManager);
-        this.mDataManager = dataManager;
     }
 
     @Override

@@ -8,9 +8,9 @@ import dagger.Provides;
 import json.chao.com.wanandroid.app.WanAndroidApp;
 import json.chao.com.wanandroid.core.DataManager;
 import json.chao.com.wanandroid.core.db.DbHelper;
-import json.chao.com.wanandroid.core.db.GreenDaoHelper;
+import json.chao.com.wanandroid.core.db.DbHelperImpl;
 import json.chao.com.wanandroid.core.http.HttpHelper;
-import json.chao.com.wanandroid.core.http.RetrofitHelper;
+import json.chao.com.wanandroid.core.http.HttpHelperImpl;
 import json.chao.com.wanandroid.core.prefs.PreferenceHelper;
 import json.chao.com.wanandroid.core.prefs.PreferenceHelperImpl;
 
@@ -36,13 +36,13 @@ public class AppModule {
 
     @Provides
     @Singleton
-    HttpHelper provideHttpHelper(RetrofitHelper retrofitHelper) {
-        return retrofitHelper;
+    HttpHelper provideHttpHelper(HttpHelperImpl httpHelperImpl) {
+        return httpHelperImpl;
     }
 
     @Provides
     @Singleton
-    DbHelper provideDBHelper(GreenDaoHelper realmHelper) {
+    DbHelper provideDBHelper(DbHelperImpl realmHelper) {
         return realmHelper;
     }
 
