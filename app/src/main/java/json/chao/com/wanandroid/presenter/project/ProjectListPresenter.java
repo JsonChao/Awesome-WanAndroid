@@ -1,5 +1,6 @@
 package json.chao.com.wanandroid.presenter.project;
 
+
 import javax.inject.Inject;
 
 import json.chao.com.wanandroid.R;
@@ -86,6 +87,4 @@ public class ProjectListPresenter extends BasePresenter<ProjectListContract.View
                             }
                         }));
     }
-
-
 }

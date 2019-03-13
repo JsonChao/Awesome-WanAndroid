@@ -20,6 +20,10 @@ import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.crashreport.CrashReport;
+import com.xuexiang.xupdate.XUpdate;
+import com.xuexiang.xupdate.entity.UpdateError;
+import com.xuexiang.xupdate.listener.OnUpdateFailureListener;
+import com.xuexiang.xupdate.utils.UpdateUtils;
 
 import javax.inject.Inject;
 
@@ -87,13 +91,24 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
     @Override
     public void onCreate() {
         super.onCreate();
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+
+        refWatcher = LeakCanary.install(this);
+
         initGreenDao();
 
-        DaggerAppComponent.builder()
+        instance = this;
+
+        appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(instance))
                 .httpModule(new HttpModule())
-                .build().inject(this);
-        instance = this;
+                .build();
+
+        appComponent.inject(this);
+
+//        initAppUpdate();
 
         initBugly();
 
@@ -102,12 +117,6 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
         if (BuildConfig.DEBUG) {
             Stetho.initializeWithDefaults(this);
         }
-
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return;
-        }
-
-        refWatcher = LeakCanary.install(this);
 
     }
 
@@ -124,6 +133,24 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
     public void onLowMemory() {
         super.onLowMemory();
         Glide.get(this).clearMemory();
+    }
+
+    private void initAppUpdate() {
+        XUpdate.get()
+                .debug(true)
+                .isWifiOnly(true)
+                .isGet(true)
+                .isAutoMode(false)
+                .param("VersionCode", UpdateUtils.getVersionCode(this))
+                .param("AppKey", getPackageName())
+                .setOnUpdateFailureListener(new OnUpdateFailureListener() {
+                    @Override
+                    public void onFailure(UpdateError error) {
+                        CommonUtils.showMessage(getInstance(), error.toString());
+                    }
+                })
+                .setIUpdateHttpService(new UpdateHttpService())
+                .init(this);
     }
 
     private void initGreenDao() {

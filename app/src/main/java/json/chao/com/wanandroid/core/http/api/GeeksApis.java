@@ -30,7 +30,7 @@ import retrofit2.http.Query;
 
 public interface GeeksApis {
 
-    String HOST = "http://www.wanandroid.com/";
+    String HOST = "https://www.wanandroid.com/";
 
     /**
      * 获取feed文章列表

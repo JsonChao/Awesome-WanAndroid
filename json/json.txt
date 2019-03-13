@@ -1,0 +1,11 @@
+{
+  "Code": 0,
+  "Msg": "请求出错",
+  "UpdateStatus": 1,
+  "VersionCode": 8,
+  "VersionName": "1.2.4",
+  "ModifyContent": "1、适配https。\r\n2、修复bug。",
+  "DownloadUrl": "https://github.com/JsonChao/Awesome-WanAndroid/blob/master/app/release/app-release.apk",
+  "ApkSize": 20480
+  "ApkMd5": "b97bea014531123f94c3ba7b7afbaad2"
+}

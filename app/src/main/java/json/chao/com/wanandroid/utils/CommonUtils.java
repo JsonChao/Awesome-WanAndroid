@@ -1,6 +1,7 @@
 package json.chao.com.wanandroid.utils;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -45,6 +46,11 @@ public class CommonUtils {
     public static void showMessage(Activity activity, String msg) {
         LogHelper.e("showMessage ：" + msg);
         Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showMessage(Application application, String msg) {
+        LogHelper.e("showMessage ：" + msg);
+        Toast.makeText(application, msg, Toast.LENGTH_SHORT).show();
     }
 
     /**

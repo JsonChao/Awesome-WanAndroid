@@ -1,7 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'org.greenrobot.greendao'
 apply from: 'jacoco.gradle'
 
@@ -74,100 +71,110 @@ android {
         daoPackage 'json.chao.com.wanandroid.core.dao'
     }
 
-    dependencies {
-        implementation fileTree(include: ['*.jar'], dir: 'libs')
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-        //base
-        implementation rootProject.ext.dependencies["appcompat-v7"]
-        implementation rootProject.ext.dependencies["cardview-v7"]
-        implementation rootProject.ext.dependencies["design"]
-        implementation rootProject.ext.dependencies["constraint-layout"]
+    //base
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["cardview-v7"]
+    implementation rootProject.ext.dependencies["design"]
+    implementation rootProject.ext.dependencies["constraint-layout"]
 
-        //ui
-        implementation rootProject.ext.dependencies["SmartRefreshLayout"]
-        implementation rootProject.ext.dependencies["SmartRefreshHeader"]
-        implementation rootProject.ext.dependencies["banner"]
-        implementation rootProject.ext.dependencies["FlycoTabLayout_Lib"]
-        implementation rootProject.ext.dependencies["VerticalTabLayout"]
-        implementation rootProject.ext.dependencies["flowlayout-lib"]
-        implementation rootProject.ext.dependencies["agentweb"]
+    //ui
+    implementation rootProject.ext.dependencies["SmartRefreshLayout"]
+    implementation rootProject.ext.dependencies["SmartRefreshHeader"]
+    implementation rootProject.ext.dependencies["banner"]
+    implementation rootProject.ext.dependencies["FlycoTabLayout_Lib"]
+    implementation rootProject.ext.dependencies["VerticalTabLayout"]
+    implementation rootProject.ext.dependencies["flowlayout-lib"]
+    implementation rootProject.ext.dependencies["agentweb"]
 
-        //net
-        implementation rootProject.ext.dependencies["gson"]
-        implementation rootProject.ext.dependencies["okhttp"]
-        implementation rootProject.ext.dependencies["logging-interceptor"]
-        implementation rootProject.ext.dependencies["retrofit"]
-        implementation rootProject.ext.dependencies["converter-gson"]
-        implementation rootProject.ext.dependencies["adapter-rxjava2"]
-        implementation rootProject.ext.dependencies["glide"]
-        annotationProcessor rootProject.ext.dependencies["glide_compiler"]
+    //net
+    implementation rootProject.ext.dependencies["gson"]
+    implementation rootProject.ext.dependencies["okhttp"]
+    implementation rootProject.ext.dependencies["logging-interceptor"]
+    implementation rootProject.ext.dependencies["retrofit"]
+    implementation rootProject.ext.dependencies["converter-gson"]
+    implementation rootProject.ext.dependencies["adapter-rxjava2"]
+    implementation rootProject.ext.dependencies["glide"]
+    annotationProcessor rootProject.ext.dependencies["glide_compiler"]
+    implementation rootProject.ext.dependencies["retrofit-url-manager"]
 
-        //dao
-        implementation rootProject.ext.dependencies["greendao"]
+    //dao
+    implementation rootProject.ext.dependencies["greendao"]
 
-        //rx
-        implementation rootProject.ext.dependencies["rxjava"]
-        implementation rootProject.ext.dependencies["rxandroid"]
-        implementation rootProject.ext.dependencies["rxbinding"]
-        implementation rootProject.ext.dependencies["rxpermissions"]
+    //rx
+    implementation rootProject.ext.dependencies["rxjava"]
+    implementation rootProject.ext.dependencies["rxandroid"]
+    implementation rootProject.ext.dependencies["rxbinding"]
+    implementation rootProject.ext.dependencies["rxpermissions"]
 
-        //di
-        implementation rootProject.ext.dependencies["dagger"]
-        annotationProcessor rootProject.ext.dependencies["dagger-compiler"]
-        implementation rootProject.ext.dependencies["dagger-android"]
-        implementation rootProject.ext.dependencies["dagger-android-support"]
-        annotationProcessor rootProject.ext.dependencies["dagger-android-processor"]
-        implementation rootProject.ext.dependencies["javax_annotation"]
-        implementation rootProject.ext.dependencies["butterknife"]
-        annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+    //di
+    implementation rootProject.ext.dependencies["dagger"]
+    annotationProcessor rootProject.ext.dependencies["dagger-compiler"]
+    implementation rootProject.ext.dependencies["dagger-android"]
+    implementation rootProject.ext.dependencies["dagger-android-support"]
+    annotationProcessor rootProject.ext.dependencies["dagger-android-processor"]
+    implementation rootProject.ext.dependencies["javax_annotation"]
+    implementation rootProject.ext.dependencies["butterknife"]
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
 
-        //multidex
-        implementation rootProject.ext.dependencies["multidex"]
+    //multidex
+    implementation rootProject.ext.dependencies["multidex"]
 
-        //canary
-        debugImplementation rootProject.ext.dependencies["leakcanary-android"]
-        releaseImplementation rootProject.ext.dependencies["leakcanary-android-no-op"]
-        testImplementation rootProject.ext.dependencies["leakcanary-android-no-op"]
+    //canary
+    debugImplementation (rootProject.ext.dependencies["leakcanary-android"]) {
+        exclude group: 'com.android.support'
+    }
+    releaseImplementation (rootProject.ext.dependencies["leakcanary-android-no-op"]) {
+        exclude group: 'com.android.support'
 
-        //kotlin
-        implementation rootProject.ext.dependencies["kotlin-stdlib"]
+    }
+    testImplementation (rootProject.ext.dependencies["leakcanary-android-no-op"]) {
+        exclude group: 'com.android.support'
+    }
 
-        //other
-        implementation rootProject.ext.dependencies["lottie"]
-        implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
-        implementation rootProject.ext.dependencies["fragmentation"]
-        implementation rootProject.ext.dependencies["fragmentation-swipeback"]
-        implementation rootProject.ext.dependencies["crashreport_upgrade"]
-        implementation rootProject.ext.dependencies["logger"]
-        implementation rootProject.ext.dependencies["ByeBurger"]
-        implementation rootProject.ext.dependencies["stetho"]
-        implementation rootProject.ext.dependencies["stetho-okhttp3"]
-        implementation rootProject.ext.dependencies["PersistentCookieJar"]
+    //other
+    implementation rootProject.ext.dependencies["lottie"]
+    implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
+    implementation rootProject.ext.dependencies["fragmentation"]
+    implementation rootProject.ext.dependencies["fragmentation-swipeback"]
+    implementation rootProject.ext.dependencies["crashreport_upgrade"]
+    implementation rootProject.ext.dependencies["logger"]
+    implementation rootProject.ext.dependencies["ByeBurger"]
+    implementation rootProject.ext.dependencies["stetho"]
+    implementation rootProject.ext.dependencies["stetho-okhttp3"]
+    implementation rootProject.ext.dependencies["PersistentCookieJar"]
+    implementation rootProject.ext.dependencies["XUpdate"]
 
-        //UI测试
-        androidTestImplementation (rootProject.ext.dependencies["espresso-core"]) {
-            exclude group: 'com.android.support', module: 'support-annotations'
-        }
-        implementation (rootProject.ext.dependencies["espresso-idling-resource"]) {
-            exclude module: 'support-annotations'
-        }
-        androidTestImplementation rootProject.ext.dependencies["espresso-contrib"]
-        androidTestImplementation rootProject.ext.dependencies["espresso-intents"]
-        androidTestImplementation rootProject.ext.dependencies["espresso-accessibility"]
-        androidTestImplementation rootProject.ext.dependencies["espresso-web"]
-        androidTestImplementation rootProject.ext.dependencies["idling-concurrent"]
+    //UI测试
+    androidTestImplementation(rootProject.ext.dependencies["espresso-core"]) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    implementation(rootProject.ext.dependencies["espresso-idling-resource"]) {
+        exclude module: 'support-annotations'
+    }
+    androidTestImplementation rootProject.ext.dependencies["espresso-contrib"]
+    androidTestImplementation rootProject.ext.dependencies["espresso-intents"]
+    androidTestImplementation rootProject.ext.dependencies["espresso-accessibility"]
+    androidTestImplementation rootProject.ext.dependencies["espresso-web"]
+    androidTestImplementation rootProject.ext.dependencies["idling-concurrent"]
 
-        //unit test
-        testImplementation rootProject.ext.dependencies["junit"]
-        testImplementation rootProject.ext.dependencies["mockito"]
-        testImplementation rootProject.ext.dependencies["powermock-module-junit4"]
-        testImplementation rootProject.ext.dependencies["powermock-module-junit4-rule"]
-        testImplementation rootProject.ext.dependencies["powermock-api-mockito2"] //注意这里是mockito2
-        testImplementation rootProject.ext.dependencies["powermock-classloading-xstream"]
-        testImplementation rootProject.ext.dependencies["robolectric"]
-        testImplementation rootProject.ext.dependencies["shadows-support-v4"]
-        testImplementation rootProject.ext.dependencies["shadows-multidex"] //支持Multidex功能
-        androidTestImplementation rootProject.ext.dependencies["runner"]
+    //unit test
+    testImplementation rootProject.ext.dependencies["junit"]
+    testImplementation rootProject.ext.dependencies["mockito"]
+    testImplementation rootProject.ext.dependencies["powermock-module-junit4"]
+    testImplementation rootProject.ext.dependencies["powermock-module-junit4-rule"]
+    testImplementation rootProject.ext.dependencies["powermock-api-mockito2"]
+
+    //注意这里是mockito2
+    testImplementation rootProject.ext.dependencies["powermock-classloading-xstream"]
+    testImplementation rootProject.ext.dependencies["robolectric"]
+    testImplementation rootProject.ext.dependencies["shadows-support-v4"]
+    testImplementation rootProject.ext.dependencies["shadows-multidex"]
+
+    //支持Multidex功能
+    androidTestImplementation rootProject.ext.dependencies["runner"]
 
     }
 
@@ -177,7 +184,7 @@ configurations.all {
         def requested = details.requested
         if (requested.group == 'com.android.support') {
             if (!requested.name.startsWith("multidex")) {
-                details.useVersion '25.3.0'
+                details.useVersion '26.1.0'
             }
         }
     }

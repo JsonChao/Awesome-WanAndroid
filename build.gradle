@@ -1,7 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 apply from: "config.gradle"
 buildscript {
-    ext.kotlin_version = '1.2.10'
     repositories {
         google()
         jcenter()
@@ -9,11 +8,10 @@ buildscript {
         maven { url 'https://maven.google.com' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
-        classpath 'com.jakewharton:butterknife-gradle-plugin:8.4.0'
+        classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:10.0.0'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
-        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'me.tatarka:gradle-retrolambda:3.7.0'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

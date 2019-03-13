@@ -65,12 +65,6 @@ public class AboutUsActivity extends AbstractSimpleActivity {
     private View.OnClickListener mThemeListener;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
-    }
-
-    @Override
     protected void onViewCreated() {
     }
 

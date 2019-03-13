@@ -18,6 +18,8 @@ public class Constants {
 
     public static final String MY_SHARED_PREFERENCE = "my_shared_preference";
 
+    public static final String UPDATE_URL = "https://github.com/JsonChao/Awesome-WanAndroid/blob/master/app/release/app-release.apk";
+
     /**
      * url
      */
@@ -145,5 +147,7 @@ public class Constants {
     public static final String NO_IMAGE_STATE = "no_image_state";
 
     public static final String NIGHT_MODE_STATE = "night_mode_state";
+
+
 
 }

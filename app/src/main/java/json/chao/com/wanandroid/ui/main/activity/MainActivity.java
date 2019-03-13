@@ -20,6 +20,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.xuexiang.xupdate.XUpdate;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -101,6 +103,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     protected void initEventAndData() {
+//        XUpdate.newBuild(mActivity)
+//                .updateUrl(Constants.UPDATE_URL)
+//                .update();
     }
 
     @Override

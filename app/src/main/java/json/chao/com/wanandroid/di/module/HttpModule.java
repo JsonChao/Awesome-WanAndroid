@@ -13,6 +13,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import json.chao.com.wanandroid.app.WanAndroidApp;
+import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
@@ -111,7 +112,7 @@ public class HttpModule {
         //cookie认证
         builder.cookieJar(new PersistentCookieJar(new SetCookieCache(),
                 new SharedPrefsCookiePersistor(WanAndroidApp.getInstance())));
-        return builder.build();
+        return RetrofitUrlManager.getInstance().with(builder).build();
     }
 
     private Retrofit createRetrofit(Retrofit.Builder builder, OkHttpClient client, String url) {
