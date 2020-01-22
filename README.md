@@ -18,6 +18,8 @@
 
 ### 致力于打造一款极致体验的WanAndroid客户端，知识和美是可以并存的哦QAQn(*≧▽≦*)n ，更好的 Awesome-WanAndroid V1.2.5正式版发布，相比初始版本，项目的稳定性和界面的美化程度已提升了几个档次，如果您觉得还不错的话，就点个Star吧~(持续打磨中~，敬请关注)
 
+    本项目采用的性能优化技术全部来自于[Awesome-Android-Performance](https://github.com/JsonChao/Awesome-Android-Performance)
+
 ## Introduction
 
 Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagger2 + GreenDao + Glide
