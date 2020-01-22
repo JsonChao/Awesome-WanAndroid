@@ -20,8 +20,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.xuexiang.xupdate.XUpdate;
-
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -34,12 +32,12 @@ import json.chao.com.wanandroid.contract.main.MainContract;
 import json.chao.com.wanandroid.presenter.main.MainPresenter;
 import json.chao.com.wanandroid.ui.hierarchy.fragment.KnowledgeHierarchyFragment;
 import json.chao.com.wanandroid.ui.main.fragment.CollectFragment;
+import json.chao.com.wanandroid.ui.main.fragment.SearchDialogFragment;
 import json.chao.com.wanandroid.ui.main.fragment.SettingFragment;
 import json.chao.com.wanandroid.ui.main.fragment.UsageDialogFragment;
 import json.chao.com.wanandroid.ui.mainpager.fragment.MainPagerFragment;
 import json.chao.com.wanandroid.ui.navigation.fragment.NavigationFragment;
 import json.chao.com.wanandroid.ui.project.fragment.ProjectFragment;
-import json.chao.com.wanandroid.ui.main.fragment.SearchDialogFragment;
 import json.chao.com.wanandroid.ui.wx.fragment.WxArticleFragment;
 import json.chao.com.wanandroid.utils.BottomNavigationViewHelper;
 import json.chao.com.wanandroid.utils.CommonAlertDialog;
@@ -291,6 +289,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 case R.id.tab_project:
                     loadPager(getString(R.string.project), 4,
                             mProjectFragment, Constants.TYPE_PROJECT);
+//                    startActivity(new Intent(this, VueActivity.class));
                     break;
                 default:
                     break;
@@ -450,6 +449,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 v -> mPresenter.logout(),
                 v -> CommonAlertDialog.newInstance().cancelDialog(true));
     }
+
+
 
 
 

@@ -10,6 +10,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.4'
         classpath 'com.jakewharton:butterknife-gradle-plugin:10.0.0'
+        classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.4'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
         classpath 'me.tatarka:gradle-retrolambda:3.7.0'
 

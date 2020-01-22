@@ -20,35 +20,35 @@ public class LogHelper {
         StackTraceElement traceElement = ((new Exception()).getStackTrace())[1];
         String toStringBuffer = "[" + traceElement.getFileName() + " | " +
                 traceElement.getLineNumber() + " | " + traceElement.getMethodName() + "]" + msg;
-        Logger.t("PEGASILOG").i(toStringBuffer);
+        Logger.t("LOG").i(toStringBuffer);
     }
 
     public synchronized static void d(String msg) {
         StackTraceElement traceElement = ((new Exception()).getStackTrace())[1];
         String toStringBuffer = "[" + traceElement.getFileName() + " | " +
                 traceElement.getLineNumber() + " | " + traceElement.getMethodName() + "] " + msg;
-        Logger.t("PEGASILOG").i(toStringBuffer);
+        Logger.t("LOG").i(toStringBuffer);
     }
 
     public synchronized static void i(String msg) {
         StackTraceElement traceElement = ((new Exception()).getStackTrace())[1];
         String toStringBuffer = "[" + traceElement.getFileName() + " | " +
                 traceElement.getLineNumber() + " | " + traceElement.getMethodName() + "] " + msg;
-        Logger.t("PEGASILOG").i(toStringBuffer);
+        Logger.t("LOG").i(toStringBuffer);
     }
 
     public synchronized static void w(String msg) {
         StackTraceElement traceElement = ((new Exception()).getStackTrace())[1];
         String toStringBuffer = "[" + traceElement.getFileName() + " | " +
                 traceElement.getLineNumber() + " | " + traceElement.getMethodName() + "] " + msg;
-        Logger.t("PEGASILOG").w(toStringBuffer);
+        Logger.t("LOG").w(toStringBuffer);
     }
 
     public synchronized static void e(String msg) {
         StackTraceElement traceElement = ((new Exception()).getStackTrace())[1];
         String toStringBuffer = "[" + traceElement.getFileName() + " | " +
                 traceElement.getLineNumber() + " | " + traceElement.getMethodName() + "] " + msg;
-        Logger.t("PEGASILOG").e(toStringBuffer);
+        Logger.t("LOG").e(toStringBuffer);
     }
 
 
@@ -63,7 +63,7 @@ public class LogHelper {
         for (String msg : msgs) {
             toStringBuffer.append(String.format("===%s", msg));
         }
-        Logger.t("PEGASILOG").i(toStringBuffer.toString());
+        Logger.t("LOG").i(toStringBuffer.toString());
     }
 
     public synchronized static void d(String...msgs) {
@@ -77,7 +77,7 @@ public class LogHelper {
         for (String msg : msgs) {
             toStringBuffer.append(String.format("===%s", msg));
         }
-        Logger.t("PEGASILOG").i(toStringBuffer.toString());
+        Logger.t("LOG").i(toStringBuffer.toString());
     }
 
     public synchronized static void i(String...msgs) {
@@ -91,7 +91,7 @@ public class LogHelper {
         for (String msg : msgs) {
             toStringBuffer.append(String.format("===%s", msg));
         }
-        Logger.t("PEGASILOG").i(toStringBuffer.toString());
+        Logger.t("LOG").i(toStringBuffer.toString());
     }
 
     public synchronized static void w(String...msgs) {
@@ -105,7 +105,7 @@ public class LogHelper {
         for (String msg : msgs) {
             toStringBuffer.append(String.format("===%s", msg));
         }
-        Logger.t("PEGASILOG").w(toStringBuffer.toString());
+        Logger.t("LOG").w(toStringBuffer.toString());
     }
 
     public synchronized static void e(String...msgs) {
@@ -119,7 +119,7 @@ public class LogHelper {
         for (String msg : msgs) {
             toStringBuffer.append(String.format("===%s", msg));
         }
-        Logger.t("PEGASILOG").e(toStringBuffer.toString());
+        Logger.t("LOG").e(toStringBuffer.toString());
     }
 
     // 当前文件名

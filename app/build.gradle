@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'android-aspectjx'
 apply from: 'jacoco.gradle'
 
 
@@ -176,7 +177,28 @@ dependencies {
     //支持Multidex功能
     androidTestImplementation rootProject.ext.dependencies["runner"]
 
-    }
+    // 性能优化使用到的库
+    implementation 'me.weishu:epic:0.6.0'
+
+    implementation 'org.aspectj:aspectjrt:1.8.14'
+
+    annotationProcessor 'com.zhangyue.we:x2c-apt:1.1.2'
+    implementation 'com.zhangyue.we:x2c-lib:1.0.6'
+
+    testImplementation 'org.ow2.asm:asm:7.1'
+    testImplementation 'org.ow2.asm:asm-commons:7.1'
+
+    // release：项目中实现了线上监控体系的时候去使用
+//    api 'com.github.markzhai:blockcanary-android:1.5.0'
+
+    // 仅在debug包启用BlockCanary进行卡顿监控和提示的话，可以这么用
+    debugApi 'com.github.markzhai:blockcanary-android:1.5.0'
+    releaseApi 'com.github.markzhai:blockcanary-no-op:1.5.0'
+
+    implementation 'com.github.anrwatchdog:anrwatchdog:1.4.0'
+
+
+}
 
 //解决支持库版本不兼容问题
 configurations.all {

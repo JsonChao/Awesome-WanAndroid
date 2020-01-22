@@ -1,15 +1,24 @@
 package json.chao.com.wanandroid.app;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Parcel;
 import android.support.multidex.MultiDex;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatDelegate;
+import android.util.Log;
+import android.view.Choreographer;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.facebook.stetho.Stetho;
+import com.just.agentweb.LogUtils;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.DiskLogAdapter;
 import com.orhanobut.logger.Logger;
@@ -19,6 +28,8 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
+import com.taobao.android.dexposed.DexposedBridge;
+import com.taobao.android.dexposed.XC_MethodHook;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.xuexiang.xupdate.XUpdate;
 import com.xuexiang.xupdate.entity.UpdateError;
@@ -38,14 +49,20 @@ import json.chao.com.wanandroid.di.component.AppComponent;
 import json.chao.com.wanandroid.di.component.DaggerAppComponent;
 import json.chao.com.wanandroid.di.module.AppModule;
 import json.chao.com.wanandroid.di.module.HttpModule;
+import json.chao.com.wanandroid.performance.memory.ImageHook;
 import json.chao.com.wanandroid.utils.CommonUtils;
+import json.chao.com.wanandroid.utils.LogHelper;
 import json.chao.com.wanandroid.utils.logger.TxtFormatStrategy;
+
+//import dagger.android.HasActivityInjector;
 
 /**
  * @author quchao
  * @date 2017/11/27
  */
 public class WanAndroidApp extends Application implements HasActivityInjector {
+
+    private static final String TAG = "WanAndroidApp";
 
     @Inject
     DispatchingAndroidInjector<Activity> mAndroidInjector;
@@ -72,6 +89,17 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
         });
     }
 
+    private long mStartFrameTime = 0;
+    private int mFrameCount = 0;
+    /**
+     * 单次计算FPS使用160毫秒
+     */
+    private static final long MONITOR_INTERVAL = 160L;
+    private static final long MONITOR_INTERVAL_NANOS = MONITOR_INTERVAL * 1000L * 1000L;
+    /**
+     * 设置计算fps的单位时间间隔1000ms,即fps/s;
+     */
+    private static final long MAX_INTERVAL = 1000L;
 
     public static synchronized WanAndroidApp getInstance() {
         return instance;
@@ -108,8 +136,6 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
 
         appComponent.inject(this);
 
-//        initAppUpdate();
-
         initBugly();
 
         initLogger();
@@ -118,6 +144,91 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
             Stetho.initializeWithDefaults(this);
         }
 
+//        DexposedBridge.hookAllConstructors(ImageView.class, new XC_MethodHook() {
+//            @Override
+//            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+//                super.afterHookedMethod(param);
+//                DexposedBridge.findAndHookMethod(ImageView.class, "setImageBitmap", Bitmap.class, new ImageHook());
+//            }
+//        });
+
+        try {
+            DexposedBridge.findAndHookMethod(Class.forName("android.os.BinderProxy"), "transact",
+                    int.class, Parcel.class, Parcel.class, int.class, new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            LogHelper.i( "BinderProxy beforeHookedMethod " + param.thisObject.getClass().getSimpleName()
+                                    + "\n" + Log.getStackTraceString(new Throwable()));
+                            super.beforeHookedMethod(param);
+                        }
+                    });
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                // 全局监控FPS值变化，可带到线上使用
+//                getFPS();
+            }
+
+            @Override
+            public void onActivityStarted(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityResumed(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+
+            }
+        });
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private void getFPS() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            return;
+        }
+        Choreographer.getInstance().postFrameCallback(new Choreographer.FrameCallback() {
+            @Override
+            public void doFrame(long frameTimeNanos) {
+                if (mStartFrameTime == 0) {
+                    mStartFrameTime = frameTimeNanos;
+                }
+                long interval = frameTimeNanos - mStartFrameTime;
+                if (interval > MONITOR_INTERVAL_NANOS) {
+                    double fps = (((double) (mFrameCount * 1000L * 1000L)) / interval) * MAX_INTERVAL;
+                    Log.d(TAG, String.valueOf(fps));
+                    mFrameCount = 0;
+                    mStartFrameTime = 0;
+                } else {
+                    ++mFrameCount;
+                }
+
+                Choreographer.getInstance().postFrameCallback(this);
+            }
+        });
     }
 
     @Override

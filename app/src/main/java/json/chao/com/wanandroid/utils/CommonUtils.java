@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
+import android.os.Looper;
 import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -28,6 +29,15 @@ import json.chao.com.wanandroid.app.WanAndroidApp;
  */
 
 public class CommonUtils {
+
+    /**
+     * 判断是否是主线程
+     *
+     * @return 是否是主线程
+     */
+    public static boolean isMainThread() {
+        return Looper.getMainLooper() == Looper.myLooper();
+    }
 
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
