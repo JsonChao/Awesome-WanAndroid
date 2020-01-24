@@ -2,6 +2,7 @@ package json.chao.com.wanandroid.ui.main.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -42,6 +43,7 @@ import json.chao.com.wanandroid.ui.wx.fragment.WxArticleFragment;
 import json.chao.com.wanandroid.utils.BottomNavigationViewHelper;
 import json.chao.com.wanandroid.utils.CommonAlertDialog;
 import json.chao.com.wanandroid.utils.CommonUtils;
+import json.chao.com.wanandroid.utils.LogHelper;
 import json.chao.com.wanandroid.utils.StatusBarUtil;
 
 
@@ -101,9 +103,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     protected void initEventAndData() {
-//        XUpdate.newBuild(mActivity)
-//                .updateUrl(Constants.UPDATE_URL)
-//                .update();
+        // 以下代码是为了演示Msg导致的主线程卡顿
+        new Handler().post(() -> {
+            LogHelper.i("Msg 执行");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override

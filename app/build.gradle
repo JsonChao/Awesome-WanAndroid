@@ -2,7 +2,19 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'android-aspectjx'
 apply from: 'jacoco.gradle'
+apply plugin: 'me.ele.lancet'
+apply plugin: 'com.didichuxing.tools.droidassist'
 
+droidAssistOptions {
+    // 插件配置文件(必选配置,支持多配置文件)
+    config file("droidassist.xml")
+    // 如果需要停用 DroidAssist 插件功能，可以添加 enable false 以停用插件 (可选配置)
+    enable true
+    // 日志输出等级：0 关闭日志输出，1 输出日志到控制台 2 输出日志到文件 3 输出日志到控制台以及日志 (可选配置)
+    logLevel 1
+    // 日志输出目录，当日志输出到文件时，默认的输出目录是当前 model 的 build/outputs/logs 目录 (可选配置)
+    // logDir
+}
 
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
@@ -196,6 +208,8 @@ dependencies {
     releaseApi 'com.github.markzhai:blockcanary-no-op:1.5.0'
 
     implementation 'com.github.anrwatchdog:anrwatchdog:1.4.0'
+
+    compileOnly 'me.ele:lancet-base:1.0.5'
 
 
 }

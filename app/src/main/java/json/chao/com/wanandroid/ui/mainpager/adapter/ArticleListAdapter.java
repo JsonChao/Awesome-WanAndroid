@@ -7,6 +7,7 @@ import android.support.v7.widget.CardView;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewTreeObserver;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
@@ -15,6 +16,7 @@ import java.util.List;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData;
 import json.chao.com.wanandroid.ui.mainpager.viewholder.KnowledgeHierarchyListViewHolder;
+import json.chao.com.wanandroid.utils.LogHelper;
 
 /**
  * @author quchao
@@ -26,6 +28,7 @@ public class ArticleListAdapter extends BaseQuickAdapter<FeedArticleData, Knowle
     private boolean isCollectPage;
     private boolean isSearchPage;
     private boolean isNightMode;
+    private boolean mHasRecorded;
 
     public ArticleListAdapter(int layoutResId, @Nullable List<FeedArticleData> data) {
         super(layoutResId, data);
@@ -79,6 +82,18 @@ public class ArticleListAdapter extends BaseQuickAdapter<FeedArticleData, Knowle
             } else {
                 cardView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.selector_search_item_bac));
             }
+        }
+
+        if (helper.getLayoutPosition() == 1 && !mHasRecorded) {
+            mHasRecorded = true;
+            helper.getView(R.id.item_search_pager_group).getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    helper.getView(R.id.item_search_pager_group).getViewTreeObserver().removeOnPreDrawListener(this);
+                    LogHelper.i("FeedShow");
+                    return true;
+                }
+            });
         }
 
         helper.addOnClickListener(R.id.item_search_pager_chapterName);

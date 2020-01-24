@@ -152,19 +152,19 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
 //            }
 //        });
 
-        try {
-            DexposedBridge.findAndHookMethod(Class.forName("android.os.BinderProxy"), "transact",
-                    int.class, Parcel.class, Parcel.class, int.class, new XC_MethodHook() {
-                        @Override
-                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                            LogHelper.i( "BinderProxy beforeHookedMethod " + param.thisObject.getClass().getSimpleName()
-                                    + "\n" + Log.getStackTraceString(new Throwable()));
-                            super.beforeHookedMethod(param);
-                        }
-                    });
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            DexposedBridge.findAndHookMethod(Class.forName("android.os.BinderProxy"), "transact",
+//                    int.class, Parcel.class, Parcel.class, int.class, new XC_MethodHook() {
+//                        @Override
+//                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+//                            LogHelper.i( "BinderProxy beforeHookedMethod " + param.thisObject.getClass().getSimpleName()
+//                                    + "\n" + Log.getStackTraceString(new Throwable()));
+//                            super.beforeHookedMethod(param);
+//                        }
+//                    });
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
 
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override

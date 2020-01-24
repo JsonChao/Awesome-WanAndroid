@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 加上这一行用于支持IDE自动提示 -->
+<!DOCTYPE DroidAssist [<!ELEMENT DroidAssist ((Global?|Replace?|Insert?|Around?|Enhance?)?,(Global?|Replace?|Insert?|Around?|Enhance?)?,(Global?|Replace?|Insert?|Around?|Enhance?)?,(Global?|Replace?|Insert?|Around?|Enhance?)?,(Global?|Replace?|Insert?|Around?|Enhance?)?)><!ELEMENT Filter     (Include*|Exclude*)*><!ELEMENT Include    (#PCDATA)><!ELEMENT Exclude    (#PCDATA)><!ELEMENT Source             (#PCDATA)><!ELEMENT Target             (#PCDATA)><!ELEMENT TargetBefore            (#PCDATA)><!ELEMENT TargetAfter             (#PCDATA)><!ELEMENT Exception             (#PCDATA)><!ELEMENT MethodCall         (Source,(Target?|(TargetBefore?,TargetAfter?)),Filter?)><!ELEMENT MethodExecution         (Source,(Target?|(TargetBefore?,TargetAfter?)),Filter?)><!ELEMENT ConstructorCall         (Source,(Target?|(TargetBefore?,TargetAfter?)),Filter?)><!ELEMENT ConstructorExecution         (Source,(Target?|(TargetBefore?,TargetAfter?)),Filter?)><!ELEMENT InitializerExecution         (Source,(Target?|(TargetBefore?,TargetAfter?)),Filter?)><!ELEMENT FieldRead         (Source,(Target?|(TargetBefore?,TargetAfter?)),Filter?)><!ELEMENT FieldWrite         (Source,(Target?|(TargetBefore?,TargetAfter?)),Filter?)><!ELEMENT BeforeMethodCall    (Source,Target,Filter?)><!ELEMENT AfterMethodCall    (Source,Target,Filter?)><!ELEMENT BeforeMethodExecution    (Source,Target,Filter?)><!ELEMENT AfterMethodExecution    (Source,Target,Filter?)><!ELEMENT BeforeConstructorCall    (Source,Target,Filter?)><!ELEMENT AfterConstructorCall    (Source,Target,Filter?)><!ELEMENT BeforeConstructorExecution    (Source,Target,Filter?)><!ELEMENT AfterConstructorExecution    (Source,Target,Filter?)><!ELEMENT BeforeInitializerExecution    (Source,Target,Filter?)><!ELEMENT AfterInitializerExecution    (Source,Target,Filter?)><!ELEMENT BeforeFieldRead    (Source,Target,Filter?)><!ELEMENT AfterFieldRead    (Source,Target,Filter?)><!ELEMENT BeforeFieldWrite    (Source,Target,Filter?)><!ELEMENT AfterFieldWrite    (Source,Target,Filter?)><!ELEMENT TryCatchMethodCall    (Source,Exception?,Target,Filter?)><!ELEMENT TryCatchMethodExecution    (Source,Exception?,Target,Filter?)><!ELEMENT TryCatchConstructorCall    (Source,Exception?,Target,Filter?)><!ELEMENT TryCatchConstructorExecution    (Source,Exception?,Target,Filter?)><!ELEMENT TryCatchInitializerExecution    (Source,Exception?,Target,Filter?)><!ELEMENT TimingMethodCall    (Source,Target,Filter?)><!ELEMENT TimingMethodExecution    (Source,Target,Filter?)><!ELEMENT TimingConstructorCall    (Source,Target,Filter?)><!ELEMENT TimingConstructorExecution    (Source,Target,Filter?)><!ELEMENT TimingInitializerExecution    (Source,Target,Filter?)><!ELEMENT Global     (Filter?)><!ELEMENT Replace    (MethodCall*|MethodExecution*|ConstructorCall*|ConstructorExecution*|InitializerExecution*|FieldRead*|FieldWrite*)*><!ELEMENT Around     (MethodCall*|MethodExecution*|ConstructorCall*|ConstructorExecution*|InitializerExecution*|FieldRead*|FieldWrite*)*><!ELEMENT Insert     (BeforeMethodCall*|AfterMethodCall*|BeforeMethodExecution*|AfterMethodExecution*|BeforeConstructorCall*|AfterConstructorCall*|BeforeConstructorExecution*|AfterConstructorExecution*|BeforeInitializerExecution*|AfterInitializerExecution*|BeforeFieldRead*|AfterFieldRead*|BeforeFieldWrite*|AfterFieldWrite*)*><!ELEMENT Enhance    (TryCatchMethodCall*|TryCatchMethodExecution*|TryCatchConstructorCall*|TryCatchConstructorExecution*|TryCatchInitializerExecution*|TimingMethodCall*|TimingMethodExecution*|TimingConstructorCall*|TimingConstructorExecution*|TimingInitializerExecution)*><!ATTLIST Source extend (true|false) "true">]>
+<DroidAssist>
+    <!--全局配置-->
+<!--    <Global>-->
+<!--        ...-->
+<!--    </Global>-->
+
+<!--    &lt;!&ndash;代码插入配置&ndash;&gt;-->
+<!--    <Insert>-->
+<!--        ...-->
+<!--    </Insert>-->
+
+<!--    &lt;!&ndash;代码环绕配置&ndash;&gt;-->
+<!--    <Around>-->
+<!--        ...-->
+<!--    </Around>-->
+
+    <!--代码替换配置-->
+<!--    <Replace>-->
+<!--        <MethodCall>-->
+<!--            <Source>-->
+<!--                boolean android.os.Handler.sendMessageAtTime(android.os.Message, long)-->
+<!--            </Source>-->
+<!--            <Target>-->
+<!--                $_= json.chao.com.wanandroid.performance.handler.GlobalHandler.sendMessageAtTime($$);-->
+<!--            </Target>-->
+<!--        </MethodCall>-->
+<!--        <MethodCall>-->
+<!--            <Source>-->
+<!--                void android.os.Handler.dispatchMessage(android.os.Message)-->
+<!--            </Source>-->
+<!--            <Target>-->
+<!--                json.chao.com.wanandroid.performance.handler.GlobalHandler.dispatchMessage($$);-->
+<!--            </Target>-->
+<!--        </MethodCall>-->
+<!--    </Replace>-->
+
+<!--    &lt;!&ndash;代码增强配置&ndash;&gt;-->
+<!--    <Enhance>-->
+<!--        ...-->
+<!--    </Enhance>-->
+</DroidAssist>
