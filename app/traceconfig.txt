@@ -1,0 +1,11 @@
+#配置需插桩的包,如果为空，则默认所有文件都进行插桩(config the package need to trace,If they are empty, all files are traced by default.)
+#-tracepackage json/chao/com/wanandroid
+
+#在需插桩的包下设置无需插桩的包(Setting up traceless packages under packages that require trace)
+#-keeppackage cn/cxzheng/asmtraceman/test
+
+#在需插桩的包下设置无需插桩的类(Setting up traceless classes under packages that require trace)
+#-keepclass cn/cxzheng/asmtraceman/MainActivity
+
+#插桩代码所在类,这里固定配置为：cn/cxzheng/tracemanui/TraceMan(Fixed configuration here: cn/cxzheng/tracemanui/TraceMan)
+#-beatclass cn/cxzheng/tracemanui/TraceMan

@@ -1,7 +1,9 @@
 package json.chao.com.wanandroid.aop;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 
@@ -35,6 +37,12 @@ public class PerformanceAop {
         }
         LogHelper.i(name + " cost " + (System.currentTimeMillis() - time));
     }
+
+    @After("execution(org.jay.launchstarter.Task.new(..)")
+    public void newObject(JoinPoint point) {
+        LogHelper.i(" new " + point.getTarget().getClass().getSimpleName());
+    }
+
 
 
 

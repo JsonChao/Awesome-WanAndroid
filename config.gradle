@@ -2,7 +2,7 @@ ext {
 
     android = [
             compileSdkVersion       : 27,
-            buildToolsVersion       : "27.0.3",
+            buildToolsVersion       : "28.0.3",
             minSdkVersion           : 21,
             targetSdkVersion        : 27,
             versionCode             : 9,
@@ -78,7 +78,7 @@ ext {
 
             //other
             "lottie"                            : "com.airbnb.android:lottie:2.3.0",
-            "BaseRecyclerViewAdapterHelper"     : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34",
+            "BaseRecyclerViewAdapterHelper"     : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50",
             "fragmentation"                     : "me.yokeyword:fragmentation:${version["fragmentationVersion"]}",
             "fragmentation-swipeback"           : "me.yokeyword:fragmentation-swipeback:${version["fragmentationVersion"]}",
             "crashreport_upgrade"               : "com.tencent.bugly:crashreport_upgrade:latest.release",

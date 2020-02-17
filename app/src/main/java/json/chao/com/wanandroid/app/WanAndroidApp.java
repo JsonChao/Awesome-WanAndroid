@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
@@ -14,11 +13,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 import android.view.Choreographer;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.facebook.stetho.Stetho;
-import com.just.agentweb.LogUtils;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.DiskLogAdapter;
 import com.orhanobut.logger.Logger;
@@ -36,6 +33,8 @@ import com.xuexiang.xupdate.entity.UpdateError;
 import com.xuexiang.xupdate.listener.OnUpdateFailureListener;
 import com.xuexiang.xupdate.utils.UpdateUtils;
 
+import org.jay.launchstarter.Task;
+
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjector;
@@ -49,7 +48,6 @@ import json.chao.com.wanandroid.di.component.AppComponent;
 import json.chao.com.wanandroid.di.component.DaggerAppComponent;
 import json.chao.com.wanandroid.di.module.AppModule;
 import json.chao.com.wanandroid.di.module.HttpModule;
-import json.chao.com.wanandroid.performance.memory.ImageHook;
 import json.chao.com.wanandroid.utils.CommonUtils;
 import json.chao.com.wanandroid.utils.LogHelper;
 import json.chao.com.wanandroid.utils.logger.TxtFormatStrategy;
@@ -165,6 +163,21 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
 //        } catch (ClassNotFoundException e) {
 //            e.printStackTrace();
 //        }
+
+        try {
+            DexposedBridge.findAndHookMethod(Class.forName("java.lang.ClassLoader"), "findClass",
+                    java.lang.String.class, new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            String name = (String) param.args[0];
+                            LogHelper.i( "app start loaded class: " + name
+                                    + "\n" + Log.getStackTraceString(new Throwable()));
+                            super.beforeHookedMethod(param);
+                        }
+            });
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override

@@ -4,6 +4,56 @@ apply plugin: 'android-aspectjx'
 apply from: 'jacoco.gradle'
 apply plugin: 'me.ele.lancet'
 apply plugin: 'com.didichuxing.tools.droidassist'
+//apply plugin: 'AndResGuard'
+
+//andResGuard {
+//    // mappingFile = file("./resource_mapping.txt")
+//    mappingFile = null
+//    use7zip = true
+//    useSign = true
+//    // 打开这个开关，会keep住所有资源的原始路径，只混淆资源的名字
+//    keepRoot = false
+//    // 设置这个值，会把arsc name列混淆成相同的名字，减少string常量池的大小
+//    fixedResName = "arg"
+//    // 打开这个开关会合并所有哈希值相同的资源，但请不要过度依赖这个功能去除冗余资源
+//    mergeDuplicatedRes = true
+//    whiteList = [
+//            // for your icon
+//            "R.drawable.icon",
+//            // for fabric
+//            "R.string.com.crashlytics.*",
+//            // for google-services
+//            "R.string.google_app_id",
+//            "R.string.gcm_defaultSenderId",
+//            "R.string.default_web_client_id",
+//            "R.string.ga_trackingId",
+//            "R.string.firebase_database_url",
+//            "R.string.google_api_key",
+//            "R.string.google_crash_reporting_api_key"
+//    ]
+//    compressFilePattern = [
+//            "*.png",
+//            "*.jpg",
+//            "*.jpeg",
+//            "*.gif",
+//            "resources.arsc"
+//    ]
+//    sevenzip {
+//        artifact = 'com.tencent.mm:SevenZip:1.2.17'
+//        //path = "/usr/local/bin/7za"
+//    }
+//
+//    /**
+//     * 可选： 如果不设置则会默认覆盖assemble输出的apk
+//     **/
+//    // finalApkBackupPath = "${project.rootDir}/final.apk"
+//
+//    /**
+//     * 可选: 指定v1签名时生成jar文件的摘要算法
+//     * 默认值为“SHA-1”
+//     **/
+//    // digestalg = "SHA-256"
+//}
 
 droidAssistOptions {
     // 插件配置文件(必选配置,支持多配置文件)
@@ -20,12 +70,12 @@ android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
     signingConfigs {
-//        release {
-//            storeFile file(RELEASE_STORE_FILE)
-//            storePassword RELEASE_STORE_PASSWORD
-//            keyAlias RELEASE_KEY_ALIAS
-//            keyPassword RELEASE_KEY_PASSWORD
-//        }
+        release {
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+        }
     }
     defaultConfig {
         applicationId "json.chao.com.wanandroid"
@@ -39,13 +89,28 @@ android {
         renderscriptSupportModeEnabled true    // Enable RS support
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
+        ndk {
+            abiFilters "armeabi-v7a" //选择要使用的平台
+        }
+        resConfigs "zh", "zh-rCN"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            signingConfig signingConfigs.release
+            // 是否进行混淆
+            minifyEnabled true
+            // 开启zipAlign可以让安装包中的资源按4字节对齐，这样可以减少应用在运行时的内存消耗
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            // 需要注意的是目前资源压缩器目前不会移除values/文件夹中定义的资源（例如字符串、尺寸、样式和颜色）
+            shrinkResources true
+            // 混淆文件的位置，其中 proguard-android.txt 为sdk默认的混淆配置，
+            // 它的位置位于android-sdk/tools/proguard/proguard-android.txt，
+            // 此外，proguard-android-optimize.txt 也为sdk默认的混淆配置，
+            // 但    是它默认打开了优化开关，我们可在配置混淆文件将android.util.Log置为无效代码，
+            // 以去除apk中打印日志的代码。而 proguard-rules.pro 是该模块下的混淆配置。
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
         debug {
 //            signingConfig signingConfigs.release
@@ -210,6 +275,16 @@ dependencies {
     implementation 'com.github.anrwatchdog:anrwatchdog:1.4.0'
 
     compileOnly 'me.ele:lancet-base:1.0.5'
+
+    // debug模式耗时方法排查工具，支持线上预览
+    debugImplementation 'com.github.zhengcx:MethodTraceMan:1.0.7'
+    releaseImplementation 'com.github.zhengcx:MethodTraceMan:1.0.5-noop'
+
+    implementation 'com.facebook.soloader:soloader:0.8.0'
+
+    // 启动器
+    api files('libs/launchstarter-release-1.0.0.aar')
+
 
 
 }

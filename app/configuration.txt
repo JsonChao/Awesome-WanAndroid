@@ -1,0 +1,1049 @@
+# This is a configuration file for ProGuard.
+# http://proguard.sourceforge.net/index.html#manual/usage.html
+#
+# Starting with version 2.2 of the Android plugin for Gradle, this file is distributed together with
+# the plugin and unpacked at build-time. The files in $ANDROID_HOME are no longer maintained and
+# will be ignored by new version of the Android plugin for Gradle.
+
+# Optimizations: If you don't want to optimize, use the proguard-android.txt configuration file
+# instead of this one, which turns off the optimization flags.
+# Adding optimization introduces certain risks, since for example not all optimizations performed by
+# ProGuard works on all versions of Dalvik.  The following flags turn off various optimizations
+# known to have issues, but the list may not be complete or up to date. (The "arithmetic"
+# optimization can be used if you are only targeting Android 2.0 or later.)  Make sure you test
+# thoroughly if you go this route.
+-optimizations !code/simplification/arithmetic,!code/simplification/cast,!field/*,!class/merging/*
+-optimizationpasses 5
+-allowaccessmodification
+
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-verbose
+
+# Preserve some attributes that may be required for reflection.
+-keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod
+
+-keep public class com.google.vending.licensing.ILicensingService
+-keep public class com.android.vending.licensing.ILicensingService
+-keep public class com.google.android.vending.licensing.ILicensingService
+-dontnote com.android.vending.licensing.ILicensingService
+-dontnote com.google.vending.licensing.ILicensingService
+-dontnote com.google.android.vending.licensing.ILicensingService
+
+# For native methods, see http://proguard.sourceforge.net/manual/examples.html#native
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+# Keep setters in Views so that animations can still work.
+-keepclassmembers public class * extends android.view.View {
+    void set*(***);
+    *** get*();
+}
+
+# We want to keep methods in Activity that could be used in the XML attribute onClick.
+-keepclassmembers class * extends android.app.Activity {
+    public void *(android.view.View);
+}
+
+# For enumeration classes, see http://proguard.sourceforge.net/manual/examples.html#enumerations
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keepclassmembers class * implements android.os.Parcelable {
+    public static final ** CREATOR;
+}
+
+-keepclassmembers class **.R$* {
+    public static <fields>;
+}
+
+# Preserve annotated Javascript interface methods.
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
+}
+
+# The support libraries contains references to newer platform versions.
+# Don't warn about those in case this app is linking against an older
+# platform version. We know about them, and they are safe.
+-dontnote android.support.**
+-dontnote androidx.**
+-dontwarn android.support.**
+-dontwarn androidx.**
+
+# This class is deprecated, but remains for backward compatibility.
+-dontwarn android.util.FloatMath
+
+# Understand the @Keep support annotation.
+-keep class android.support.annotation.Keep
+-keep class androidx.annotation.Keep
+
+-keep @android.support.annotation.Keep class * {*;}
+-keep @androidx.annotation.Keep class * {*;}
+
+-keepclasseswithmembers class * {
+    @android.support.annotation.Keep <methods>;
+}
+
+-keepclasseswithmembers class * {
+    @androidx.annotation.Keep <methods>;
+}
+
+-keepclasseswithmembers class * {
+    @android.support.annotation.Keep <fields>;
+}
+
+-keepclasseswithmembers class * {
+    @androidx.annotation.Keep <fields>;
+}
+
+-keepclasseswithmembers class * {
+    @android.support.annotation.Keep <init>(...);
+}
+
+-keepclasseswithmembers class * {
+    @androidx.annotation.Keep <init>(...);
+}
+
+# These classes are duplicated between android.jar and org.apache.http.legacy.jar.
+-dontnote org.apache.http.**
+-dontnote android.net.http.**
+
+# These classes are duplicated between android.jar and core-lambda-stubs.jar.
+-dontnote java.lang.invoke.**
+
+# Add project specific ProGuard rules here.
+# By default, the flags in this file are appended to flags specified
+# in D:\sdk/tools/proguard/proguard-android.txt
+# You can edit the include path and order by changing the proguardFiles
+# directive in build.gradle.
+#
+# For more details, see
+#   http://developer.android.com/guide/developing/tools/proguard.html
+
+# Add any project specific keep options here:
+
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface
+# class:
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}
+
+# Uncomment this to preserve the line number information for
+# debugging stack traces.
+#-keepattributes SourceFile,LineNumberTable
+
+# If you keep the line number information, uncomment this to
+# hide the original source file name.
+#-renamesourcefileattribute SourceFile
+
+# 混淆语法的作用主要是定义出不需要混淆的源代码，那么编译时会自动将未定义的部分全都混淆。
+# 以下是全面的混淆语法规则。
+
+# -include {filename}    从给定的文件中读取配置参数
+# -basedirectory {directoryname}    指定基础目录为以后相对的档案名称
+# -injars {class_path}    指定要处理的应用程序jar,war,ear和目录
+# -outjars {class_path}    指定处理完后要输出的jar,war,ear和目录的名称
+# -libraryjars {classpath}    指定要处理的应用程序jar,war,ear和目录所需要的程序库文件
+# -dontskipnonpubliclibraryclasses    指定不去忽略非公共的库类。
+# -dontskipnonpubliclibraryclassmembers    指定不去忽略包可见的库类的成员。
+#
+# 保留选项
+# -keep {Modifier} {class_specification}    保护指定的类文件和类的成员
+# -keepclassmembers {modifier} {class_specification}    保护指定类的成员，如果此类受到保护他们会保护的更好
+# -keepclasseswithmembers {class_specification}    保护指定的类和类的成员，但条件是所有指定的类和类成员是要存在。
+# -keepnames {class_specification}    保护指定的类和类的成员的名称（如果他们不会压缩步骤中删除）
+# -keepclassmembernames {class_specification}    保护指定的类的成员的名称（如果他们不会压缩步骤中删除）
+# -keepclasseswithmembernames {class_specification}    保护指定的类和类的成员的名称，如果所有指定的类成员出席（在压缩步骤之后）
+# -printseeds {filename}    列出类和类的成员-keep选项的清单，标准输出到给定的文件
+#
+# 压缩
+# -dontshrink    不压缩输入的类文件
+# -printusage {filename}
+# -whyareyoukeeping {class_specification}
+#
+# 优化
+# -dontoptimize    不优化输入的类文件
+# -assumenosideeffects {class_specification}    优化时假设指定的方法，没有任何副作用
+# -allowaccessmodification    优化时允许访问并修改有修饰符的类和类的成员
+#
+# 混淆
+# -dontobfuscate    不混淆输入的类文件
+# -printmapping {filename}
+# -applymapping {filename}    重用映射增加混淆
+# -obfuscationdictionary {filename}    使用给定文件中的关键字作为要混淆方法的名称
+# -overloadaggressively    混淆时应用侵入式重载
+# -useuniqueclassmembernames    确定统一的混淆类的成员名称来增加混淆
+# -flattenpackagehierarchy {package_name}    重新包装所有重命名的包并放在给定的单一包中
+# -repackageclass {package_name}    重新包装所有重命名的类文件中放在给定的单一包中
+# -dontusemixedcaseclassnames    混淆时不会产生形形色色的类名
+# -keepattributes {attribute_name,...}    保护给定的可选属性，例如LineNumberTable, LocalVariableTable, SourceFile, Deprecated, Synthetic, Signature, and
+#
+# InnerClasses.
+# -renamesourcefileattribute {string}    设置源文件中给定的字符串常量
+
+# 混淆规则
+
+# 输出 ProGuard 的最终配置
+-printconfiguration configuration.txt
+
+#############################################
+#
+# 对于一些基本指令的添加
+#
+#############################################
+# 代码混淆压缩比，在0~7之间，默认为5，一般不做修改
+-optimizationpasses 5
+
+# 混合时不使用大小写混合，混合后的类名为小写
+-dontusemixedcaseclassnames
+
+# 指定不去忽略非公共库的类
+-dontskipnonpubliclibraryclasses
+
+# 这句话能够使我们的项目混淆后产生映射文件
+# 包含有类名->混淆后类名的映射关系
+-verbose
+
+# 指定不去忽略非公共库的类成员
+-dontskipnonpubliclibraryclassmembers
+
+# 不做预校验，preverify是proguard的四个步骤之一，
+# Android不需要preverify，去掉这一步能够加快混淆速度。
+-dontpreverify
+
+# 保留Annotation不混淆
+-keepattributes *Annotation*,InnerClasses
+
+# 避免混淆泛型
+-keepattributes Signature
+
+# 抛出异常时保留代码行号
+-keepattributes SourceFile,LineNumberTable
+
+# 指定混淆时采用的算法，后面的参数是一个过滤器
+# 这个过滤器是谷歌推荐的算法，一般不做更改
+-optimizations !code/simplification/cast,!field/*,!class/merging/*
+
+
+#############################################
+#
+# Android开发中一些需要保留的公共部分
+#
+#############################################
+
+# AndroidMainfest中的类不混淆，所以四大组件和Application的子类和
+# Framework层下所有的类默认不会进行混淆，并且自定义的View默认也不会被混淆。
+# 保留我们使用的四大组件，自定义的Application、View等等这些类不被混淆
+# 因为这些子类都有可能被外部调用
+#-keep public class * extends android.app.Activity
+#-keep public class * extends android.app.Appliction
+#-keep public class * extends android.app.Service
+#-keep public class * extends android.content.BroadcastReceiver
+#-keep public class * extends android.content.ContentProvider
+#-keep public class * extends android.app.backup.BackupAgentHelper
+#-keep public class * extends android.preference.Preference
+#-keep public class * extends android.view.View
+#-keep public class com.android.vending.licensing.ILicensingService
+
+
+# 保留support下的所有类及其内部类
+-keep class android.support.** {*;}
+
+# 保留继承support包中的所有类
+-keep public class * extends android.support.v4.**
+-keep public class * extends android.support.v7.**
+-keep public class * extends android.support.annotation.**
+
+# 保留R下面的资源
+-keep class **.R$* {*;}
+
+# 保留本地native方法不被混淆，jni方法不可混淆，因为这个方法需要和native方法保持一致。
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+# 保留在Activity中的方法参数是view的方法，
+# 这样我们在layout中写的onClick就不会被影响
+-keepclassmembers class * extends android.app.Activity{
+    public void *(android.view.View);
+}
+
+# 使用enum类型时需要注意避免以下两个方法混淆，
+# 因为enum类的特殊性，以下两个方法会被反射调用。
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+# 保留我们自定义控件（继承自View）不被混淆
+#-keep public class * extends android.view.View{
+#    *** get*();
+#    void set*(***);
+#    public <init>(android.content.Context);
+#    public <init>(android.content.Context, android.util.AttributeSet);
+#    public <init>(android.content.Context, android.util.AttributeSet, int);
+#}
+
+# Parcelable的子类和Creator静态成员变量不混淆，
+# 否则会产生Android.os.BadParcelableException异常。
+-keep class * implements android.os.Parcelable {
+    public static final android.os.Parcelable$Creator *;
+}
+
+# 保留Serializable序列化的类不被混淆
+-keepnames class * implements java.io.Serializable
+-keepclassmembers class * implements java.io.Serializable {
+    static final long serialVersionUID;
+    private static final java.io.ObjectStreamField[] serialPersistentFields;
+    !static !transient <fields>;
+    !private <fields>;
+    !private <methods>;
+    private void writeObject(java.io.ObjectOutputStream);
+    private void readObject(java.io.ObjectInputStream);
+    java.lang.Object writeReplace();
+    java.lang.Object readResolve();
+}
+
+# 对于带有回调函数的onXXEvent、**On*Listener的，不能被混淆
+-keepclassmembers class * {
+    void *(**On*Event);
+    void *(**On*Listener);
+}
+
+# webView处理，项目中没有使用到webView忽略即可
+-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+    public *;
+}
+-keepclassmembers class * extends android.webkit.webViewClient {
+    public void *(android.webkit.WebView, java.lang.String, android.graphics.Bitmap);
+    public boolean *(android.webkit.WebView, java.lang.String);
+}
+-keepclassmembers class * extends android.webkit.webViewClient {
+    public void *(android.webkit.webView, java.lang.String);
+}
+
+# 移除Log类打印各个等级日志的代码，打正式包的时候可以做为禁log使用，这里可以作为禁止log打印的功能使用
+# 记得proguard-android.txt中一定不要加-dontoptimize才起作用
+# 另外的一种实现方案是通过BuildConfig.DEBUG的变量来控制
+-assumenosideeffects class android.util.Log {
+    public static int v(...);
+    public static int i(...);
+    public static int w(...);
+    public static int d(...);
+    public static int e(...);
+}
+
+
+#############################################
+#
+# 项目中特殊处理部分
+#
+#############################################
+
+#-----------处理反射类，反射用到的类不混淆(否则反射可能出现问题)---------------
+-keep class android.view.WindowManager.LayoutParams
+
+
+#-----------处理js交互，有用到WebView的JS调用也需要保证写的接口方法不混淆，因为H5需要通过匹配方法名的方式进行调用。---------------
+
+
+
+#-----------处理实体类---------------
+# 在开发的时候我们可以将所有的实体类放在一个包内，这样我们写一次混淆就行了。
+# 使用Gson时需要配置Gson的解析对象及变量都不混淆。不然Gson会找不到变量。
+-keep class json.chao.com.wanandroid.core.bean.** { *; }
+-keep class json.chao.com.wanandroid.core.bean.main.collect.FeedArticleData
+-keep class json.chao.com.wanandroid.ui.mainpager.adapter.ArticleListAdapter
+
+
+#-----------处理第三方依赖库---------
+
+# BRVAH
+-keep class com.chad.library.adapter.** {
+*;
+}
+-keep public class * extends com.chad.library.adapter.base.BaseQuickAdapter
+-keep public class * extends com.chad.library.adapter.base.BaseViewHolder
+-keepclassmembers class $ extends com.chad.library.adapter.base.BaseViewHolder {
+*;
+}
+-keepclassmembers class * extends com.chad.library.adapter.base.BaseViewHolder { *; }
+
+-keep class androidx.** {*;}
+-keep public class * extends androidx.**
+-keep interface androidx.** {*;}
+-dontwarn androidx.**
+
+
+# Bugly
+-dontwarn com.tencent.bugly.**
+-keep class com.tencent.bugly.** {*;}
+
+
+# ButterKnife
+-keep public class * implements butterknife.Unbinder {
+    public <init>(**, android.view.View);
+}
+-keep class butterknife.*
+-keepclasseswithmembernames class * {
+    @butterknife.* <methods>;
+}
+-keepclasseswithmembernames class * {
+    @butterknife.* <fields>;
+}
+
+
+# Dagger2
+-dontwarn com.google.errorprone.annotations.*
+
+
+# Glide
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+
+
+
+# greenDAO 3
+-dontwarn org.greenrobot.greendao.**
+-keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
+    public static java.lang.String TABLENAME;
+}
+-keep class **$Properties {*;}
+
+# If you do not use SQLCipher:
+-dontwarn net.sqlcipher.database.**
+# If you do not use RxJava:
+#-dontwarn rx.**
+
+
+##---------------Begin: proguard configuration for Gson  ----------
+# Gson uses generic type information stored in a class file when working with fields. Proguard
+# removes such information by default, so configure it to keep all of it.
+-keepattributes Signature
+
+# For using GSON @Expose annotation
+-keepattributes *Annotation*
+
+# Gson specific classes
+-dontwarn sun.misc.**
+#-keep class com.google.gson.stream.** { *; }
+
+# Application classes that will be serialized/deserialized over Gson
+-keep class com.google.gson.examples.android.model.** { <fields>; }
+
+# Prevent proguard from stripping interface information from TypeAdapter, TypeAdapterFactory,
+# JsonSerializer, JsonDeserializer instances (so they can be used in @JsonAdapter)
+-keep class * implements com.google.gson.TypeAdapter
+-keep class * implements com.google.gson.TypeAdapterFactory
+-keep class * implements com.google.gson.JsonSerializer
+-keep class * implements com.google.gson.JsonDeserializer
+
+# Prevent R8 from leaving Data object members always null
+-keepclassmembers,allowobfuscation class * {
+  @com.google.gson.annotations.SerializedName <fields>;
+}
+
+##---------------End: proguard configuration for Gson  ----------
+
+
+# OkHttp
+# JSR 305 annotations are for embedding nullability information.
+-dontwarn javax.annotation.**
+
+# A resource is loaded with a relative path so the package of this class must be preserved.
+-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
+
+# Animal Sniffer compileOnly dependency to ensure APIs are compatible with older versions of Java.
+-dontwarn org.codehaus.mojo.animal_sniffer.*
+
+# OkHttp platform used only on JVM and when Conscrypt dependency is available.
+-dontwarn okhttp3.internal.platform.ConscryptPlatform
+
+
+# Okio
+# Animal Sniffer compileOnly dependency to ensure APIs are compatible with older versions of Java.
+-dontwarn org.codehaus.mojo.animal_sniffer.*
+
+
+# Retrofit
+# Retrofit does reflection on generic parameters. InnerClasses is required to use Signature and
+# EnclosingMethod is required to use InnerClasses.
+-keepattributes Signature, InnerClasses, EnclosingMethod
+
+# Retrofit does reflection on method and parameter annotations.
+-keepattributes RuntimeVisibleAnnotations, RuntimeVisibleParameterAnnotations
+
+# Retain service method parameters when optimizing.
+-keepclassmembers,allowshrinking,allowobfuscation interface * {
+    @retrofit2.http.* <methods>;
+}
+
+# Ignore annotation used for build tooling.
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+
+# Ignore JSR 305 annotations for embedding nullability information.
+-dontwarn javax.annotation.**
+
+# Guarded by a NoClassDefFoundError try/catch and only used when on the classpath.
+-dontwarn kotlin.Unit
+
+# Top-level functions that can only be used by Kotlin.
+-dontwarn retrofit2.KotlinExtensions
+-dontwarn retrofit2.KotlinExtensions$*
+
+# With R8 full mode, it sees no subtypes of Retrofit interfaces since they are created with a Proxy
+# and replaces all potential values with null. Explicitly keeping the interfaces prevents this.
+-if interface * { @retrofit2.http.* <methods>; }
+-keep,allowobfuscation interface <1>
+
+
+# Retrolambda
+-dontwarn java.lang.invoke.*
+-dontwarn **$$Lambda$*
+
+
+# RxJava
+-dontwarn com.jakewharton.rxbinding2.**
+-dontwarn java.util.concurrent.Flow*
+-dontwarn sun.misc.**
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+    long producerIndex;
+    long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
+-dontnote rx.internal.util.PlatformDependent
+
+
+# banner
+-keep class com.youth.banner.** {
+    *;
+}
+
+
+# agentweb
+-keep class com.just.agentweb.** {
+    *;
+}
+-dontwarn com.just.agentweb.**
+
+
+# xupdate
+-keep class com.xuexiang.xupdate.entity.** { *; }
+
+
+
+
+
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/release/processReleaseManifest/merged/AndroidManifest.xml:107
+-keep class com.just.agentweb.ActionActivity { <init>(...); }
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/release/processReleaseManifest/merged/AndroidManifest.xml:97
+-keep class com.just.agentweb.AgentWebFileProvider { <init>(...); }
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/release/processReleaseManifest/merged/AndroidManifest.xml:128
+-keep class com.tencent.bugly.beta.tinker.TinkerResultService { <init>(...); }
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/release/processReleaseManifest/merged/AndroidManifest.xml:115
+-keep class com.tencent.bugly.beta.ui.BetaActivity { <init>(...); }
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/release/processReleaseManifest/merged/AndroidManifest.xml:119
+-keep class com.tencent.bugly.beta.utils.BuglyFileProvider { <init>(...); }
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/release/processReleaseManifest/merged/AndroidManifest.xml:132
+-keep class com.xuexiang.xupdate.service.DownloadService { <init>(...); }
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/release/processReleaseManifest/merged/AndroidManifest.xml:134
+-keep class com.xuexiang.xupdate.utils.UpdateFileProvider { <init>(...); }
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/release/processReleaseManifest/merged/AndroidManifest.xml:20
+-keep class json.chao.com.wanandroid.app.WanAndroidApp { <init>(...); }
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/release/processReleaseManifest/merged/AndroidManifest.xml:82
+-keep class json.chao.com.wanandroid.ui.hierarchy.activity.KnowledgeHierarchyDetailActivity { <init>(...); }
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/release/processReleaseManifest/merged/AndroidManifest.xml:87
+-keep class json.chao.com.wanandroid.ui.main.activity.AboutUsActivity { <init>(...); }
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/release/processReleaseManifest/merged/AndroidManifest.xml:77
+-keep class json.chao.com.wanandroid.ui.main.activity.ArticleDetailActivity { <init>(...); }
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/release/processReleaseManifest/merged/AndroidManifest.xml:61
+-keep class json.chao.com.wanandroid.ui.main.activity.LoginActivity { <init>(...); }
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/release/processReleaseManifest/merged/AndroidManifest.xml:57
+-keep class json.chao.com.wanandroid.ui.main.activity.MainActivity { <init>(...); }
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/release/processReleaseManifest/merged/AndroidManifest.xml:66
+-keep class json.chao.com.wanandroid.ui.main.activity.RegisterActivity { <init>(...); }
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/release/processReleaseManifest/merged/AndroidManifest.xml:72
+-keep class json.chao.com.wanandroid.ui.main.activity.SearchListActivity { <init>(...); }
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/release/processReleaseManifest/merged/AndroidManifest.xml:48
+-keep class json.chao.com.wanandroid.ui.main.activity.SplashActivity { <init>(...); }
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_test.xml:2
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_test.xml:2
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_splash.xml:2
+-keep class android.support.constraint.ConstraintLayout { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/b624a463e1fc56e2dca5263d1258a0da/res/layout/design_bottom_navigation_item.xml:26
+-keep class android.support.design.internal.BaselineLayout { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/b624a463e1fc56e2dca5263d1258a0da/res/layout/design_navigation_item.xml:17
+-keep class android.support.design.internal.NavigationMenuItemView { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/b624a463e1fc56e2dca5263d1258a0da/res/layout/design_navigation_menu.xml:17
+-keep class android.support.design.internal.NavigationMenuView { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/b624a463e1fc56e2dca5263d1258a0da/res/layout/design_layout_snackbar_include.xml:18
+-keep class android.support.design.internal.SnackbarContentLayout { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_wx_detail_article.xml:9
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_usage.xml:10
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_search.xml:10
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_search_list.xml:8
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_main.xml:15
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_knowledge_hierarchy_detail.xml:7
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_about_us.xml:19
+-keep class android.support.design.widget.AppBarLayout { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_main.xml:39
+-keep class android.support.design.widget.BottomNavigationView { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/b624a463e1fc56e2dca5263d1258a0da/res/layout/design_text_input_password_icon.xml:18
+-keep class android.support.design.widget.CheckableImageButton { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_about_us.xml:27
+-keep class android.support.design.widget.CollapsingToolbarLayout { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_wx_article.xml:2
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_usage.xml:2
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_search.xml:2
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_collect.xml:2
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/b624a463e1fc56e2dca5263d1258a0da/res/layout/design_bottom_sheet_dialog.xml:26
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_search_list.xml:2
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_main.xml:11
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_knowledge_hierarchy_detail.xml:2
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_about_us.xml:2
+-keep class android.support.design.widget.CoordinatorLayout { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_search.xml:98
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_collect.xml:24
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_search_list.xml:46
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_main.xml:31
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_knowledge_hierarchy_detail.xml:40
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_about_us.xml:68
+-keep class android.support.design.widget.FloatingActionButton { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_main.xml:52
+-keep class android.support.design.widget.NavigationView { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/b624a463e1fc56e2dca5263d1258a0da/res/layout/design_layout_snackbar.xml:18
+-keep class android.support.design.widget.Snackbar$SnackbarLayout { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_wx_article.xml:24
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_project.xml:42
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_knowledge_hierarchy_detail.xml:33
+-keep class android.support.v4.view.ViewPager { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_main.xml:2
+-keep class android.support.v4.widget.DrawerLayout { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_usage.xml:25
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_search.xml:25
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/content_about.xml:2
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_alert_dialog_material.xml:41
+-keep class android.support.v4.widget.NestedScrollView { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/loading_view.xml:8
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_alert_dialog_title_material.xml:56
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_alert_dialog_material.xml:52
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_alert_dialog_button_bar_material.xml:43
+-keep class android.support.v4.widget.Space { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_select_dialog_material.xml:23
+-keep class android.support.v7.app.AlertController$RecycleListView { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_action_menu_item_layout.xml:17
+-keep class android.support.v7.view.menu.ActionMenuItemView { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_expanded_menu_layout.xml:17
+-keep class android.support.v7.view.menu.ExpandedMenuView { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_popup_menu_item_layout.xml:17
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_list_menu_item_layout.xml:17
+-keep class android.support.v7.view.menu.ListMenuItemView { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_screen_toolbar.xml:27
+-keep class android.support.v7.widget.ActionBarContainer { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_screen_toolbar.xml:43
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_action_mode_bar.xml:19
+-keep class android.support.v7.widget.ActionBarContextView { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_screen_toolbar.xml:17
+-keep class android.support.v7.widget.ActionBarOverlayLayout { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_action_menu_layout.xml:17
+-keep class android.support.v7.widget.ActionMenuView { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_activity_chooser_view.xml:19
+-keep class android.support.v7.widget.ActivityChooserView$InnerLayout { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_alert_dialog_material.xml:18
+-keep class android.support.v7.widget.AlertDialogLayout { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_setting.xml:54
+-keep class android.support.v7.widget.AppCompatCheckBox { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_alert_dialog_button_bar_material.xml:26
+-keep class android.support.v7.widget.ButtonBarLayout { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/item_search_pager.xml:2
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/item_project_list.xml:2
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/item_knowledge_hierarchy.xml:2
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_setting.xml:18
+-keep class android.support.v7.widget.CardView { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_screen_content_include.xml:19
+-keep class android.support.v7.widget.ContentFrameLayout { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_alert_dialog_title_material.xml:45
+-keep class android.support.v7.widget.DialogTitle { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_screen_simple_overlay_action_mode.xml:23
+-keep class android.support.v7.widget.FitWindowsFrameLayout { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_screen_simple.xml:17
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_dialog_title_material.xml:22
+-keep class android.support.v7.widget.FitWindowsLinearLayout { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_wx_detail_article.xml:33
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_search.xml:89
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_project_list.xml:22
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_navigation.xml:36
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_main_pager.xml:18
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_knowledge_hierarchy_list.xml:17
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_knowledge_hierarchy.xml:12
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_collect.xml:18
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_search_list.xml:38
+-keep class android.support.v7.widget.RecyclerView { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_search_view.xml:75
+-keep class android.support.v7.widget.SearchView$SearchAutoComplete { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout-v26/abc_screen_toolbar.xml:37
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/search_toolbar.xml:1
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/common_toolbar_no_scroll.xml:2
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/common_toolbar.xml:2
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_login.xml:10
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_article_detail.xml:9
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_about_us.xml:35
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_screen_toolbar.xml:36
+-keep class android.support.v7.widget.Toolbar { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_screen_simple_overlay_action_mode.xml:32
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/d0ffbc3016c9822d39ee45085bca2c43/res/layout/abc_screen_simple.xml:25
+-keep class android.support.v7.widget.ViewStubCompat { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/loading_view.xml:14
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_splash.xml:11
+-keep class com.airbnb.lottie.LottieAnimationView { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_wx_article.xml:14
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_project.xml:16
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_knowledge_hierarchy_detail.xml:24
+-keep class com.flyco.tablayout.SlidingTabLayout { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/FlycoTabLayout_Lib-2.1.2.aar/2cbb8ed6fe6cc9bf8b6359095b6d761f/res/layout/layout_tab_top.xml:29
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/FlycoTabLayout_Lib-2.1.2.aar/2cbb8ed6fe6cc9bf8b6359095b6d761f/res/layout/layout_tab_segment.xml:24
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/FlycoTabLayout_Lib-2.1.2.aar/2cbb8ed6fe6cc9bf8b6359095b6d761f/res/layout/layout_tab_right.xml:30
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/FlycoTabLayout_Lib-2.1.2.aar/2cbb8ed6fe6cc9bf8b6359095b6d761f/res/layout/layout_tab_left.xml:29
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/FlycoTabLayout_Lib-2.1.2.aar/2cbb8ed6fe6cc9bf8b6359095b6d761f/res/layout/layout_tab_bottom.xml:30
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/FlycoTabLayout_Lib-2.1.2.aar/2cbb8ed6fe6cc9bf8b6359095b6d761f/res/layout/layout_tab.xml:17
+-keep class com.flyco.tablayout.widget.MsgView { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_search_list.xml:30
+-keep class com.scwang.smartrefresh.header.BezierCircleHeader { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_about_us.xml:58
+-keep class com.scwang.smartrefresh.header.FlyRefreshHeader { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_project_list.xml:18
+-keep class com.scwang.smartrefresh.header.FunGameBattleCityHeader { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_main_pager.xml:14
+-keep class com.scwang.smartrefresh.header.PhoenixHeader { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_collect.xml:14
+-keep class com.scwang.smartrefresh.header.StoreHouseHeader { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_main_pager.xml:25
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_knowledge_hierarchy.xml:20
+-keep class com.scwang.smartrefresh.header.TaurusHeader { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_about_us.xml:78
+-keep class com.scwang.smartrefresh.header.flyrefresh.FlyView { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_about_us.xml:9
+-keep class com.scwang.smartrefresh.header.flyrefresh.MountainSceneView { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_wx_detail_article.xml:24
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_project_list.xml:8
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_main_pager.xml:8
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_knowledge_hierarchy_list.xml:8
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_knowledge_hierarchy.xml:7
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_collect.xml:9
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_search_list.xml:23
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_about_us.xml:46
+-keep class com.scwang.smartrefresh.layout.SmartRefreshLayout { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_wx_detail_article.xml:29
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_knowledge_hierarchy_list.xml:13
+-keep class com.scwang.smartrefresh.layout.header.BezierRadarHeader { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/XUpdate-1.0.6.aar/0946a0f2c78e75822650182ffaffeec4/res/layout/xupdate_dialog_app.xml:90
+-keep class com.xuexiang.xupdate.widget.NumberProgressBar { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/head_banner.xml:6
+-keep class com.youth.banner.Banner { <init>(...); }
+
+# Referenced at /Users/quchao/.gradle/caches/transforms-1/files-1.1/banner-1.4.10.aar/ea7dbbd05dca8130b9c8c76e49985a78/res/layout/banner.xml:8
+-keep class com.youth.banner.view.BannerViewPager { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/item_navigation.xml:20
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_usage.xml:39
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_search.xml:47
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_navigation_list.xml:13
+-keep class com.zhy.view.flowlayout.TagFlowLayout { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_navigation.xml:17
+-keep class q.rorbin.verticaltablayout.VerticalTabLayout { <init>(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_test.xml:46
+-keepclassmembers class * { *** inverse(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_test.xml:10
+-keepclassmembers class * { *** jumpAboutActivity(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_test.xml:34
+-keepclassmembers class * { *** showDialog(...); }
+
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_test.xml:22
+-keepclassmembers class * { *** showToast(...); }
+
+
+# Copyright (C) 2015 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# CoordinatorLayout resolves the behaviors of its child components with reflection.
+-keep public class * extends android.support.design.widget.CoordinatorLayout$Behavior {
+    public <init>(android.content.Context, android.util.AttributeSet);
+    public <init>();
+}
+
+# Make sure we keep annotations for CoordinatorLayout's DefaultBehavior
+-keepattributes *Annotation*
+
+
+# Add project specific ProGuard rules here.
+# By default, the flags in this file are appended to flags specified
+# in /opt/android/sdk/tools/proguard/proguard-android.txt
+# You can edit the include path and order by changing the proguardFiles
+# directive in build.gradle.
+#
+# For more details, see
+#   http://developer.android.com/guide/developing/tools/proguard.html
+
+# Add any project specific keep options here:
+
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface
+# class:
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}
+
+-dontwarn com.franmontiel.persistentcookiejar.**
+-keep class com.franmontiel.persistentcookiejar.**
+
+-keepclassmembers class * implements java.io.Serializable {
+    static final long serialVersionUID;
+    private static final java.io.ObjectStreamField[] serialPersistentFields;
+    !static !transient <fields>;
+    private void writeObject(java.io.ObjectOutputStream);
+    private void readObject(java.io.ObjectInputStream);
+    java.lang.Object writeReplace();
+    java.lang.Object readResolve();
+}
+
+# Add project specific ProGuard rules here.
+# By default, the flags in this file are appended to flags specified
+# in /Users/jess/Library/Android/sdk/tools/proguard/proguard-android.txt
+# You can edit the include path and order by changing the proguardFiles
+# directive in build.gradle.
+#
+# For more details, see
+#   http://developer.android.com/guide/developing/tools/proguard.html
+
+# Add any project specific keep options here:
+
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface
+# class:
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}
+
+# Uncomment this to preserve the line number information for
+# debugging stack traces.
+#-keepattributes SourceFile,LineNumberTable
+
+# If you keep the line number information, uncomment this to
+# hide the original source file name.
+#-renamesourcefileattribute SourceFile
+
+ -keep class me.jessyan.retrofiturlmanager.** { *; }
+ -keep interface me.jessyan.retrofiturlmanager.** { *; }
+
+# Retain generated class which implement Unbinder.
+-keep public class * implements butterknife.Unbinder { public <init>(**, android.view.View); }
+
+# Prevent obfuscation of types which use ButterKnife annotations since the simple name
+# is used to reflectively look up the generated ViewBinding.
+-keep class butterknife.*
+-keepclasseswithmembernames class * { @butterknife.* <methods>; }
+-keepclasseswithmembernames class * { @butterknife.* <fields>; }
+
+# Add project specific ProGuard rules here.
+# By default, the flags in this file are appended to flags specified
+# in /Users/huasheng/Desktop/sdk/tools/proguard/proguard-android.txt
+# You can edit the include path and order by changing the proguardFiles
+# directive in build.gradle.
+#
+# For more details, see
+#   http://developer.android.com/guide/developing/tools/proguard.html
+
+# Add any project specific keep options here:
+
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface
+# class:
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}
+-keep class com.chad.library.adapter.** {
+*;
+}
+-keep public class * extends com.chad.library.adapter.base.BaseQuickAdapter
+-keep public class * extends com.chad.library.adapter.base.BaseViewHolder
+-keepclassmembers  class **$** extends com.chad.library.adapter.base.BaseViewHolder {
+     <init>(...);
+}
+-keepattributes InnerClasses
+-keep class com.facebook.stetho.** { *; }
+-dontwarn com.facebook.stetho.**
+
+# Copyright (C) 2016 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# keep setters in VectorDrawables so that animations can still work.
+-keepclassmembers class android.support.graphics.drawable.VectorDrawableCompat$* {
+   void set*(***);
+   *** get*();
+}
+
+# Copyright (C) 2015 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# When layoutManager xml attribute is used, RecyclerView inflates
+#LayoutManagers' constructors using reflection.
+-keep public class * extends android.support.v7.widget.RecyclerView$LayoutManager {
+    public <init>(...);
+}
+# Copyright (C) 2017 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Prevent Parcelable objects from being removed or renamed.
+-keep class android.support.v4.media.** implements android.os.Parcelable {
+    public static final android.os.Parcelable$Creator *;
+}
+# Copyright (C) 2016 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Make sure we keep annotations for ViewPager's DecorView
+-keepattributes *Annotation*
+
+# Fragmentation
+-keep class * extends android.support.v4.app.FragmentManager{ *; }
+-keepattributes *Annotation*
+
+-keepclassmembers enum android.arch.lifecycle.Lifecycle$Event {
+    <fields>;
+}
+
+-keep class * implements android.arch.lifecycle.LifecycleObserver {
+}
+
+-keep class * implements android.arch.lifecycle.GenericLifecycleObserver {
+    <init>(...);
+}
+
+-keepclassmembers class ** {
+    @android.arch.lifecycle.OnLifecycleEvent *;
+}
+-ignorewarnings
