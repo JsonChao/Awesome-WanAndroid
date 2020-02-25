@@ -3,9 +3,24 @@ apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'android-aspectjx'
 apply from: 'jacoco.gradle'
 apply plugin: 'me.ele.lancet'
-apply plugin: 'com.didichuxing.tools.droidassist'
-apply plugin: 'AndResGuard'
 
+// apply ByteX宿主
+apply plugin: 'bytex'
+ByteX {
+    enable true
+    enableInDebug false
+    logLevel "DEBUG"
+}
+
+// 按需apply bytex 插件
+apply plugin: 'bytex.access_inline'
+access_inline {
+    enable true
+    enableInDebug false
+    logLevel "DEBUG"
+}
+
+apply plugin: 'AndResGuard'
 andResGuard {
     // mappingFile = file("./resource_mapping.txt")
     mappingFile = null
@@ -55,6 +70,7 @@ andResGuard {
     // digestalg = "SHA-256"
 }
 
+apply plugin: 'com.didichuxing.tools.droidassist'
 droidAssistOptions {
     // 插件配置文件(必选配置,支持多配置文件)
     config file("droidassist.xml")
