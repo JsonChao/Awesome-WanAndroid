@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Awesome-WanAndroid.iml" filepath="$PROJECT_DIR$/Awesome-WanAndroid.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/Awesome-WanAndroid-app.iml" filepath="$PROJECT_DIR$/app/Awesome-WanAndroid-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/main-open-project-Awesome-WanAndroid.iml" filepath="$PROJECT_DIR$/main-open-project-Awesome-WanAndroid.iml" />
     </modules>
   </component>
 </project>

@@ -10,14 +10,14 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.3'
-        classpath 'com.jakewharton:butterknife-gradle-plugin:10.0.0'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:10.2.1'
         classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.4'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
         classpath 'me.tatarka:gradle-retrolambda:3.7.0'
         classpath 'me.ele:lancet-plugin:1.0.5'
         classpath "com.didichuxing.tools:droidassist:1.1.0"
         classpath "gradle.plugin.cn.cxzheng.methodTracePlugin:tracemanplugin:1.0.4"
-//        classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.17'
+        classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.17'
 
 
 

@@ -38,10 +38,11 @@ public class PerformanceAop {
         LogHelper.i(name + " cost " + (System.currentTimeMillis() - time));
     }
 
-    @After("execution(org.jay.launchstarter.Task.new(..)")
-    public void newObject(JoinPoint point) {
-        LogHelper.i(" new " + point.getTarget().getClass().getSimpleName());
-    }
+    // 注意：加入aspectj这个切面可能造成dex缺少
+//    @After("execution(org.jay.launchstarter.Task.new(..)")
+//    public void newObject(JoinPoint point) {
+//        LogHelper.i(" new " + point.getTarget().getClass().getSimpleName());
+//    }
 
 
 

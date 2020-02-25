@@ -24,7 +24,7 @@ public class AppBlockCanaryContext extends BlockCanaryContext {
 
         /**
         * 提供用户uid，以便在上报时能够将对应的
-        * 用户信息上报至服务器 
+        * 用户信息上报至服务器
         *
         * @return user id
         */
@@ -55,7 +55,7 @@ public class AppBlockCanaryContext extends BlockCanaryContext {
         }
 
         /**
-        * 指定判定为卡顿的阈值threshold (in millis),  
+        * 指定判定为卡顿的阈值threshold (in millis),
         * 你可以根据不同设备的性能去指定不同的阈值
         *
         * @return threshold in mills
@@ -69,7 +69,7 @@ public class AppBlockCanaryContext extends BlockCanaryContext {
         * 设置线程堆栈dump的间隔, 当阻塞发生的时候使用, BlockCanary 将会根据
         * 当前的循环周期在主线程去dump堆栈信息
         * <p>
-        * 由于依赖于Looper的实现机制, 真实的dump周期 
+        * 由于依赖于Looper的实现机制, 真实的dump周期
         * 将会比设定的dump间隔要长(尤其是当CPU很繁忙的时候).
         * </p>
         *
@@ -135,7 +135,7 @@ public class AppBlockCanaryContext extends BlockCanaryContext {
         }
 
         /**
-        * 使用 @{code concernPackages}方法指定过滤的堆栈信息 
+        * 使用 @{code concernPackages}方法指定过滤的堆栈信息
         *
         * @return true if filter, false it not.
         */

@@ -18,7 +18,7 @@ ext {
             glideVersion            : "4.0.0",
             daggerVersion           : "2.15",
             butterknifeVersion      : "8.8.1",
-            fragmentationVersion    : "1.1.9",
+            fragmentationVersion    : "1.2.4",
             leakcanaryVersion       : "1.6.3"
     ]
 
