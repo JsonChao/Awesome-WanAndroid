@@ -6,7 +6,6 @@
     //通用
     <string name="http_error">网络异常</string>
     <string name="unKnown_error">未知错误</string>
-    <string name="me">我的</string>
     <string name="knowledge_hierarchy">知识体系</string>
     <string name="wx_article">公众号</string>
     <string name="home_pager">首页</string>
@@ -25,15 +24,12 @@
     <string name="reload">重新加载</string>
 
     //登录
-    <string name="login_title">账号密码登录</string>
     <string name="login_account_tint">请输入用户名</string>
     <string name="login_password_tint">请输入密码</string>
-    <string name="login_confirm_password_tint">请输入确认密码</string>
     <string name="login_in">登录</string>
     <string name="register">注册</string>
     <string name="my_collect">收藏</string>
     <string name="about_us">关于我们</string>
-    <string name="auto_login_in">自动登录</string>
     <string name="logout">退出登录</string>
     <string name="login_tint">请先登录~~</string>
     <string name="login_success">登录成功n(*≧▽≦*)n</string>
@@ -48,9 +44,6 @@
     <string name="no_collect">大侠，赶快存点干货吧~</string>
 
     //主页
-    <string name="item_article_author">作者：<xliff:g id="author">%s</xliff:g></string>
-    <string name="item_article_classify">分类：<xliff:g id="classify">%s</xliff:g></string>
-    <string name="item_article_time">时间：<xliff:g id="time">%s</xliff:g></string>
     <string name="install">安装</string>
     <string name="logout_tint">退出登录?</string>
     <string name="failed_to_obtain_banner_data">获取广告数据失败</string>
@@ -63,7 +56,6 @@
     <string name="failed_to_obtain_wx_data">获取公众号数据列表失败</string>
 
     //导航
-    <string name="navigation_tint">%1$s 导航资源持续更新中</string>
     <string name="failed_to_obtain_navigation_list">获取导航数据列表失败</string>
 
     //项目

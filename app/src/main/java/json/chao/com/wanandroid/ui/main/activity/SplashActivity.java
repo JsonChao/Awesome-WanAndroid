@@ -4,11 +4,14 @@ import android.content.Intent;
 
 import com.airbnb.lottie.LottieAnimationView;
 
+import org.jay.launchstarter.DelayInitDispatcher;
+
 import butterknife.BindView;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.WanAndroidApp;
 import json.chao.com.wanandroid.base.activity.BaseActivity;
 import json.chao.com.wanandroid.contract.main.SplashContract;
+import json.chao.com.wanandroid.performance.handler.GlobalHandler;
 import json.chao.com.wanandroid.presenter.main.SplashPresenter;
 import json.chao.com.wanandroid.utils.StatusBarUtil;
 

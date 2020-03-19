@@ -21,26 +21,11 @@
         <item name="android:activityCloseEnterAnimation">@anim/push_right_in</item>
         <item name="android:activityCloseExitAnimation">@anim/push_right_out</item>
     </style>
-    
-    <style name="popup_window_animation">
-        <item name="android:windowEnterAnimation">@anim/popup_window_enter</item>
-        <item name="android:windowExitAnimation">@anim/popup_window_exit</item>
-    </style>
 
     <style name="AppTheme.Toolbar" parent="Widget.AppCompat.ActionBar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/dp_54</item>
         <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
-    </style>
-
-    <style name="dialog" parent="@android:style/Theme.Dialog">
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:windowIsTranslucent">false</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@color/transparent</item>
-        <item name="android:backgroundDimEnabled">true</item>
-        <item name="android:backgroundDimAmount">0.65</item>
     </style>
 
     <!-- 设置Toolbar标题字体的大小 -->
@@ -61,27 +46,7 @@
         <item name="android:background">@null</item>
     </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
-        <item name="tabMaxWidth">@dimen/dp_200</item>
-        <item name="tabIndicatorColor">@color/deep_red</item>
-        <item name="tabIndicatorHeight">@dimen/dp_1</item>
-        <item name="tabPaddingStart">@dimen/dp_12</item>
-        <item name="tabPaddingEnd">@dimen/dp_12</item>
-        <item name="tabBackground">?attr/selectableItemBackground</item>
-        <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
-        <item name="tabSelectedTextColor">@color/light_deep_red</item>
-        <item name="tabMode">scrollable</item>
-    </style>
-
-    <style name="MyCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">@dimen/sp_14</item>
-        <item name="android:textColor">@color/grey</item>
-        <item name="textAllCaps">true</item>
-    </style>
 
     <style name="DialogStyle" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>

@@ -5,7 +5,6 @@
     //Common
     <string name="http_error">network anomaly</string>
     <string name="unKnown_error">unKnown error</string>
-    <string name="me">Me</string>
     <string name="knowledge_hierarchy">Knowledge hierarchy</string>
     <string name="wx_article">WX article</string>
     <string name="home_pager">Home pager</string>
@@ -24,15 +23,12 @@
     <string name="reload">Reload</string>
 
     //Login
-    <string name="login_title">Login Password</string>
     <string name="login_account_tint">Please enter user name</string>
     <string name="login_password_tint">Please enter password</string>
-    <string name="login_confirm_password_tint">Please enter password confirmation</string>
     <string name="login_in">Login</string>
     <string name="register">Sign Up</string>
     <string name="my_collect">Collect</string>
     <string name="about_us">About Us</string>
-    <string name="auto_login_in">Auto Login</string>
     <string name="logout">Logout</string>
     <string name="login_tint">Please login~~</string>
     <string name="login_success">Login Success</string>
@@ -47,9 +43,6 @@
     <string name="no_collect">Great man, save some dry goods</string>
 
     //Main pager
-    <string name="item_article_author">author：<xliff:g id="author">%s</xliff:g></string>
-    <string name="item_article_classify">classify：<xliff:g id="classify">%s</xliff:g></string>
-    <string name="item_article_time">time：<xliff:g id="time">%s</xliff:g></string>
     <string name="install">install</string>
     <string name="logout_tint">Log out?</string>
     <string name="failed_to_obtain_banner_data">Failed to obtain advertising data</string>
@@ -62,7 +55,6 @@
     <string name="failed_to_obtain_wx_data">Failure to obtain WeChat data</string>
 
     //Navigation
-    <string name="navigation_tint">%1$s navigation resources continue to be updated</string>
     <string name="failed_to_obtain_navigation_list">Failed to get the navigation data list</string>
 
     //Project

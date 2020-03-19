@@ -7,19 +7,12 @@
     <color name="colorCard">#202124</color>
     <color name="colorText">#6B6D72</color>
 
-    <color name="fab_bg">#6b6d72</color>
     <color name="drawer_item_bg_p">#6b6d72</color>
     <color name="drawer_item_bg_n">#3e3d3d</color>
-    <color name="news_unread">#999999</color>
-    <color name="news_read">#6b6d72</color>
 
     <color name="comment_text">#dfd8d8</color>
     <color name="setting_text">#ffffff</color>
-    <color name="comment_reply">#606266</color>
-    <color name="comment_btn">#606266</color>
     <color name="comment_line">#202124</color>
-    <color name="comment_at">#3289b3</color>
-    <color name="gold_title">#6B6D72</color>
     <color name="colorPrimaryOverlay">#ffffff</color>
     <color name="delete_text">#62646b</color>
     <color name="deep_grey">#37383b</color>

@@ -82,7 +82,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        LogHelper.d("start");
         CommonAlertDialog.newInstance().cancelDialog(true);
+        LogHelper.d("end");
     }
 
     @Override
@@ -104,14 +106,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void initEventAndData() {
         // 以下代码是为了演示Msg导致的主线程卡顿
-        new Handler().post(() -> {
-            LogHelper.i("Msg 执行");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
+//        new Handler().post(() -> {
+//            LogHelper.i("Msg 执行");
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        });
     }
 
     @Override

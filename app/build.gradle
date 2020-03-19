@@ -4,6 +4,17 @@ apply plugin: 'android-aspectjx'
 apply from: 'jacoco.gradle'
 apply plugin: 'me.ele.lancet'
 
+
+apply plugin: 'tinyPIC'
+
+tinyinfo {
+    apiKey = '9bVTdxCvwhbGhsCNWK6bYw0lbwSd0b3C'
+    //是否跳过此task
+    skip = false
+    //是否打印日志
+    isShowLog = true
+}
+
 // apply ByteX宿主
 apply plugin: 'bytex'
 ByteX {
@@ -13,6 +24,7 @@ ByteX {
 }
 
 // 按需apply bytex 插件
+// 内联access$方法，减少apk方法数和包大小。
 apply plugin: 'bytex.access_inline'
 access_inline {
     enable true
@@ -20,6 +32,216 @@ access_inline {
     logLevel "DEBUG"
 }
 
+// R文件常量内联，R文件瘦身；
+// 无用Resource资源检查；
+// 无用assets检查。
+apply plugin: 'bytex.shrink_r_class'
+shrinkR {
+    enable true
+    enableInDebug false
+    logLevel "DEBUG"
+    keepList = [
+            // keep android.support.constraint.R里所有id
+            "android.support.constraint.R.id",
+            // keep 所有以im_e为前缀的drawable字段
+            "R.drawable.im_e+",
+    ]
+    resCheck {
+        enable true // 无用资源检查的开关
+        // 根据资源所在的路径做模糊匹配（因为第三方库用到的冗余资源没法手动删）
+        onlyCheck = [
+                // 只检查主工程里的资源
+                "app/build"
+        ]
+        // 检查白名单。这些资源就算是冗余资源也不会report出来
+        keepRes = [
+                "R.drawable.ic_list_dou_order",
+                "R.string.snapchat_tiktok_client_id",
+                "R.string.snapchat_musically_client_id",
+                "R.string.fb_account_kit_client_token",
+                "R.string.mapbox_*",
+                "R.string.kakao*",
+                "R.dimen",
+                "R.color",
+                "R.animator",
+                "R.integer",
+                "R.bool",
+                "R.style",
+                "R.styleable",
+                "R.attr",
+                "R.xml",
+                "R.array",
+                "R.string"
+        ]
+    }
+
+    assetsCheck {
+        enable true // 冗余assets资源检查开关
+        keepBySuffix = [
+                ".model",
+                ".otf",
+                ".ttf"
+        ]
+        keepAssets = [
+                "start_anim/",
+                "Contour_2D/",
+        ]
+    }
+}
+
+// 编译期间内联并优化掉项目中的编译期间常量字段
+apply plugin: 'bytex.const_inline'
+const_inline {
+    enable true
+    enableInDebug true
+    logLevel "INFO"
+    autoFilterReflectionField = true  //使用插件内置的反射检查过滤掉可能的反射常量，建议为true
+    //supposesReflectionWithString = false //使用插件内置字符串匹配可能反射常量，建议为false
+    skipWithRuntimeAnnotation true //过滤掉带有运行时注解的常量，推荐true
+    skipWithAnnotations = [
+            //过滤掉被注解注释过的常量，包含class
+            "android/support/annotation/Keep",
+    ]
+    whiteList = [
+            //跳过优化的名单
+            "com/meizu/cloud/*",
+    ]
+}
+
+// 编译期间去除代码中不必要或者重复的赋值(默认值)代码
+apply plugin: 'bytex.field_assign_opt'
+field_assign_opt {
+    enable true
+    enableInDebug false
+    logLevel "INFO"
+    removeLineNumber true // 同时移除赋值对应的行号信息(如果有的话),默认true。
+    whiteList = [
+            //白名单，ClassName.FieldName 。不支持模式匹配
+            //"android.support.constraint.solver.ArrayRow.isSimpleDefinition"
+    ]
+}
+
+// 内联Getter和Setter方法，减少apk方法数和包大小。
+// 该插件在打包时会自动收集所有的Proguard文件，解析
+// 所有-keep的配置项，用于排除某些class和method的内联。
+//apply plugin: 'bytex.getter_setter_inline'
+//getter_setter_inline {
+//    enable true
+//    enableInDebug true
+//    logLevel "DEBUG"
+//    // 跳过Proguard的Keep规则，强制内联这些包名下的类的getter/setter方法
+//    shouldInline = [
+//            "com/ss/android/ugc/bytex/example/getter_setter/"
+//    ]
+//    // 除了可以通过Proguard的keep规则来避免一些方法被内联外，还可以自定义一些注解，标注到这些方法上
+//    keepWithAnnotations = [
+//            "com/ss/android/ugc/bytex/example/CalledByNative"
+//    ]
+//}
+
+// 根据配置，编译期间优化掉项目所有调用了配置中配置的方法调用(包含参数形成指令)
+apply plugin: 'bytex.method_call_opt'
+method_call_opt {
+    enable true //建议开发模式关闭
+    enableInDebug false
+    logLevel "DEBUG"
+    //是否在log中显示删除方法调用指令后的方法指令，一般调试时使用
+    showAfterOptInsLog false
+    //需要删除的方法配置
+    methodList = [
+            //下面的每一项配置必须严格按照数据配置，一个地方不对这一项不生效。
+            //class#method#desc
+            "android/util/Log#v#(Ljava/lang/String;Ljava/lang/String;)I",
+            "android/util/Log#v#(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I",
+            "android/util/Log#d#(Ljava/lang/String;Ljava/lang/String;)I",
+            "android/util/Log#d#(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I",
+            "android/util/Log#i#(Ljava/lang/String;Ljava/lang/String;)I",
+            "android/util/Log#i#(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I",
+            "android/util/Log#w#(Ljava/lang/String;Ljava/lang/String;)I",
+            "android/util/Log#w#(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I",
+            "android/util/Log#e#(Ljava/lang/String;Ljava/lang/String;)I",
+            "android/util/Log#e#(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I",
+            "android/util/Log#println#(ILjava/lang/String;Ljava/lang/String;)I",
+
+            "java/lang/Throwable#printStackTrace#()V",
+            "com/google/devtools/build/android/desugar/runtime/ThrowableExtension#printStackTrace#(Ljava/lang/Throwable;)V",
+
+            //还有自己项目中封装的Logger方法
+            "jsonchao/com/wanandroid/utils/LogHelper#v#(Ljava/lang/String;Ljava/lang/String;)V",
+            "jsonchao/com/wanandroid/utils/LogHelper#d#(Ljava/lang/String;Ljava/lang/String;)V",
+            "jsonchao/com/wanandroid/utils/LogHelper#i#(Ljava/lang/String;Ljava/lang/String;)V",
+            "jsonchao/com/wanandroid/utils/LogHelper#w#(Ljava/lang/String;Ljava/lang/String;)V",
+            "jsonchao/com/wanandroid/utils/LogHelper#e#(Ljava/lang/String;Ljava/lang/String;)V",
+    ]
+    onlyCheckList = [
+            //"com/ss/*",
+            //"com/bytedance/*"
+    ]
+
+    whiteList = [
+            "com/facebook/stetho*",
+    ]
+}
+
+// 编译期间检查项目中closeable对象(比如FileInputStream等
+// 实现了Closeable接口的类)可能存在的未关闭(未调用close方法)的代码
+// 经过抖音项目的测试，准确率能有40%左右，剩下的工作需要开发自己判断
+// 是否需改。如果是误报，可以在上面的配置whiteList添加白名单.
+apply plugin: 'bytex.closeable_checker'
+closeable_checker {
+    enable true//整体开关
+    enableInDebug true//debug模式开关
+    ignoreWhenMethodParam = true//  是否对传递closeable对象的函数调用认作close处理，开启此开关将会漏检一些未关闭的情况。此开关建议视情况而定。
+    ignoreAsReturn = true//closeable作为返回值时忽略未关闭的状态。强烈建议开
+    ignoreField = true//closeable作为成员变量时忽略未关闭的状态。建议开启
+    ignoreMethodThrowException = true//如果方法可能会抛出异常，则可能会认定未关闭。建议开启
+    strictMode = true//严格模式检查。对于只是在正常代码执行情况下关闭的操作是否认定为正确关闭。建议开启。
+    logLevel "DEBUG"
+    onlyCheckList=[
+            //只检查的包名，如果为空则检查项目中的所有class，如果有指定则只检查指定包下面的class
+            "com/ss/*"
+    ]
+    whiteList = [
+            //滤过检查的类 格式为 类名#方法名#方法签名  支持模式匹配
+            "android*",
+            "kotlin*",
+            "java*"
+    ]
+    closeableList = [
+            //就要检查的类，包含其子类,不支持模式匹配
+            "java/io/InputStream",
+            "java/io/OutputStream",
+            "java/io/PrintStream",
+            "java/io/Writer",
+            "java/io/Reader",
+            "java/io/RandomAccessFile",
+            "java/nio/file/FileSystem",
+            "android/database/Cursor",
+            "java/util/zip/ZipFile",
+            "android/database/sqlite/SQLiteClosable",
+            "okhttp3/Response",
+            "android/media/MediaDataSource",
+            "java/net/MediaDataSource",
+            "android/net/LocalSocket",
+            "okio/Sink",
+            "okio/Source",
+            "okio/UnsafeCursor",
+            "java/nio/channels/Selector",
+            "android/arch/persistence/db/SupportSQLiteProgram"
+    ]
+    excludeCloseableList = [
+            //排除需要检查的类，和closeableList相似，此处不包含子类
+            //该列表中的类虽然也是closeable的子类，但这些类都是内存级别的操作，不存在
+            //资源泄露的可能，可以忽略关闭.
+            "java/io/StringReader",
+            "java/io/StringWriter",
+            "java/io/ByteArrayOutputStream",
+            "java/io/ByteArrayInputStream",
+    ]
+}
+
+
+// 资源混淆、资源极限压缩
 apply plugin: 'AndResGuard'
 andResGuard {
     // mappingFile = file("./resource_mapping.txt")
@@ -105,9 +327,9 @@ android {
         renderscriptSupportModeEnabled true    // Enable RS support
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
-//        ndk {
-//            abiFilters "armeabi-v7a" //选择要使用的平台
-//        }
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a" //选择要使用的平台
+        }
         resConfigs "zh", "zh-rCN"
     }
 
@@ -140,168 +362,277 @@ android {
         }
     }
 
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_8
-            targetCompatibility JavaVersion.VERSION_1_8
-        }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
-        flavorDimensions "code"
-        productFlavors {
+    flavorDimensions "code"
+    productFlavors {
+        speed {
+            minSdkVersion 21
         }
+    }
 
-        packagingOptions {
-            exclude 'META-INF/services/javax.annotation.processing.Processor'
-        }
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
 
-        dexOptions {
-            jumboMode true
-            javaMaxHeapSize "4g"
-        }
+    dexOptions {
+        jumboMode true
+        javaMaxHeapSize "4g"
+    }
+
+    aaptOptions {
+        // 在Android的构建流程中，AAPT会使用内置的
+        // 压缩算法来优化res/drawable/目录下的PNG图片，
+        // 但这可能会导致本来已经优化过的图片体积变大，
+        // 因此需要禁止AAPT来优化PNG图片
+        cruncherEnabled = false
+    }
 }
 
-    greendao {
-        schemaVersion 1
-        targetGenDir 'src/main/java'
-        daoPackage 'json.chao.com.wanandroid.core.dao'
-    }
+greendao {
+    schemaVersion 1
+    targetGenDir 'src/main/java'
+    daoPackage 'json.chao.com.wanandroid.core.dao'
+}
+
+def implementationDependencies = rootProject.ext.dependencies
+def processors = rootProject.ext.annotationProcessor
+def apiFileDependencies = rootProject.ext.apiFileDependencies
+
+def debugImplementationDependencies = rootProject.ext.debugImplementationDependencies
+def releaseImplementationDependencies = rootProject.ext.releaseImplementationDependencies
+def androidTestImplementationDependencies = rootProject.ext.androidTestImplementationDependencies
+def testImplementationDependencies = rootProject.ext.testImplementationDependencies
+
+def debugApiDependencies = rootProject.ext.debugApiDependencies
+def releaseApiDependencies = rootProject.ext.releaseApiDependencies
+def compileOnlyDependencies = rootProject.ext.compileOnlyDependencies
+
+def implementationExcludes = rootProject.ext.implementationExcludes
+def debugImplementationExcludes = rootProject.ext.debugImplementationExcludes
+def releaseImplementationExcludes = rootProject.ext.releaseImplementationExcludes
+def testImplementationExclude = rootProject.ext.testImplementationExcludes
+def androidTestImplementationExcludes = rootProject.ext.androidTestImplementationExcludes
+
+
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    //base
-    implementation rootProject.ext.dependencies["appcompat-v7"]
-    implementation rootProject.ext.dependencies["cardview-v7"]
-    implementation rootProject.ext.dependencies["design"]
-    implementation rootProject.ext.dependencies["constraint-layout"]
-
-    //ui
-    implementation rootProject.ext.dependencies["SmartRefreshLayout"]
-    implementation rootProject.ext.dependencies["SmartRefreshHeader"]
-    implementation rootProject.ext.dependencies["banner"]
-    implementation rootProject.ext.dependencies["FlycoTabLayout_Lib"]
-    implementation rootProject.ext.dependencies["VerticalTabLayout"]
-    implementation rootProject.ext.dependencies["flowlayout-lib"]
-    implementation rootProject.ext.dependencies["agentweb"]
-
-    //net
-    implementation rootProject.ext.dependencies["gson"]
-    implementation rootProject.ext.dependencies["okhttp"]
-    implementation rootProject.ext.dependencies["logging-interceptor"]
-    implementation rootProject.ext.dependencies["retrofit"]
-    implementation rootProject.ext.dependencies["converter-gson"]
-    implementation rootProject.ext.dependencies["adapter-rxjava2"]
-    implementation rootProject.ext.dependencies["glide"]
-    annotationProcessor rootProject.ext.dependencies["glide_compiler"]
-    implementation rootProject.ext.dependencies["retrofit-url-manager"]
-
-    //dao
-    implementation rootProject.ext.dependencies["greendao"]
-
-    //rx
-    implementation rootProject.ext.dependencies["rxjava"]
-    implementation rootProject.ext.dependencies["rxandroid"]
-    implementation rootProject.ext.dependencies["rxbinding"]
-    implementation rootProject.ext.dependencies["rxpermissions"]
-
-    //di
-    implementation rootProject.ext.dependencies["dagger"]
-    annotationProcessor rootProject.ext.dependencies["dagger-compiler"]
-    implementation rootProject.ext.dependencies["dagger-android"]
-    implementation rootProject.ext.dependencies["dagger-android-support"]
-    annotationProcessor rootProject.ext.dependencies["dagger-android-processor"]
-    implementation rootProject.ext.dependencies["javax_annotation"]
-    implementation rootProject.ext.dependencies["butterknife"]
-    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
-
-    //multidex
-    implementation rootProject.ext.dependencies["multidex"]
-
-    //canary
-    debugImplementation (rootProject.ext.dependencies["leakcanary-android"]) {
-        exclude group: 'com.android.support'
-    }
-    releaseImplementation (rootProject.ext.dependencies["leakcanary-android-no-op"]) {
-        exclude group: 'com.android.support'
-
-    }
-    testImplementation (rootProject.ext.dependencies["leakcanary-android-no-op"]) {
-        exclude group: 'com.android.support'
-    }
-
-    //other
-    implementation rootProject.ext.dependencies["lottie"]
-    implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
-    implementation rootProject.ext.dependencies["fragmentation"]
-    implementation rootProject.ext.dependencies["fragmentation-swipeback"]
-    implementation rootProject.ext.dependencies["crashreport_upgrade"]
-    implementation rootProject.ext.dependencies["logger"]
-    implementation rootProject.ext.dependencies["ByeBurger"]
-    implementation rootProject.ext.dependencies["stetho"]
-    implementation rootProject.ext.dependencies["stetho-okhttp3"]
-    implementation rootProject.ext.dependencies["PersistentCookieJar"]
-    implementation rootProject.ext.dependencies["XUpdate"]
-
-    //UI测试
-    androidTestImplementation(rootProject.ext.dependencies["espresso-core"]) {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
-    implementation(rootProject.ext.dependencies["espresso-idling-resource"]) {
-        exclude module: 'support-annotations'
-    }
-    androidTestImplementation rootProject.ext.dependencies["espresso-contrib"]
-    androidTestImplementation rootProject.ext.dependencies["espresso-intents"]
-    androidTestImplementation rootProject.ext.dependencies["espresso-accessibility"]
-    androidTestImplementation rootProject.ext.dependencies["espresso-web"]
-    androidTestImplementation rootProject.ext.dependencies["idling-concurrent"]
-
-    //unit test
-    testImplementation rootProject.ext.dependencies["junit"]
-    testImplementation rootProject.ext.dependencies["mockito"]
-    testImplementation rootProject.ext.dependencies["powermock-module-junit4"]
-    testImplementation rootProject.ext.dependencies["powermock-module-junit4-rule"]
-    testImplementation rootProject.ext.dependencies["powermock-api-mockito2"]
-
-    //注意这里是mockito2
-    testImplementation rootProject.ext.dependencies["powermock-classloading-xstream"]
-    testImplementation rootProject.ext.dependencies["robolectric"]
-    testImplementation rootProject.ext.dependencies["shadows-support-v4"]
-    testImplementation rootProject.ext.dependencies["shadows-multidex"]
-
-    //支持Multidex功能
-    androidTestImplementation rootProject.ext.dependencies["runner"]
-
-    // 性能优化使用到的库
-    implementation 'me.weishu:epic:0.6.0'
-
-    implementation 'org.aspectj:aspectjrt:1.8.14'
-
-    annotationProcessor 'com.zhangyue.we:x2c-apt:1.1.2'
-    implementation 'com.zhangyue.we:x2c-lib:1.0.6'
-
-    testImplementation 'org.ow2.asm:asm:7.1'
-    testImplementation 'org.ow2.asm:asm-commons:7.1'
-
-    // release：项目中实现了线上监控体系的时候去使用
-//    api 'com.github.markzhai:blockcanary-android:1.5.0'
-
-    // 仅在debug包启用BlockCanary进行卡顿监控和提示的话，可以这么用
-    debugApi 'com.github.markzhai:blockcanary-android:1.5.0'
-    releaseApi 'com.github.markzhai:blockcanary-no-op:1.5.0'
-
-    implementation 'com.github.anrwatchdog:anrwatchdog:1.4.0'
-
-    compileOnly 'me.ele:lancet-base:1.0.5'
-
-    // debug模式耗时方法排查工具，支持线上预览
-    debugImplementation 'com.github.zhengcx:MethodTraceMan:1.0.7'
-    releaseImplementation 'com.github.zhengcx:MethodTraceMan:1.0.5-noop'
-
-    implementation 'com.facebook.soloader:soloader:0.8.0'
-
     // 启动器
-    api files('libs/launchstarter-release-1.0.0.aar')
+//    api files('libs/launchstarter-release-1.0.0.aar')
+
+    // 处理所有的 aar 依赖
+    apiFileDependencies.each { k, v -> api files(v)}
+
+    // 处理所有的 xxximplementation 依赖
+    implementationDependencies.each { k, v -> implementation v }
+    debugImplementationDependencies.each { k, v -> debugImplementation v }
+    releaseImplementationDependencies.each { k, v -> releaseImplementation v }
+    androidTestImplementationDependencies.each { k, v -> androidTestImplementation v }
+    testImplementationDependencies.each { k, v -> testImplementation v }
+    debugApiDependencies.each { k, v -> debugApi v }
+    releaseApiDependencies.each { k, v -> releaseApi v }
+    compileOnlyDependencies.each { k, v -> compileOnly v }
+
+    // 处理 annotationProcessor 依赖
+    processors.each { k, v -> annotationProcessor v }
+
+    // 处理所有包含 exclude 的依赖
+    implementationExcludes.each { entry ->
+        implementation(entry.key) {
+            entry.value.each { childEntry ->
+                exclude(group: childEntry)
+            }
+        }
+    }
+    debugImplementationExcludes.each { entry ->
+        debugImplementation(entry.key) {
+            entry.value.each { childEntry ->
+                exclude(group: childEntry.key, module: childEntry.value)
+            }
+        }
+    }
+    releaseImplementationExcludes.each { entry ->
+        releaseImplementation(entry.key) {
+            entry.value.each { childEntry ->
+                exclude(group: childEntry.key, module: childEntry.value)
+            }
+        }
+    }
+    testImplementationExclude.each { entry ->
+        testImplementation(entry.key) {
+            entry.value.each { childEntry ->
+                exclude(group: childEntry.key, module: childEntry.value)
+            }
+        }
+    }
+    androidTestImplementationExcludes.each { entry ->
+        androidTestImplementation(entry.key) {
+            entry.value.each { childEntry ->
+                exclude(group: childEntry.key, module: childEntry.value)
+            }
+        }
+    }
 
 
+//    //base
+//    implementation rootProject.ext.dependencies["appcompat-v7"]
+//    implementation rootProject.ext.dependencies["cardview-v7"]
+//    implementation rootProject.ext.dependencies["design"]
+//    implementation rootProject.ext.dependencies["constraint-layout"]
+//
+//    //ui
+//    implementation([
+//            rootProject.ext.dependencies["SmartRefreshLayout"],
+//            rootProject.ext.dependencies["SmartRefreshHeader"]
+//    ])
+//    implementation rootProject.ext.dependencies["banner"]
+//    implementation rootProject.ext.dependencies["FlycoTabLayout_Lib"]
+//    implementation rootProject.ext.dependencies["VerticalTabLayout"]
+//    implementation rootProject.ext.dependencies["flowlayout-lib"]
+//    implementation rootProject.ext.dependencies["agentweb"]
+//
+//    //net
+//    implementation rootProject.ext.dependencies["gson"]
+//    implementation([
+//            rootProject.ext.dependencies["okhttp"],
+//            rootProject.ext.dependencies["logging-interceptor"]
+//    ])
+//    implementation([
+//            rootProject.ext.dependencies["retrofit"],
+//            rootProject.ext.dependencies["converter-gson"],
+//            rootProject.ext.dependencies["adapter-rxjava2"],
+//            rootProject.ext.dependencies["retrofit-url-manager"]
+//    ])
+//    implementation rootProject.ext.dependencies["glide"]
+//    annotationProcessor rootProject.ext.dependencies["glide_compiler"]
+//
+//    //dao
+//    implementation rootProject.ext.dependencies["greendao"]
+//
+//    //rx
+//    implementation([
+//            rootProject.ext.dependencies["rxjava"],
+//            rootProject.ext.dependencies["rxandroid"],
+//            rootProject.ext.dependencies["rxbinding"],
+//            rootProject.ext.dependencies["rxpermissions"]
+//    ])
+//
+//    //di
+//    implementation([
+//            rootProject.ext.dependencies["dagger"],
+//            rootProject.ext.dependencies["dagger-android"],
+//            rootProject.ext.dependencies["dagger-android-support"]
+//    ])
+//    annotationProcessor rootProject.ext.dependencies["dagger-compiler"]
+//    annotationProcessor rootProject.ext.dependencies["dagger-android-processor"]
+//
+//    implementation([
+//            rootProject.ext.dependencies["javax_annotation"],
+//            rootProject.ext.dependencies["butterknife"]
+//    ])
+//    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+//
+//    //multidex
+//    implementation rootProject.ext.dependencies["multidex"]
+//
+//    //canary
+//    debugImplementation (rootProject.ext.dependencies["leakcanary-android"]) {
+//        exclude group: 'com.android.support'
+//    }
+//    releaseImplementation (rootProject.ext.dependencies["leakcanary-android-no-op"]) {
+//        exclude group: 'com.android.support'
+//    }
+//    testImplementation (rootProject.ext.dependencies["leakcanary-android-no-op"]) {
+//        exclude group: 'com.android.support'
+//    }
+//
+//    //other
+//    implementation rootProject.ext.dependencies["lottie"]
+//    implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
+//
+//    implementation([
+//            rootProject.ext.dependencies["fragmentation"],
+//            rootProject.ext.dependencies["fragmentation-swipeback"]
+//    ])
+//
+//    implementation rootProject.ext.dependencies["crashreport_upgrade"]
+//    implementation rootProject.ext.dependencies["logger"]
+//    implementation rootProject.ext.dependencies["ByeBurger"]
+//    implementation([
+//            rootProject.ext.dependencies["stetho"],
+//            rootProject.ext.dependencies["stetho-okhttp3"]
+//    ])
+//    implementation rootProject.ext.dependencies["PersistentCookieJar"]
+//    implementation rootProject.ext.dependencies["XUpdate"]
+//
+//    //UI测试
+//    androidTestImplementation(rootProject.ext.dependencies["espresso-core"]) {
+//        exclude group: 'com.android.support', module: 'support-annotations'
+//    }
+//    implementation(rootProject.ext.dependencies["espresso-idling-resource"]) {
+//        exclude module: 'support-annotations'
+//    }
+//    androidTestImplementation([
+//            rootProject.ext.dependencies["espresso-contrib"],
+//            rootProject.ext.dependencies["espresso-intents"],
+//            rootProject.ext.dependencies["espresso-accessibility"],
+//            rootProject.ext.dependencies["espresso-web"],
+//            rootProject.ext.dependencies["idling-concurrent"]
+//    ])
+//
+//    //unit test
+//    testImplementation rootProject.ext.dependencies["junit"]
+//    testImplementation rootProject.ext.dependencies["mockito"]
+//    testImplementation([
+//            rootProject.ext.dependencies["powermock-module-junit4"],
+//            rootProject.ext.dependencies["powermock-module-junit4-rule"],
+//            rootProject.ext.dependencies["powermock-api-mockito2"]
+//    ])
+//
+//    //注意这里是mockito2
+//    testImplementation rootProject.ext.dependencies["powermock-classloading-xstream"]
+//    testImplementation rootProject.ext.dependencies["robolectric"]
+//    testImplementation rootProject.ext.dependencies["shadows-support-v4"]
+//    testImplementation rootProject.ext.dependencies["shadows-multidex"]
+//
+//    //支持Multidex功能
+//    androidTestImplementation rootProject.ext.dependencies["runner"]
+//
+//    // 性能优化使用到的库
+//    implementation 'me.weishu:epic:0.6.0'
+//
+//    implementation 'org.aspectj:aspectjrt:1.8.14'
+//
+//    annotationProcessor 'com.zhangyue.we:x2c-apt:1.1.2'
+//    implementation 'com.zhangyue.we:x2c-lib:1.0.6'
+//
+//    testImplementation 'org.ow2.asm:asm:7.1'
+//    testImplementation 'org.ow2.asm:asm-commons:7.1'
+//
+//    // release：项目中实现了线上监控体系的时候去使用
+////    api 'com.github.markzhai:blockcanary-android:1.5.0'
+//
+//    // 仅在debug包启用BlockCanary进行卡顿监控和提示的话，可以这么用
+//    debugApi 'com.github.markzhai:blockcanary-android:1.5.0'
+//    releaseApi 'com.github.markzhai:blockcanary-no-op:1.5.0'
+//
+//    implementation 'com.github.anrwatchdog:anrwatchdog:1.4.0'
+//
+//    compileOnly 'me.ele:lancet-base:1.0.5'
+//
+//    // debug模式耗时方法排查工具，支持线上预览
+//    debugImplementation 'com.github.zhengcx:MethodTraceMan:1.0.7'
+//    releaseImplementation 'com.github.zhengcx:MethodTraceMan:1.0.5-noop'
+//
+//    implementation 'com.facebook.soloader:soloader:0.8.0'
+//
+//    // debug调试桥，输入chrome://inspect => 点击inpsect
+//    implementation 'com.facebook.stetho:stetho:1.5.1'
 
 }
 

@@ -1,5 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 apply from: "config.gradle"
+
 buildscript {
     ext.plugin_version="0.1.1"
     repositories {
@@ -8,9 +9,12 @@ buildscript {
         mavenCentral()
         maven { url 'https://maven.google.com' }
         maven { url "https://plugins.gradle.org/m2/" }
+        maven {
+            url uri('../PAGradlePlugin/repo')
+        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath 'com.android.tools.build:gradle:3.1.4'
         classpath 'com.jakewharton:butterknife-gradle-plugin:10.2.1'
         classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.4'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
@@ -18,11 +22,28 @@ buildscript {
         classpath 'me.ele:lancet-plugin:1.0.5'
         classpath "com.didichuxing.tools:droidassist:1.1.0"
         classpath "gradle.plugin.cn.cxzheng.methodTracePlugin:tracemanplugin:1.0.4"
+
+        classpath 'com.mogujie.gradle:tinyPicPlugin:1.1.4'
+
         classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.17'
 
         classpath "com.bytedance.android.byteX:base-plugin:${plugin_version}"
         // Add bytex plugins' dependencies on demand. 按需添加插件依赖
         classpath "com.bytedance.android.byteX:access-inline-plugin:${plugin_version}"
+        classpath "com.bytedance.android.byteX:shrink-r-plugin:${plugin_version}"
+        classpath "com.bytedance.android.byteX:const-inline-plugin:${plugin_version}"
+        classpath "com.bytedance.android.byteX:field-assign-opt-plugin:${plugin_version}"
+        classpath "com.bytedance.android.byteX:getter-setter-inline-plugin:${plugin_version}"
+        classpath "com.bytedance.android.byteX:method-call-opt-plugin:${plugin_version}"
+
+
+
+
+
+        classpath "com.bytedance.android.byteX:closeable-check-plugin:${plugin_version}"
+
+
+
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

@@ -18,7 +18,6 @@
         <h2>源码位置</h2>
         <p>\t\t本软件开源，如果你发现任何错误，不要犹豫，马上点击<a href="https://github.com/JsonChao/Awesome-WanAndroid" target="_blank">GitHub</a>，在上面发起<b>issue</b>或者提交<b>pull request</b>。</p>
     ]]></string>
-    <string name="web_tint">网页由 www.wanandroid.com 提供\n开源不易，欢迎各路大神Star</string>
     <string name="open_project">开源项目</string>
     <string name="minute">分钟</string>
     <string name="hour">小时</string>

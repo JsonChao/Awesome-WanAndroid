@@ -121,7 +121,11 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
             return;
         }
 
+
+
         refWatcher = LeakCanary.install(this);
+
+        Stetho.initializeWithDefaults(this);
 
         initGreenDao();
 

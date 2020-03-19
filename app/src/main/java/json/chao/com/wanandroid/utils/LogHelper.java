@@ -27,7 +27,7 @@ public class LogHelper {
         StackTraceElement traceElement = ((new Exception()).getStackTrace())[1];
         String toStringBuffer = "[" + traceElement.getFileName() + " | " +
                 traceElement.getLineNumber() + " | " + traceElement.getMethodName() + "] " + msg;
-        Logger.t("LOG").i(toStringBuffer);
+        Logger.t("OG").i(toStringBuffer);
     }
 
     public synchronized static void i(String msg) {
