@@ -2,7 +2,29 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'android-aspectjx'
 apply from: 'jacoco.gradle'
+//apply from: this.project.file("releaseinfo.gradle")
 apply plugin: 'me.ele.lancet'
+
+apply plugin: 'McImage'
+
+McImageConfig {
+    isCheckSize true // 是否检测图片大小，默认为true
+    optimizeType "Compress" // 优化类型，可选"ConvertWebp"，"Compress"，转换为webp或原图压缩，默认Compress，使用ConvertWep需要min sdk >= 18.但是压缩效果更好
+    maxSize 1*1024*1024 // 大图片阈值，default 1MB
+    enableWhenDebug false // debug下是否可用，default true
+    isCheckPixels true // 是否检测大像素图片，default true
+    maxWidth 1000 // default 1000 如果开启图片宽高检查，默认的最大宽度
+    maxHeight 1000 // default 1000 如果开启图片宽高检查，默认的最大高度
+    whiteList = [ // 默认为空，如果添加，对图片不进行任何处理
+                  "icon_launcher.png",
+    ]
+    mctoolsDir "$rootDir"
+    isSupportAlphaWebp false  // 是否支持带有透明度的webp，default false,带有透明图的图片会进行压缩
+    multiThread true  // 是否开启多线程处理图片，default true
+    bigImageWhiteList = [
+            "icon_wan_android.png"
+    ] // 默认为空，如果添加，大图检测将跳过这些图片
+}
 
 
 apply plugin: 'tinyPIC'
@@ -10,7 +32,7 @@ apply plugin: 'tinyPIC'
 tinyinfo {
     apiKey = '9bVTdxCvwhbGhsCNWK6bYw0lbwSd0b3C'
     //是否跳过此task
-    skip = false
+    skip = true
     //是否打印日志
     isShowLog = true
 }
@@ -304,6 +326,8 @@ droidAssistOptions {
     // logDir
 }
 
+
+
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
@@ -421,6 +445,11 @@ def androidTestImplementationExcludes = rootProject.ext.androidTestImplementatio
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+//    implementation(rootProject.ext.dependencies.glide) {
+//        exclude module: 'support-v4' //排除依赖
+//        transitive false //禁止传递依赖
+//    }
 
     // 启动器
 //    api files('libs/launchstarter-release-1.0.0.aar')
@@ -650,3 +679,181 @@ configurations.all {
 repositories {
     mavenCentral()
 }
+
+//task MyTask() {
+//    println "This is my task~"
+//}
+
+//this.getParentProject()
+//
+//def getParentProject() {
+//    def parentName = this.getParent().name
+//    println "my parent project is $parentName"
+//}
+
+
+
+/**
+ * 2、文件拷贝
+ */
+//copy {
+//    // 既可以拷贝文件，也可以拷贝文件夹
+//    // 这里是将 app moudle 下生成的 apk 目录拷贝到
+//    // 根工程下的 build 目录
+//    from file("build/outputs/apk")
+//    into getRootProject().getBuildDir().path + "/apk/"
+//    exclude {
+//        // 排除不需要拷贝的文件
+//    }
+//    rename {
+//        // 对拷贝过来的文件进行重命名
+//    }
+//}
+
+
+/**
+ * 3、文件树遍历
+ */
+//fileTree("build/outputs/apk") { FileTree fileTree ->
+//    fileTree.visit { FileTreeElement fileTreeElement ->
+//        println "The file is $fileTreeElement.file.name"
+//        copy {
+//            from fileTreeElement.file
+//            into getRootProject().getBuildDir().path + "/apkTree/"
+//        }
+//    }
+//}
+
+
+/**
+ * 使用 exec 执行外部命令
+ */
+task apkMove() {
+    doLast {
+        // 在 gradle 的执行阶段去执行
+        def sourcePath = this.buildDir.path + "/outputs/apk/speed/release/"
+        def destinationPath = "/Users/quchao/Downloads/"
+        def command = "mv -f $sourcePath $destinationPath"
+        exec {
+            try {
+                executable "bash"
+                args "-c", command
+                println "The command execute is success"
+            } catch (GradleException e) {
+                println "The command execute is failed"
+            }
+        }
+    }
+}
+
+// Task 定义方式1：直接通过 task 函数去创建
+task myTask1(group: "MyTask", description: "task1") {
+    println "This is myTask1"
+}
+
+// Task 定义方式2：通过 TaskContainer 去创建 task
+this.tasks.create(name: "myTask2") {
+    setGroup("MyTask")
+    setDescription("task2")
+    println "This is myTask2"
+}
+
+// 使用 Task 在执行阶段进行操作
+task myTask3(group: "MyTask", description: "task3") {
+    println "This is myTask3"
+    doFirst {
+        // 老二
+        println "This group is 2"
+    }
+
+    doLast {
+        // 老三
+        println "This description is 3"
+    }
+}
+
+// 也可以使用 taskName.doxxx 的方式添加执行任务
+myTask3.doFirst {
+    // 这种方式的最先执行 => 老大
+    println "This group is 1"
+}
+
+// Task 执行实战：计算 build 执行期间的耗时
+def startBuildTime, endBuildTime
+// 1、在 Gradle 配置阶段完成之后进行操作，
+// 以此保证要执行的 task 配置完毕
+this.afterEvaluate { Project project ->
+    // 2、找到当前 project 下第一个执行的 task，即 preBuild task
+    def preBuildTask = project.tasks.getByName("preBuild")
+    preBuildTask.doFirst {
+        // 3、获取第一个 task 开始执行时刻的时间戳
+        startBuildTime = System.currentTimeMillis()
+    }
+    // 4、找到当前 project 下最后一个执行的 task，即 build task
+    def buildTask = project.tasks.getByName("build")
+    buildTask.doLast {
+        // 5、获取最后一个 task 执行完成前一瞬间的时间戳
+        endBuildTime = System.currentTimeMillis()
+        // 6、输出 build 执行期间的耗时
+        println "Current project execute time is ${endBuildTime - startBuildTime}"
+    }
+}
+
+task task1 {
+    doLast {
+        println "This is task1"
+    }
+}
+
+task task2 {
+    doLast {
+        println "This is task2"
+    }
+}
+
+// Task 静态依赖方式1 (常用）
+task task3(dependsOn: [task1, task2]) {
+    doLast {
+        println "This is task3"
+    }
+}
+
+// Task 静态依赖方式2
+task3.dependsOn(task1, task2)
+
+// Task 动态依赖方式
+task dytask4 {
+    dependsOn this.tasks.findAll { task ->
+        return task.name.startsWith("task")
+    }
+    doLast {
+        println "This is task4"
+    }
+}
+
+// 通过 API 指定依赖顺序
+task taskX {
+    mustRunAfter "taskY"
+
+    doFirst {
+        println "this is taskX"
+    }
+}
+
+task taskY {
+    // 使用 mustRunAfter 指定依赖的（一至多个）前置 task
+    // 也可以使用 shouldRunAfter 的方式，但是是非强制的依赖
+//    shouldRunAfter taskA
+    doFirst {
+        println "this is taskY"
+    }
+}
+
+task taskZ(dependsOn: [taskX, taskY]) {
+    mustRunAfter "taskY"
+    doFirst {
+        println "this is taskZ"
+    }
+}
+
+

@@ -98,7 +98,9 @@ ext {
     ]
 
     apiFileDependencies = [
-            "launchstarter"                                   :"libs/launchstarter-release-1.0.0.aar"
+            "launchstarter"                                   : "libs/launchstarter-release-1.0.0.aar",
+            "yearclass"                                       : "libs/yearclass-release-1.0.0.aar"
+
     ]
 
     debugImplementationDependencies = [
@@ -180,3 +182,15 @@ ext {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+

@@ -36,12 +36,9 @@ buildscript {
         classpath "com.bytedance.android.byteX:getter-setter-inline-plugin:${plugin_version}"
         classpath "com.bytedance.android.byteX:method-call-opt-plugin:${plugin_version}"
 
-
-
-
-
         classpath "com.bytedance.android.byteX:closeable-check-plugin:${plugin_version}"
 
+        classpath 'com.smallsoho.mobcase:McImage:1.5.0'
 
 
 
@@ -62,6 +59,218 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
-}
+//// 1、删除根目录下的 build 文件
+//task clean(type: Delete) {
+//    delete rootProject.buildDir
+//}
+//
+//// 2、将 doc 复制到 build/target 目录下
+//task copyDocs(type: Copy) {
+//    from 'src/main/doc'
+//    into 'build/target/doc'
+//}
+//
+//// 3、执行时会复制源文件到目标目录，然后从目标目录删除所有非复制文件
+//task syncFile(type:Sync) {
+//    from 'src/main/doc'
+//    into 'build/target/doc'
+//}
+//
+//
+//project.task('JsonChao1').doFirst {
+//    println "Beginning of execute JsonChao Task"
+//}
+//
+//project.tasks.create('JsonChao2').doLast {
+//    println "Ending of execute JsonChao Task"
+//}
+//
+//project.task('JsonChao3', group: "JsonChao", description: "my tasks", dependsOn: ["JsonChao1", "JsonChao2"] ).doLast {
+//    println "execute JsonChao3 Task"
+//}
+//
+//
+//// 1、声明一个名为 JsonChao 的 gradle task
+//task JsonChao
+//
+//JsonChao {
+//
+//    // 2、在 JsonChao task 闭包内输出 hello~，
+//    // 执行在 gradle 生命周期的第二个阶段，即配置阶段。
+//    println("hello~")
+//
+//    // 3、给 task 附带一些 执行动作（Action），执行在
+//    // gradle 生命周期的第三个阶段，即执行阶段。
+//    doFirst {
+//        println("start")
+//    }
+//
+//    doLast {
+//        println("end")
+//    }
+//}
+//
+//// 4、除了上述这种将声明与配置、Action 分别定义
+//// 的方式之外，也可以直接将它们结合起来。
+//// 这里我们又定义了一个 Android task，它依赖于 JsonChao
+//// task，也就是说，必须先执行完 JsonChao task，才能
+//// 去执行 Android task，由此，它们之间便组成了一个
+//// 有向无环图：JsonChao task => Android task
+//task Andorid(dependsOn:"JsonChao") {
+//    doLast {
+//        println("end?")
+//    }
+//}
+//
+//defaultTasks "Gradle_First", "Gradle_Last"
+//
+//task Gradle_First() {
+//    ext.good = true
+//}
+//
+//task Gradle_Last() {
+//    doFirst {
+//        println Gradle_First.good
+//    }
+//    doLast {
+//        println "I am not $Gradle_First.name"
+//    }
+//}
+
+/**
+ * Project API 详解
+ */
+
+/**
+ * 1、getAllProjects 使用示例
+ */
+//this.getProjects()
+//
+//def getProjects() {
+//    println "<================>"
+//    println " Root Project Start "
+//    println "<================>"
+//    // getAllprojects 方法返回一个包含根 project 与其子 project 的 Set 集合
+//    // eachWithIndex 方法用于遍历集合、数组等可迭代的容器，
+//    // 并同时返回下标，不同于 each 方法仅返回 project
+//    this.getAllprojects().eachWithIndex { Project project, int index ->
+//        // 下标为 0，表明当前遍历的是 rootProject
+//        if (index == 0) {
+//            println "Root Project is $project"
+//        } else {
+//            println "child Project is $project"
+//        }
+//    }
+//}
+
+/**
+ * 2、getAllsubproject 使用示例
+ */
+//this.getSubProjects()
+//
+//def getSubProjects() {
+//    println "<================>"
+//    println " Sub Project Start "
+//    println "<================>"
+//    // getSubProjects 方法返回一个包含子 project 的 Set 集合
+//    this.getSubprojects().each { Project project ->
+//        println "child Project is $project"
+//    }
+//}
+
+//this.getParentProject()
+//
+//def getParentProject() {
+//    parentName = this.getParent().name
+//    println "my parent project is $parentName"
+//}
+
+/**
+ * 4、getRootProject 使用示例
+ */
+//this.getRootPro()
+//
+//def getRootPro() {
+//    def rootProjectName = this.getRootProject().name
+//    println "root project is $rootProjectName"
+//}
+//
+///**
+// * 5、project 使用示例
+// */
+//
+//// 1、闭包参数可以放在括号外面
+//project("app") { Project project ->
+//    apply plugin: 'com.android.application'
+//}
+//
+//// 2、更简洁的写法是这样的
+//project("app") {
+//    apply plugin: 'com.android.application'
+//}
+//
+///**
+// * 6、allprojects 使用示例
+// */
+//
+//// 同 project 一样的更简洁写法
+//allprojects {
+//    group "com.json.chao"
+//    version "1.0.0"
+//}
+//
+///**
+// * 7、subprojects 使用示例
+// */
+//
+//// 给所有的子工程引入 将 aar 文件上传置 Maven 服务器的配置脚本
+//subprojects {
+//    if (project.plugins.hasPlugin("com.android.library")) {
+//        apply from: '../publishToMaven.gradle'
+//    }
+//}
+
+/**
+ * 1、路径获取 API
+ */
+//println "the root file path is:" + getRootDir().absolutePath
+//println "this build file path is:" + getBuildDir().absolutePath
+//println "this Project file path is:" + getProjectDir().absolutePath
+
+
+/**
+ * 1、文件定位之 file
+ */
+//this.getContent("config.gradle")
+//
+//def getContent(String path) {
+//    try {
+//        // 不同与 new file 的需要传入 绝对路径 的方式，
+//        // file 从相对于当前的 project 工程开始查找
+//        def mFile = file(path)
+//        println mFile.text
+//    } catch (GradleException e) {
+//        println e.toString()
+//        return null
+//    }
+//}
+
+/**
+ * 1、文件定位之 files
+ */
+//this.getContent("config.gradle", "build.gradle")
+//
+//def getContent(String path1, String path2) {
+//    try {
+//        // 不同与 new file 的需要传入 绝对路径 的方式，
+//        // file 从相对于当前的 project 工程开始查找
+//        def mFiles = files(path1, path2)
+//        println mFiles[0].text + mFiles[1].text
+//    } catch (GradleException e) {
+//        println e.toString()
+//        return null
+//    }
+//}
+
+
+

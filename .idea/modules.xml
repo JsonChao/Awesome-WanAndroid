@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Awesome-WanAndroid.iml" filepath="$PROJECT_DIR$/Awesome-WanAndroid.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Awesome-WanAndroid.iml" filepath="$PROJECT_DIR$/Awesome-WanAndroid.iml" group="Awesome-WanAndroid" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="Awesome-WanAndroid/app" />
     </modules>
   </component>
 </project>

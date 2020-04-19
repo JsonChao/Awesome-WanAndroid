@@ -1,0 +1,136 @@
+import groovy.xml.MarkupBuilder
+
+/**
+ * 创建时间：2017年12月13日 <br>
+ * 作者：renzhiqiang <br>
+ * 描述：版本发布文档自动维护脚本
+ * 流程描述：  1、请求本次版本相关信息
+ *           2、将版本相关信息解析出来
+ *           3、将解析出的数据生成xml格式数据
+ *           4、写入到已有的文档数据中
+ **/
+ext {
+  versionName = rootProject.ext.android.versionName
+  versionCode = rootProject.ext.android.versionCode
+  versionInfo = 'App的第2个版本，上线了一些最基础核心的功能.'
+  destFile = file('releases.xml')
+  if (destFile != null && !destFile.exists()) {
+    destFile.createNewFile()
+  }
+}
+
+this.project.afterEvaluate { project ->
+  def buildTask = project.tasks.findByName("build")
+  doLast {
+    buildTask.doLast {
+      writeTask.execute()
+    }
+  }
+}
+
+task writeTask {
+  inputs.property('versionCode', this.versionCode)
+  inputs.property('versionName', this.versionName)
+  inputs.property('versionInfo', this.versionInfo)
+  outputs.file this.destFile
+  doLast {
+    //将输入的内容写入到输出文件中去
+    def data = inputs.getProperties()
+    File file = outputs.getFiles().getSingleFile()
+    def versionMsg = new VersionMsg(data)
+    //将实体对象写入到xml文件中
+    def sw = new StringWriter()
+    def xmlBuilder = new MarkupBuilder(sw)
+    if (file.text != null && file.text.size() <= 0) {
+      //没有内容
+      xmlBuilder.releases {
+        release {
+          versionCode(versionMsg.versionCode)
+          versionName(versionMsg.versionName)
+          versionInfo(versionMsg.versionInfo)
+        }
+      }
+      //直接写入
+      file.withWriter { writer -> writer.append(sw.toString())
+      }
+    } else {
+      //已有其它版本内容
+      xmlBuilder.release {
+        versionCode(versionMsg.versionCode)
+        versionName(versionMsg.versionName)
+        versionInfo(versionMsg.versionInfo)
+      }
+      //插入到最后一行前面
+      def lines = file.readLines()
+      def lengths = lines.size() - 1
+      file.withWriter { writer ->
+        lines.eachWithIndex { line, index ->
+          if (index != lengths) {
+            writer.append(line + '\r\n')
+          } else if (index == lengths) {
+            writer.append('\r\r\n' + sw.toString() + '\r\n')
+            writer.append(lines.get(lengths))
+          }
+        }
+      }
+    }
+  }
+}
+
+class VersionMsg {
+  String versionCode
+  String versionName
+  String versionInfo
+}
+
+task readTask {
+  //指定输入文件为上一个task的输出
+  inputs.file this.destFile
+  doLast {
+    //读取输入文件的内容并显示
+    def file = inputs.files.singleFile
+    println file.text
+  }
+}
+
+task outputwithinputTask {
+  // 先执行写入，再执行读取
+  dependsOn writeTask, readTask
+  doLast {
+    println '输入输出任务结束'
+  }
+}
+
+
+
+
+//task handleReleaseFile {
+//  def srcFile = file('releases.xml')
+//  def destDir = new File(this.buildDir, 'generated/release/')
+//  doLast {
+//    println '开始解析对应的xml文件...'
+//    destDir.mkdir()
+//    def releases = new XmlParser().parse(srcFile)
+//    releases.release.each { releaseNode ->
+//      //解析每个release结点的内容
+//      def name = releaseNode.versionName.text()
+//      def versionCode = releaseNode.versionCode.text()
+//      def versionInfo = releaseNode.versionInfo.text()
+//      //创建文件并写入结点数据
+//      def destFile = new File(destDir, "release-${name}.txt")
+//      destFile.withWriter { writer -> writer.write("${name} -> ${versionCode} -> ${versionInfo}")
+//      }
+//    }
+//  }
+//}
+
+// 读取本地的 release.xml 文件内容
+//task handleReleaseFileTest(dependsOn: handleReleaseFile) {
+//  def dir = fileTree(this.buildDir.path + 'generated/release/')
+//  doLast {
+//    dir.each {
+//      println 'the file name is:' + it
+//    }
+//    println '输出完成...'
+//  }
+//}

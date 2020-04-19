@@ -21,12 +21,15 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.facebook.device.yearclass.YearClass;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import json.chao.com.wanandroid.R;
 import json.chao.com.wanandroid.app.Constants;
+import json.chao.com.wanandroid.app.WanAndroidApp;
 import json.chao.com.wanandroid.base.activity.BaseActivity;
 import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.contract.main.MainContract;
@@ -114,6 +117,18 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 //                e.printStackTrace();
 //            }
 //        });
+
+        int year = YearClass.get(WanAndroidApp.getInstance());
+        if (year >= YearClass.CLASS_2016) {
+            // 配置较高的手机可以 开启复杂的动画 或 "重功能"。
+            // 通常来说，从 2016年开始 的手机配置就比较好了，
+            // 我们统一按照这个模板使用即可。
+
+        } else {
+            // 低端机用户可以 关闭复杂的动画 或 "重功能"、在系统资源不够时我们应该主动去做降级处理。
+
+        }
+
     }
 
     @Override
