@@ -1,0 +1,283 @@
+/**
+ * 创建时间：2017年12月22日 <br>
+ * 作者：renzhiqiang <br>
+ * 描述：对插件化项目中的各个插件自动更新的脚本（解决插件化开发中的痛点）
+ * 流程描述：  1、解析插件配置
+ *           2、请求该配置下的最新版本
+ *           3、检验本地是否存在相同配置的版本
+ *           4、ipackage下载插件
+ *           5、校验下载的文件的合法性
+ */
+import groovy.json.JsonSlurper
+import java.security.MessageDigest
+
+/**
+ * 入口
+ */
+this.afterEvaluate {
+    this.android.applicationVariants.all { variant ->
+        // checkManifest 这个 Task 在 Task 容器中
+        // 靠前的位置，我们可以在这里预先更新插件。
+        def checkTask = variant.checkManifest
+        checkTask.doFirst {
+            def bt = variant.buildType.name
+            if (bt == 'qa' || bt == 'preview'
+                    || bt == 'release') {
+                update_plugin(bt)
+            }
+        }
+    }
+}
+
+/**
+ * 1.读取配置文件
+ * 2.根据配置生成获取插件下载地址的 url
+ * 3.拼接下载地址，插件文件名，插件 md5 文件名成 string
+ * @param buildType 打包的 buildType
+ */
+def update_plugin(String buildType) {
+    // 使用线上配置
+    def config = getJsonDataFromNet(rootProject.ext.android.pluginConfigUrl);
+    println 'plugin config is :' + config + " \ncount=" + config.size()
+
+    def pluginUrl = 'http://i.package.imooc.com/api/package/search.json'
+    int pluginSize = config.size()
+    for (int i = 0; i < pluginSize; i++) {
+        def plugin = config[i]
+        println("1、解析" + plugin.projectname + "的插件配置")
+        println(plugin.projectname + "插件配置为：" + plugin)
+        StringBuilder urlRequest = new StringBuilder(pluginUrl)
+        urlRequest.append('?')
+        urlRequest.append('project=').append(plugin.projectname).append('&')
+        urlRequest.append('version=').append(plugin.version).append('&')
+        if (plugin.type != null) {
+            urlRequest.append('type=').append(plugin.type)
+            if (plugin.commit_hash != null) {
+                urlRequest.append('&')
+                urlRequest.append('commit_hash=').append(plugin.commit_hash)
+            } else {
+                if (plugin.type == 'release') {
+                    //release时必须有commitHash否则直接返回失败
+//          return false
+                }
+            }
+        } else {
+            if (buildType.equals('qa')) {
+                urlRequest.append('type=').append('debug')
+                if (plugin.commit_hash != null) {
+                    urlRequest.append('&')
+                    urlRequest.append('commit_hash=').append(plugin.commit_hash)
+                }
+            } else if (buildType.equals('release')) {
+                //release时必须有commitHash否则直接返回失败
+                if (plugin.commit_hash == null) {
+//          return false
+                } else {
+                    urlRequest.append('type=').append('release').append('&')
+                    urlRequest.append('commit_hash=').append(plugin.commit_hash)
+                }
+            } else if (buildType.equals('preview')) {
+                //preview时必须有commitHash否则直接返回失败
+                if (plugin.commit_hash == null) {
+//          return false
+                } else {
+                    urlRequest.append('type=').append('preview').append('&')
+                    urlRequest.append('commit_hash=').append(plugin.commit_hash)
+                }
+            }
+        }
+        def success = askForLatest(urlRequest.toString(), plugin.jar_name, plugin.jar_md5_name)
+        if (success) {
+            println '-----------' + plugin.jar_name + ' update successfull-----'
+            println()
+        } else {
+            println '-----------' + plugin.jar_name + ' update failed-----'
+            println()
+            throw new IllegalArgumentException(plugin.jar_name + ' update failed !!!!!')
+        }
+    }
+}
+
+/**
+ * 获取插件最新版本
+ * 1、根据版本配置请求ipackage上该插件的所有文件（一个配置会有多个插件文件）
+ * 2、下载最新一个文件（约定第一个为最新）
+ * @param url
+ * @param jarname
+ * @param jarMd5name
+ * @return
+ */
+def askForLatest(String url, String jarname, String jarMd5name) {
+    println("2、从ipackage请求该配置下的最新版本")
+    println("请求链接为：" + url)
+    def pluginList = getJsonDataFromNet(url).result
+    if (pluginList.size() > 0) {
+        def latestPlugin = pluginList[0]
+        println("搜索最新版本成功：" + latestPlugin)
+        if (isPluginExist(jarname, jarMd5name, latestPlugin.md5)) {
+            return true;
+        } else {
+            def flag = down(latestPlugin.download_url, jarname)
+            if (flag) {
+                flag = checkMd5(jarname, latestPlugin.md5)
+            }
+            return flag
+        }
+    } else {
+        println("搜索最新版本失败，更新插件失败")
+        return false
+    }
+}
+
+/**
+ * 校验本地是否已经存在符合配置的插件
+ * 1、校验插件文件是否存在
+ * 2、校验插件md5文件是否存在以及内容是否一致
+ * 3、1和2同时满足即为符合否则删除该插件的相关文件
+ * @param jarname
+ * @param jarMd5name
+ * @param md5
+ * @return
+ */
+def isPluginExist(String jarname, String jarMd5name, String md5) {
+    println("3、检验本地是否存在相同配置的版本")
+    println("检验条件：" + "文件名" + jarname + "，md5值" + md5)
+    String pluginPath = 'src/main/assets/plugins/'
+    File pluginfile;
+    File md5file;
+    String md5content;
+    FileCollection plugins = files { file(pluginPath).listFiles() }
+    plugins.each { File file ->
+        if (file.getName().equals(jarname)) {
+            pluginfile = file;
+        }
+        if (file.getName().equals(jarMd5name)) {
+            md5file = file;
+            md5content = getFileContent(file);
+        }
+    }
+    if (pluginfile != null && md5content.equals(md5)) {
+        println("本地存在相同配置的版本，跳过下载，返回成功")
+        return true;
+    }
+
+    //本地的不匹配则删除
+    if (pluginfile != null) {
+        pluginfile.delete()
+    }
+
+    if (md5file != null) {
+        md5file.delete()
+    }
+    println("本地不存在相同配置的版本")
+    return false
+}
+
+/**
+ * 下载网络文件
+ * @param url
+ * @param jarname
+ * @return
+ */
+def down(String url, String jarname) {
+    println("4、开始ipackage下载")
+    println("下载url为：" + url)
+    def file = new File(project.getProjectDir().getAbsolutePath() + "/src/main/assets/plugins/" + jarname)
+    InputStream is
+    FileOutputStream fos
+    try {
+        def connection = new URL(url).openConnection()
+        connection.setRequestMethod('GET')
+        connection.connect()
+        is = connection.getInputStream()
+        fos = new FileOutputStream(file)
+        byte[] b = new byte[1024]
+        int len = 0
+        while ((len = is.read(b)) != -1) {
+            fos.write(b, 0, len)
+        }
+        fos.flush()
+        println("文件下载成功")
+        return true
+    } catch (Exception e) {
+        println("文件下载失败")
+        println(e.printStackTrace())
+        return false
+    } finally {
+        if (fos != null) {
+            fos.close()
+        }
+        if (is != null) {
+            is.close()
+        }
+    }
+}
+
+/**
+ * 下载成功后校验文件与返回的md5是否匹配
+ * 不匹配则删除文件
+ * @param jarname
+ * @param md5
+ * @return
+ */
+def checkMd5(String jarname, String md5) {
+    println("5、开始校验下载的文件的合法性")
+    //  println("ipackage返回的md5 = " + md5)
+    String pluginPath = 'src/main/assets/plugins/'
+    FileCollection plugins = files { file(pluginPath).listFiles() }
+    plugins.each { File file ->
+        if (file.getName().equals(jarname)) {
+            def digest = MessageDigest.getInstance("MD5").digest(file.bytes).encodeHex().toString()
+            //      println("下载后计算的md5 = " + digest)
+            if (digest.equals(md5)) {
+                File md5File = new File(pluginPath + file.name + '.md5')
+                FileCollection collectionss = files(md5File)
+                collectionss.getFiles().getAt(0).withWriter('UTF-8') { within -> within.append(digest) }
+                println("md5校验成功")
+                return true;
+            } else {
+                file.delete()
+                println("md5校验失败，删除已下载文件")
+                return false;
+            }
+        }
+    }
+}
+
+/**
+ * 获取文件的第一行
+ * md5文件只有一行
+ * @param file
+ * @return
+ */
+def getFileContent(File file) {
+    List<String> contents = file.readLines();
+    if (contents != null && contents.size() > 0) {
+        return contents.get(0);
+    }
+    return "";
+}
+
+/**
+ * 从网络获取 json 数据
+ *
+ * @param url
+ * @return
+ */
+def getJsonDataFromNet(String url) {
+    //使用接口配置
+    def connection = new URL(url).openConnection()
+    connection.setRequestMethod('GET')
+    connection.connect()
+    def resp = connection.content.text
+
+    def jsonSlurper = new JsonSlurper()
+    return jsonSlurper.parseText(resp).data
+}
+
+//关闭测试相关的task
+tasks.whenTaskAdded { task ->
+    if (task.name.contains('AndroidTest')) {
+        task.enabled = false
+    }
+}
