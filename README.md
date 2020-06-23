@@ -312,6 +312,15 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 ### 还有上面没列举的一些优秀的第三方开源库，感谢开源，愿我们一同成长~
 
 
+## 公众号
+
+我的公众号 `JsonChao` 开通啦，如果您想第一时间获取最新文章和最新动态，欢迎扫描关注~
+
+<div align="center">
+<img src="https://user-gold-cdn.xitu.io/2020/6/11/172a29b8b626ef93?w=258&h=258&f=jpeg&s=28705" width=30%>
+</div>
+
+
 ## 赞赏
 
 如果这个库对您有很大帮助，您愿意支持这个项目的进一步开发和这个项目的持续维护。你可以扫描下面的二维码，让我喝一杯咖啡或啤酒。非常感谢您的捐赠。谢谢！
