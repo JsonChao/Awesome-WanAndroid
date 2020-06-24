@@ -5,11 +5,12 @@ apply from: 'jacoco.gradle'
 //apply from: this.project.file("releaseinfo.gradle")
 apply plugin: 'me.ele.lancet'
 
+
 apply plugin: 'McImage'
 
 McImageConfig {
     isCheckSize true // 是否检测图片大小，默认为true
-    optimizeType "Compress" // 优化类型，可选"ConvertWebp"，"Compress"，转换为webp或原图压缩，默认Compress，使用ConvertWep需要min sdk >= 18.但是压缩效果更好
+    optimizeType "ConvertWebp" // 优化类型，可选"ConvertWebp"，"Compress"，转换为webp或原图压缩，默认Compress，使用ConvertWep需要min sdk >= 18.但是压缩效果更好
     maxSize 1*1024*1024 // 大图片阈值，default 1MB
     enableWhenDebug false // debug下是否可用，default true
     isCheckPixels true // 是否检测大像素图片，default true
@@ -369,7 +370,7 @@ android {
             // 混淆文件的位置，其中 proguard-android.txt 为sdk默认的混淆配置，
             // 它的位置位于android-sdk/tools/proguard/proguard-android.txt，
             // 此外，proguard-android-optimize.txt 也为sdk默认的混淆配置，
-            // 但    是它默认打开了优化开关，我们可在配置混淆文件将android.util.Log置为无效代码，
+            // 但是它默认打开了优化开关，我们可在配置混淆文件将android.util.Log置为无效代码，
             // 以去除apk中打印日志的代码。而 proguard-rules.pro 是该模块下的混淆配置。
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
@@ -394,7 +395,7 @@ android {
     flavorDimensions "code"
     productFlavors {
         speed {
-            minSdkVersion 21
+            minSdkVersion 17
         }
     }
 
@@ -507,6 +508,10 @@ dependencies {
         }
     }
 
+    // httpDns 优化
+    api ('com.aliyun.ams:alicloud-android-httpdns:1.3.2@aar') {
+        transitive true
+    }
 
 //    //base
 //    implementation rootProject.ext.dependencies["appcompat-v7"]

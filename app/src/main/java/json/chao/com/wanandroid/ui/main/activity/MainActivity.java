@@ -1,6 +1,9 @@
 package json.chao.com.wanandroid.ui.main.activity;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
+import android.net.TrafficStats;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -23,7 +26,12 @@ import android.widget.TextView;
 
 import com.facebook.device.yearclass.YearClass;
 
+import org.jay.launchstarter.TaskDispatcher;
+import org.jay.launchstarter.utils.DispatcherExecutor;
+
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -33,6 +41,7 @@ import json.chao.com.wanandroid.app.WanAndroidApp;
 import json.chao.com.wanandroid.base.activity.BaseActivity;
 import json.chao.com.wanandroid.base.fragment.BaseFragment;
 import json.chao.com.wanandroid.contract.main.MainContract;
+import json.chao.com.wanandroid.performance.net.NetUtils;
 import json.chao.com.wanandroid.presenter.main.MainPresenter;
 import json.chao.com.wanandroid.ui.hierarchy.fragment.KnowledgeHierarchyFragment;
 import json.chao.com.wanandroid.ui.main.fragment.CollectFragment;
@@ -81,6 +90,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private int mLastFgIndex;
     private UsageDialogFragment usageDialogFragment;
     private SearchDialogFragment searchDialogFragment;
+    private long backNetUseData;
+    private long foreNetUseData;
+    private long totalNetUseData;
+    private boolean isBackground;
 
     @Override
     protected void onDestroy() {
@@ -128,6 +141,61 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             // 低端机用户可以 关闭复杂的动画 或 "重功能"、在系统资源不够时我们应该主动去做降级处理。
 
         }
+
+        getApplication().registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+
+            }
+
+            @Override
+            public void onActivityStarted(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityResumed(Activity activity) {
+                isBackground = false;
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+                isBackground = true;
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+
+            }
+        });
+         // 前后台流浪监控（每隔30秒上报一次）
+        Executors.newScheduledThreadPool(1).scheduleWithFixedDelay((Runnable) () -> {
+
+            long currentTime = System.currentTimeMillis();
+            long netUseData = NetUtils.getNetStats(this, currentTime - 30 * 1000, currentTime);
+
+            // 判断是前台还是后台
+            if (isBackground) {
+                backNetUseData += netUseData;
+            } else {
+                foreNetUseData += netUseData;
+            }
+            LogHelper.i("backNetUseData: " + backNetUseData / 1024 / 1024 + " MB");
+            LogHelper.i("foreNetUseData: " + foreNetUseData / 1024 / 1024 + " MB");
+
+            totalNetUseData = backNetUseData + foreNetUseData;
+            LogHelper.i("totalNetUseData: " + totalNetUseData / 1024 / 1024 + " MB");
+        }, 30, 30, TimeUnit.SECONDS);
 
     }
 

@@ -548,53 +548,53 @@
 
 
 
-# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:107
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:108
 -keep class com.just.agentweb.ActionActivity { <init>(); }
-# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:97
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:98
 -keep class com.just.agentweb.AgentWebFileProvider { <init>(); }
-# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:128
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:129
 -keep class com.tencent.bugly.beta.tinker.TinkerResultService { <init>(); }
-# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:115
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:116
 -keep class com.tencent.bugly.beta.ui.BetaActivity { <init>(); }
-# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:119
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:120
 -keep class com.tencent.bugly.beta.utils.BuglyFileProvider { <init>(); }
-# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:132
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:133
 -keep class com.xuexiang.xupdate.service.DownloadService { <init>(); }
-# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:134
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:135
 -keep class com.xuexiang.xupdate.utils.UpdateFileProvider { <init>(); }
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:20
 -keep class json.chao.com.wanandroid.app.WanAndroidApp { <init>(); }
-# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:82
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:83
 -keep class json.chao.com.wanandroid.ui.hierarchy.activity.KnowledgeHierarchyDetailActivity { <init>(); }
-# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:87
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:88
 -keep class json.chao.com.wanandroid.ui.main.activity.AboutUsActivity { <init>(); }
-# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:77
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:78
 -keep class json.chao.com.wanandroid.ui.main.activity.ArticleDetailActivity { <init>(); }
-# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:61
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:62
 -keep class json.chao.com.wanandroid.ui.main.activity.LoginActivity { <init>(); }
-# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:57
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:58
 -keep class json.chao.com.wanandroid.ui.main.activity.MainActivity { <init>(); }
-# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:66
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:67
 -keep class json.chao.com.wanandroid.ui.main.activity.RegisterActivity { <init>(); }
-# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:72
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:73
 -keep class json.chao.com.wanandroid.ui.main.activity.SearchListActivity { <init>(); }
-# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:48
+# Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/build/intermediates/merged_manifests/speedRelease/AndroidManifest.xml:49
 -keep class json.chao.com.wanandroid.ui.main.activity.SplashActivity { <init>(); }
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_test.xml:2
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_test.xml:2
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_splash.xml:2
 -keep class android.support.constraint.ConstraintLayout { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/480768934c622696893db94134e91517/design-26.1.0/res/layout/design_bottom_navigation_item.xml:26
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/88f2b1f497e4b7360ebb2b7be4d2fab3/design-26.1.0/res/layout/design_bottom_navigation_item.xml:26
 -keep class android.support.design.internal.BaselineLayout { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/480768934c622696893db94134e91517/design-26.1.0/res/layout/design_navigation_item.xml:17
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/88f2b1f497e4b7360ebb2b7be4d2fab3/design-26.1.0/res/layout/design_navigation_item.xml:17
 -keep class android.support.design.internal.NavigationMenuItemView { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/480768934c622696893db94134e91517/design-26.1.0/res/layout/design_navigation_menu.xml:17
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/88f2b1f497e4b7360ebb2b7be4d2fab3/design-26.1.0/res/layout/design_navigation_menu.xml:17
 -keep class android.support.design.internal.NavigationMenuView { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/480768934c622696893db94134e91517/design-26.1.0/res/layout/design_layout_snackbar_include.xml:18
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/88f2b1f497e4b7360ebb2b7be4d2fab3/design-26.1.0/res/layout/design_layout_snackbar_include.xml:18
 -keep class android.support.design.internal.SnackbarContentLayout { <init>(...); }
 
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_wx_detail_article.xml:9
@@ -609,7 +609,7 @@
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_main.xml:39
 -keep class android.support.design.widget.BottomNavigationView { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/480768934c622696893db94134e91517/design-26.1.0/res/layout/design_text_input_password_icon.xml:18
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/88f2b1f497e4b7360ebb2b7be4d2fab3/design-26.1.0/res/layout/design_text_input_password_icon.xml:18
 -keep class android.support.design.widget.CheckableImageButton { <init>(...); }
 
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_about_us.xml:27
@@ -619,7 +619,7 @@
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_usage.xml:2
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_search.xml:2
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_collect.xml:2
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/480768934c622696893db94134e91517/design-26.1.0/res/layout/design_bottom_sheet_dialog.xml:26
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/88f2b1f497e4b7360ebb2b7be4d2fab3/design-26.1.0/res/layout/design_bottom_sheet_dialog.xml:26
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_search_list.xml:2
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_main.xml:11
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_knowledge_hierarchy_detail.xml:2
@@ -637,7 +637,7 @@
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_main.xml:52
 -keep class android.support.design.widget.NavigationView { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/480768934c622696893db94134e91517/design-26.1.0/res/layout/design_layout_snackbar.xml:18
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/88f2b1f497e4b7360ebb2b7be4d2fab3/design-26.1.0/res/layout/design_layout_snackbar.xml:18
 -keep class android.support.design.widget.Snackbar$SnackbarLayout { <init>(...); }
 
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_wx_article.xml:24
@@ -651,51 +651,51 @@
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_usage.xml:25
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_search.xml:25
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/content_about.xml:2
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_alert_dialog_material.xml:41
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_alert_dialog_material.xml:41
 -keep class android.support.v4.widget.NestedScrollView { <init>(...); }
 
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/loading_view.xml:8
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_alert_dialog_title_material.xml:56
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_alert_dialog_material.xml:52
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_alert_dialog_button_bar_material.xml:43
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_alert_dialog_title_material.xml:56
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_alert_dialog_material.xml:52
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_alert_dialog_button_bar_material.xml:43
 -keep class android.support.v4.widget.Space { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_select_dialog_material.xml:23
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_select_dialog_material.xml:23
 -keep class android.support.v7.app.AlertController$RecycleListView { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_action_menu_item_layout.xml:17
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_action_menu_item_layout.xml:17
 -keep class android.support.v7.view.menu.ActionMenuItemView { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_expanded_menu_layout.xml:17
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_expanded_menu_layout.xml:17
 -keep class android.support.v7.view.menu.ExpandedMenuView { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_popup_menu_item_layout.xml:17
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_list_menu_item_layout.xml:17
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_popup_menu_item_layout.xml:17
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_list_menu_item_layout.xml:17
 -keep class android.support.v7.view.menu.ListMenuItemView { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_screen_toolbar.xml:27
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_screen_toolbar.xml:27
 -keep class android.support.v7.widget.ActionBarContainer { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_screen_toolbar.xml:43
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_action_mode_bar.xml:19
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_screen_toolbar.xml:43
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_action_mode_bar.xml:19
 -keep class android.support.v7.widget.ActionBarContextView { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_screen_toolbar.xml:17
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_screen_toolbar.xml:17
 -keep class android.support.v7.widget.ActionBarOverlayLayout { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_action_menu_layout.xml:17
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_action_menu_layout.xml:17
 -keep class android.support.v7.widget.ActionMenuView { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_activity_chooser_view.xml:19
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_activity_chooser_view.xml:19
 -keep class android.support.v7.widget.ActivityChooserView$InnerLayout { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_alert_dialog_material.xml:18
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_alert_dialog_material.xml:18
 -keep class android.support.v7.widget.AlertDialogLayout { <init>(...); }
 
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_setting.xml:54
 -keep class android.support.v7.widget.AppCompatCheckBox { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_alert_dialog_button_bar_material.xml:26
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_alert_dialog_button_bar_material.xml:26
 -keep class android.support.v7.widget.ButtonBarLayout { <init>(...); }
 
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/item_search_pager.xml:2
@@ -704,17 +704,17 @@
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_setting.xml:18
 -keep class android.support.v7.widget.CardView { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_screen_content_include.xml:19
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_screen_content_include.xml:19
 -keep class android.support.v7.widget.ContentFrameLayout { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_alert_dialog_title_material.xml:45
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_alert_dialog_title_material.xml:45
 -keep class android.support.v7.widget.DialogTitle { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_screen_simple_overlay_action_mode.xml:23
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_screen_simple_overlay_action_mode.xml:23
 -keep class android.support.v7.widget.FitWindowsFrameLayout { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_screen_simple.xml:17
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_dialog_title_material.xml:22
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_screen_simple.xml:17
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_dialog_title_material.xml:22
 -keep class android.support.v7.widget.FitWindowsLinearLayout { <init>(...); }
 
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_wx_detail_article.xml:33
@@ -728,21 +728,21 @@
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_search_list.xml:38
 -keep class android.support.v7.widget.RecyclerView { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_search_view.xml:75
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_search_view.xml:75
 -keep class android.support.v7.widget.SearchView$SearchAutoComplete { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout-v26/abc_screen_toolbar.xml:37
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout-v26/abc_screen_toolbar.xml:37
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/search_toolbar.xml:1
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/common_toolbar_no_scroll.xml:2
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/common_toolbar.xml:2
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_login.xml:10
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_article_detail.xml:9
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_about_us.xml:35
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_screen_toolbar.xml:36
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_screen_toolbar.xml:36
 -keep class android.support.v7.widget.Toolbar { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_screen_simple_overlay_action_mode.xml:32
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2f4e232aef6fa84debe03165b36a6701/appcompat-v7-26.1.0/res/layout/abc_screen_simple.xml:25
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_screen_simple_overlay_action_mode.xml:32
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a29d747325268d0b65cc0e9135247a17/appcompat-v7-26.1.0/res/layout/abc_screen_simple.xml:25
 -keep class android.support.v7.widget.ViewStubCompat { <init>(...); }
 
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/loading_view.xml:14
@@ -754,12 +754,12 @@
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_knowledge_hierarchy_detail.xml:24
 -keep class com.flyco.tablayout.SlidingTabLayout { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/d30ed830de2923eb803fa9d1ba77f3af/FlycoTabLayout_Lib-2.1.2/res/layout/layout_tab_top.xml:29
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/d30ed830de2923eb803fa9d1ba77f3af/FlycoTabLayout_Lib-2.1.2/res/layout/layout_tab_segment.xml:24
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/d30ed830de2923eb803fa9d1ba77f3af/FlycoTabLayout_Lib-2.1.2/res/layout/layout_tab_right.xml:30
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/d30ed830de2923eb803fa9d1ba77f3af/FlycoTabLayout_Lib-2.1.2/res/layout/layout_tab_left.xml:29
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/d30ed830de2923eb803fa9d1ba77f3af/FlycoTabLayout_Lib-2.1.2/res/layout/layout_tab_bottom.xml:30
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/d30ed830de2923eb803fa9d1ba77f3af/FlycoTabLayout_Lib-2.1.2/res/layout/layout_tab.xml:17
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a47d4b4fa0faea1ece233413b97d2e86/FlycoTabLayout_Lib-2.1.2/res/layout/layout_tab_top.xml:29
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a47d4b4fa0faea1ece233413b97d2e86/FlycoTabLayout_Lib-2.1.2/res/layout/layout_tab_segment.xml:24
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a47d4b4fa0faea1ece233413b97d2e86/FlycoTabLayout_Lib-2.1.2/res/layout/layout_tab_right.xml:30
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a47d4b4fa0faea1ece233413b97d2e86/FlycoTabLayout_Lib-2.1.2/res/layout/layout_tab_left.xml:29
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a47d4b4fa0faea1ece233413b97d2e86/FlycoTabLayout_Lib-2.1.2/res/layout/layout_tab_bottom.xml:30
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a47d4b4fa0faea1ece233413b97d2e86/FlycoTabLayout_Lib-2.1.2/res/layout/layout_tab.xml:17
 -keep class com.flyco.tablayout.widget.MsgView { <init>(...); }
 
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/activity_search_list.xml:30
@@ -801,13 +801,13 @@
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/fragment_knowledge_hierarchy_list.xml:13
 -keep class com.scwang.smartrefresh.layout.header.BezierRadarHeader { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/a8e371517d5005dff853a2b7f100a0e9/XUpdate-1.0.6/res/layout/xupdate_dialog_app.xml:90
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/988876be6ae9abbd7de25bae55229d0f/XUpdate-1.0.6/res/layout/xupdate_dialog_app.xml:90
 -keep class com.xuexiang.xupdate.widget.NumberProgressBar { <init>(...); }
 
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/head_banner.xml:6
 -keep class com.youth.banner.Banner { <init>(...); }
 
-# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2e146e4411c5351b4cee2c97ce511005/banner-1.4.10/res/layout/banner.xml:8
+# Referenced at /Users/quchao/.gradle/caches/transforms-2/files-2.1/2e207d88f1ddb97693c415dc02b6f28f/banner-1.4.10/res/layout/banner.xml:8
 -keep class com.youth.banner.view.BannerViewPager { <init>(...); }
 
 # Referenced at /Users/quchao/Documents/main-open-project/Awesome-WanAndroid/app/src/main/res/layout/item_navigation.xml:20

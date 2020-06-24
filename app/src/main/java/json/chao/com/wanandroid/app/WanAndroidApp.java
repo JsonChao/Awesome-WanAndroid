@@ -195,12 +195,10 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
 
             @Override
             public void onActivityResumed(Activity activity) {
-
             }
 
             @Override
             public void onActivityPaused(Activity activity) {
-
             }
 
             @Override
