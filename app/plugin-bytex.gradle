@@ -1,0 +1,316 @@
+def pluginEnable = true
+def pluginEnableInDebug = true
+def pluginLogLevel = "DEBUG"
+
+
+apply plugin: 'McImage'
+
+McImageConfig {
+    isCheckSize true // 是否检测图片大小，默认为true
+    optimizeType "ConvertWebp" // 优化类型，可选"ConvertWebp"，"Compress"，转换为webp或原图压缩，默认Compress，使用ConvertWep需要min sdk >= 18.但是压缩效果更好
+    maxSize 1*1024*1024 // 大图片阈值，default 1MB
+    enableWhenDebug pluginEnableInDebug // debug下是否可用，default true
+    isCheckPixels true // 是否检测大像素图片，default true
+    maxWidth 1000 // default 1000 如果开启图片宽高检查，默认的最大宽度
+    maxHeight 1000 // default 1000 如果开启图片宽高检查，默认的最大高度
+    whiteList = [ // 默认为空，如果添加，对图片不进行任何处理
+                  "icon_launcher.png",
+    ]
+    mctoolsDir "$rootDir"
+    isSupportAlphaWebp false  // 是否支持带有透明度的webp，default false,带有透明图的图片会进行压缩
+    multiThread true  // 是否开启多线程处理图片，default true
+    bigImageWhiteList = [
+            "icon_wan_android.png"
+    ] // 默认为空，如果添加，大图检测将跳过这些图片
+}
+
+// apply ByteX宿主
+apply plugin: 'bytex'
+ByteX {
+    enable pluginEnable
+    enableInDebug pluginEnableInDebug
+    logLevel pluginLogLevel
+}
+
+// 按需apply bytex 插件
+// 内联access$方法，减少apk方法数和包大小。
+apply plugin: 'bytex.access_inline'
+access_inline {
+    enable pluginEnable
+    enableInDebug pluginEnableInDebug
+    logLevel pluginLogLevel
+}
+
+// R文件常量内联，R文件瘦身；
+// 无用Resource资源检查；
+// 无用assets检查。
+apply plugin: 'bytex.shrink_r_class'
+shrinkR {
+    enable pluginEnable
+    enableInDebug pluginEnableInDebug
+    logLevel pluginLogLevel
+    keepList = [
+            // keep android.support.constraint.R里所有id
+            "android.support.constraint.R.id",
+            // keep 所有以im_e为前缀的drawable字段
+            "R.drawable.im_e+",
+    ]
+    resCheck {
+        enable pluginEnable // 无用资源检查的开关
+        // 根据资源所在的路径做模糊匹配（因为第三方库用到的冗余资源没法手动删）
+        onlyCheck = [
+                // 只检查主工程里的资源
+                "app/build"
+        ]
+        // 检查白名单。这些资源就算是冗余资源也不会report出来
+        keepRes = [
+                "R.drawable.ic_list_dou_order",
+                "R.string.snapchat_tiktok_client_id",
+                "R.string.snapchat_musically_client_id",
+                "R.string.fb_account_kit_client_token",
+                "R.string.mapbox_*",
+                "R.string.kakao*",
+                "R.dimen",
+                "R.color",
+                "R.animator",
+                "R.integer",
+                "R.bool",
+                "R.style",
+                "R.styleable",
+                "R.attr",
+                "R.xml",
+                "R.array",
+                "R.string"
+        ]
+    }
+
+    assetsCheck {
+        enable pluginEnable // 冗余assets资源检查开关
+        keepBySuffix = [
+                ".model",
+                ".otf",
+                ".ttf"
+        ]
+        keepAssets = [
+                "start_anim/",
+                "Contour_2D/",
+        ]
+    }
+}
+
+// 编译期间内联并优化掉项目中的编译期间常量字段
+apply plugin: 'bytex.const_inline'
+const_inline {
+    enable pluginEnable
+    enableInDebug pluginEnableInDebug
+    logLevel "INFO"
+    autoFilterReflectionField = true  //使用插件内置的反射检查过滤掉可能的反射常量，建议为true
+    //supposesReflectionWithString = false //使用插件内置字符串匹配可能反射常量，建议为false
+    skipWithRuntimeAnnotation true //过滤掉带有运行时注解的常量，推荐true
+    skipWithAnnotations = [
+            //过滤掉被注解注释过的常量，包含class
+            "android/support/annotation/Keep",
+    ]
+    whiteList = [
+            //跳过优化的名单
+            "com/meizu/cloud/*",
+    ]
+}
+
+// 编译期间去除代码中不必要或者重复的赋值(默认值)代码
+apply plugin: 'bytex.field_assign_opt'
+field_assign_opt {
+    enable pluginEnable
+    enableInDebug pluginEnableInDebug
+    logLevel "INFO"
+    removeLineNumber true // 同时移除赋值对应的行号信息(如果有的话),默认true。
+    whiteList = [
+            //白名单，ClassName.FieldName 。不支持模式匹配
+            //"android.support.constraint.solver.ArrayRow.isSimpleDefinition"
+    ]
+}
+
+// 内联Getter和Setter方法，减少apk方法数和包大小。
+// 该插件在打包时会自动收集所有的Proguard文件，解析
+// 所有-keep的配置项，用于排除某些class和method的内联。
+//apply plugin: 'bytex.getter_setter_inline'
+//getter_setter_inline {
+//    enable pluginEnable
+//    enableInDebug pluginEnableInDebug
+//    logLevel pluginLogLevel
+//    // 跳过Proguard的Keep规则，强制内联这些包名下的类的getter/setter方法
+//    shouldInline = [
+//            "com/ss/android/ugc/bytex/example/getter_setter/"
+//    ]
+//    // 除了可以通过Proguard的keep规则来避免一些方法被内联外，还可以自定义一些注解，标注到这些方法上
+//    keepWithAnnotations = [
+//            "com/ss/android/ugc/bytex/example/CalledByNative"
+//    ]
+//}
+
+// 根据配置，编译期间优化掉项目所有调用了配置中配置的方法调用(包含参数形成指令)
+apply plugin: 'bytex.method_call_opt'
+method_call_opt {
+    enable pluginEnable //建议开发模式关闭
+    enableInDebug pluginEnableInDebug
+    logLevel pluginLogLevel
+    //是否在log中显示删除方法调用指令后的方法指令，一般调试时使用
+    showAfterOptInsLog false
+    //需要删除的方法配置
+    methodList = [
+            //下面的每一项配置必须严格按照数据配置，一个地方不对这一项不生效。
+            //class#method#desc
+            "android/util/Log#v#(Ljava/lang/String;Ljava/lang/String;)I",
+            "android/util/Log#v#(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I",
+            "android/util/Log#d#(Ljava/lang/String;Ljava/lang/String;)I",
+            "android/util/Log#d#(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I",
+            "android/util/Log#i#(Ljava/lang/String;Ljava/lang/String;)I",
+            "android/util/Log#i#(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I",
+            "android/util/Log#w#(Ljava/lang/String;Ljava/lang/String;)I",
+            "android/util/Log#w#(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I",
+            "android/util/Log#e#(Ljava/lang/String;Ljava/lang/String;)I",
+            "android/util/Log#e#(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I",
+            "android/util/Log#println#(ILjava/lang/String;Ljava/lang/String;)I",
+
+            "java/lang/Throwable#printStackTrace#()V",
+            "com/google/devtools/build/android/desugar/runtime/ThrowableExtension#printStackTrace#(Ljava/lang/Throwable;)V",
+
+            //还有自己项目中封装的Logger方法
+            "jsonchao/com/wanandroid/utils/LogHelper#v#(Ljava/lang/String;Ljava/lang/String;)V",
+            "jsonchao/com/wanandroid/utils/LogHelper#d#(Ljava/lang/String;Ljava/lang/String;)V",
+            "jsonchao/com/wanandroid/utils/LogHelper#i#(Ljava/lang/String;Ljava/lang/String;)V",
+            "jsonchao/com/wanandroid/utils/LogHelper#w#(Ljava/lang/String;Ljava/lang/String;)V",
+            "jsonchao/com/wanandroid/utils/LogHelper#e#(Ljava/lang/String;Ljava/lang/String;)V",
+    ]
+    onlyCheckList = [
+            //"com/ss/*",
+            //"com/bytedance/*"
+    ]
+
+    whiteList = [
+            "com/facebook/stetho*",
+    ]
+}
+
+// 编译期间检查项目中closeable对象(比如FileInputStream等
+// 实现了Closeable接口的类)可能存在的未关闭(未调用close方法)的代码
+// 经过抖音项目的测试，准确率能有40%左右，剩下的工作需要开发自己判断
+// 是否需改。如果是误报，可以在上面的配置whiteList添加白名单.
+apply plugin: 'bytex.closeable_checker'
+closeable_checker {
+    enable pluginEnable//整体开关
+    enableInDebug pluginEnableInDebug//debug模式开关
+    ignoreWhenMethodParam = true//  是否对传递closeable对象的函数调用认作close处理，开启此开关将会漏检一些未关闭的情况。此开关建议视情况而定。
+    ignoreAsReturn = true//closeable作为返回值时忽略未关闭的状态。强烈建议开
+    ignoreField = true//closeable作为成员变量时忽略未关闭的状态。建议开启
+    ignoreMethodThrowException = true//如果方法可能会抛出异常，则可能会认定未关闭。建议开启
+    strictMode = true//严格模式检查。对于只是在正常代码执行情况下关闭的操作是否认定为正确关闭。建议开启。
+    logLevel pluginLogLevel
+    onlyCheckList=[
+            //只检查的包名，如果为空则检查项目中的所有class，如果有指定则只检查指定包下面的class
+            "com/ss/*"
+    ]
+    whiteList = [
+            //滤过检查的类 格式为 类名#方法名#方法签名  支持模式匹配
+            "android*",
+            "kotlin*",
+            "java*"
+    ]
+    closeableList = [
+            //就要检查的类，包含其子类,不支持模式匹配
+            "java/io/InputStream",
+            "java/io/OutputStream",
+            "java/io/PrintStream",
+            "java/io/Writer",
+            "java/io/Reader",
+            "java/io/RandomAccessFile",
+            "java/nio/file/FileSystem",
+            "android/database/Cursor",
+            "java/util/zip/ZipFile",
+            "android/database/sqlite/SQLiteClosable",
+            "okhttp3/Response",
+            "android/media/MediaDataSource",
+            "java/net/MediaDataSource",
+            "android/net/LocalSocket",
+            "okio/Sink",
+            "okio/Source",
+            "okio/UnsafeCursor",
+            "java/nio/channels/Selector",
+            "android/arch/persistence/db/SupportSQLiteProgram"
+    ]
+    excludeCloseableList = [
+            //排除需要检查的类，和closeableList相似，此处不包含子类
+            //该列表中的类虽然也是closeable的子类，但这些类都是内存级别的操作，不存在
+            //资源泄露的可能，可以忽略关闭.
+            "java/io/StringReader",
+            "java/io/StringWriter",
+            "java/io/ByteArrayOutputStream",
+            "java/io/ByteArrayInputStream",
+    ]
+}
+
+
+// 资源混淆、资源极限压缩
+apply plugin: 'AndResGuard'
+andResGuard {
+    // mappingFile = file("./resource_mapping.txt")
+    mappingFile = null
+    use7zip = true
+    useSign = true
+    // 打开这个开关，会keep住所有资源的原始路径，只混淆资源的名字
+    keepRoot = false
+    // 设置这个值，会把arsc name列混淆成相同的名字，减少string常量池的大小
+    fixedResName = "arg"
+    // 打开这个开关会合并所有哈希值相同的资源，但请不要过度依赖这个功能去除冗余资源
+    mergeDuplicatedRes = true
+    whiteList = [
+            // for your icon
+            "R.drawable.icon",
+            // for fabric
+            "R.string.com.crashlytics.*",
+            // for google-services
+            "R.string.google_app_id",
+            "R.string.gcm_defaultSenderId",
+            "R.string.default_web_client_id",
+            "R.string.ga_trackingId",
+            "R.string.firebase_database_url",
+            "R.string.google_api_key",
+            "R.string.google_crash_reporting_api_key"
+    ]
+    compressFilePattern = [
+            "*.png",
+            "*.jpg",
+            "*.jpeg",
+            "*.gif",
+            "resources.arsc"
+    ]
+    sevenzip {
+        artifact = 'com.tencent.mm:SevenZip:1.2.17'
+        //path = "/usr/local/bin/7za"
+    }
+
+    /**
+     * 可选： 如果不设置则会默认覆盖assemble输出的apk
+     **/
+    // finalApkBackupPath = "${project.rootDir}/final.apk"
+
+    /**
+     * 可选: 指定v1签名时生成jar文件的摘要算法
+     * 默认值为“SHA-1”
+     **/
+    // digestalg = "SHA-256"
+}
+
+apply plugin: 'com.didichuxing.tools.droidassist'
+droidAssistOptions {
+    // 插件配置文件(必选配置,支持多配置文件)
+    config file("droidassist.xml")
+    // 如果需要停用 DroidAssist 插件功能，可以添加 enable false 以停用插件 (可选配置)
+    enable pluginEnable
+    // 日志输出等级：0 关闭日志输出，1 输出日志到控制台 2 输出日志到文件 3 输出日志到控制台以及日志 (可选配置)
+    logLevel 1
+    // 日志输出目录，当日志输出到文件时，默认的输出目录是当前 model 的 build/outputs/logs 目录 (可选配置)
+    // logDir
+}
+
+
