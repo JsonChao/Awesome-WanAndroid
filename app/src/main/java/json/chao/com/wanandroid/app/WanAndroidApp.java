@@ -123,8 +123,6 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
 
         refWatcher = LeakCanary.install(this);
 
-        Stetho.initializeWithDefaults(this);
-
         initGreenDao();
 
         instance = this;
@@ -144,13 +142,13 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
             Stetho.initializeWithDefaults(this);
         }
 
-        DexposedBridge.hookAllConstructors(ImageView.class, new XC_MethodHook() {
-            @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                super.afterHookedMethod(param);
-                DexposedBridge.findAndHookMethod(ImageView.class, "setImageBitmap", Bitmap.class, new ImageHook());
-            }
-        });
+//        DexposedBridge.hookAllConstructors(ImageView.class, new XC_MethodHook() {
+//            @Override
+//            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+//                super.afterHookedMethod(param);
+//                DexposedBridge.findAndHookMethod(ImageView.class, "setImageBitmap", Bitmap.class, new ImageHook());
+//            }
+//        });
 
 //        try {
 //            DexposedBridge.findAndHookMethod(Class.forName("android.os.BinderProxy"), "transact",
