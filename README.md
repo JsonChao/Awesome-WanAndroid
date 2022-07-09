@@ -331,12 +331,13 @@ Awesome WanAndroid项目基于Material Design + MVP + Rxjava2 + Retrofit + Dagge
 
 现在，我已经在我的成长社群里修订好了 《体系化高频核心 Android 面试题库》 中的 ”计算机基础高频核心面试题“ 和 ”Java 和 kotlin 高频核心面试题“ 部分，后续还会为你带来我核心题库中的：
 
-“Android基础 高频核心面试题”
-“基础架构 高频核心面试题”
-“跨平台 高频核心面试题”
-“性能优化 高频核心面试题”
-”Framework 高频核心面试题“
-”NDK 高频核心面试题“
+- “Android基础 高频核心面试题”
+- “基础架构 高频核心面试题”
+- “跨平台 高频核心面试题”
+- “性能优化 高频核心面试题”
+- ”Framework 高频核心面试题“
+- ”NDK 高频核心面试题“
+
 获取方法：扫描下方的二维码。
 
 <div align="center">
