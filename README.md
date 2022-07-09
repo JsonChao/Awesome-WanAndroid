@@ -380,12 +380,6 @@ $\color{#FF0000}{出身普通的人，如何真正改变命运？}$
 <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7da61f2739d34818be8a51a7afbbbb53~tplv-k3u1fbpfcp-watermark.image?" width=30%>
 </div>
 
-### About me
-
-- #### Email:[chao.qu521@gmail.com]()
-- #### Blog:[https://jsonchao.github.io/](https://jsonchao.github.io/)
-- #### 掘金:[https://juejin.im/user/5a3ba9375188252bca050ade](https://juejin.im/user/5a3ba9375188252bca050ade)
-    
 ### License
 
 Copyright 2018 JsonChao
