@@ -34,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_16"
+            android:textIsSelectable="true"
             tools:text="@string/about_content"
             android:textColor="@color/comment_text" />
     </LinearLayout>
