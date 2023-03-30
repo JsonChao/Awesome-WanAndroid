@@ -24,7 +24,7 @@ import okhttp3.Dns;
 public class OkHttpDns implements Dns {
 
     private HttpDnsService dnsService;
-    private static OkHttpDns instance = null;
+    private static transient OkHttpDns instance = null;
 
     private OkHttpDns(Context context) {
         dnsService = HttpDns.getService(context, "161133");
