@@ -204,7 +204,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         super.onCreate(savedInstanceState);
         mFragments = new ArrayList<>();
         if (savedInstanceState == null) {
-            mPresenter.setNightModeState(false);
             initPager(false, Constants.TYPE_MAIN_PAGER);
         } else {
             mBottomNavigationView.setSelectedItemId(R.id.tab_main_pager);
